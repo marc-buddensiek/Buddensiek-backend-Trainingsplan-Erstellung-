@@ -1,0 +1,629 @@
+{
+  "_kommentar_architektur": {
+    "claude_output": "Claude gibt NUR exercise_id + notiz pro Slot aus. Python berechnet Sätze/Wdh/RPE und fügt coaching_cues aus exercises.json hinzu.",
+    "gespeichert_in": "Supabase Tabelle 'plans' als JSONB. Frontend rendert dieses vollständige Schema.",
+    "deload": "Woche 4 immer block_typ=deload, reduzierte Sätze/RPE + PST Re-Test am Ende.",
+    "cardio": "Optionales Feld pro Session. null wenn kein Cardio. Typ: liss | hiit | none."
+  },
+
+  "plan_id": "550e8400-e29b-41d4-a716-446655440000",
+  "client_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "erstellt_am": "2026-05-28T10:00:00Z",
+  "block_nummer": 1,
+
+  "klient_snapshot": {
+    "level": 2,
+    "ziel": "muskelaufbau",
+    "equipment": "gym",
+    "split_typ": "upper_lower",
+    "tage_pro_woche": 4,
+    "verletzungen": [],
+    "stress": 4,
+    "schlaf_stunden": 7
+  },
+
+  "wochen": [
+
+    {
+      "woche_nummer": 1,
+      "block_typ": "akkumulation",
+      "volumen_stufe": "niedrig",
+      "ziel_sätze": 3,
+      "ziel_rpe": 7,
+      "sessions": [
+
+        {
+          "session_id": "w1_s1",
+          "tag": "montag",
+          "fokus": "oberkörper_push",
+          "dauer_min_geschätzt": 55,
+
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 8,
+            "übungen": [
+              { "name": "Band Pull-Apart", "sätze": 2, "wdh": 15 },
+              { "name": "Scapula Push-Up", "sätze": 2, "wdh": 10 },
+              { "name": "Face Pull (leicht)", "sätze": 2, "wdh": 12 },
+              { "name": "Arm Circles", "dauer_sek": 30 }
+            ]
+          },
+
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_bench_press",
+              "name": "Bench Press (Langhantel)",
+              "sätze": 3,
+              "wdh": "8-10",
+              "rpe": 7,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Schulterblätter zusammenziehen und zur Bank drücken",
+                "Ellenbogen ca. 45–60° zum Körper",
+                "Brust berühren — kein Abprellen"
+              ],
+              "notiz": "Startgewicht konservativ — Woche 1 ist Technik-Check"
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_incline_db_press",
+              "name": "Incline Kurzhantel Press",
+              "sätze": 3,
+              "wdh": "10-12",
+              "rpe": 7,
+              "tempo": "2-0-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Bank auf 30–45° — nicht zu steil",
+                "Schulterblätter zusammen und einsinken lassen",
+                "Kontrolliertes Absenken bis auf Höhe der oberen Brust"
+              ],
+              "notiz": ""
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_db_shoulder_press",
+              "name": "Kurzhantel Schulterdrücken",
+              "sätze": 3,
+              "wdh": "10-12",
+              "rpe": 7,
+              "tempo": "2-0-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Neutrale oder leicht pronierter Griff — weniger Schulterbelastung",
+                "Ellenbogen leicht nach vorne — kein 90° T-Form",
+                "Kontrolliert absenken bis Ohrenhöhe"
+              ],
+              "notiz": ""
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_cable_lateral_raise",
+              "name": "Cable Seitheben",
+              "sätze": 3,
+              "wdh": "12-15",
+              "rpe": 6,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Leicht gebeugte Ellenbogen, Bewegung aus der Schulter",
+                "Daumen leicht nach unten — mehr Lateral Head",
+                "Kontrolliert absenken, nicht fallen lassen"
+              ],
+              "notiz": "Accessory — leichtes Gewicht, Fokus auf Muskelgefühl"
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_face_pull",
+              "name": "Face Pull (Kabel)",
+              "sätze": 3,
+              "wdh": "15",
+              "rpe": 6,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Seil zum Gesicht ziehen, Ellenbogen hoch",
+                "Außenrotation am Endpunkt — Daumen nach hinten",
+                "Schultergesundheit: täglich möglich"
+              ],
+              "notiz": "Prähab — jede Push-Session"
+            }
+          ],
+
+          "cardio": null,
+
+          "cool_down": {
+            "dauer_min": 5,
+            "übungen": [
+              { "name": "Schulter Cross-Body Stretch", "dauer_sek": 30, "seiten": 2 },
+              { "name": "Brust Stretch an der Wand", "dauer_sek": 30, "seiten": 2 },
+              { "name": "Trizeps Overhead Stretch", "dauer_sek": 30, "seiten": 2 }
+            ]
+          }
+        },
+
+        {
+          "session_id": "w1_s2",
+          "tag": "dienstag",
+          "fokus": "unterkörper_squat",
+          "dauer_min_geschätzt": 60,
+
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "übungen": [
+              { "name": "Hip 90/90 Stretch", "dauer_sek": 60, "seiten": 2 },
+              { "name": "Glute Bridge (aktivierung)", "sätze": 2, "wdh": 12 },
+              { "name": "ATG Split Squat (leicht)", "sätze": 1, "wdh": 8, "seiten": 2 },
+              { "name": "Tibialis Raise", "sätze": 2, "wdh": 15 }
+            ]
+          },
+
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_back_squat",
+              "name": "Back Squat",
+              "sätze": 3,
+              "wdh": "6-8",
+              "rpe": 7,
+              "tempo": "3-0-1-0",
+              "pausenzeit_sek": 150,
+              "coaching_cues": [
+                "Knie nach außen drücken",
+                "Brust hoch, Oberkörper aufrecht",
+                "Gewicht gleichmäßig auf dem ganzen Fuß"
+              ],
+              "notiz": ""
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_bulgarian_split_squat_db",
+              "name": "Bulgarian Split Squat (Kurzhantel)",
+              "sätze": 3,
+              "wdh": "10",
+              "rpe": 7,
+              "tempo": "2-0-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hinteren Fuß auf der Bank — Rist, nicht Zehen",
+                "Vorderen Fuß weit genug vorne, Knie über den Zehen",
+                "Hüfte gerade absenken — kein Schieben nach vorne"
+              ],
+              "notiz": "Pro Seite — schwächere Seite zuerst"
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_leg_press_machine",
+              "name": "Beinpresse (Maschine)",
+              "sätze": 3,
+              "wdh": "12-15",
+              "rpe": 6,
+              "tempo": "2-0-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Füße hüftbreit auf der Plattform",
+                "Knie nicht vollständig durchstrecken",
+                "Rücken flach an der Polsterung"
+              ],
+              "notiz": "Volumen nach Squat — leichter Akzent"
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_dead_bug",
+              "name": "Dead Bug",
+              "sätze": 3,
+              "wdh": "8",
+              "rpe": 6,
+              "tempo": "3-0-1-0",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Lendenwirbel flach auf dem Boden halten — immer",
+                "Gegenüberliegendes Arm/Bein strecken",
+                "Langsam und kontrolliert — Atemkontrolle"
+              ],
+              "notiz": "Pro Seite"
+            }
+          ],
+
+          "cardio": null,
+
+          "cool_down": {
+            "dauer_min": 5,
+            "übungen": [
+              { "name": "Pigeon Pose (Hüfte)", "dauer_sek": 60, "seiten": 2 },
+              { "name": "Quad Stretch", "dauer_sek": 30, "seiten": 2 },
+              { "name": "Hamstring Stretch", "dauer_sek": 30, "seiten": 2 }
+            ]
+          }
+        },
+
+        {
+          "session_id": "w1_s3",
+          "tag": "donnerstag",
+          "fokus": "oberkörper_pull",
+          "dauer_min_geschätzt": 55,
+
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 8,
+            "übungen": [
+              { "name": "Band Pull-Apart", "sätze": 2, "wdh": 15 },
+              { "name": "Scapula Pull-Up (hängend)", "sätze": 2, "wdh": 8 },
+              { "name": "Dead Hang", "dauer_sek": 30, "sätze": 2 }
+            ]
+          },
+
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_lat_pulldown",
+              "name": "Lat Pulldown",
+              "sätze": 3,
+              "wdh": "8-10",
+              "rpe": 7,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Schulterblätter nach unten und zusammen vor dem Ziehen",
+                "Stange zur Brust — nicht hinter den Kopf",
+                "Volle Streckung am Endpunkt oben"
+              ],
+              "notiz": "Vorbereitung auf Pull-Ups — in Block 2 Wechsel zu gym_chinup"
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_db_row",
+              "name": "Kurzhantel Row",
+              "sätze": 3,
+              "wdh": "10-12",
+              "rpe": 7,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Knie auf der Bank für Support — Rücken flach",
+                "Hantel zur Hüfte, Ellenbogen nah am Körper",
+                "Schulterblatt am Endpunkt maximal zusammenziehen"
+              ],
+              "notiz": "Pro Seite"
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_seated_cable_row",
+              "name": "Seated Cable Row",
+              "sätze": 3,
+              "wdh": "12",
+              "rpe": 7,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Aufrecht sitzen — kein Schwung aus dem Rücken",
+                "Schulterblätter zuerst nach hinten, dann Ellenbogen ziehen",
+                "Kurz halten am Endpunkt, dann kontrolliert zurück"
+              ],
+              "notiz": ""
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_cuban_press",
+              "name": "Cuban Press",
+              "sätze": 3,
+              "wdh": "12",
+              "rpe": 5,
+              "tempo": "2-1-2-0",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "3 Phasen: Seitheben → Außenrotation → Drücken",
+                "Leichtes Gewicht — Schulterpflege, kein Krafttraining",
+                "Langsam und bewusst — Schultermanschette aktivieren"
+              ],
+              "notiz": "Prähab — jede Pull-Session"
+            }
+          ],
+
+          "cardio": {
+            "typ": "liss",
+            "dauer_min": 20,
+            "beschreibung": "Flotter Spaziergang oder ruhiges Fahrradfahren — Puls unter 130bpm. Optional: nach dem Training oder an einem separaten Tag."
+          },
+
+          "cool_down": {
+            "dauer_min": 5,
+            "übungen": [
+              { "name": "Lat Stretch am Kabelturm", "dauer_sek": 30, "seiten": 2 },
+              { "name": "Bizeps Stretch", "dauer_sek": 30, "seiten": 2 },
+              { "name": "Thorax Rotation (Boden)", "dauer_sek": 30, "seiten": 2 }
+            ]
+          }
+        },
+
+        {
+          "session_id": "w1_s4",
+          "tag": "freitag",
+          "fokus": "unterkörper_hinge",
+          "dauer_min_geschätzt": 60,
+
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "übungen": [
+              { "name": "Hip 90/90", "dauer_sek": 60, "seiten": 2 },
+              { "name": "Glute Bridge (aktivierung)", "sätze": 2, "wdh": 12 },
+              { "name": "RDL mit leerer Stange", "sätze": 2, "wdh": 10 },
+              { "name": "Cat-Cow", "sätze": 2, "wdh": 10 }
+            ]
+          },
+
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_trap_bar_deadlift",
+              "name": "Trap Bar Deadlift",
+              "sätze": 3,
+              "wdh": "6-8",
+              "rpe": 7,
+              "tempo": "2-0-1-0",
+              "pausenzeit_sek": 150,
+              "coaching_cues": [
+                "Griffe auf mittlerer Höhe für mehr Quad-Aktivierung",
+                "Gleichmäßig aus Hüfte und Knien drücken",
+                "Schultern über der Stange"
+              ],
+              "notiz": "Trap Bar einsteigerfreundlicher als Conventional — Block 2 Wechsel zu gym_conventional_deadlift möglich"
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_hip_thrust_barbell",
+              "name": "Hip Thrust (Langhantel)",
+              "sätze": 3,
+              "wdh": "10-12",
+              "rpe": 7,
+              "tempo": "2-0-1-2",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schulterblätter auf der Bank, Kinn zur Brust",
+                "Volle Hüftstreckung oben — Glutes maximal anspannen",
+                "Knie 90° am höchsten Punkt"
+              ],
+              "notiz": "2 Sekunden oben halten für maximale Glute-Aktivierung"
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_rdl_db",
+              "name": "Romanian Deadlift (Kurzhantel)",
+              "sätze": 3,
+              "wdh": "12",
+              "rpe": 7,
+              "tempo": "3-0-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hanteln nah am Körper entlang führen",
+                "Hüfte zurück, Oberkörper neigt sich nach vorne",
+                "Dehnung in den Oberschenkeln spüren"
+              ],
+              "notiz": ""
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_plank",
+              "name": "Plank",
+              "sätze": 3,
+              "wdh": "45sec",
+              "rpe": 6,
+              "tempo": "halten",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Körper von Kopf bis Ferse eine Linie",
+                "Bauch einziehen und Glutes anspannen",
+                "Atmung nicht anhalten — flach atmen"
+              ],
+              "notiz": ""
+            }
+          ],
+
+          "cardio": null,
+
+          "cool_down": {
+            "dauer_min": 5,
+            "übungen": [
+              { "name": "Pigeon Pose", "dauer_sek": 60, "seiten": 2 },
+              { "name": "Hamstring Stretch", "dauer_sek": 30, "seiten": 2 },
+              { "name": "Hüftbeuger Stretch", "dauer_sek": 30, "seiten": 2 }
+            ]
+          }
+        }
+
+      ]
+    },
+
+    {
+      "woche_nummer": 2,
+      "block_typ": "progression",
+      "volumen_stufe": "mittel",
+      "ziel_sätze": 4,
+      "ziel_rpe": 8,
+      "_kommentar": "Gleiche Übungen wie Woche 1. Sätze: 3→4. RPE: 7→8. Gewicht erhöhen wenn Woche 1 RPE unter Ziel lag.",
+      "sessions": [
+        { "session_id": "w2_s1", "tag": "montag", "fokus": "oberkörper_push", "haupt_uebungen": "identisch_w1_s1_mit_erhöhtem_gewicht" },
+        { "session_id": "w2_s2", "tag": "dienstag", "fokus": "unterkörper_squat", "haupt_uebungen": "identisch_w1_s2_mit_erhöhtem_gewicht" },
+        { "session_id": "w2_s3", "tag": "donnerstag", "fokus": "oberkörper_pull", "haupt_uebungen": "identisch_w1_s3_mit_erhöhtem_gewicht" },
+        { "session_id": "w2_s4", "tag": "freitag", "fokus": "unterkörper_hinge", "haupt_uebungen": "identisch_w1_s4_mit_erhöhtem_gewicht" }
+      ]
+    },
+
+    {
+      "woche_nummer": 3,
+      "block_typ": "intensivierung",
+      "volumen_stufe": "hoch",
+      "ziel_sätze": 4,
+      "ziel_rpe": 9,
+      "_kommentar": "Gleiche Übungen. RPE: 8→9. Optional 1 Übung pro Session durch komplexere Variation ersetzen (progressions_up). Z.B. gym_trap_bar_deadlift → gym_conventional_deadlift.",
+      "sessions": [
+        { "session_id": "w3_s1", "tag": "montag", "fokus": "oberkörper_push" },
+        { "session_id": "w3_s2", "tag": "dienstag", "fokus": "unterkörper_squat" },
+        { "session_id": "w3_s3", "tag": "donnerstag", "fokus": "oberkörper_pull" },
+        { "session_id": "w3_s4", "tag": "freitag", "fokus": "unterkörper_hinge" }
+      ]
+    },
+
+    {
+      "woche_nummer": 4,
+      "block_typ": "deload",
+      "volumen_stufe": "sehr_niedrig",
+      "ziel_sätze": 2,
+      "ziel_rpe": 6,
+      "_kommentar": "Deload: 50% Volumen, -20-30% Gewicht. Gleiche Übungen, gleiche Technik. Ende der Woche: PST Re-Test.",
+      "sessions": [
+
+        {
+          "session_id": "w4_s1",
+          "tag": "montag",
+          "fokus": "oberkörper_push",
+          "dauer_min_geschätzt": 35,
+          "warm_up": { "protokoll": "kraft", "dauer_min": 8, "übungen": [] },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_bench_press",
+              "name": "Bench Press (Langhantel)",
+              "sätze": 2,
+              "wdh": "8-10",
+              "rpe": 6,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Schulterblätter zusammenziehen und zur Bank drücken",
+                "Ellenbogen ca. 45–60° zum Körper",
+                "Brust berühren — kein Abprellen"
+              ],
+              "notiz": "Deload: -25% Gewicht. Fokus Technik und Erholung."
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_db_shoulder_press",
+              "name": "Kurzhantel Schulterdrücken",
+              "sätze": 2,
+              "wdh": "10-12",
+              "rpe": 6,
+              "tempo": "2-0-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Neutrale oder leicht pronierter Griff — weniger Schulterbelastung",
+                "Ellenbogen leicht nach vorne — kein 90° T-Form",
+                "Kontrolliert absenken bis Ohrenhöhe"
+              ],
+              "notiz": "Deload: nur 2 Sätze"
+            }
+          ],
+          "cardio": null,
+          "cool_down": { "dauer_min": 5, "übungen": [] }
+        },
+
+        {
+          "session_id": "w4_s2",
+          "tag": "dienstag",
+          "fokus": "unterkörper_squat",
+          "dauer_min_geschätzt": 35,
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_back_squat",
+              "sätze": 2, "wdh": "6-8", "rpe": 6,
+              "tempo": "3-0-1-0", "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Knie nach außen drücken",
+                "Brust hoch, Oberkörper aufrecht",
+                "Gewicht gleichmäßig auf dem ganzen Fuß"
+              ],
+              "name": "Back Squat",
+              "notiz": "Deload: -25% Gewicht"
+            }
+          ],
+          "warm_up": { "protokoll": "kraft", "dauer_min": 8, "übungen": [] },
+          "cardio": null,
+          "cool_down": { "dauer_min": 5, "übungen": [] }
+        },
+
+        {
+          "session_id": "w4_s3",
+          "tag": "donnerstag",
+          "fokus": "oberkörper_pull",
+          "dauer_min_geschätzt": 35,
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_lat_pulldown",
+              "sätze": 2, "wdh": "8-10", "rpe": 6,
+              "tempo": "2-1-1-0", "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Schulterblätter nach unten und zusammen vor dem Ziehen",
+                "Stange zur Brust — nicht hinter den Kopf",
+                "Volle Streckung am Endpunkt oben"
+              ],
+              "name": "Lat Pulldown",
+              "notiz": "Deload"
+            }
+          ],
+          "warm_up": { "protokoll": "kraft", "dauer_min": 8, "übungen": [] },
+          "cardio": null,
+          "cool_down": { "dauer_min": 5, "übungen": [] }
+        },
+
+        {
+          "session_id": "w4_s4",
+          "tag": "freitag",
+          "fokus": "unterkörper_hinge",
+          "dauer_min_geschätzt": 35,
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_trap_bar_deadlift",
+              "sätze": 2, "wdh": "6-8", "rpe": 6,
+              "tempo": "2-0-1-0", "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Griffe auf mittlerer Höhe für mehr Quad-Aktivierung",
+                "Gleichmäßig aus Hüfte und Knien drücken",
+                "Schultern über der Stange"
+              ],
+              "name": "Trap Bar Deadlift",
+              "notiz": "Deload"
+            }
+          ],
+          "warm_up": { "protokoll": "kraft", "dauer_min": 8, "übungen": [] },
+          "cardio": null,
+          "cool_down": { "dauer_min": 5, "übungen": [] }
+        },
+
+        {
+          "session_id": "w4_pst_retest",
+          "tag": "samstag",
+          "fokus": "pst_retest",
+          "dauer_min_geschätzt": 30,
+          "_kommentar": "Mindestens 48h nach letztem Training. Klient führt PST selbst durch und gibt Ergebnisse in die App ein. System berechnet neues Level für Block 2.",
+          "warm_up": {
+            "protokoll": "mobility",
+            "dauer_min": 10,
+            "übungen": [
+              { "name": "Light Jog / Marschieren", "dauer_sek": 120 },
+              { "name": "Jumping Jacks", "sätze": 2, "wdh": 20 }
+            ]
+          },
+          "pst_tests": [
+            { "test": "kniebeugen", "ziel_wdh": null, "einheit": "wiederholungen" },
+            { "test": "pushups", "ziel_wdh": null, "einheit": "wiederholungen" },
+            { "test": "situps", "ziel_wdh": null, "einheit": "wiederholungen" },
+            { "test": "burpees", "ziel_wdh": null, "einheit": "wiederholungen" },
+            { "test": "plank", "ziel_wdh": null, "einheit": "sekunden" }
+          ],
+          "haupt_uebungen": [],
+          "cardio": null,
+          "cool_down": { "dauer_min": 5, "übungen": [] }
+        }
+
+      ]
+    }
+
+  ]
+}

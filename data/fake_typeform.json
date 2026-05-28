@@ -1,0 +1,116 @@
+{
+  "event_id": "01KSQGTRMZ384ZG108TJ3FANQ6",
+  "event_type": "form_response",
+  "form_response": {
+    "form_id": "MyRWDtY5",
+    "token": "01KSQGTRMZ384ZG108TJ3FANQ6",
+    "landed_at": "2026-05-28T14:46:49Z",
+    "submitted_at": "2026-05-28T14:46:49Z",
+    "hidden": {
+      "client_id": "38ea3675-1690-4a9e-83aa-fe673db90ef0"
+    },
+    "definition": {
+      "id": "MyRWDtY5",
+      "title": "Trainingsplan Erstellung",
+      "fields": [
+        {"id": "ABmF6tsrMu77", "ref": "vorname", "type": "short_text", "title": "Wie ist dein Vorname?", "properties": {}},
+        {"id": "t8EXywBlcuqp", "ref": "alter", "type": "number", "title": "Wie alt bist du?", "properties": {}},
+        {"id": "2wMae3xtGwMB", "ref": "hauptziel", "type": "multiple_choice", "title": "Was ist dein primäres Trainingsziel?", "properties": {}, "choices": [
+          {"id": "uReR7tqLRDv9", "ref": "muskelaufbau", "label": "Muskelaufbau & Kraft"},
+          {"id": "NJbFZhCahMQD", "ref": "fettabbau", "label": "Fettabbau & Körper straffen"},
+          {"id": "9CFWY92zpDW3", "ref": "ausdauer", "label": "Ausdauer & Fitness"},
+          {"id": "4FXLtybnTUeU", "ref": "gesundheit", "label": "Gesundheit & Beweglichkeit"}
+        ]},
+        {"id": "UkTf0pRFVRVm", "ref": "hat_nebenziel", "type": "yes_no", "title": "Verfolgst du ein zweites Ziel?", "properties": {}},
+        {"id": "IcoA30ecFZXa", "ref": "nebenziel", "type": "multiple_choice", "title": "Welches ist dein zweites Ziel?", "properties": {}, "choices": [
+          {"id": "qy8exQHOkwhw", "ref": "muskelaufbau", "label": "Muskelaufbau & Kraft"},
+          {"id": "IRwv99nq21hP", "ref": "fettabbau", "label": "Fettabbau & Körper straffen"},
+          {"id": "THFAjuA2lNtU", "ref": "ausdauer", "label": "Ausdauer & Fitness"},
+          {"id": "q5PXCpoBr1vK", "ref": "gesundheit", "label": "Gesundheit & Beweglichkeit"}
+        ]},
+        {"id": "NyECDGdPFmyN", "ref": "tage_pro_woche", "type": "multiple_choice", "title": "Trainingstage pro Woche?", "properties": {}, "choices": [
+          {"id": "uL1TUW4LkuTr", "ref": "uuid-2", "label": "2"},
+          {"id": "TJE3UyUZodWj", "ref": "uuid-3", "label": "3"},
+          {"id": "1m91grsmfm8T", "ref": "uuid-4", "label": "4"},
+          {"id": "kpsOZdDhMABw", "ref": "uuid-5", "label": "5"},
+          {"id": "cxfIlbonWSbM", "ref": "uuid-6", "label": "6"}
+        ]},
+        {"id": "9cgryfCvOOh6", "ref": "session_dauer_min", "type": "multiple_choice", "title": "Zeit pro Training?", "properties": {}, "choices": [
+          {"id": "hoYgvzdVxWg0", "ref": "uuid-20", "label": "20"},
+          {"id": "FyHkU0YhrJQk", "ref": "uuid-30", "label": "30"},
+          {"id": "BYkfry78kWlj", "ref": "uuid-45", "label": "45"},
+          {"id": "uSxSS1k88R5W", "ref": "uuid-60", "label": "60"},
+          {"id": "NY5yk3e8OYvL", "ref": "uuid-75", "label": "75"},
+          {"id": "IxgH3diXo2a1", "ref": "uuid-90", "label": "90"}
+        ]},
+        {"id": "gS1r3TmLzyfR", "ref": "equipment", "type": "multiple_choice", "title": "Welches Equipment steht dir zur Verfügung?", "properties": {}, "choices": [
+          {"id": "cr6IVCTBmeKx", "ref": "gym", "label": "Fitnessstudio mit Langhantel, Kabelzug & Maschinen"},
+          {"id": "S8uYwGfqzi4n", "ref": "home_gym", "label": "Heimgym: Kurzhanteln, Bank, Pull-Up-Stange"},
+          {"id": "BOS53EgaMPjg", "ref": "kettlebell", "label": "Kettlebells (ohne weitere Geräte)"},
+          {"id": "auvdMO63R7NK", "ref": "bodyweight", "label": "Nur Körpergewicht — kein Equipment"},
+          {"id": "ejQJIxBe4CLv", "ref": "travel", "label": "Unterwegs / Hotel — minimales Setup"},
+          {"id": "214Bj4FMaHzW", "ref": "hybrid", "label": "Kettlebells + Körpergewicht kombiniert"}
+        ]},
+        {"id": "q5zPcGYkuo65", "ref": "trainingsjahre", "type": "multiple_choice", "title": "Wie lange trainierst du schon strukturiert?", "properties": {}, "choices": [
+          {"id": "34RxlYbx4lGR", "ref": "keine", "label": "Noch nie / kompletter Neustart"},
+          {"id": "wGlW8GfuVRwc", "ref": "unter_1", "label": "Weniger als 1 Jahr"},
+          {"id": "G98a3WMPBDgi", "ref": "ein_bis_zwei", "label": "1–2 Jahre"},
+          {"id": "KTvnURKCKIGZ", "ref": "drei_plus", "label": "3 Jahre oder mehr"}
+        ]},
+        {"id": "yDA29lonLqb9", "ref": "stress_level", "type": "opinion_scale", "title": "Stresslevel im Alltag?", "properties": {}},
+        {"id": "6dTJirZNGLMy", "ref": "schlaf_stunden", "type": "multiple_choice", "title": "Stunden Schlaf pro Nacht?", "properties": {}, "choices": [
+          {"id": "Og9sjXaUIAk1", "ref": "uuid-4h", "label": "4"},
+          {"id": "SeJqjiVEkRFa", "ref": "uuid-5h", "label": "5"},
+          {"id": "hddKW4SqmQuX", "ref": "uuid-6h", "label": "6"},
+          {"id": "4gRliBhkUV2v", "ref": "uuid-7h", "label": "7"},
+          {"id": "SQOqVJCgjs3L", "ref": "uuid-8h", "label": "8"},
+          {"id": "RTdMNdiEkXMH", "ref": "uuid-9h", "label": "9"},
+          {"id": "RmznjMUWZeI2", "ref": "uuid-10h", "label": "10"}
+        ]},
+        {"id": "aYVyr5uiVIQc", "ref": "verletzungen", "type": "multiple_choice", "title": "Beschwerden in diesen Bereichen?", "properties": {}, "allow_multiple_selections": true, "choices": [
+          {"id": "AornxKu7LMcY", "ref": "uuid-knie", "label": "knie"},
+          {"id": "sULQvW1YHDHJ", "ref": "uuid-schulter", "label": "schulter"},
+          {"id": "rTRizt9iciwJ", "ref": "uuid-ws", "label": "wirbelsäule"},
+          {"id": "5jLa0SvbXzPF", "ref": "uuid-huefte", "label": "hüfte"},
+          {"id": "x0xKyJaaPCsE", "ref": "uuid-ellenbogen", "label": "ellenbogen"},
+          {"id": "Yn6iat7511O2", "ref": "uuid-handgelenk", "label": "handgelenk"},
+          {"id": "G8coKXXgEYDn", "ref": "uuid-hals", "label": "hals"},
+          {"id": "v5VJluIDp0Dm", "ref": "uuid-knoechel", "label": "knöchel"},
+          {"id": "7NCFZS2Varn8", "ref": "uuid-keine", "label": "keine"}
+        ]},
+        {"id": "QoRo1Wqzod9K", "ref": "schmerzen_akut", "type": "yes_no", "title": "Hast du Schmerzen die dein Training aktuell einschränken?", "properties": {}},
+        {"id": "U5RamO2oPtlL", "ref": "medizinische_diagnosen", "type": "long_text", "title": "Diagnosen oder Einschränkungen die wir wissen sollten?", "properties": {}},
+        {"id": "sWQxneRD3y7n", "ref": "motivation", "type": "long_text", "title": "Was ist dein größter Antrieb — warum startest du jetzt?", "properties": {}},
+        {"id": "TqcPraICPKmi", "ref": "aktuelles_training", "type": "long_text", "title": "Was machst du aktuell sportlich?", "properties": {}},
+        {"id": "9ej3u825hncJ", "ref": "kniebeugen_wdh", "type": "number", "title": "Kniebeugen in 60 Sek.", "properties": {}},
+        {"id": "KA123G8m20KE", "ref": "pushups_wdh", "type": "number", "title": "Push-Ups in 60 Sek.", "properties": {}},
+        {"id": "b69v53Dpv8rc", "ref": "situps_wdh", "type": "number", "title": "Sit-Ups in 60 Sek.", "properties": {}},
+        {"id": "zbhpPZzSOHvc", "ref": "burpees_wdh", "type": "number", "title": "Burpees in 60 Sek.", "properties": {}},
+        {"id": "rXOIJrt3bOwr", "ref": "plank_sek", "type": "number", "title": "Plank in Sekunden", "properties": {}}
+      ]
+    },
+    "answers": [
+      {"type": "text", "text": "Thomas", "field": {"id": "ABmF6tsrMu77", "type": "short_text", "ref": "vorname"}},
+      {"type": "number", "number": 38, "field": {"id": "t8EXywBlcuqp", "type": "number", "ref": "alter"}},
+      {"type": "choice", "choice": {"id": "uReR7tqLRDv9", "label": "Muskelaufbau & Kraft", "ref": "muskelaufbau"}, "field": {"id": "2wMae3xtGwMB", "type": "multiple_choice", "ref": "hauptziel"}},
+      {"type": "boolean", "boolean": true, "field": {"id": "UkTf0pRFVRVm", "type": "yes_no", "ref": "hat_nebenziel"}},
+      {"type": "choice", "choice": {"id": "IRwv99nq21hP", "label": "Fettabbau & Körper straffen", "ref": "fettabbau"}, "field": {"id": "IcoA30ecFZXa", "type": "multiple_choice", "ref": "nebenziel"}},
+      {"type": "choice", "choice": {"id": "1m91grsmfm8T", "label": "4", "ref": "uuid-4"}, "field": {"id": "NyECDGdPFmyN", "type": "multiple_choice", "ref": "tage_pro_woche"}},
+      {"type": "choice", "choice": {"id": "uSxSS1k88R5W", "label": "60", "ref": "uuid-60"}, "field": {"id": "9cgryfCvOOh6", "type": "multiple_choice", "ref": "session_dauer_min"}},
+      {"type": "choice", "choice": {"id": "cr6IVCTBmeKx", "label": "Fitnessstudio mit Langhantel, Kabelzug & Maschinen", "ref": "gym"}, "field": {"id": "gS1r3TmLzyfR", "type": "multiple_choice", "ref": "equipment"}},
+      {"type": "choice", "choice": {"id": "G98a3WMPBDgi", "label": "1–2 Jahre", "ref": "ein_bis_zwei"}, "field": {"id": "q5zPcGYkuo65", "type": "multiple_choice", "ref": "trainingsjahre"}},
+      {"type": "number", "number": 4, "field": {"id": "yDA29lonLqb9", "type": "opinion_scale", "ref": "stress_level"}},
+      {"type": "choice", "choice": {"id": "4gRliBhkUV2v", "label": "7", "ref": "uuid-7h"}, "field": {"id": "6dTJirZNGLMy", "type": "multiple_choice", "ref": "schlaf_stunden"}},
+      {"type": "choices", "choices": {"ids": ["sULQvW1YHDHJ"], "labels": ["schulter"], "refs": ["uuid-schulter"]}, "field": {"id": "aYVyr5uiVIQc", "type": "multiple_choice", "ref": "verletzungen"}},
+      {"type": "boolean", "boolean": false, "field": {"id": "QoRo1Wqzod9K", "type": "yes_no", "ref": "schmerzen_akut"}},
+      {"type": "text", "text": "Leichtes Schulterimpingement links, kein akuter Schmerz", "field": {"id": "U5RamO2oPtlL", "type": "long_text", "ref": "medizinische_diagnosen"}},
+      {"type": "text", "text": "Ich will fit sein für meine Kinder und mehr Energie im Alltag", "field": {"id": "sWQxneRD3y7n", "type": "long_text", "ref": "motivation"}},
+      {"type": "text", "text": "Gelegentlich Laufen, kein strukturiertes Training", "field": {"id": "TqcPraICPKmi", "type": "long_text", "ref": "aktuelles_training"}},
+      {"type": "number", "number": 22, "field": {"id": "9ej3u825hncJ", "type": "number", "ref": "kniebeugen_wdh"}},
+      {"type": "number", "number": 18, "field": {"id": "KA123G8m20KE", "type": "number", "ref": "pushups_wdh"}},
+      {"type": "number", "number": 14, "field": {"id": "b69v53Dpv8rc", "type": "number", "ref": "situps_wdh"}},
+      {"type": "number", "number": 7, "field": {"id": "zbhpPZzSOHvc", "type": "number", "ref": "burpees_wdh"}},
+      {"type": "number", "number": 52, "field": {"id": "rXOIJrt3bOwr", "type": "number", "ref": "plank_sek"}}
+    ]
+  }
+}

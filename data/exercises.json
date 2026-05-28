@@ -1,0 +1,5069 @@
+{
+  "exercises": [
+    {
+      "id": "gym_back_squat",
+      "name": "Back Squat",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "spinal_erectors",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Knie nach außen drücken",
+        "Brust hoch, Oberkörper aufrecht",
+        "Gewicht gleichmäßig auf dem ganzen Fuß"
+      ],
+      "substitutions_a": [
+        "gym_box_squat",
+        "gym_goblet_squat_db",
+        "gym_hack_squat_machine"
+      ],
+      "substitutions_b": {
+        "knee": "gym_box_squat",
+        "spine": "gym_goblet_squat_db",
+        "hip": "gym_box_squat"
+      },
+      "progressions_up": [
+        "gym_paused_back_squat",
+        "gym_tempo_squat"
+      ],
+      "progressions_down": [
+        "gym_goblet_squat_db"
+      ]
+    },
+    {
+      "id": "gym_front_squat",
+      "name": "Front Squat",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads"
+        ],
+        "secondary": [
+          "glutes",
+          "abs",
+          "spinal_erectors"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Ellenbogen hoch, Stange auf den vorderen Deltas",
+        "Oberkörper so aufrecht wie möglich",
+        "Knie nach außen über die Zehen"
+      ],
+      "substitutions_a": [
+        "gym_back_squat",
+        "gym_goblet_squat_db",
+        "gym_hack_squat_machine"
+      ],
+      "substitutions_b": {
+        "knee": "gym_box_squat",
+        "spine": "gym_goblet_squat_db",
+        "wrist": "gym_goblet_squat_db"
+      },
+      "progressions_up": [
+        "gym_overhead_squat",
+        "gym_tempo_squat"
+      ],
+      "progressions_down": [
+        "gym_back_squat"
+      ]
+    },
+    {
+      "id": "gym_box_squat",
+      "name": "Box Squat",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "spinal_erectors"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Sanft auf die Box setzen, kurz halten",
+        "Knie nach außen beim Hochkommen",
+        "Füße schulterbreit oder etwas weiter"
+      ],
+      "substitutions_a": [
+        "gym_goblet_squat_db",
+        "gym_hack_squat_machine",
+        "bw_wall_sit"
+      ],
+      "substitutions_b": {
+        "knee": "bw_wall_sit",
+        "spine": "gym_goblet_squat_db",
+        "hip": "bw_wall_sit"
+      },
+      "progressions_up": [
+        "gym_back_squat"
+      ],
+      "progressions_down": [
+        "gym_goblet_squat_db"
+      ]
+    },
+    {
+      "id": "gym_goblet_squat_db",
+      "name": "Goblet Squat (Kurzhantel)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "abs",
+          "shoulders"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Hantel nah am Körper, Ellenbogen innen an den Knien",
+        "Tief in die Hocke, Fersen bleiben auf dem Boden",
+        "Aufrecht aus der Hocke drücken"
+      ],
+      "substitutions_a": [
+        "kb_goblet_squat",
+        "gym_box_squat",
+        "bw_squat"
+      ],
+      "substitutions_b": {
+        "knee": "bw_wall_sit",
+        "spine": "bw_wall_sit",
+        "hip": "bw_wall_sit"
+      },
+      "progressions_up": [
+        "gym_back_squat",
+        "gym_trap_bar_deadlift"
+      ],
+      "progressions_down": [
+        "bw_squat"
+      ]
+    },
+    {
+      "id": "kb_goblet_squat",
+      "name": "Goblet Squat (Kettlebell)",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "abs",
+          "shoulders"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "KB an Griffen halten, nah am Körper",
+        "Tief in die Hocke, Knie nach außen",
+        "Fersen fest auf dem Boden"
+      ],
+      "substitutions_a": [
+        "gym_goblet_squat_db",
+        "bw_squat",
+        "bw_pause_squat"
+      ],
+      "substitutions_b": {
+        "knee": "bw_wall_sit",
+        "spine": "bw_wall_sit",
+        "hip": "bw_wall_sit"
+      },
+      "progressions_up": [
+        "kb_front_squat"
+      ],
+      "progressions_down": [
+        "bw_squat"
+      ]
+    },
+    {
+      "id": "gym_hack_squat_machine",
+      "name": "Hack Squat (Maschine)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads"
+        ],
+        "secondary": [
+          "glutes",
+          "hamstrings"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Füße schulterbreit auf der Plattform",
+        "Knie tracken mit den Zehen",
+        "Volle ROM nutzen ohne den Rücken zu runden"
+      ],
+      "substitutions_a": [
+        "gym_goblet_squat_db",
+        "gym_box_squat",
+        "gym_leg_press_machine"
+      ],
+      "substitutions_b": {
+        "knee": "gym_leg_press_machine",
+        "spine": "gym_leg_press_machine",
+        "hip": "gym_leg_press_machine"
+      },
+      "progressions_up": [
+        "gym_goblet_squat_db"
+      ],
+      "progressions_down": [
+        "gym_leg_press_machine"
+      ]
+    },
+    {
+      "id": "gym_leg_press_machine",
+      "name": "Beinpresse (Maschine)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Füße hüftbreit auf der Plattform",
+        "Knie nicht vollständig durchstrecken",
+        "Rücken flach an der Polsterung"
+      ],
+      "substitutions_a": [
+        "gym_hack_squat_machine",
+        "gym_goblet_squat_db",
+        "gym_box_squat"
+      ],
+      "substitutions_b": {
+        "knee": "gym_goblet_squat_db",
+        "spine": "gym_goblet_squat_db",
+        "hip": "gym_goblet_squat_db"
+      },
+      "progressions_up": [
+        "gym_hack_squat_machine"
+      ],
+      "progressions_down": []
+    },
+    {
+      "id": "bw_squat",
+      "name": "Bodyweight Squat",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Knie in Richtung Zehen drücken",
+        "Arme als Gegengewicht nach vorne",
+        "Tief gehen, Fersen bleiben unten"
+      ],
+      "substitutions_a": [
+        "bw_pause_squat",
+        "gym_goblet_squat_db",
+        "bw_wall_sit"
+      ],
+      "substitutions_b": {
+        "knee": "bw_wall_sit",
+        "hip": "bw_wall_sit",
+        "spine": "bw_wall_sit"
+      },
+      "progressions_up": [
+        "bw_pause_squat",
+        "bw_jump_squat"
+      ],
+      "progressions_down": [
+        "bw_wall_sit"
+      ]
+    },
+    {
+      "id": "bw_pause_squat",
+      "name": "Pause Squat (Bodyweight)",
+      "equipment": [
+        "bodyweight",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "3 Sekunden unten halten",
+        "Spannung in der Hocke aufrechterhalten",
+        "Kontrolliert aus der Pause hochkommen"
+      ],
+      "substitutions_a": [
+        "bw_squat",
+        "bw_wall_sit",
+        "gym_goblet_squat_db"
+      ],
+      "substitutions_b": {
+        "knee": "bw_wall_sit",
+        "hip": "bw_wall_sit"
+      },
+      "progressions_up": [
+        "bw_cossack_squat",
+        "bw_atg_split_squat"
+      ],
+      "progressions_down": [
+        "bw_squat"
+      ]
+    },
+    {
+      "id": "bw_wall_sit",
+      "name": "Wall Sit",
+      "equipment": [
+        "bodyweight",
+        "travel",
+        "hybrid",
+        "gym",
+        "home_gym",
+        "kettlebell"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads"
+        ],
+        "secondary": [
+          "glutes"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "90° Kniewinkel anstreben",
+        "Rücken flach an der Wand",
+        "Oberschenkel parallel zum Boden"
+      ],
+      "substitutions_a": [
+        "bw_squat",
+        "bw_pause_squat",
+        "gym_box_squat"
+      ],
+      "substitutions_b": {
+        "knee": "gym_box_squat",
+        "hip": "bw_squat"
+      },
+      "progressions_up": [
+        "bw_squat"
+      ],
+      "progressions_down": []
+    },
+    {
+      "id": "bw_cossack_squat",
+      "name": "Cossack Squat",
+      "equipment": [
+        "bodyweight",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes",
+          "hip_adductors"
+        ],
+        "secondary": [
+          "hamstrings"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Fuß des gestreckten Beins zeigt nach oben",
+        "Gewicht auf dem Standbein, Ferse bleibt unten",
+        "Oberkörper aufrecht, Hüfte tief"
+      ],
+      "substitutions_a": [
+        "bw_squat",
+        "bw_reverse_lunge",
+        "gym_goblet_squat_db"
+      ],
+      "substitutions_b": {
+        "knee": "bw_squat",
+        "hip": "bw_squat"
+      },
+      "progressions_up": [
+        "bw_pistol_squat"
+      ],
+      "progressions_down": [
+        "bw_squat"
+      ]
+    },
+    {
+      "id": "bw_atg_split_squat",
+      "name": "ATG Split Squat (Ben Patrick)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "hybrid",
+        "travel",
+        "kettlebell"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "calves",
+          "hip_flexors"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Knie so weit wie möglich nach vorne über die Zehen",
+        "Ferse bleibt auf dem Boden",
+        "Langsam und kontrolliert — volle ROM ist das Ziel"
+      ],
+      "substitutions_a": [
+        "bw_reverse_lunge",
+        "gym_box_squat",
+        "bw_squat"
+      ],
+      "substitutions_b": {
+        "knee": "bw_reverse_lunge",
+        "hip": "bw_reverse_lunge"
+      },
+      "progressions_up": [
+        "bw_assisted_pistol_squat"
+      ],
+      "progressions_down": [
+        "bw_reverse_lunge"
+      ]
+    },
+    {
+      "id": "gym_conventional_deadlift",
+      "name": "Conventional Deadlift",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "hamstrings",
+          "glutes",
+          "spinal_erectors"
+        ],
+        "secondary": [
+          "quads",
+          "back_lat",
+          "back_upper",
+          "forearms"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Stange nah am Körper — über den Schienbeinen",
+        "Hüfte und Schultern gleichzeitig hochziehen",
+        "Gesäß anspannen am Ende der Bewegung"
+      ],
+      "substitutions_a": [
+        "gym_trap_bar_deadlift",
+        "gym_rdl_barbell",
+        "gym_rdl_db"
+      ],
+      "substitutions_b": {
+        "spine": "gym_trap_bar_deadlift",
+        "hip": "gym_hip_thrust_barbell",
+        "knee": "gym_rdl_barbell"
+      },
+      "progressions_up": [
+        "gym_good_morning",
+        "gym_glute_ham_raise"
+      ],
+      "progressions_down": [
+        "gym_trap_bar_deadlift"
+      ]
+    },
+    {
+      "id": "gym_trap_bar_deadlift",
+      "name": "Trap Bar Deadlift",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes",
+          "hamstrings"
+        ],
+        "secondary": [
+          "spinal_erectors",
+          "back_lat",
+          "forearms"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Griffe auf mittlerer Höhe für mehr Quad-Aktivierung",
+        "Gleichmäßig aus Hüfte und Knien drücken",
+        "Schultern über der Stange"
+      ],
+      "substitutions_a": [
+        "gym_rdl_barbell",
+        "gym_rdl_db",
+        "gym_goblet_squat_db"
+      ],
+      "substitutions_b": {
+        "spine": "gym_rdl_db",
+        "hip": "gym_hip_thrust_barbell",
+        "knee": "gym_rdl_barbell"
+      },
+      "progressions_up": [
+        "gym_conventional_deadlift"
+      ],
+      "progressions_down": [
+        "gym_rdl_barbell"
+      ]
+    },
+    {
+      "id": "gym_rdl_barbell",
+      "name": "Romanian Deadlift (Langhantel)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "hamstrings",
+          "glutes"
+        ],
+        "secondary": [
+          "spinal_erectors",
+          "back_upper"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Hüfte nach hinten schieben, nicht runterdrücken",
+        "Stange nah am Körper über Schienbeinen",
+        "Weiche Knie — kein Lock-Out am Boden"
+      ],
+      "substitutions_a": [
+        "gym_rdl_db",
+        "gym_trap_bar_deadlift",
+        "bw_single_leg_rdl"
+      ],
+      "substitutions_b": {
+        "spine": "gym_hip_thrust_barbell",
+        "knee": "gym_hip_thrust_barbell"
+      },
+      "progressions_up": [
+        "gym_conventional_deadlift"
+      ],
+      "progressions_down": [
+        "gym_rdl_db"
+      ]
+    },
+    {
+      "id": "gym_rdl_db",
+      "name": "Romanian Deadlift (Kurzhantel)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "hamstrings",
+          "glutes"
+        ],
+        "secondary": [
+          "spinal_erectors"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Hanteln nah am Körper entlang führen",
+        "Hüfte zurück, Oberkörper neigt sich nach vorne",
+        "Dehnung in den Oberschenkeln spüren"
+      ],
+      "substitutions_a": [
+        "gym_rdl_barbell",
+        "bw_single_leg_rdl",
+        "gym_hip_thrust_machine"
+      ],
+      "substitutions_b": {
+        "spine": "gym_hip_thrust_machine",
+        "knee": "gym_hip_thrust_machine"
+      },
+      "progressions_up": [
+        "gym_rdl_barbell",
+        "bw_single_leg_rdl"
+      ],
+      "progressions_down": [
+        "bw_glute_bridge"
+      ]
+    },
+    {
+      "id": "gym_hip_thrust_barbell",
+      "name": "Hip Thrust (Langhantel)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Schulterblätter auf der Bank, Kinn zur Brust",
+        "Volle Hüftstreckung oben — Glutes maximal anspannen",
+        "Knie 90° am höchsten Punkt"
+      ],
+      "substitutions_a": [
+        "gym_hip_thrust_machine",
+        "bw_glute_bridge",
+        "gym_rdl_db"
+      ],
+      "substitutions_b": {
+        "spine": "bw_glute_bridge",
+        "knee": "bw_glute_bridge"
+      },
+      "progressions_up": [
+        "gym_single_leg_hip_thrust_db"
+      ],
+      "progressions_down": [
+        "gym_hip_thrust_machine"
+      ]
+    },
+    {
+      "id": "gym_hip_thrust_machine",
+      "name": "Hip Thrust (Maschine)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Polster auf Hüfthöhe positionieren",
+        "Volle Streckung oben, kurz halten",
+        "Kein Hohlkreuz am oberen Umkehrpunkt"
+      ],
+      "substitutions_a": [
+        "gym_hip_thrust_barbell",
+        "bw_glute_bridge",
+        "gym_rdl_db"
+      ],
+      "substitutions_b": {
+        "spine": "bw_glute_bridge",
+        "knee": "bw_glute_bridge"
+      },
+      "progressions_up": [
+        "gym_hip_thrust_barbell"
+      ],
+      "progressions_down": [
+        "bw_glute_bridge"
+      ]
+    },
+    {
+      "id": "kb_deadlift",
+      "name": "Kettlebell Deadlift",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "glutes",
+          "hamstrings"
+        ],
+        "secondary": [
+          "spinal_erectors",
+          "back_upper"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "KB zwischen den Füßen, Hüfte zurück",
+        "Rücken flach, Schulterblätter zusammen",
+        "Gesäß anspannen beim Hochkommen"
+      ],
+      "substitutions_a": [
+        "kb_swing_two_hand",
+        "bw_glute_bridge",
+        "gym_rdl_db"
+      ],
+      "substitutions_b": {
+        "spine": "bw_glute_bridge",
+        "knee": "bw_glute_bridge"
+      },
+      "progressions_up": [
+        "kb_swing_two_hand"
+      ],
+      "progressions_down": [
+        "bw_glute_bridge"
+      ]
+    },
+    {
+      "id": "kb_swing_two_hand",
+      "name": "Kettlebell Swing (beidhändig)",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "glutes",
+          "hamstrings"
+        ],
+        "secondary": [
+          "spinal_erectors",
+          "shoulders",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Hinge — nicht Squat: Hüfte geht zurück, nicht runter",
+        "Gesäß am Umkehrpunkt maximal anspannen",
+        "KB zieht die Hüfte nach vorne — nicht die Arme"
+      ],
+      "substitutions_a": [
+        "kb_swing_one_hand",
+        "kb_deadlift",
+        "gym_rdl_db"
+      ],
+      "substitutions_b": {
+        "spine": "bw_glute_bridge",
+        "shoulder": "kb_deadlift",
+        "knee": "kb_deadlift"
+      },
+      "progressions_up": [
+        "kb_swing_one_hand"
+      ],
+      "progressions_down": [
+        "kb_deadlift"
+      ]
+    },
+    {
+      "id": "kb_swing_one_hand",
+      "name": "Kettlebell Swing (einhändig)",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "glutes",
+          "hamstrings"
+        ],
+        "secondary": [
+          "spinal_erectors",
+          "shoulders",
+          "abs",
+          "obliques"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Wechsel in der Luftphase — KB kurz schwerelos",
+        "Standbein bleibt stabil",
+        "Keine Rotation im Oberkörper"
+      ],
+      "substitutions_a": [
+        "kb_swing_two_hand",
+        "kb_deadlift",
+        "gym_rdl_db"
+      ],
+      "substitutions_b": {
+        "spine": "kb_swing_two_hand",
+        "shoulder": "kb_swing_two_hand",
+        "knee": "kb_swing_two_hand"
+      },
+      "progressions_up": [
+        "kb_snatch"
+      ],
+      "progressions_down": [
+        "kb_swing_two_hand"
+      ]
+    },
+    {
+      "id": "kb_snatch",
+      "name": "Kettlebell Snatch",
+      "equipment": [
+        "kettlebell"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "glutes",
+          "hamstrings",
+          "shoulders"
+        ],
+        "secondary": [
+          "spinal_erectors",
+          "triceps",
+          "forearms"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Zug aus der Hüfte, nicht aus dem Arm",
+        "KB eng am Körper führen",
+        "Handgelenk beim Einlochen entspannen"
+      ],
+      "substitutions_a": [
+        "kb_swing_one_hand",
+        "kb_swing_two_hand",
+        "kb_clean"
+      ],
+      "substitutions_b": {
+        "shoulder": "kb_swing_one_hand",
+        "spine": "kb_swing_two_hand",
+        "wrist": "kb_swing_one_hand"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "kb_swing_one_hand"
+      ]
+    },
+    {
+      "id": "kb_clean",
+      "name": "Kettlebell Clean",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "glutes",
+          "hamstrings"
+        ],
+        "secondary": [
+          "shoulders",
+          "biceps",
+          "forearms"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "KB eng am Körper, Ellenbogen nah",
+        "In die Rack-Position, KB ruht auf dem Unterarm",
+        "Hüfte treibt die Bewegung — kein Arm-Curl"
+      ],
+      "substitutions_a": [
+        "kb_swing_two_hand",
+        "kb_deadlift",
+        "kb_swing_one_hand"
+      ],
+      "substitutions_b": {
+        "shoulder": "kb_swing_two_hand",
+        "wrist": "kb_swing_two_hand",
+        "spine": "kb_deadlift"
+      },
+      "progressions_up": [
+        "kb_snatch"
+      ],
+      "progressions_down": [
+        "kb_swing_two_hand"
+      ]
+    },
+    {
+      "id": "bw_glute_bridge",
+      "name": "Glute Bridge",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Fersen nahe am Gesäß, Füße hüftbreit",
+        "Glutes oben maximal anspannen",
+        "Hüfte voll strecken — kein Hohlkreuz"
+      ],
+      "substitutions_a": [
+        "gym_hip_thrust_machine",
+        "bw_single_leg_rdl",
+        "gym_rdl_db"
+      ],
+      "substitutions_b": {
+        "knee": "gym_rdl_db",
+        "spine": "gym_rdl_db"
+      },
+      "progressions_up": [
+        "bw_single_leg_glute_bridge",
+        "gym_hip_thrust_machine"
+      ],
+      "progressions_down": []
+    },
+    {
+      "id": "bw_single_leg_rdl",
+      "name": "Single Leg RDL (Bodyweight)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "hamstrings",
+          "glutes"
+        ],
+        "secondary": [
+          "spinal_erectors",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Hüfte und Schultern parallel zum Boden halten",
+        "Spielbein und Oberkörper bilden eine Linie",
+        "Standbein hat weiche Knie — nicht durchstrecken"
+      ],
+      "substitutions_a": [
+        "bw_glute_bridge",
+        "gym_rdl_db",
+        "gym_hip_thrust_machine"
+      ],
+      "substitutions_b": {
+        "knee": "bw_glute_bridge",
+        "spine": "bw_glute_bridge",
+        "hip": "bw_glute_bridge"
+      },
+      "progressions_up": [
+        "gym_single_leg_rdl_db"
+      ],
+      "progressions_down": [
+        "bw_glute_bridge"
+      ]
+    },
+    {
+      "id": "gym_bench_press",
+      "name": "Bench Press (Langhantel)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest"
+        ],
+        "secondary": [
+          "triceps",
+          "shoulders_front"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Schulterblätter zusammenziehen und zur Bank drücken",
+        "Ellenbogen ca. 45–60° zum Körper",
+        "Brust berühren — kein Abprellen"
+      ],
+      "substitutions_a": [
+        "gym_db_bench_press",
+        "gym_incline_db_press",
+        "gym_machine_chest_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_db_floor_press",
+        "elbow": "gym_machine_chest_press",
+        "wrist": "gym_machine_chest_press"
+      },
+      "progressions_up": [
+        "gym_weighted_dips",
+        "gym_close_grip_bench"
+      ],
+      "progressions_down": [
+        "gym_db_bench_press"
+      ]
+    },
+    {
+      "id": "gym_db_bench_press",
+      "name": "Kurzhantel Bench Press",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest"
+        ],
+        "secondary": [
+          "triceps",
+          "shoulders_front"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Hanteln auf Brusthöhe, neutrale oder leicht pronierte Griffhaltung",
+        "Mehr ROM möglich als bei Langhantel — nutzen",
+        "Kontrolliert absenken"
+      ],
+      "substitutions_a": [
+        "gym_bench_press",
+        "gym_incline_db_press",
+        "gym_db_floor_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_db_floor_press",
+        "elbow": "gym_machine_chest_press",
+        "wrist": "gym_machine_chest_press"
+      },
+      "progressions_up": [
+        "gym_bench_press"
+      ],
+      "progressions_down": [
+        "gym_db_floor_press"
+      ]
+    },
+    {
+      "id": "gym_incline_db_press",
+      "name": "Incline Kurzhantel Press",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest",
+          "shoulders_front"
+        ],
+        "secondary": [
+          "triceps"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Bank auf 30–45° — nicht zu steil",
+        "Schulterblätter zusammen und einsinken lassen",
+        "Kontrolliertes Absenken bis auf Höhe der oberen Brust"
+      ],
+      "substitutions_a": [
+        "gym_db_bench_press",
+        "gym_bench_press",
+        "gym_machine_chest_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_db_floor_press",
+        "elbow": "gym_machine_chest_press"
+      },
+      "progressions_up": [
+        "gym_bench_press"
+      ],
+      "progressions_down": [
+        "gym_db_bench_press"
+      ]
+    },
+    {
+      "id": "gym_db_floor_press",
+      "name": "Floor Press (Kurzhantel)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest",
+          "triceps"
+        ],
+        "secondary": [
+          "shoulders_front"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Oberschenkel aufgestellt, Ellenbogen werden vom Boden gestoppt",
+        "Keine Schulter-Überdehnung möglich — gut bei Schulter-Issues",
+        "Volle Streckung oben, Trizeps hart anspannen"
+      ],
+      "substitutions_a": [
+        "gym_db_bench_press",
+        "bw_pushup",
+        "gym_machine_chest_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_pushup",
+        "elbow": "gym_machine_chest_press"
+      },
+      "progressions_up": [
+        "gym_db_bench_press"
+      ],
+      "progressions_down": [
+        "bw_pushup"
+      ]
+    },
+    {
+      "id": "gym_machine_chest_press",
+      "name": "Brustpresse (Maschine)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest"
+        ],
+        "secondary": [
+          "triceps",
+          "shoulders_front"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Rücken flach an der Polsterung",
+        "Ellenbogen leicht gebeugt am Endpunkt",
+        "Kontrolliert zurückführen"
+      ],
+      "substitutions_a": [
+        "gym_db_bench_press",
+        "gym_db_floor_press",
+        "bw_pushup"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_cable_fly",
+        "elbow": "gym_cable_fly"
+      },
+      "progressions_up": [
+        "gym_db_bench_press"
+      ],
+      "progressions_down": [
+        "bw_incline_pushup"
+      ]
+    },
+    {
+      "id": "gym_cable_fly",
+      "name": "Cable Fly",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest"
+        ],
+        "secondary": [
+          "shoulders_front"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Leicht gebeugte Ellenbogen — konstant halten",
+        "Bewegung aus der Schulter, nicht aus dem Ellenbogen",
+        "Brust in der Mitte zusammendrücken und kurz halten"
+      ],
+      "substitutions_a": [
+        "gym_db_bench_press",
+        "gym_machine_chest_press",
+        "bw_pushup"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_machine_chest_press",
+        "elbow": "gym_machine_chest_press"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_machine_chest_press"
+      ]
+    },
+    {
+      "id": "bw_pushup",
+      "name": "Push-Up",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest",
+          "triceps"
+        ],
+        "secondary": [
+          "shoulders_front",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Körper als Brett — Hüfte nicht hängen lassen",
+        "Ellenbogen leicht angewinkelt zum Körper",
+        "Volle Streckung oben, volle ROM unten"
+      ],
+      "substitutions_a": [
+        "bw_archer_pushup",
+        "gym_db_floor_press",
+        "gym_incline_db_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_db_floor_press",
+        "elbow": "gym_machine_chest_press",
+        "wrist": "gym_db_floor_press"
+      },
+      "progressions_up": [
+        "bw_diamond_pushup",
+        "bw_decline_pushup"
+      ],
+      "progressions_down": [
+        "bw_incline_pushup"
+      ]
+    },
+    {
+      "id": "bw_archer_pushup",
+      "name": "Archer Push-Up",
+      "equipment": [
+        "bodyweight",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest",
+          "triceps"
+        ],
+        "secondary": [
+          "shoulders_front",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Ein Arm streckt sich seitwärts aus, der andere macht den Push-Up",
+        "Gewicht zu einem Arm verlagern",
+        "Langsam und kontrolliert — Vorstufe zum einarmigen Push-Up"
+      ],
+      "substitutions_a": [
+        "bw_pushup",
+        "gym_db_floor_press",
+        "gym_incline_db_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_pushup",
+        "wrist": "bw_pushup"
+      },
+      "progressions_up": [
+        "bw_one_arm_pushup_negatives"
+      ],
+      "progressions_down": [
+        "bw_pushup"
+      ]
+    },
+    {
+      "id": "gym_ohp_barbell",
+      "name": "Overhead Press (Langhantel)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps",
+          "abs",
+          "spinal_erectors"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Stange über dem Kopf — nicht vor dem Körper",
+        "Gesäß und Bauch anspannen, kein Hohlkreuz",
+        "Ellenbogen leicht nach vorne, nicht zur Seite"
+      ],
+      "substitutions_a": [
+        "gym_db_shoulder_press",
+        "gym_landmine_ohp",
+        "kb_single_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_landmine_ohp",
+        "elbow": "gym_landmine_ohp",
+        "spine": "gym_db_shoulder_press"
+      },
+      "progressions_up": [
+        "gym_z_press"
+      ],
+      "progressions_down": [
+        "gym_db_shoulder_press"
+      ]
+    },
+    {
+      "id": "gym_db_shoulder_press",
+      "name": "Kurzhantel Schulterdrücken",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Neutrale oder leicht pronierter Griff — weniger Schulterbelastung",
+        "Ellenbogen leicht nach vorne — kein 90° T-Form",
+        "Kontrolliert absenken bis Ohrenhöhe"
+      ],
+      "substitutions_a": [
+        "gym_ohp_barbell",
+        "gym_landmine_ohp",
+        "kb_single_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_landmine_ohp",
+        "elbow": "gym_landmine_ohp"
+      },
+      "progressions_up": [
+        "gym_ohp_barbell",
+        "gym_push_press_barbell"
+      ],
+      "progressions_down": [
+        "gym_landmine_ohp"
+      ]
+    },
+    {
+      "id": "gym_landmine_ohp",
+      "name": "Landmine Press",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front"
+        ],
+        "secondary": [
+          "chest",
+          "triceps",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Stange auf Schulterhöhe, aus dem Hüft-Strecken heraus drücken",
+        "Schulterschonend durch diagonale Drückbahn",
+        "Standfuß schulterbreit, stabiler Stand"
+      ],
+      "substitutions_a": [
+        "gym_db_shoulder_press",
+        "kb_single_press",
+        "gym_ohp_barbell"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_cable_lateral_raise",
+        "elbow": "gym_cable_lateral_raise"
+      },
+      "progressions_up": [
+        "gym_db_shoulder_press"
+      ],
+      "progressions_down": []
+    },
+    {
+      "id": "gym_cable_lateral_raise",
+      "name": "Cable Seitheben",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "shoulders_rear"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Leicht gebeugte Ellenbogen, Bewegung aus der Schulter",
+        "Daumen leicht nach unten — mehr Lateral Head",
+        "Kontrolliert absenken, nicht fallen lassen"
+      ],
+      "substitutions_a": [
+        "gym_db_lateral_raise",
+        "gym_face_pull",
+        "gym_cuban_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_face_pull",
+        "elbow": "gym_face_pull"
+      },
+      "progressions_up": [],
+      "progressions_down": []
+    },
+    {
+      "id": "gym_db_lateral_raise",
+      "name": "Kurzhantel Seitheben",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "shoulders_rear"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Arme leicht gebeugt, Pinky leicht nach oben",
+        "Bis Schulterhöhe — nicht höher",
+        "Keine Schwungbewegung — Kontrolle über die ganze ROM"
+      ],
+      "substitutions_a": [
+        "gym_cable_lateral_raise",
+        "gym_face_pull",
+        "gym_cuban_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_face_pull",
+        "elbow": "gym_face_pull"
+      },
+      "progressions_up": [],
+      "progressions_down": []
+    },
+    {
+      "id": "gym_face_pull",
+      "name": "Face Pull (Kabel)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_rear",
+          "back_upper"
+        ],
+        "secondary": [
+          "shoulders_lateral",
+          "biceps"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Seil zum Gesicht ziehen, Ellenbogen hoch",
+        "Außenrotation am Endpunkt — Daumen nach hinten",
+        "Schultergesundheit: täglich möglich"
+      ],
+      "substitutions_a": [
+        "gym_cuban_press",
+        "gym_band_pull_apart",
+        "gym_db_lateral_raise"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_band_pull_apart",
+        "elbow": "gym_band_pull_apart"
+      },
+      "progressions_up": [],
+      "progressions_down": []
+    },
+    {
+      "id": "gym_cuban_press",
+      "name": "Cuban Press",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_rear",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "back_upper",
+          "triceps"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "3 Phasen: Seitheben → Außenrotation → Drücken",
+        "Leichtes Gewicht — Schulterpflege, kein Krafttraining",
+        "Langsam und bewusst — Schultermanschette aktivieren"
+      ],
+      "substitutions_a": [
+        "gym_face_pull",
+        "gym_band_pull_apart",
+        "gym_db_lateral_raise"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_band_pull_apart",
+        "elbow": "gym_band_pull_apart"
+      },
+      "progressions_up": [],
+      "progressions_down": []
+    },
+    {
+      "id": "kb_single_press",
+      "name": "Kettlebell Press (einhändig)",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps",
+          "abs",
+          "obliques"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "KB in der Rack-Position — Unterarm senkrecht",
+        "Drücken und gleichzeitig Körper stabilisieren",
+        "Volle Streckung oben, Schulter aktiv gepackt"
+      ],
+      "substitutions_a": [
+        "gym_db_shoulder_press",
+        "gym_landmine_ohp",
+        "kb_bottoms_up_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_landmine_ohp",
+        "elbow": "gym_db_shoulder_press",
+        "wrist": "gym_db_shoulder_press"
+      },
+      "progressions_up": [
+        "kb_push_press"
+      ],
+      "progressions_down": [
+        "gym_db_shoulder_press"
+      ]
+    },
+    {
+      "id": "kb_bottoms_up_press",
+      "name": "Bottoms-Up Press (Kettlebell)",
+      "equipment": [
+        "kettlebell"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "abs",
+          "forearms",
+          "triceps"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "KB auf dem Kopf balancieren — volle Schulteraktivierung",
+        "Langsam und kontrolliert — Instabilität trainiert Stabilisatoren",
+        "Slow exhale für mehr Stabilität"
+      ],
+      "substitutions_a": [
+        "kb_single_press",
+        "gym_db_shoulder_press",
+        "gym_landmine_ohp"
+      ],
+      "substitutions_b": {
+        "shoulder": "kb_single_press",
+        "wrist": "kb_single_press",
+        "elbow": "kb_single_press"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "kb_single_press"
+      ]
+    },
+    {
+      "id": "gym_pullup",
+      "name": "Pull-Up",
+      "equipment": [
+        "gym",
+        "bodyweight",
+        "kettlebell",
+        "hybrid",
+        "home_gym",
+        "travel"
+      ],
+      "pattern": "pull_vertical",
+      "muscle_groups": {
+        "primary": [
+          "back_lat"
+        ],
+        "secondary": [
+          "biceps",
+          "back_upper",
+          "abs"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Schulterblätter zuerst nach unten und zusammen — dann ziehen",
+        "Brust zur Stange führen, nicht das Kinn",
+        "Kontrolliertes Absenken bis volle Streckung"
+      ],
+      "substitutions_a": [
+        "gym_lat_pulldown",
+        "gym_chinup",
+        "bw_ring_row"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_lat_pulldown",
+        "elbow": "gym_lat_pulldown",
+        "wrist": "gym_lat_pulldown"
+      },
+      "progressions_up": [
+        "gym_weighted_pullup"
+      ],
+      "progressions_down": [
+        "gym_chinup"
+      ]
+    },
+    {
+      "id": "gym_chinup",
+      "name": "Chin-Up (Untergriff)",
+      "equipment": [
+        "gym",
+        "bodyweight",
+        "kettlebell",
+        "hybrid",
+        "home_gym",
+        "travel"
+      ],
+      "pattern": "pull_vertical",
+      "muscle_groups": {
+        "primary": [
+          "back_lat",
+          "biceps"
+        ],
+        "secondary": [
+          "back_upper",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Untergriff — mehr Bizeps, etwas einfacher als Pull-Up",
+        "Volle Streckung unten",
+        "Kinn über die Stange bringen"
+      ],
+      "substitutions_a": [
+        "gym_pullup",
+        "gym_lat_pulldown",
+        "bw_ring_row"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_lat_pulldown",
+        "elbow": "gym_lat_pulldown",
+        "wrist": "gym_lat_pulldown"
+      },
+      "progressions_up": [
+        "gym_pullup"
+      ],
+      "progressions_down": [
+        "gym_lat_pulldown"
+      ]
+    },
+    {
+      "id": "gym_lat_pulldown",
+      "name": "Lat Pulldown",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "pull_vertical",
+      "muscle_groups": {
+        "primary": [
+          "back_lat"
+        ],
+        "secondary": [
+          "biceps",
+          "back_upper"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Schulterblätter nach unten und zusammen vor dem Ziehen",
+        "Stange zur Brust — nicht hinter den Kopf",
+        "Volle Streckung am Endpunkt oben"
+      ],
+      "substitutions_a": [
+        "gym_pullup",
+        "gym_chinup",
+        "bw_ring_row"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_cable_pullover",
+        "elbow": "gym_cable_pullover",
+        "wrist": "bw_ring_row"
+      },
+      "progressions_up": [
+        "gym_chinup"
+      ],
+      "progressions_down": [
+        "bw_ring_row"
+      ]
+    },
+    {
+      "id": "gym_cable_pullover",
+      "name": "Cable Pullover",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "pull_vertical",
+      "muscle_groups": {
+        "primary": [
+          "back_lat"
+        ],
+        "secondary": [
+          "chest",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Stehend, Kabel von oben — Lat isolieren",
+        "Arme gestreckt oder leicht gebeugt",
+        "Nur Schultergelenk bewegt sich — keine Ellenbogen-Beugung"
+      ],
+      "substitutions_a": [
+        "gym_lat_pulldown",
+        "bw_ring_row",
+        "gym_db_row"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_lat_pulldown",
+        "elbow": "gym_lat_pulldown"
+      },
+      "progressions_up": [],
+      "progressions_down": []
+    },
+    {
+      "id": "bw_ring_row",
+      "name": "Ring Row / Inverted Row",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "travel",
+        "home_gym",
+        "kettlebell"
+      ],
+      "pattern": "pull_vertical",
+      "muscle_groups": {
+        "primary": [
+          "back_lat",
+          "back_upper"
+        ],
+        "secondary": [
+          "biceps",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Körper als Brett — keine Hüftbeuge",
+        "Schwierigkeit durch Körperwinkel anpassen",
+        "Schulterblätter zusammen am Ende der Bewegung"
+      ],
+      "substitutions_a": [
+        "gym_lat_pulldown",
+        "gym_chinup",
+        "gym_db_row"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_lat_pulldown",
+        "elbow": "gym_lat_pulldown"
+      },
+      "progressions_up": [
+        "bw_negative_pullup"
+      ],
+      "progressions_down": []
+    },
+    {
+      "id": "gym_barbell_row",
+      "name": "Barbell Row",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "pull_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "back_lat",
+          "back_upper"
+        ],
+        "secondary": [
+          "biceps",
+          "spinal_erectors",
+          "shoulders_rear"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Rumpf ca. 45° — Spannung im unteren Rücken halten",
+        "Stange zur Hüfte ziehen, nicht zur Brust",
+        "Schulterblätter am Endpunkt zusammendrücken"
+      ],
+      "substitutions_a": [
+        "gym_db_row",
+        "gym_seated_cable_row",
+        "kb_row"
+      ],
+      "substitutions_b": {
+        "spine": "gym_seated_cable_row",
+        "elbow": "gym_seated_cable_row"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_db_row"
+      ]
+    },
+    {
+      "id": "gym_db_row",
+      "name": "Kurzhantel Row",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "pull_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "back_lat",
+          "back_upper"
+        ],
+        "secondary": [
+          "biceps",
+          "shoulders_rear"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Knie auf der Bank für Support — Rücken flach",
+        "Hantel zur Hüfte, Ellenbogen nah am Körper",
+        "Schulterblatt am Endpunkt maximal zusammenziehen"
+      ],
+      "substitutions_a": [
+        "gym_barbell_row",
+        "gym_seated_cable_row",
+        "kb_row"
+      ],
+      "substitutions_b": {
+        "spine": "gym_seated_cable_row",
+        "elbow": "gym_seated_cable_row"
+      },
+      "progressions_up": [
+        "gym_barbell_row",
+        "gym_chest_supported_db_row"
+      ],
+      "progressions_down": [
+        "bw_inverted_row"
+      ]
+    },
+    {
+      "id": "gym_seated_cable_row",
+      "name": "Seated Cable Row",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "pull_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "back_lat",
+          "back_upper"
+        ],
+        "secondary": [
+          "biceps",
+          "shoulders_rear"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Aufrecht sitzen — kein Schwung aus dem Rücken",
+        "Schulterblätter zuerst nach hinten, dann Ellenbogen ziehen",
+        "Kurz halten am Endpunkt, dann kontrolliert zurück"
+      ],
+      "substitutions_a": [
+        "gym_db_row",
+        "gym_barbell_row",
+        "bw_ring_row"
+      ],
+      "substitutions_b": {
+        "spine": "bw_ring_row",
+        "elbow": "gym_face_pull"
+      },
+      "progressions_up": [
+        "gym_barbell_row"
+      ],
+      "progressions_down": [
+        "gym_db_row"
+      ]
+    },
+    {
+      "id": "gym_band_pull_apart",
+      "name": "Band Pull-Apart",
+      "equipment": [
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid"
+      ],
+      "pattern": "pull_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_rear",
+          "back_upper"
+        ],
+        "secondary": [
+          "shoulders_lateral"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Arme gestreckt auf Schulterhöhe",
+        "Band auseinanderziehen bis über die Brust",
+        "Schulterblätter zusammen am Endpunkt — 1 Sek. halten"
+      ],
+      "substitutions_a": [
+        "gym_face_pull",
+        "gym_cuban_press",
+        "gym_db_lateral_raise"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_cuban_press",
+        "elbow": "gym_cuban_press"
+      },
+      "progressions_up": [],
+      "progressions_down": []
+    },
+    {
+      "id": "kb_row",
+      "name": "Kettlebell Row",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "pull_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "back_lat",
+          "back_upper"
+        ],
+        "secondary": [
+          "biceps",
+          "shoulders_rear"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Freie Hand auf dem Knie für Stabilität",
+        "KB zur Hüfte ziehen, Ellenbogen nah",
+        "Schulterblatt maximal einziehen am Endpunkt"
+      ],
+      "substitutions_a": [
+        "gym_db_row",
+        "bw_ring_row",
+        "gym_seated_cable_row"
+      ],
+      "substitutions_b": {
+        "spine": "gym_seated_cable_row",
+        "elbow": "gym_seated_cable_row"
+      },
+      "progressions_up": [
+        "gym_db_row"
+      ],
+      "progressions_down": [
+        "bw_inverted_row"
+      ]
+    },
+    {
+      "id": "kb_renegade_row",
+      "name": "Renegade Row",
+      "equipment": [
+        "kettlebell"
+      ],
+      "pattern": "pull_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "back_lat"
+        ],
+        "secondary": [
+          "abs",
+          "obliques",
+          "biceps",
+          "chest"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Plank-Position halten — Hüfte nicht rotieren",
+        "KB eng am Körper hoch, kein Schwung",
+        "Beine weit auseinander für mehr Stabilität"
+      ],
+      "substitutions_a": [
+        "kb_row",
+        "gym_db_row",
+        "bw_ring_row"
+      ],
+      "substitutions_b": {
+        "spine": "kb_row",
+        "shoulder": "kb_row",
+        "wrist": "gym_db_row"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "kb_row"
+      ]
+    },
+    {
+      "id": "gym_bulgarian_split_squat_db",
+      "name": "Bulgarian Split Squat (Kurzhantel)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Hinteren Fuß auf der Bank — Rist, nicht Zehen",
+        "Vorderen Fuß weit genug vorne, Knie über den Zehen",
+        "Hüfte gerade absenken — kein Schieben nach vorne"
+      ],
+      "substitutions_a": [
+        "bw_reverse_lunge",
+        "gym_step_up_db",
+        "bw_bulgarian_split_squat"
+      ],
+      "substitutions_b": {
+        "knee": "bw_reverse_lunge",
+        "hip": "bw_reverse_lunge",
+        "spine": "bw_reverse_lunge"
+      },
+      "progressions_up": [
+        "bw_skater_squat",
+        "bw_assisted_pistol_squat"
+      ],
+      "progressions_down": [
+        "bw_bulgarian_split_squat"
+      ]
+    },
+    {
+      "id": "bw_bulgarian_split_squat",
+      "name": "Bulgarian Split Squat (Bodyweight)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Hinteren Fuß auf dem Stuhl oder der Bank",
+        "Vorderes Knie verfolgt die Zehen",
+        "Tief gehen — Oberschenkel parallel zum Boden"
+      ],
+      "substitutions_a": [
+        "bw_reverse_lunge",
+        "bw_atg_split_squat",
+        "gym_step_up_db"
+      ],
+      "substitutions_b": {
+        "knee": "bw_reverse_lunge",
+        "hip": "bw_reverse_lunge"
+      },
+      "progressions_up": [
+        "gym_bulgarian_split_squat_db",
+        "bw_atg_split_squat"
+      ],
+      "progressions_down": [
+        "bw_reverse_lunge"
+      ]
+    },
+    {
+      "id": "bw_reverse_lunge",
+      "name": "Reverse Lunge (Bodyweight)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Schritt nach hinten — knieschonender als Forward Lunge",
+        "Vorderes Knie über dem Fuß, nicht dahinter",
+        "Oberkörper aufrecht — kein Vornüberlehnen"
+      ],
+      "substitutions_a": [
+        "bw_squat",
+        "gym_step_up_db",
+        "bw_bulgarian_split_squat"
+      ],
+      "substitutions_b": {
+        "knee": "bw_squat",
+        "hip": "bw_squat"
+      },
+      "progressions_up": [
+        "bw_bulgarian_split_squat",
+        "gym_step_up_db"
+      ],
+      "progressions_down": [
+        "bw_squat"
+      ]
+    },
+    {
+      "id": "kb_reverse_lunge",
+      "name": "Reverse Lunge (Kettlebell)",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "KB in Rack-Position oder hängend",
+        "Schritt kontrolliert nach hinten",
+        "Aufrecht bleiben, Rumpf anspannen"
+      ],
+      "substitutions_a": [
+        "bw_reverse_lunge",
+        "kb_bulgarian_split_squat",
+        "gym_step_up_db"
+      ],
+      "substitutions_b": {
+        "knee": "bw_reverse_lunge",
+        "hip": "bw_reverse_lunge"
+      },
+      "progressions_up": [
+        "kb_bulgarian_split_squat"
+      ],
+      "progressions_down": [
+        "bw_reverse_lunge"
+      ]
+    },
+    {
+      "id": "kb_bulgarian_split_squat",
+      "name": "Bulgarian Split Squat (Kettlebell)",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "KB in einer oder beiden Händen",
+        "Hinteren Fuß auf einer Erhöhung",
+        "Kontrolliert senken, explosiv drücken"
+      ],
+      "substitutions_a": [
+        "kb_reverse_lunge",
+        "bw_bulgarian_split_squat",
+        "bw_reverse_lunge"
+      ],
+      "substitutions_b": {
+        "knee": "kb_reverse_lunge",
+        "hip": "kb_reverse_lunge"
+      },
+      "progressions_up": [
+        "bw_skater_squat"
+      ],
+      "progressions_down": [
+        "kb_reverse_lunge"
+      ]
+    },
+    {
+      "id": "gym_step_up_db",
+      "name": "Step-Up (Kurzhantel)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Fuß vollständig auf die Box stellen",
+        "Aus dem vorderen Bein drücken — nicht vom hinteren abstoßen",
+        "Oberkörper aufrecht"
+      ],
+      "substitutions_a": [
+        "bw_reverse_lunge",
+        "gym_bulgarian_split_squat_db",
+        "bw_squat"
+      ],
+      "substitutions_b": {
+        "knee": "bw_reverse_lunge",
+        "hip": "bw_reverse_lunge"
+      },
+      "progressions_up": [
+        "gym_bulgarian_split_squat_db"
+      ],
+      "progressions_down": [
+        "bw_reverse_lunge"
+      ]
+    },
+    {
+      "id": "gym_single_leg_rdl_db",
+      "name": "Single Leg RDL (Kurzhantel)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "hamstrings",
+          "glutes"
+        ],
+        "secondary": [
+          "spinal_erectors",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Spielbein und Oberkörper bilden eine Linie",
+        "Hantel nah am Standbein entlangführen",
+        "Hüfte gerade halten — nicht rotieren"
+      ],
+      "substitutions_a": [
+        "bw_single_leg_rdl",
+        "gym_rdl_db",
+        "bw_glute_bridge"
+      ],
+      "substitutions_b": {
+        "knee": "bw_glute_bridge",
+        "spine": "bw_glute_bridge",
+        "hip": "bw_glute_bridge"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "bw_single_leg_rdl"
+      ]
+    },
+    {
+      "id": "bw_pistol_squat",
+      "name": "Pistol Squat",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "kettlebell"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs",
+          "calves"
+        ]
+      },
+      "level_min": 4,
+      "coaching_cues": [
+        "Spielbein gestreckt nach vorne, Arme als Gegengewicht",
+        "Tief und kontrolliert — volle ROM",
+        "Ferse bleibt auf dem Boden"
+      ],
+      "substitutions_a": [
+        "bw_bulgarian_split_squat",
+        "bw_reverse_lunge",
+        "bw_squat"
+      ],
+      "substitutions_b": {
+        "knee": "bw_reverse_lunge",
+        "hip": "bw_reverse_lunge"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "bw_assisted_pistol_squat"
+      ]
+    },
+    {
+      "id": "gym_farmers_carry_db",
+      "name": "Farmer's Carry (Kurzhantel)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "carry",
+      "muscle_groups": {
+        "primary": [
+          "forearms",
+          "abs"
+        ],
+        "secondary": [
+          "back_upper",
+          "shoulders",
+          "quads",
+          "calves"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Hanteln seitlich am Körper, Schultern zurückgezogen",
+        "Aufrechter Gang, Blick geradeaus",
+        "Kontrolliertes Tempo — kein Hetzen"
+      ],
+      "substitutions_a": [
+        "kb_farmers_carry",
+        "gym_suitcase_carry_db",
+        "gym_overhead_carry_db"
+      ],
+      "substitutions_b": {
+        "spine": "bw_dead_bug",
+        "shoulder": "gym_suitcase_carry_db",
+        "wrist": "gym_suitcase_carry_db"
+      },
+      "progressions_up": [
+        "gym_suitcase_carry_db",
+        "gym_overhead_carry_db"
+      ],
+      "progressions_down": []
+    },
+    {
+      "id": "gym_suitcase_carry_db",
+      "name": "Suitcase Carry (einseitig)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "carry",
+      "muscle_groups": {
+        "primary": [
+          "abs",
+          "obliques"
+        ],
+        "secondary": [
+          "forearms",
+          "back_upper",
+          "quads"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Nur eine Seite belastet — Oberkörper trotzdem gerade",
+        "Nicht zur Hantelseite neigen",
+        "Seitliche Stabilisatoren maximal aktiviert"
+      ],
+      "substitutions_a": [
+        "gym_farmers_carry_db",
+        "kb_rack_walk",
+        "bw_plank"
+      ],
+      "substitutions_b": {
+        "spine": "bw_plank",
+        "shoulder": "gym_farmers_carry_db"
+      },
+      "progressions_up": [
+        "gym_overhead_carry_db"
+      ],
+      "progressions_down": [
+        "gym_farmers_carry_db"
+      ]
+    },
+    {
+      "id": "gym_overhead_carry_db",
+      "name": "Overhead Carry (Kurzhantel)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "carry",
+      "muscle_groups": {
+        "primary": [
+          "shoulders",
+          "abs"
+        ],
+        "secondary": [
+          "back_upper",
+          "quads",
+          "forearms"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Arm vollständig gestreckt, Schulter aktiv gepackt",
+        "Ellenbogen zeigt nach innen — nicht nach außen",
+        "Kern maximal angespannt für Stabilität"
+      ],
+      "substitutions_a": [
+        "gym_farmers_carry_db",
+        "kb_rack_walk",
+        "kb_bottoms_up_carry"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_farmers_carry_db",
+        "elbow": "gym_farmers_carry_db"
+      },
+      "progressions_up": [
+        "gym_barbell_overhead_carry"
+      ],
+      "progressions_down": [
+        "gym_suitcase_carry_db"
+      ]
+    },
+    {
+      "id": "kb_farmers_carry",
+      "name": "Farmer's Carry (Kettlebell)",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "carry",
+      "muscle_groups": {
+        "primary": [
+          "forearms",
+          "abs"
+        ],
+        "secondary": [
+          "back_upper",
+          "shoulders",
+          "quads"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "KB seitlich am Körper, Griff fest",
+        "Aufrechte Haltung — kein Rundrücken",
+        "Schultern nach unten und hinten gezogen"
+      ],
+      "substitutions_a": [
+        "gym_farmers_carry_db",
+        "kb_rack_walk",
+        "gym_suitcase_carry_db"
+      ],
+      "substitutions_b": {
+        "spine": "bw_dead_bug",
+        "wrist": "gym_farmers_carry_db"
+      },
+      "progressions_up": [
+        "kb_rack_walk"
+      ],
+      "progressions_down": []
+    },
+    {
+      "id": "kb_rack_walk",
+      "name": "KB Rack Walk",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "carry",
+      "muscle_groups": {
+        "primary": [
+          "abs",
+          "shoulders"
+        ],
+        "secondary": [
+          "back_upper",
+          "forearms",
+          "quads"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "KB in Rack-Position — Unterarm senkrecht, KB ruht auf Arm",
+        "Schulter des KB-Arms aktiv nach unten gepackt",
+        "Aufrechter Gang, kein Ausweichen zur Seite"
+      ],
+      "substitutions_a": [
+        "kb_farmers_carry",
+        "gym_suitcase_carry_db",
+        "kb_bottoms_up_carry"
+      ],
+      "substitutions_b": {
+        "shoulder": "kb_farmers_carry",
+        "wrist": "kb_farmers_carry"
+      },
+      "progressions_up": [
+        "kb_bottoms_up_carry"
+      ],
+      "progressions_down": [
+        "kb_farmers_carry"
+      ]
+    },
+    {
+      "id": "kb_bottoms_up_carry",
+      "name": "Bottoms-Up Carry (Kettlebell)",
+      "equipment": [
+        "kettlebell"
+      ],
+      "pattern": "carry",
+      "muscle_groups": {
+        "primary": [
+          "shoulders",
+          "forearms",
+          "abs"
+        ],
+        "secondary": [
+          "back_upper"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "KB auf dem Kopf balancieren — Schulterrotation maximal aktiviert",
+        "Langsam gehen, KB nicht kippen lassen",
+        "Körper komplett aufgerichtet und stabil"
+      ],
+      "substitutions_a": [
+        "kb_rack_walk",
+        "kb_farmers_carry",
+        "gym_overhead_carry_db"
+      ],
+      "substitutions_b": {
+        "shoulder": "kb_rack_walk",
+        "wrist": "kb_rack_walk",
+        "elbow": "kb_rack_walk"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "kb_rack_walk"
+      ]
+    },
+    {
+      "id": "bw_plank",
+      "name": "Plank",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "obliques",
+          "spinal_erectors",
+          "shoulders"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Körper von Kopf bis Ferse eine Linie",
+        "Bauch einziehen und Glutes anspannen",
+        "Atmung nicht anhalten — flach atmen"
+      ],
+      "substitutions_a": [
+        "bw_dead_bug",
+        "bw_hollow_body",
+        "gym_pallof_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_dead_bug",
+        "wrist": "bw_dead_bug",
+        "spine": "bw_dead_bug"
+      },
+      "progressions_up": [
+        "bw_hollow_body",
+        "gym_ab_wheel"
+      ],
+      "progressions_down": [
+        "bw_dead_bug"
+      ]
+    },
+    {
+      "id": "bw_dead_bug",
+      "name": "Dead Bug",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "hip_flexors",
+          "spinal_erectors"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Lendenwirbel flach auf dem Boden halten — immer",
+        "Gegenüberliegendes Arm/Bein strecken",
+        "Langsam und kontrolliert — Atemkontrolle"
+      ],
+      "substitutions_a": [
+        "bw_plank",
+        "bw_hollow_body",
+        "gym_pallof_press"
+      ],
+      "substitutions_b": {
+        "spine": "bw_plank",
+        "hip": "bw_plank"
+      },
+      "progressions_up": [
+        "bw_plank"
+      ],
+      "progressions_down": [
+        "bw_mcgill_bird_dog"
+      ]
+    },
+    {
+      "id": "gym_pallof_press",
+      "name": "Pallof Press",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs",
+          "obliques"
+        ],
+        "secondary": [
+          "back_upper",
+          "shoulders"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Seitlich zum Kabel stehen, Kern maximal anspannen",
+        "Arme langsam nach vorne strecken, Rotationswiderstand halten",
+        "Kein Eindrehen der Hüfte — Anti-Rotation ist das Ziel"
+      ],
+      "substitutions_a": [
+        "bw_plank",
+        "bw_dead_bug",
+        "gym_ab_wheel"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_dead_bug",
+        "spine": "bw_dead_bug"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "bw_plank"
+      ]
+    },
+    {
+      "id": "gym_ab_wheel",
+      "name": "Ab Wheel Rollout",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "spinal_erectors",
+          "shoulders",
+          "back_lat"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Nur so weit ausrollen wie Lendenwirbel flach bleibt",
+        "Langsam — der Rückweg ist der Trainingsstimulus",
+        "Schultern über den Handgelenken zu Beginn"
+      ],
+      "substitutions_a": [
+        "bw_plank",
+        "bw_hollow_body",
+        "gym_pallof_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_plank",
+        "wrist": "bw_plank",
+        "spine": "bw_dead_bug"
+      },
+      "progressions_up": [
+        "gym_ab_rollout_standing"
+      ],
+      "progressions_down": [
+        "bw_plank"
+      ]
+    },
+    {
+      "id": "gym_cable_crunch",
+      "name": "Cable Crunch",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "obliques"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Hände an den Schläfen — nicht hinter dem Kopf ziehen",
+        "Oberkörper einrollen, nicht nur vornüber kippen",
+        "Unten kurz halten, kontrolliert zurück"
+      ],
+      "substitutions_a": [
+        "gym_ab_wheel",
+        "bw_dead_bug",
+        "bw_hollow_body"
+      ],
+      "substitutions_b": {
+        "spine": "bw_dead_bug",
+        "neck": "bw_dead_bug"
+      },
+      "progressions_up": [
+        "gym_hanging_knee_raise"
+      ],
+      "progressions_down": [
+        "bw_dead_bug"
+      ]
+    },
+    {
+      "id": "kb_turkish_getup",
+      "name": "Turkish Get-Up",
+      "equipment": [
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "shoulders",
+          "abs",
+          "obliques"
+        ],
+        "secondary": [
+          "quads",
+          "glutes",
+          "back_upper"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Auge auf die KB — immer",
+        "Jede Phase einzeln und kontrolliert ausführen",
+        "Gewicht erst lernen ohne KB, dann leicht starten"
+      ],
+      "substitutions_a": [
+        "bw_plank",
+        "gym_pallof_press",
+        "bw_dead_bug"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_plank",
+        "wrist": "bw_plank",
+        "spine": "bw_dead_bug"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "bw_plank"
+      ]
+    },
+    {
+      "id": "kb_windmill",
+      "name": "Kettlebell Windmill",
+      "equipment": [
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "obliques",
+          "shoulders"
+        ],
+        "secondary": [
+          "hamstrings",
+          "glutes",
+          "abs"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Auge auf die KB overhead — immer",
+        "Hüfte zur Seite — nicht Oberkörper zur Seite neigen",
+        "Nur so tief wie die Hüftmobilität es erlaubt"
+      ],
+      "substitutions_a": [
+        "gym_pallof_press",
+        "bw_plank",
+        "bw_dead_bug"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_pallof_press",
+        "spine": "bw_dead_bug",
+        "hip": "gym_pallof_press"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_pallof_press"
+      ]
+    },
+    {
+      "id": "bw_hollow_body",
+      "name": "Hollow Body Hold",
+      "equipment": [
+        "bodyweight",
+        "travel",
+        "hybrid",
+        "gym",
+        "home_gym",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "hip_flexors",
+          "shoulders"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Lendenwirbel bleibt flach auf dem Boden",
+        "Arme und Beine gestreckt, knapp über dem Boden",
+        "Wenn nötig: Knie beugen oder Arme anlegen zur Erleichterung"
+      ],
+      "substitutions_a": [
+        "bw_dead_bug",
+        "bw_plank",
+        "gym_ab_wheel"
+      ],
+      "substitutions_b": {
+        "spine": "bw_dead_bug",
+        "hip": "bw_dead_bug"
+      },
+      "progressions_up": [
+        "bw_l_sit",
+        "gym_ab_wheel"
+      ],
+      "progressions_down": [
+        "bw_plank"
+      ]
+    },
+    {
+      "id": "bw_copenhagen_plank",
+      "name": "Copenhagen Plank",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "hip_adductors",
+          "obliques"
+        ],
+        "secondary": [
+          "abs",
+          "glutes"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Oberes Bein auf der Bank, Körper als Brett",
+        "Hüfte hoch halten — kein Durchhängen",
+        "Für Einsteiger: Knie auf der Bank statt Fuß"
+      ],
+      "substitutions_a": [
+        "bw_plank",
+        "bw_dead_bug",
+        "gym_pallof_press"
+      ],
+      "substitutions_b": {
+        "spine": "bw_plank",
+        "hip": "bw_plank"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "bw_side_plank"
+      ]
+    },
+    {
+      "id": "gym_reverse_hyper",
+      "name": "Reverse Hyperextension",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "glutes",
+          "hamstrings"
+        ],
+        "secondary": [
+          "spinal_erectors"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Hüfte auf dem Rand der Maschine oder Bank",
+        "Beine gestreckt langsam heben und senken",
+        "Rückendekompressions-Effekt — gut bei Bandscheibenproblemen"
+      ],
+      "substitutions_a": [
+        "bw_glute_bridge",
+        "gym_hip_thrust_machine",
+        "bw_dead_bug"
+      ],
+      "substitutions_b": {
+        "spine": "bw_glute_bridge",
+        "hip": "bw_glute_bridge"
+      },
+      "progressions_up": [],
+      "progressions_down": [
+        "bw_glute_bridge"
+      ]
+    },
+    {
+      "id": "bw_mcgill_bird_dog",
+      "name": "McGill Bird Dog",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "spinal_erectors",
+          "abs"
+        ],
+        "secondary": [
+          "glutes",
+          "shoulders"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Vierfüßler — Rücken flach wie ein Tisch",
+        "Gegenüberliegendes Arm+Bein gleichzeitig strecken",
+        "Wirbelsäule während der Bewegung neutral halten"
+      ],
+      "substitutions_a": [
+        "bw_dead_bug",
+        "bw_plank",
+        "gym_pallof_press"
+      ],
+      "substitutions_b": {
+        "spine": "bw_dead_bug",
+        "shoulder": "bw_dead_bug"
+      },
+      "progressions_up": [
+        "bw_dead_bug"
+      ],
+      "progressions_down": []
+    },
+    {
+      "id": "bw_mcgill_curl_up",
+      "name": "McGill Curl-Up",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": []
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Ein Knie gebeugt, anderes Bein gestreckt",
+        "Hände unter dem Lendenwirbel — neutrale Kurve halten",
+        "Schulterblätter minimal abheben — kein voller Crunch"
+      ],
+      "substitutions_a": [
+        "bw_dead_bug",
+        "bw_plank",
+        "bw_hollow_body"
+      ],
+      "substitutions_b": {
+        "spine": "bw_dead_bug",
+        "neck": "bw_dead_bug"
+      },
+      "progressions_up": [
+        "bw_hollow_body"
+      ],
+      "progressions_down": []
+    },
+    {
+      "id": "bw_tibialis_raise",
+      "name": "Tibialis Raise (Ben Patrick)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "calves"
+        ],
+        "secondary": [
+          "quads"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Rücken an die Wand, Füße ca. 30cm entfernt",
+        "Zehen maximal nach oben ziehen, Fersen auf dem Boden",
+        "Kniegesundheit — täglich möglich"
+      ],
+      "substitutions_a": [
+        "bw_atg_split_squat",
+        "bw_squat",
+        "bw_reverse_lunge"
+      ],
+      "substitutions_b": {
+        "knee": "bw_squat",
+        "ankle": "bw_squat"
+      },
+      "progressions_up": [],
+      "progressions_down": []
+    },
+    {
+      "id": "gym_paused_back_squat",
+      "name": "Paused Back Squat",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "spinal_erectors",
+          "abs"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "3 Sek. unten halten — keine Entspannung",
+        "Aus dem Loch heraus drücken, kein Rebound",
+        "Knie nach außen, Oberkörper stabil durch die Pause"
+      ],
+      "progressions_up": [
+        "gym_tempo_squat"
+      ],
+      "progressions_down": [
+        "gym_back_squat"
+      ],
+      "substitutions_a": [
+        "gym_front_squat",
+        "gym_tempo_squat",
+        "gym_back_squat"
+      ],
+      "substitutions_b": {
+        "knee": "gym_box_squat",
+        "spine": "gym_goblet_squat_db",
+        "hip": "gym_box_squat"
+      }
+    },
+    {
+      "id": "gym_tempo_squat",
+      "name": "Tempo Squat (4-0-1-0)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "spinal_erectors",
+          "abs"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "4 Sek. runter — maximal langsam und kontrolliert",
+        "Kein Pause unten, sofort hoch",
+        "Gewicht reduzieren — 30–40% weniger als normal"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_paused_back_squat"
+      ],
+      "substitutions_a": [
+        "gym_paused_back_squat",
+        "gym_front_squat",
+        "gym_back_squat"
+      ],
+      "substitutions_b": {
+        "knee": "gym_box_squat",
+        "spine": "gym_goblet_squat_db",
+        "hip": "gym_goblet_squat_db"
+      }
+    },
+    {
+      "id": "bw_jump_squat",
+      "name": "Jump Squat",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "calves",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Sanft landen — erst Zehen, dann Ferse",
+        "Squat-Tiefe vor dem Sprung, nicht nur Hüftbeuge",
+        "Sofort wieder in die nächste Wiederholung"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "bw_squat"
+      ],
+      "substitutions_a": [
+        "bw_squat",
+        "bw_pause_squat",
+        "bw_cossack_squat"
+      ],
+      "substitutions_b": {
+        "knee": "bw_squat",
+        "hip": "bw_squat",
+        "ankle": "bw_squat"
+      }
+    },
+    {
+      "id": "kb_front_squat",
+      "name": "Kettlebell Front Squat",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "abs",
+          "shoulders"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Beide KBs in Rack-Position — Unterarme senkrecht",
+        "Oberkörper so aufrecht wie möglich",
+        "Ellenbogen hoch halten, nicht fallen lassen"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "kb_goblet_squat"
+      ],
+      "substitutions_a": [
+        "kb_goblet_squat",
+        "bw_pause_squat",
+        "bw_atg_split_squat"
+      ],
+      "substitutions_b": {
+        "knee": "kb_goblet_squat",
+        "spine": "kb_goblet_squat",
+        "wrist": "kb_goblet_squat"
+      }
+    },
+    {
+      "id": "bw_assisted_pistol_squat",
+      "name": "Assisted Pistol Squat",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs",
+          "calves"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "An einer Stange oder Tür festhalten — Gewicht langsam reduzieren",
+        "Spielbein nach vorne strecken",
+        "Tief gehen — Ferse bleibt auf dem Boden"
+      ],
+      "progressions_up": [
+        "bw_pistol_squat"
+      ],
+      "progressions_down": [
+        "bw_atg_split_squat"
+      ],
+      "substitutions_a": [
+        "bw_atg_split_squat",
+        "bw_bulgarian_split_squat",
+        "bw_skater_squat"
+      ],
+      "substitutions_b": {
+        "knee": "bw_reverse_lunge",
+        "hip": "bw_reverse_lunge"
+      }
+    },
+    {
+      "id": "bw_single_leg_glute_bridge",
+      "name": "Single Leg Glute Bridge",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Ein Bein gestreckt, das andere Knie gebeugt",
+        "Hüfte voll strecken oben — Glutes maximal anspannen",
+        "Hüfte gerade halten — nicht zur Seite kippen"
+      ],
+      "progressions_up": [
+        "gym_hip_thrust_machine",
+        "gym_rdl_db"
+      ],
+      "progressions_down": [
+        "bw_glute_bridge"
+      ],
+      "substitutions_a": [
+        "bw_glute_bridge",
+        "gym_hip_thrust_machine",
+        "gym_rdl_db"
+      ],
+      "substitutions_b": {
+        "knee": "bw_glute_bridge",
+        "spine": "bw_glute_bridge"
+      }
+    },
+    {
+      "id": "gym_45_degree_back_extension",
+      "name": "45° Rückenstrecker",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "spinal_erectors",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Oberkörper nur bis parallel zum Boden heben — kein Hyperextend",
+        "Langsam absenken — Dehnung im unteren Rücken",
+        "Arme vor der Brust verschränkt oder hinter dem Kopf"
+      ],
+      "progressions_up": [
+        "gym_good_morning"
+      ],
+      "progressions_down": [
+        "bw_glute_bridge"
+      ],
+      "substitutions_a": [
+        "gym_rdl_db",
+        "bw_glute_bridge",
+        "gym_hip_thrust_machine"
+      ],
+      "substitutions_b": {
+        "spine": "bw_glute_bridge",
+        "hip": "bw_glute_bridge"
+      }
+    },
+    {
+      "id": "gym_good_morning",
+      "name": "Good Morning (Langhantel)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "spinal_erectors",
+          "hamstrings"
+        ],
+        "secondary": [
+          "glutes",
+          "abs"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Stange auf dem Trapezius — weiche Knie, nicht gestreckt",
+        "Hüfte zurück schieben — Oberkörper neigt sich nach vorne",
+        "Nicht weiter als parallel — Rücken bleibt flach"
+      ],
+      "progressions_up": [
+        "gym_glute_ham_raise"
+      ],
+      "progressions_down": [
+        "gym_rdl_barbell"
+      ],
+      "substitutions_a": [
+        "gym_rdl_barbell",
+        "gym_45_degree_back_extension",
+        "gym_glute_ham_raise"
+      ],
+      "substitutions_b": {
+        "spine": "gym_rdl_db",
+        "knee": "gym_rdl_barbell"
+      }
+    },
+    {
+      "id": "gym_glute_ham_raise",
+      "name": "Glute Ham Raise",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "hamstrings",
+          "glutes"
+        ],
+        "secondary": [
+          "spinal_erectors",
+          "calves"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Füße fixiert, Körper langsam absenken — exzentrisch ist der Schlüssel",
+        "Hüfte gestreckt halten während der Bewegung",
+        "Anfänger: assistiert mit Armen abstützen"
+      ],
+      "progressions_up": [
+        "gym_nordic_curl"
+      ],
+      "progressions_down": [
+        "gym_good_morning"
+      ],
+      "substitutions_a": [
+        "gym_nordic_curl",
+        "gym_rdl_barbell",
+        "gym_good_morning"
+      ],
+      "substitutions_b": {
+        "spine": "gym_rdl_db",
+        "knee": "gym_hip_thrust_barbell"
+      }
+    },
+    {
+      "id": "gym_nordic_curl",
+      "name": "Nordic Curl (Hamstring)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "hamstrings"
+        ],
+        "secondary": [
+          "glutes",
+          "spinal_erectors"
+        ]
+      },
+      "level_min": 4,
+      "coaching_cues": [
+        "Füße fixiert — langsam fallen lassen, so lang wie möglich kontrollieren",
+        "Hüfte gestreckt — keine Beugung während der Bewegung",
+        "Konzentrisch mit Armen helfen — exzentrisch alleine"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_glute_ham_raise"
+      ],
+      "substitutions_a": [
+        "gym_glute_ham_raise",
+        "gym_rdl_barbell",
+        "gym_conventional_deadlift"
+      ],
+      "substitutions_b": {
+        "spine": "gym_rdl_db",
+        "knee": "gym_hip_thrust_barbell"
+      }
+    },
+    {
+      "id": "gym_single_leg_hip_thrust_db",
+      "name": "Single Leg Hip Thrust (Kurzhantel)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Schulterblätter auf der Bank, Hantel auf der Hüfte",
+        "Ein Bein gestreckt, volle Hüftstreckung oben",
+        "Hüfte gerade — nicht zur Seite kippen"
+      ],
+      "progressions_up": [
+        "gym_hip_thrust_barbell"
+      ],
+      "progressions_down": [
+        "gym_hip_thrust_machine"
+      ],
+      "substitutions_a": [
+        "gym_hip_thrust_barbell",
+        "bw_single_leg_glute_bridge",
+        "gym_hip_thrust_machine"
+      ],
+      "substitutions_b": {
+        "spine": "bw_single_leg_glute_bridge",
+        "knee": "bw_glute_bridge"
+      }
+    },
+    {
+      "id": "bw_incline_pushup",
+      "name": "Incline Push-Up (Hände erhöht)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest",
+          "triceps"
+        ],
+        "secondary": [
+          "shoulders_front",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Hände auf Bank oder Stuhl — Winkel reduziert Körpergewicht",
+        "Körper als Brett — Hüfte nicht hängen",
+        "Volle ROM — Brust zur Bank"
+      ],
+      "progressions_up": [
+        "bw_pushup"
+      ],
+      "progressions_down": [],
+      "substitutions_a": [
+        "bw_pushup",
+        "gym_machine_chest_press",
+        "gym_db_floor_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_machine_chest_press",
+        "elbow": "gym_machine_chest_press",
+        "wrist": "gym_machine_chest_press"
+      }
+    },
+    {
+      "id": "bw_wide_pushup",
+      "name": "Wide Push-Up",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest"
+        ],
+        "secondary": [
+          "triceps",
+          "shoulders_front",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Hände weiter als schulterbreit — mehr Brustfokus",
+        "Körper als Brett, kein Hohlkreuz",
+        "Tiefe erreichen — Brust berührt fast den Boden"
+      ],
+      "progressions_up": [
+        "bw_archer_pushup"
+      ],
+      "progressions_down": [
+        "bw_pushup"
+      ],
+      "substitutions_a": [
+        "bw_pushup",
+        "bw_diamond_pushup",
+        "bw_archer_pushup"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_incline_pushup",
+        "wrist": "bw_incline_pushup",
+        "elbow": "gym_machine_chest_press"
+      }
+    },
+    {
+      "id": "bw_diamond_pushup",
+      "name": "Diamond Push-Up",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "triceps",
+          "chest"
+        ],
+        "secondary": [
+          "shoulders_front",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Hände bilden Diamant unter der Brust",
+        "Ellenbogen nah am Körper bleiben",
+        "Mehr Trizeps als Standard-Push-Up"
+      ],
+      "progressions_up": [
+        "bw_archer_pushup"
+      ],
+      "progressions_down": [
+        "bw_pushup"
+      ],
+      "substitutions_a": [
+        "bw_pushup",
+        "bw_wide_pushup",
+        "bw_archer_pushup"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_pushup",
+        "elbow": "bw_incline_pushup",
+        "wrist": "bw_incline_pushup"
+      }
+    },
+    {
+      "id": "bw_decline_pushup",
+      "name": "Decline Push-Up (Füße erhöht)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest",
+          "shoulders_front"
+        ],
+        "secondary": [
+          "triceps",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Füße auf Bank oder Stuhl — obere Brust und Schultern betont",
+        "Körper als Brett, Hüfte nicht fallen lassen",
+        "Kontrolliert absenken"
+      ],
+      "progressions_up": [
+        "bw_archer_pushup",
+        "bw_pike_pushup"
+      ],
+      "progressions_down": [
+        "bw_pushup"
+      ],
+      "substitutions_a": [
+        "bw_pushup",
+        "bw_archer_pushup",
+        "bw_wide_pushup"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_pushup",
+        "wrist": "bw_incline_pushup"
+      }
+    },
+    {
+      "id": "bw_one_arm_pushup_negatives",
+      "name": "One-Arm Push-Up Negatives",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest",
+          "triceps"
+        ],
+        "secondary": [
+          "shoulders_front",
+          "abs",
+          "obliques"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Nur die exzentrische Phase (runter) einhändig — 5 Sek.",
+        "Andere Hand kurz abstützen für den Rückweg",
+        "Füße weit auseinander für Stabilität"
+      ],
+      "progressions_up": [
+        "bw_one_arm_pushup"
+      ],
+      "progressions_down": [
+        "bw_archer_pushup"
+      ],
+      "substitutions_a": [
+        "bw_archer_pushup",
+        "bw_diamond_pushup",
+        "gym_weighted_dips"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_pushup",
+        "wrist": "bw_archer_pushup"
+      }
+    },
+    {
+      "id": "bw_one_arm_pushup",
+      "name": "One-Arm Push-Up",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "kettlebell"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest",
+          "triceps"
+        ],
+        "secondary": [
+          "shoulders_front",
+          "abs",
+          "obliques"
+        ]
+      },
+      "level_min": 4,
+      "coaching_cues": [
+        "Hand unter der Brust, Beine weit auseinander",
+        "Körper so gerade wie möglich — keine starke Rotation",
+        "Vollständige ROM — Brust zum Boden"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "bw_one_arm_pushup_negatives"
+      ],
+      "substitutions_a": [
+        "bw_one_arm_pushup_negatives",
+        "bw_archer_pushup",
+        "gym_weighted_dips"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_archer_pushup",
+        "wrist": "bw_archer_pushup"
+      }
+    },
+    {
+      "id": "kb_floor_press",
+      "name": "Kettlebell Floor Press",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest",
+          "triceps"
+        ],
+        "secondary": [
+          "shoulders_front"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Auf dem Boden liegend — Ellenbogen werden gestoppt",
+        "Keine Schulterüberdehnung möglich",
+        "Volle Streckung oben, Trizeps hart"
+      ],
+      "progressions_up": [
+        "gym_db_floor_press"
+      ],
+      "progressions_down": [
+        "bw_pushup"
+      ],
+      "substitutions_a": [
+        "bw_pushup",
+        "gym_db_floor_press",
+        "bw_diamond_pushup"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_pushup",
+        "elbow": "bw_incline_pushup",
+        "wrist": "bw_incline_pushup"
+      }
+    },
+    {
+      "id": "gym_weighted_dips",
+      "name": "Weighted Dips (Gürtel)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest",
+          "triceps"
+        ],
+        "secondary": [
+          "shoulders_front"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Oberkörper leicht nach vorne für mehr Brustfokus",
+        "Bis Schultern unter Ellenbogen absenken — volle ROM",
+        "Gewicht am Gürtel — kontrollierte Ausführung"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_bench_press"
+      ],
+      "substitutions_a": [
+        "gym_bench_press",
+        "gym_close_grip_bench",
+        "bw_one_arm_pushup_negatives"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_db_bench_press",
+        "elbow": "gym_machine_chest_press"
+      }
+    },
+    {
+      "id": "gym_close_grip_bench",
+      "name": "Close Grip Bench Press",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "triceps",
+          "chest"
+        ],
+        "secondary": [
+          "shoulders_front"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Griffweite schulterbreit — nicht zu eng",
+        "Ellenbogen nah am Körper, ca. 30° Winkel",
+        "Trizeps-Fokus: Streckung oben maximal"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_bench_press"
+      ],
+      "substitutions_a": [
+        "gym_bench_press",
+        "gym_weighted_dips",
+        "gym_db_bench_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_db_floor_press",
+        "elbow": "gym_machine_chest_press",
+        "wrist": "gym_machine_chest_press"
+      }
+    },
+    {
+      "id": "bw_pike_pushup",
+      "name": "Pike Push-Up",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Hüfte hoch — umgekehrtes V mit dem Körper",
+        "Kopf zwischen den Armen zum Boden",
+        "Ellenbogen leicht nach außen, kein Flare"
+      ],
+      "progressions_up": [
+        "bw_pike_pushup_elevated"
+      ],
+      "progressions_down": [
+        "bw_decline_pushup"
+      ],
+      "substitutions_a": [
+        "bw_decline_pushup",
+        "kb_single_press",
+        "gym_db_shoulder_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_decline_pushup",
+        "elbow": "bw_incline_pushup",
+        "wrist": "bw_incline_pushup"
+      }
+    },
+    {
+      "id": "bw_pike_pushup_elevated",
+      "name": "Pike Push-Up (Füße erhöht)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps",
+          "abs"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Füße auf Bank — je höher, desto schwerer und schulterähnlicher",
+        "Kopf tief zum Boden",
+        "Vorstufe zum Handstand-Push-Up"
+      ],
+      "progressions_up": [
+        "bw_wall_handstand_pushup"
+      ],
+      "progressions_down": [
+        "bw_pike_pushup"
+      ],
+      "substitutions_a": [
+        "bw_pike_pushup",
+        "bw_decline_pushup",
+        "gym_db_shoulder_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_pike_pushup",
+        "wrist": "bw_pike_pushup"
+      }
+    },
+    {
+      "id": "bw_wall_handstand_pushup",
+      "name": "Wall Handstand Push-Up",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "travel",
+        "kettlebell"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps",
+          "abs",
+          "spinal_erectors"
+        ]
+      },
+      "level_min": 4,
+      "coaching_cues": [
+        "Gesicht zur Wand — Hände 15cm entfernt",
+        "Körper so gerade wie möglich",
+        "Nur so tief wie kontrolliert ausführbar"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "bw_pike_pushup_elevated"
+      ],
+      "substitutions_a": [
+        "bw_pike_pushup_elevated",
+        "gym_ohp_barbell",
+        "gym_z_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_pike_pushup",
+        "wrist": "bw_pike_pushup",
+        "elbow": "bw_pike_pushup"
+      }
+    },
+    {
+      "id": "kb_push_press",
+      "name": "Kettlebell Push Press",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps",
+          "quads",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Kurzer Knie-Dip als Impuls — dann explosiv drücken",
+        "Mehr Gewicht als bei Strict Press möglich",
+        "Lockout oben, Rumpf stabil"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "kb_single_press"
+      ],
+      "substitutions_a": [
+        "kb_single_press",
+        "gym_db_shoulder_press",
+        "gym_push_press_barbell"
+      ],
+      "substitutions_b": {
+        "shoulder": "kb_single_press",
+        "elbow": "gym_db_shoulder_press",
+        "knee": "kb_single_press"
+      }
+    },
+    {
+      "id": "gym_push_press_barbell",
+      "name": "Push Press (Langhantel)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps",
+          "quads",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Knie-Dip: nur 10–15cm — kein tiefer Squat",
+        "Impuls aus den Beinen, Arme drücken durch",
+        "Stange über dem Kopf — nicht vor dem Körper"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_ohp_barbell"
+      ],
+      "substitutions_a": [
+        "gym_ohp_barbell",
+        "gym_db_shoulder_press",
+        "kb_push_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_landmine_ohp",
+        "elbow": "gym_db_shoulder_press",
+        "knee": "gym_ohp_barbell"
+      }
+    },
+    {
+      "id": "gym_z_press",
+      "name": "Z-Press (Sitzen ohne Rückenlehne)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps",
+          "abs",
+          "spinal_erectors"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Auf dem Boden sitzen, Beine gestreckt — kein Rückhalt möglich",
+        "Maximale Core-Aktivierung nötig für Stabilität",
+        "Gewicht deutlich reduzieren vs. stehende OHP"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_ohp_barbell"
+      ],
+      "substitutions_a": [
+        "gym_ohp_barbell",
+        "gym_db_shoulder_press",
+        "kb_single_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_landmine_ohp",
+        "spine": "gym_db_shoulder_press"
+      }
+    },
+    {
+      "id": "bw_negative_pullup",
+      "name": "Negative Pull-Up (exzentrisch)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "kettlebell",
+        "hybrid",
+        "travel"
+      ],
+      "pattern": "pull_vertical",
+      "muscle_groups": {
+        "primary": [
+          "back_lat"
+        ],
+        "secondary": [
+          "biceps",
+          "back_upper"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Oben starten (springen oder Box), langsam absenken — 5-8 Sek.",
+        "Volle Streckung am Ende — Schultern aktiv",
+        "Exzentrisch ist der stärkste Kraftgewinn"
+      ],
+      "progressions_up": [
+        "gym_chinup"
+      ],
+      "progressions_down": [
+        "bw_ring_row"
+      ],
+      "substitutions_a": [
+        "gym_lat_pulldown",
+        "bw_ring_row",
+        "gym_close_grip_pulldown"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_lat_pulldown",
+        "elbow": "gym_lat_pulldown",
+        "wrist": "bw_ring_row"
+      }
+    },
+    {
+      "id": "gym_close_grip_pulldown",
+      "name": "Neutral Grip Pulldown",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "pull_vertical",
+      "muscle_groups": {
+        "primary": [
+          "back_lat"
+        ],
+        "secondary": [
+          "biceps",
+          "back_upper"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Neutraler Griff (Palmen zueinander) — schulterschonender",
+        "Stange zur Brust, Ellenbogen zur Hüfte führen",
+        "Schulterblätter zusammen am Endpunkt"
+      ],
+      "progressions_up": [
+        "gym_chinup"
+      ],
+      "progressions_down": [
+        "gym_lat_pulldown"
+      ],
+      "substitutions_a": [
+        "gym_lat_pulldown",
+        "gym_chinup",
+        "bw_ring_row"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_cable_pullover",
+        "elbow": "gym_cable_pullover",
+        "wrist": "bw_ring_row"
+      }
+    },
+    {
+      "id": "gym_weighted_pullup",
+      "name": "Weighted Pull-Up (Gürtel)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "pull_vertical",
+      "muscle_groups": {
+        "primary": [
+          "back_lat"
+        ],
+        "secondary": [
+          "biceps",
+          "back_upper",
+          "abs"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Gewicht am Gürtel — Technik identisch mit Pull-Up",
+        "Kein Schwung — strikt",
+        "Kontrolliertes Absenken bis volle Streckung"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_pullup"
+      ],
+      "substitutions_a": [
+        "gym_pullup",
+        "gym_chinup",
+        "gym_lat_pulldown"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_lat_pulldown",
+        "elbow": "gym_lat_pulldown",
+        "wrist": "gym_lat_pulldown"
+      }
+    },
+    {
+      "id": "bw_inverted_row",
+      "name": "Inverted Row (Tisch / Stange)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "pull_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "back_lat",
+          "back_upper"
+        ],
+        "secondary": [
+          "biceps",
+          "abs"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Unter Tisch oder Stange — Brust zur Kante ziehen",
+        "Schwierigkeit durch Körperwinkel steuern",
+        "Schulterblätter zusammen am Endpunkt"
+      ],
+      "progressions_up": [
+        "gym_db_row"
+      ],
+      "progressions_down": [
+        "bw_towel_row"
+      ],
+      "substitutions_a": [
+        "bw_ring_row",
+        "gym_db_row",
+        "bw_towel_row"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_lat_pulldown",
+        "elbow": "gym_lat_pulldown"
+      }
+    },
+    {
+      "id": "bw_towel_row",
+      "name": "Towel Row (Handtuch an Tür)",
+      "equipment": [
+        "bodyweight",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "pull_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "back_lat",
+          "back_upper"
+        ],
+        "secondary": [
+          "biceps"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Handtuch um Türknauf — zurücklehnen und Brust zur Tür ziehen",
+        "Füße an der Wand neben der Tür für Stabilität",
+        "Schulterblätter zusammen am Endpunkt"
+      ],
+      "progressions_up": [
+        "bw_inverted_row"
+      ],
+      "progressions_down": [],
+      "substitutions_a": [
+        "bw_inverted_row",
+        "bw_ring_row",
+        "gym_band_pull_apart"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_band_pull_apart",
+        "elbow": "gym_band_pull_apart"
+      }
+    },
+    {
+      "id": "gym_chest_supported_db_row",
+      "name": "Chest Supported Row (Kurzhantel)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "pull_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "back_lat",
+          "back_upper"
+        ],
+        "secondary": [
+          "biceps",
+          "shoulders_rear"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Brust auf Schrägbank — kein Schwung aus dem Rücken möglich",
+        "Ideal für Rücken-Isolation ohne Rückenbeschwerden",
+        "Schulterblätter maximieren am Endpunkt"
+      ],
+      "progressions_up": [
+        "gym_barbell_row"
+      ],
+      "progressions_down": [
+        "gym_db_row"
+      ],
+      "substitutions_a": [
+        "gym_db_row",
+        "gym_seated_cable_row",
+        "gym_barbell_row"
+      ],
+      "substitutions_b": {
+        "spine": "bw_ring_row",
+        "shoulder": "gym_seated_cable_row"
+      }
+    },
+    {
+      "id": "gym_single_arm_cable_row",
+      "name": "Single Arm Cable Row",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "pull_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "back_lat",
+          "back_upper"
+        ],
+        "secondary": [
+          "biceps",
+          "shoulders_rear",
+          "obliques"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Einhändig — mehr Rotation und Schulterblatt-ROM möglich",
+        "Zur Hüfte ziehen, Ellenbogen nah",
+        "Leichtes Eindrehen des Oberkörpers ist OK"
+      ],
+      "progressions_up": [
+        "gym_barbell_row"
+      ],
+      "progressions_down": [
+        "gym_seated_cable_row"
+      ],
+      "substitutions_a": [
+        "gym_seated_cable_row",
+        "gym_db_row",
+        "gym_barbell_row"
+      ],
+      "substitutions_b": {
+        "spine": "gym_seated_cable_row",
+        "elbow": "gym_seated_cable_row"
+      }
+    },
+    {
+      "id": "bw_skater_squat",
+      "name": "Skater Squat",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings",
+          "abs"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Kein Aufstützen — freistehend auf einem Bein",
+        "Hinteres Knie taucht fast den Boden",
+        "Arme als Gegengewicht nach vorne"
+      ],
+      "progressions_up": [
+        "bw_assisted_pistol_squat"
+      ],
+      "progressions_down": [
+        "gym_bulgarian_split_squat_db"
+      ],
+      "substitutions_a": [
+        "bw_assisted_pistol_squat",
+        "gym_bulgarian_split_squat_db",
+        "bw_reverse_lunge"
+      ],
+      "substitutions_b": {
+        "knee": "bw_reverse_lunge",
+        "hip": "bw_reverse_lunge"
+      }
+    },
+    {
+      "id": "gym_single_leg_press",
+      "name": "Single Leg Press (Maschine)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Ein Fuß auf der Plattform — Mitte",
+        "Knie trackt über die Zehen",
+        "Volle ROM — kein Durchstrecken am oberen Punkt"
+      ],
+      "progressions_up": [
+        "gym_step_up_db"
+      ],
+      "progressions_down": [
+        "bw_reverse_lunge"
+      ],
+      "substitutions_a": [
+        "gym_step_up_db",
+        "bw_reverse_lunge",
+        "gym_leg_press_machine"
+      ],
+      "substitutions_b": {
+        "knee": "gym_leg_press_machine",
+        "hip": "gym_leg_press_machine"
+      }
+    },
+    {
+      "id": "kb_single_leg_rdl",
+      "name": "Single Leg RDL (Kettlebell)",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "hamstrings",
+          "glutes"
+        ],
+        "secondary": [
+          "spinal_erectors",
+          "abs"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "KB in Gegenhand zum Standbein — mehr Balance-Challenge",
+        "Hüfte und Schultern parallel zum Boden",
+        "Standbein hat weiche Knie"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "kb_deadlift"
+      ],
+      "substitutions_a": [
+        "bw_single_leg_rdl",
+        "gym_single_leg_rdl_db",
+        "kb_deadlift"
+      ],
+      "substitutions_b": {
+        "knee": "bw_glute_bridge",
+        "spine": "bw_glute_bridge",
+        "hip": "bw_glute_bridge"
+      }
+    },
+    {
+      "id": "gym_barbell_overhead_carry",
+      "name": "Barbell Overhead Carry",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "carry",
+      "muscle_groups": {
+        "primary": [
+          "shoulders",
+          "abs"
+        ],
+        "secondary": [
+          "back_upper",
+          "quads",
+          "spinal_erectors"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Stange über dem Kopf — Schultern aktiv gepackt",
+        "Kein Hohlkreuz — Rippen runter",
+        "Kleine stabile Schritte"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_overhead_carry_db"
+      ],
+      "substitutions_a": [
+        "gym_overhead_carry_db",
+        "kb_bottoms_up_carry",
+        "gym_farmers_carry_db"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_farmers_carry_db",
+        "elbow": "gym_farmers_carry_db",
+        "spine": "gym_farmers_carry_db"
+      }
+    },
+    {
+      "id": "bw_side_plank",
+      "name": "Side Plank",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "obliques"
+        ],
+        "secondary": [
+          "abs",
+          "glutes",
+          "shoulders"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Hüfte nicht durchhängen lassen — gerade Linie",
+        "Schulter aktiv — nicht ins Gelenk sinken",
+        "Für Einsteiger: Knie aufgestützt"
+      ],
+      "progressions_up": [
+        "bw_copenhagen_plank"
+      ],
+      "progressions_down": [
+        "bw_plank"
+      ],
+      "substitutions_a": [
+        "bw_plank",
+        "bw_dead_bug",
+        "gym_pallof_press"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_dead_bug",
+        "wrist": "bw_dead_bug",
+        "spine": "bw_dead_bug"
+      }
+    },
+    {
+      "id": "gym_hanging_knee_raise",
+      "name": "Hanging Knee Raise",
+      "equipment": [
+        "gym",
+        "bodyweight",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs",
+          "hip_flexors"
+        ],
+        "secondary": [
+          "obliques",
+          "back_lat"
+        ]
+      },
+      "level_min": 1,
+      "coaching_cues": [
+        "Keine Schwungbewegung — Knie kontrolliert heben",
+        "Schultern aktiv — nicht hängen lassen",
+        "Oben kurz halten, kontrolliert absenken"
+      ],
+      "progressions_up": [
+        "gym_hanging_leg_raise"
+      ],
+      "progressions_down": [
+        "gym_cable_crunch"
+      ],
+      "substitutions_a": [
+        "gym_cable_crunch",
+        "bw_dead_bug",
+        "bw_hollow_body"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_dead_bug",
+        "wrist": "gym_cable_crunch",
+        "elbow": "gym_cable_crunch"
+      }
+    },
+    {
+      "id": "gym_hanging_leg_raise",
+      "name": "Hanging Leg Raise (gestreckt)",
+      "equipment": [
+        "gym",
+        "bodyweight",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "hip_flexors",
+          "obliques"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Beine gestreckt bis horizontal — kein Schwung",
+        "Hüfte leicht nach hinten rollen am Endpunkt",
+        "Schultern aktiv gepackt"
+      ],
+      "progressions_up": [
+        "bw_l_sit"
+      ],
+      "progressions_down": [
+        "gym_hanging_knee_raise"
+      ],
+      "substitutions_a": [
+        "gym_hanging_knee_raise",
+        "bw_hollow_body",
+        "bw_v_up"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_hollow_body",
+        "wrist": "gym_cable_crunch",
+        "spine": "bw_dead_bug"
+      }
+    },
+    {
+      "id": "bw_v_up",
+      "name": "V-Up",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "hip_flexors"
+        ]
+      },
+      "level_min": 2,
+      "coaching_cues": [
+        "Arme und Beine gleichzeitig heben — treffen sich oben",
+        "Lendenwirbel nicht durchhängen — kurz am Boden",
+        "Kontrolliert absenken — nicht fallen lassen"
+      ],
+      "progressions_up": [
+        "bw_l_sit"
+      ],
+      "progressions_down": [
+        "bw_hollow_body"
+      ],
+      "substitutions_a": [
+        "bw_hollow_body",
+        "bw_dead_bug",
+        "gym_hanging_knee_raise"
+      ],
+      "substitutions_b": {
+        "spine": "bw_dead_bug",
+        "hip": "bw_dead_bug"
+      }
+    },
+    {
+      "id": "bw_l_sit",
+      "name": "L-Sit (Boden / Parallelbarren)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs",
+          "hip_flexors"
+        ],
+        "secondary": [
+          "quads",
+          "shoulders",
+          "triceps"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Hände neben den Hüften — Arme gestreckt",
+        "Beine horizontal halten — Quads aktiv anspannen",
+        "Für Einsteiger: ein Bein gestreckt, eines gebeugt"
+      ],
+      "progressions_up": [
+        "bw_dragon_flag"
+      ],
+      "progressions_down": [
+        "bw_hollow_body"
+      ],
+      "substitutions_a": [
+        "bw_hollow_body",
+        "gym_hanging_leg_raise",
+        "bw_v_up"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_hollow_body",
+        "wrist": "gym_hanging_leg_raise",
+        "spine": "bw_dead_bug"
+      }
+    },
+    {
+      "id": "bw_dragon_flag",
+      "name": "Dragon Flag",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs",
+          "spinal_erectors"
+        ],
+        "secondary": [
+          "hip_flexors",
+          "shoulders",
+          "back_lat"
+        ]
+      },
+      "level_min": 4,
+      "coaching_cues": [
+        "Schultern auf der Bank — Körper als Brett nach oben",
+        "Langsam absenken, nie den Boden berühren",
+        "Bruce Lee Lieblingsübung — volle Körperspannung"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "bw_l_sit"
+      ],
+      "substitutions_a": [
+        "bw_l_sit",
+        "bw_hollow_body",
+        "gym_ab_rollout_standing"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_hollow_body",
+        "spine": "bw_dead_bug"
+      }
+    },
+    {
+      "id": "gym_ab_rollout_standing",
+      "name": "Ab Wheel Rollout (stehend)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "back_lat",
+          "shoulders",
+          "spinal_erectors"
+        ]
+      },
+      "level_min": 3,
+      "coaching_cues": [
+        "Von stehend ausrollen — viel schwerer als kniend",
+        "Lendenwirbel flach halten — kein Durchhängen",
+        "Nur so weit wie kontrollierbar"
+      ],
+      "progressions_up": [
+        "bw_dragon_flag"
+      ],
+      "progressions_down": [
+        "gym_ab_wheel"
+      ],
+      "substitutions_a": [
+        "gym_ab_wheel",
+        "bw_l_sit",
+        "bw_hollow_body"
+      ],
+      "substitutions_b": {
+        "shoulder": "bw_hollow_body",
+        "wrist": "bw_plank",
+        "spine": "bw_dead_bug"
+      }
+    },
+    {
+      "id": "gym_overhead_squat",
+      "name": "Overhead Squat",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "shoulders",
+          "abs",
+          "spinal_erectors",
+          "back_upper"
+        ]
+      },
+      "level_min": 4,
+      "coaching_cues": [
+        "Stange breit greifen, über dem Kopf und leicht hinter",
+        "Schultern aktiv gepackt — nie entspannen",
+        "Tief squatten, Rumpf maximal angespannt"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "gym_front_squat"
+      ],
+      "substitutions_a": [
+        "gym_front_squat",
+        "gym_paused_back_squat",
+        "gym_tempo_squat"
+      ],
+      "substitutions_b": {
+        "shoulder": "gym_front_squat",
+        "wrist": "gym_front_squat",
+        "spine": "gym_paused_back_squat"
+      }
+    }
+  ]
+}
