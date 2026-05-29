@@ -50,6 +50,8 @@ def _wdh(hauptziel: Hauptziel, pattern: str, reihenfolge: int, session_typ: str 
         return "6-8" if is_compound else "10-12"
     elif hauptziel == Hauptziel.fettabbau:
         return "12-15"
+    elif hauptziel == Hauptziel.recomp:
+        return "8-10" if is_compound else "10-12"
     elif hauptziel == Hauptziel.ausdauer:
         return "15-20"
     else:  # gesundheit
@@ -253,7 +255,7 @@ def _cardio(hauptziel: Hauptziel, fokus: str) -> Cardio | None:
             dauer_min=30,
             beschreibung="Zone 2 — Tempo halten bei dem du dich noch unterhalten könntest (ca. 120-135 bpm)",
         )
-    if hauptziel == Hauptziel.fettabbau:
+    if hauptziel in (Hauptziel.fettabbau, Hauptziel.recomp):
         return Cardio(
             typ="liss",
             dauer_min=15,

@@ -21,6 +21,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 class Hauptziel(str, Enum):
     muskelaufbau = "muskelaufbau"
     fettabbau    = "fettabbau"
+    recomp       = "recomp"
     ausdauer     = "ausdauer"
     gesundheit   = "gesundheit"
 

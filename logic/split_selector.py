@@ -166,6 +166,21 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
             sessions = ul + [extra, _mobility_session(6)]
             return {"split_typ": "PPL + Mobility", "sessions": sessions}
 
+    elif ziel == Hauptziel.recomp:
+        # Recomp = Kraft + EMOM (Fettabbau nutzt Zirkel, Recomp nutzt EMOM)
+        if tage <= 3:
+            kraft = _full_body_sessions(tage - 1, level) if tage > 1 else []
+            sessions = _renumber(kraft + [_conditioning_session(tage, "emom")])
+            return {"split_typ": "Full Body + EMOM", "sessions": sessions}
+        elif tage == 4:
+            ul = _upper_lower_sessions(level)[:2]
+            sessions = _renumber(ul + [_conditioning_session(3, "emom"), _mobility_session(4)])
+            return {"split_typ": "Upper/Lower + EMOM + Mobility", "sessions": sessions}
+        else:
+            ul = _upper_lower_sessions(level)
+            sessions = _renumber(ul + [_conditioning_session(5, "emom"), _mobility_session(6)])
+            return {"split_typ": "Upper/Lower x2 + EMOM + Mobility", "sessions": sessions[:tage]}
+
     elif ziel == Hauptziel.fettabbau:
         if tage <= 3:
             kraft = _full_body_sessions(tage - 1, level) if tage > 1 else []
