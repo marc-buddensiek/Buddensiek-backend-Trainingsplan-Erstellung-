@@ -1,7 +1,7 @@
 """
-Claude-Aufruf via OpenRouter (OpenAI-kompatibler Endpoint).
+Claude-Aufruf via Anthropic API.
 
-Erwartet Umgebungsvariable OPENROUTER_API_KEY.
+Erwartet Umgebungsvariable ANTHROPIC_API_KEY.
 JSON-Fences werden automatisch entfernt falls Claude sie trotzdem setzt.
 """
 
@@ -10,13 +10,13 @@ import json
 import os
 import re
 
-import openai
+import anthropic
 
 from claude.prompt_template import SYSTEM_PROMPT, build_user_prompt
 from models import KlientenInput, ClaudeOutput
 
 
-_MODEL = "anthropic/claude-sonnet-4-5"
+_MODEL = "claude-sonnet-4-5"
 
 
 def _strip_fences(text: str) -> str:
@@ -34,12 +34,7 @@ def generiere_uebungsauswahl(
     ziel_saetze: int,
     ziel_rpe: int,
 ) -> ClaudeOutput:
-    """
-    Ruft Claude auf und gibt einen validierten ClaudeOutput zurück.
-    Raises: openai.APIError, json.JSONDecodeError, pydantic.ValidationError
-    """
-    api_key = os.environ["OPENROUTER_API_KEY"]
-    client = openai.OpenAI(base_url="https://openrouter.ai/api/v1", api_key=api_key)
+    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
     user_prompt = build_user_prompt(
         klient=klient,
@@ -53,15 +48,15 @@ def generiere_uebungsauswahl(
         ziel_rpe=ziel_rpe,
     )
 
-    response = client.chat.completions.create(
+    response = client.messages.create(
         model=_MODEL,
         max_tokens=4096,
+        system=SYSTEM_PROMPT,
         messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": user_prompt},
         ],
     )
 
-    raw = response.content[0].text if hasattr(response, "content") else response.choices[0].message.content
+    raw = response.content[0].text
     clean = _strip_fences(raw)
     return ClaudeOutput(**json.loads(clean))
