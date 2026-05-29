@@ -7,11 +7,11 @@ Volumen-Tabelle (Sätze pro Übung) aus PDF Seite 9:
   Level 3: RPE 7-9, 3-5 Sätze
   Level 4: RPE 7-9, 4-5 Sätze
 
-Periodisierung (3:1-Wave):
+Periodisierung (4-Wochen-Wave):
   Akkumulation  → unteres Drittel des Ranges (Volumen aufbauen)
   Progression   → mittleres Drittel
-  Intensivierung → oberes Drittel (Peak)
-  Deload        → 50% Volumen, RPE -2
+  Intensivierung → oberes Drittel
+  Peak          → selbes Volumen wie Intensivierung, maximale Intensität
 
 Recovery-Modifier aus PDF Seite 10:
   Stress 8+ ODER Schlaf < 6h  → Volumen -20%, RPE-Cap 8
@@ -24,7 +24,7 @@ from typing import Literal
 from models import KlientenInput
 
 
-WocheTyp = Literal["akkumulation", "progression", "intensivierung", "deload"]
+WocheTyp = Literal["akkumulation", "progression", "intensivierung", "peak"]
 
 # (saetze_low, saetze_high, rpe_low, rpe_high) per Level
 _LEVEL_RANGES = {
@@ -38,7 +38,7 @@ _WOCHE_FAKTOR = {
     "akkumulation":   0.0,   # lower bound
     "progression":    0.5,   # mid
     "intensivierung": 1.0,   # upper bound
-    "deload":         None,  # special case
+    "peak":           1.0,   # same volume as intensivierung, max intensity
 }
 
 
@@ -66,33 +66,28 @@ def berechne_volumen(
     s_low, s_high, rpe_low, rpe_high = _LEVEL_RANGES[level]
     modifier = _recovery_modifier(klient)
 
-    if woche_typ == "deload":
-        saetze = max(1, s_low - 1)
-        rpe = max(4, rpe_low - 2)
-        stufe = "sehr_niedrig"
-    else:
-        faktor = _WOCHE_FAKTOR[woche_typ]
-        raw_saetze = s_low + (s_high - s_low) * faktor
-        raw_rpe    = rpe_low + (rpe_high - rpe_low) * faktor
+    faktor = _WOCHE_FAKTOR[woche_typ]
+    raw_saetze = s_low + (s_high - s_low) * faktor
+    raw_rpe    = rpe_low + (rpe_high - rpe_low) * faktor
 
-        if modifier == "reduziert":
-            raw_saetze *= 0.8
-            raw_rpe = min(raw_rpe, 8)
-        elif modifier == "erhoht":
-            raw_saetze *= 1.1
+    if modifier == "reduziert":
+        raw_saetze *= 0.8
+        raw_rpe = min(raw_rpe, 8)
+    elif modifier == "erhoht":
+        raw_saetze *= 1.1
 
-        saetze = max(1, round(raw_saetze))
-        rpe    = max(4, min(10, round(raw_rpe)))
+    saetze = max(1, round(raw_saetze))
+    rpe    = max(4, min(10, round(raw_rpe)))
 
-        if woche_typ == "akkumulation":
-            stufe = "niedrig"
-        elif woche_typ == "progression":
-            stufe = "mittel"
-        else:  # intensivierung
-            stufe = "hoch"
+    if woche_typ == "akkumulation":
+        stufe = "niedrig"
+    elif woche_typ == "progression":
+        stufe = "mittel"
+    else:  # intensivierung + peak
+        stufe = "hoch"
 
-        if modifier == "reduziert":
-            stufe = "niedrig" if stufe == "mittel" else "sehr_niedrig" if stufe == "niedrig" else stufe
+    if modifier == "reduziert":
+        stufe = "niedrig" if stufe == "mittel" else "sehr_niedrig" if stufe == "niedrig" else stufe
 
     return {
         "ziel_saetze":       saetze,

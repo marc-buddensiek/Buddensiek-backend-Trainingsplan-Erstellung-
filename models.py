@@ -258,18 +258,20 @@ class PSTTest(BaseModel):
 class Session(BaseModel):
     session_id: str
     tag: Literal["montag", "dienstag", "mittwoch", "donnerstag", "freitag", "samstag", "sonntag"]
+    session_typ: Literal["kraft", "amrap", "emom", "zirkel", "intervalle", "mobility"] = "kraft"
     fokus: str
+    format_notiz: Optional[str] = None
     dauer_min_geschaetzt: int = Field(..., ge=20, le=120)
     warm_up: WarmUp
     haupt_uebungen: list[HauptUebung]
     cardio: Optional[Cardio] = None
     cool_down: CoolDown
-    pst_tests: Optional[list[PSTTest]] = None  # nur in Deload-Woche
+    pst_tests: Optional[list[PSTTest]] = None  # Re-Test in letzter Session der Peak-Woche
 
 
 class Woche(BaseModel):
     woche_nummer: int = Field(..., ge=1, le=4)
-    block_typ: Literal["akkumulation", "progression", "intensivierung", "deload"]
+    block_typ: Literal["akkumulation", "progression", "intensivierung", "peak"]
     volumen_stufe: Literal["sehr_niedrig", "niedrig", "mittel", "hoch"]
     ziel_saetze: int = Field(..., ge=1, le=6)
     ziel_rpe: int = Field(..., ge=4, le=10)
@@ -299,7 +301,7 @@ class Plan(BaseModel):
     @field_validator("wochen")
     @classmethod
     def validate_wochen_typen(cls, v: list[Woche]) -> list[Woche]:
-        expected = ["akkumulation", "progression", "intensivierung", "deload"]
+        expected = ["akkumulation", "progression", "intensivierung", "peak"]
         typen = [w.block_typ for w in v]
         if typen != expected:
             raise ValueError(

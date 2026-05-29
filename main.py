@@ -101,12 +101,14 @@ async def _pipeline(payload: dict):
     )
 
     # ── 3. Claude: Übungsauswahl ──────────────────────────────────────────────
+    # Mobility-Sessions werden hardcodiert gebaut — nicht an Claude senden
+    sessions_fuer_claude = [s for s in split["sessions"] if s.get("session_typ") != "mobility"]
     claude_output = generiere_uebungsauswahl(
         klient=klient,
         level=level,
         split_typ=split["split_typ"],
         block_nummer=1,
-        sessions=split["sessions"],
+        sessions=sessions_fuer_claude,
         uebungen_gefiltert=uebungen,
         woche_typ=woche_typ,
         ziel_saetze=volumen["ziel_saetze"],
@@ -157,12 +159,13 @@ async def test_plan(request: Request):
     split = waehle_split(klient, level)
     uebungen = filtere_uebungen(klient, level)
 
+    sessions_fuer_claude = [s for s in split["sessions"] if s.get("session_typ") != "mobility"]
     claude_output = generiere_uebungsauswahl(
         klient=klient,
         level=level,
         split_typ=split["split_typ"],
         block_nummer=1,
-        sessions=split["sessions"],
+        sessions=sessions_fuer_claude,
         uebungen_gefiltert=uebungen,
         woche_typ="akkumulation",
         ziel_saetze=volumen["ziel_saetze"],
