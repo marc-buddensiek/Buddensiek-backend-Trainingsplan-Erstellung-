@@ -27,7 +27,7 @@ def main():
     print("=== 1. Typeform parsen ===")
     klient = parse_typeform_payload(payload)
     print(f"Klient:      {klient.vorname}, {klient.alter}J, {klient.equipment.value}")
-    print(f"Ziel:        {klient.hauptziel.value}" + (f" + {klient.nebenziel.value}" if klient.nebenziel else ""))
+    print(f"Ziel:        {klient.hauptziel.value}")
     print(f"Tage:        {klient.tage_pro_woche}/Woche, {klient.session_dauer_min}min")
     print(f"Verletzungen: {[v.value for v in klient.verletzungen] or 'keine'}")
 

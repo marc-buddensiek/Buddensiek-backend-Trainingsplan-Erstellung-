@@ -76,11 +76,6 @@ class KlientenInput(BaseModel):
     # Typeform Choice-Labels: "muskelaufbau" | "fettabbau" | "recomp" | "longevity"
     hauptziel: Hauptziel
 
-    # Typeform ref: nebenziel
-    # Typeform: Nur sichtbar wenn hat_nebenziel == Ja (Logic Jump)
-    # Typeform Choice-Labels: "muskelaufbau" | "fettabbau" | "recomp" | "longevity"
-    nebenziel: Optional[Hauptziel] = None
-
     # Typeform ref: tage_pro_woche
     tage_pro_woche: int = Field(..., ge=3, le=6)
 
@@ -153,13 +148,6 @@ class KlientenInput(BaseModel):
     plank_sek: int = Field(..., ge=0, le=600, description="Plank-Haltezeit in Sekunden")
 
     # ── Validatoren ────────────────────────────────────────────────────────
-
-    @field_validator("nebenziel", mode="before")
-    @classmethod
-    def nebenziel_nicht_gleich_hauptziel(cls, v, info):
-        if v is not None and v == info.data.get("hauptziel"):
-            raise ValueError("nebenziel darf nicht gleich hauptziel sein")
-        return v
 
     @field_validator("schmerzen_akut", mode="before")
     @classmethod

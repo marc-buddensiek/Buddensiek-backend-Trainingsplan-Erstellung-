@@ -210,7 +210,7 @@ def build_user_prompt(
         f"Name:        {klient.vorname}",
         f"Alter:       {klient.alter} Jahre",
         f"Level:       {level}/4",
-        f"Ziel:        {klient.hauptziel.value}" + (f" + {klient.nebenziel.value}" if klient.nebenziel else ""),
+        f"Ziel:        {klient.hauptziel.value}",
         f"Equipment:   {klient.equipment.value}",
         f"Verletzungen: {verletzungen_str}",
         f"Schmerz:     {schmerzen_str}",

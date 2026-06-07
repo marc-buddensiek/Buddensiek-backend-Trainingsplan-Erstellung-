@@ -3,7 +3,6 @@ Typeform Webhook Payload → KlientenInput
 
 Typeform sendet choice-Antworten mit unterschiedlichen ref-Typen:
   - Felder mit custom ref (hauptziel, equipment, trainingsjahre) → choice.ref verwenden
-  - nebenziel hat jetzt saubere choice refs → choice.ref verwenden
   - Numerische Choices (tage_pro_woche, session_dauer_min, schlaf_stunden) → choice.label → int/float
 """
 
@@ -59,7 +58,6 @@ def parse_typeform_payload(payload: dict) -> KlientenInput:
         vorname=_text("vorname"),
         alter=_number("alter"),
         hauptziel=_choice_ref("hauptziel"),
-        nebenziel=_choice_ref("nebenziel"),
         tage_pro_woche=int(_choice_label("tage_pro_woche")),
         session_dauer_min=int(_choice_label("session_dauer_min")),
         equipment=_choice_ref("equipment"),

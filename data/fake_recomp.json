@@ -52,37 +52,6 @@
           ]
         },
         {
-          "id": "UkTf0pRFVRVm",
-          "ref": "hat_nebenziel",
-          "type": "yes_no",
-          "title": "Verfolgst du ein zweites Ziel?",
-          "properties": {}
-        },
-        {
-          "id": "IcoA30ecFZXa",
-          "ref": "nebenziel",
-          "type": "multiple_choice",
-          "title": "Welches ist dein zweites Ziel?",
-          "properties": {},
-          "choices": [
-            {
-              "id": "qy8exQHOkwhw",
-              "ref": "muskelaufbau",
-              "label": "Muskelaufbau & Kraft"
-            },
-            {
-              "id": "IRwv99nq21hP",
-              "ref": "fettabbau",
-              "label": "Fettabbau & Körper straffen"
-            },
-            {
-              "id": "THFAjuA2lNtU",
-              "ref": "longevity",
-              "label": "Longevity & optimale Gesundheit"
-            }
-          ]
-        },
-        {
           "id": "NyECDGdPFmyN",
           "ref": "tage_pro_woche",
           "type": "multiple_choice",
@@ -419,15 +388,6 @@
           "id": "2wMae3xtGwMB",
           "type": "multiple_choice",
           "ref": "hauptziel"
-        }
-      },
-      {
-        "type": "boolean",
-        "boolean": false,
-        "field": {
-          "id": "UkTf0pRFVRVm",
-          "type": "yes_no",
-          "ref": "hat_nebenziel"
         }
       },
       {
