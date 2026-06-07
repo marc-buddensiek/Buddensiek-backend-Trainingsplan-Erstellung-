@@ -1,0 +1,590 @@
+# Coaching-Spezifikation — Buddensiek Performance
+
+> Die verbindliche Beschreibung von Alens Trainingsmethodik. Quelle der Wahrheit für die
+> Generierungs-Logik und (später) für den Test-Harness. Wird Thema für Thema gemeinsam
+> erarbeitet. Solange ein Thema "offen" ist, sind die Werte im Code **unbestätigt**.
+
+_Zuletzt aktualisiert: 2026-06-06_
+
+## Themen-Roadmap
+
+| # | Thema | Status |
+|---|---|---|
+| 1 | Periodisierung | ✅ entschieden |
+| 2 | Level-System & PST | ✅ entschieden |
+| 3 | Volumen & Intensität | ✅ entschieden |
+| 4 | Split-Logik je Ziel | ✅ entschieden |
+| 5 | Recovery-Anpassung | ✅ entschieden |
+| 6 | Conditioning- & Cardio-Formate | ✅ entschieden |
+| 7 | Progression über Blöcke hinweg | ✅ entschieden (V1) |
+| 8 | Sonderfälle (Verletzungen, akuter Schmerz, Nebenziel) | ✅ entschieden |
+
+---
+
+## 1. Periodisierung — ✅ entschieden (2026-06-02)
+
+**Grundmodell: 3:1-Welle innerhalb jedes 4-Wochen-Blocks.**
+
+Drei Wochen ansteigende Belastung, dann eine Deload-Woche:
+
+| Woche | Typ | Belastung |
+|---|---|---|
+| 1 | Akkumulation | niedrig (Einstieg, höheres Volumen / moderate Intensität) |
+| 2 | Progression | mittel |
+| 3 | Intensivierung | hoch (Peak des Blocks) |
+| 4 | **Deload** | reduziert auf **60 %** des Intensivierungs-Volumens, RPE abgesenkt |
+
+**Entscheidungen im Detail:**
+
+- **Modell:** 3:1-Welle (wie bisher im Code). Begründung: einfach, vorhersehbar, gut im PDF
+  kommunizierbar, eingebauter Erholungspuffer, funktioniert über alle Ziele.
+- **Level-Differenzierung:** **Keine.** Das Periodisierungs-Modell ist für **alle Level (1–4)
+  einheitlich**. (Level beeinflusst weiterhin Volumen/Intensität — das ist Thema 3 —, aber NICHT
+  die Wellen-Struktur selbst.)
+- **Deload:** **Fix in Woche 4** (jeder Block endet mit Deload), Tiefe **60 %** des
+  Intensivierungs-Volumens.
+  → **Abweichung vom aktuellen Code:** dort sind es 50 % (`_PERIODISIERUNG_FAKTOR["deload"] = 0.50`).
+  Soll-Wert laut Spec ist **0.60**. Anpassung im Code = späterer Schritt, hier nur dokumentiert.
+- Gleiche Übungen über alle 4 Wochen, nur Sätze/RPE verändern sich (unverändert beibehalten).
+
+**Begründung:** 3:1-Welle gewählt, weil sie über alle Ziele/Level robust ist, im PDF leicht erklärbar und
+einen Erholungspuffer (Deload) fest eingebaut hat. Verworfen: *linear* (kein Deload → höheres
+Übertrainings-Risiko bei häufiger Block-Wiederholung), *undulierend/DUP* (für gemischte Population &
+Einsteiger zu komplex, schwer im statischen PDF zu kommunizieren), *Block-Periodisierung* (bräuchte
+gekettete Blöcke — zu viel Overhead für V1). Einheitlich statt level-abhängig: hält Logik und Tests
+einfach; das Level steuert ohnehin Volumen/Intensität, nicht die Wellen-Struktur. Deload bei 60 % statt
+50 %: 50 % war als zu starker Volumen-Einbruch empfunden.
+
+**Noch offen / abhängig von späteren Themen:**
+- Exakte Volumen-/RPE-Faktoren der Wochen 1–3 → gehört zu **Thema 3 (Volumen & Intensität)**.
+- Wie Block N+1 an Block N anknüpft (unabhängig vs. gekettet) → **Thema 7 (Progression über Blöcke)**.
+
+---
+
+## 2. Level-System & PST — ✅ entschieden (2026-06-02)
+
+**Struktur-Entscheidungen:**
+
+- **Test-Battery:** Die **5 Bodyweight-Tests bleiben** — Kniebeugen, Push-Ups, Sit-Ups, Burpees,
+  Plank (jeweils max. Wiederholungen in 60 Sek. bzw. Plank-Haltezeit in Sek.).
+  Begründung: equipment-unabhängig, für jeden Klienten gleich durchführbar, schnell.
+- **Scoring-Methode:** **Summe** der Punkte aller 5 Tests. Jeder Test gibt 1–4 Punkte → Gesamtsumme
+  5–20. Eine starke Domäne darf eine schwache kompensieren (bewusst so gewollt, kein „schwächstes Glied").
+- **Anzahl Level:** 4 (unverändert).
+- **Trainingsjahre-Deckel:** **bleibt.** Endlevel = `min(PST-Level, Deckel)`. Schützt fitte
+  Neueinsteiger vor zu komplexem/anspruchsvollem Programm. (Ab Block 2 werden die Trainingsjahre in der
+  Mini-Anamnese aktualisiert → der Deckel wächst mit, siehe Thema 7.)
+
+- **Differenzierung nach Geschlecht/Alter:** **Keine.** Einheitliche Latte für alle Klienten
+  (bewusste Entscheidung). Jeder Test zählt in der Summe gleich viel (keine Gewichtung).
+
+**Schwellenwerte — bestätigt:**
+
+_Punkte je Test (max. Wdh. in 60 Sek. / Plank in Sek.):_
+
+| Test | 1 Pkt | 2 Pkt | 3 Pkt | 4 Pkt |
+|---|---|---|---|---|
+| Kniebeugen | <30 | 30–50 | 51–70 | 71+ |
+| Push-Ups | <15 | 15–30 | 31–50 | 51+ |
+| Sit-Ups | <30 | 30–50 | 51–70 | 71+ |
+| Burpees | <15 | 15–25 | 26–35 | 36+ |
+| Plank (Sek.) | <60 | 60–120 | 121–180 | 181+ |
+
+_Summe → Level:_ ≤8 → L1 · 9–13 → L2 · 14–17 → L3 · ≥18 → L4
+
+_Trainingsjahre-Deckel:_ keine → max L1 · <1 J → max L2 · 1–2 J → max L3 · 3–5 J → max L4 ·
+5+ J → kein Deckel
+
+→ Diese Werte entsprechen exakt dem aktuellen Code (`logic/level_calculator.py`) — hier keine
+Code-Anpassung nötig.
+
+**Begründung:** Bodyweight-PST behalten, weil equipment-unabhängig (funktioniert für Gym wie für
+Reise/Bodyweight-Klienten) und schnell ohne Maximaltests durchführbar. Verworfen: Kraft-/1RM-Proxy
+(bräuchte Equipment + Technik, schließt Bodyweight-Klienten aus). Summen-Scoring statt „schwächstem Glied",
+weil eine starke Domäne eine schwache kompensieren darf — bewusst, um nicht zu konservativ einzustufen.
+Erfahrungs-Deckel behalten, weil ein von Natur aus fitter Neuling sonst zu komplexes Programm bekäme,
+dessen Technik er nicht beherrscht. Einheitliche Schwellen (kein Geschlecht/Alter): bewusst simpel für V1.
+
+---
+
+## 3. Volumen & Intensität — ✅ entschieden (2026-06-04)
+
+### Volumen-Modell: „Von der Session aus aufbauen" (Modell A)
+
+Statt ein festes Wochenvolumen runterzubrechen (wie bisher), wird das Volumen aus dem aufgebaut,
+was real in die Einheiten passt:
+
+1. **Session-Dauer ist die harte Grenze.** Ein Plan überschreitet nie die gewünschte Dauer
+   (Warm-up + Hauptteil + Cardio + Cool-down zusammen ≤ gewünschte Dauer, kleine Toleranz erlaubt).
+2. **Satz-Cap pro Übung** (je Tier abgestuft, harte Obergrenze 4) verhindert Unsinn wie 6 Sätze
+   auf einer Übung.
+3. **Trainingstage bestimmen die Gesamtmenge** — mehr Tage = mehr Wochenvolumen, automatisch.
+4. **Ziel × Level = Obergrenze/Korridor**: das pro Level erholbare Maximum. Volumen wird nie
+   darüber hinaus gestapelt.
+
+**Kein Auto-Eingriff bei Zeitmangel:** Reicht die Zeit (Tage × Dauer) nicht, um den Ziel-Korridor
+zu füllen, wird einfach der **bestmögliche Plan mit den gegebenen Tagen und der Dauer** gebaut.
+**Keine** Vorschläge für mehr Tage, **keine** RPE-Anhebung, kein automatischer Ausgleich.
+**Bei Konflikt** (Zeit ließe mehr zu, als das Level verträgt): der **Level-Deckel gewinnt** (Sicherheit).
+
+### Intensität & Frequenz
+
+- **RPE-basiert**, RPE-Spannen je Level, steigend über die Welle.
+- **Level 1:** zusätzlich Klartext-Hilfe zum RPE (z.B. „2–3 Wiederholungen in Reserve"). _Neu ggü. Code._
+- **Frequenz:** ≤3 Tage Ganzkörper; ab 4 Tagen Upper/Lower → jeder Muskel 2×/Woche.
+
+### Zahlen
+
+**Satz-Cap je Tier (harte Obergrenze 4):**
+
+| Tier | Sätze |
+|---|---|
+| Grundübung (compound) | 3–4 |
+| Zusatz (accessory) | 2–3 |
+| Isolation | 2–3 |
+| Core | 2–3 |
+
+**Ziel-Volumen-Korridor — Sätze/Muskelgruppe/Woche (Obergrenze je Level):**
+
+| Ziel | L1 | L2 | L3 | L4 |
+|---|---|---|---|---|
+| Muskelaufbau | 8–10 | 12–16 | 16–20 | 18–22 |
+| Recomp | 8–10 | 12–16 | 16–20 | 18–22 |
+| Fettabbau | 6–8 | 10–14 | 14–18 | 16–20 |
+
+_Logik Fettabbau:_ im Kaloriendefizit braucht ein höher trainierter Klient **mehr** Volumen für den
+Muskelerhalt, nicht weniger — daher steigt der Korridor mit dem Level stärker an als zuvor.
+_Recomp = wie Muskelaufbau:_ bei Erhaltungskalorien / leichtem Überschuss ist volles Volumen möglich.
+
+**RPE-Spannen je Level (steigen über die Welle):** L1 = 6–7 · L2 = 7–8 · L3 = 7–9 · L4 = 7–9.
+Tier-Abstufung: accessory = compound − 1, isolation = compound − 2 (min. 4).
+
+**Begründung:** Modell A („von der Session aus") gewählt, weil das alte „festes Wochenvolumen ÷ Frequenz"
+kurze Einheiten überlud (45 → ~100 Min im Recomp-PDF) und bei vielen Tagen Potenzial verschenkte.
+Verworfen: festes Wochenvolumen (Überlauf bleibt), reines Zeitbudget (kein „so viel verträgt das Level"-
+Sicherheitsnetz). Satz-Cap je Tier (max 4), weil 5–6 Arbeitssätze auf einer Übung praxisfern sind.
+Korridor als Obergrenze statt Fixwert: Volumen folgt der real verfügbaren Zeit (Tage × Dauer), gedeckelt
+durch das pro Level Erholbare. Fettabbau-Korridor steigt stärker mit Level, weil im Defizit mehr Volumen
+für den Muskelerhalt nötig ist (nicht weniger). RPE statt %1RM, weil kein Maxtest vorliegt (PST ist
+Bodyweight); Anfänger-RIR-Hilfe, weil L1 RPE schwer einschätzt. Kein Auto-Eingriff bei Zeitmangel: hält
+das Modell ehrlich und vorhersehbar — der Coach steuert via internem Kapazitäts-Flag.
+
+### Umsetzungs-Hinweise & offene Punkte (kein Code jetzt)
+
+- `volume_calculator.py` wird grundlegend umgebaut: von „Wochenvolumen ÷ Frequenz" zu
+  „Session-Kapazität (Dauer + Satz-Caps) × Tage, gedeckelt durch Level-Korridor".
+- Der **A22-Dauer-Check** (aus dem gestoppten Harness) ist damit automatisch erfüllt — Sessions
+  laufen per Konstruktion nicht mehr über.
+- **Trainingsjahre-Modifikator (alt: ×0.8 … ×1.2): gestrichen.** Erfahrung wirkt nur noch über den
+  Level-Deckel (Thema 2) — ein zusätzlicher Volumen-Faktor wäre doppelt gemoppelt. → Code: Faktor raus aus
+  `volume_calculator.py`. (Das Eingabefeld `trainingsjahre` **bleibt** — es steuert weiter den Level-Deckel.)
+- **Tier-Anteil-Multiplikator (alt: ×1.0/0.9/0.7/0.8):** entfällt — ersetzt durch die Tier-Satz-Caps.
+- **Realism-Hinweis → internes Coach-Flag (entschieden):** Kein Hinweis im Klient-PDF. Bei
+  Plan-Generierung prüft das System, ob der Plan den Volumen-Korridor für Level/Ziel erreicht. Falls
+  **nein** → Flag in `plan_metadata` (`volume_below_optimal: true`, `recommended_extra_days`,
+  `recommended_extra_minutes`). Das Coach-Backoffice zeigt es als Hinweis-Karte pro Klient
+  („Suboptimale Trainings-Kapazität"). Der Klient merkt nichts — sein Plan ist einfach der bestmögliche.
+  Begründung: Premium-Coaching ohne Kritik-Beigeschmack; Coach kann proaktiv das Gespräch suchen.
+- Longevity-Volumen: hängt vom Session-Format ab → final erst mit **Thema 4/6**.
+  (Ziel-Set wurde in Thema 4 geändert: Ausdauer & Gesundheit → **Longevity**.)
+
+---
+
+## 4. Split-Logik je Ziel — ✅ entschieden (2026-06-04)
+
+**Grundlegende Rahmen-Änderungen:**
+
+- **Ziel-Set: 4 Pfade statt 5.** Muskelaufbau · Recomp · Fettabbau · **Longevity**
+  (Longevity ersetzt die bisherigen *Ausdauer* + *Gesundheit*).
+  → ⚠️ betrifft `Hauptziel`-Enum, Typeform-Labels, `models.py`, Parser — **zu bestätigen**.
+- **Mobility raus aus dieser Spec** — wird als eigenes Modul später behandelt. Keine Mobility-Sessions
+  mehr in der Split-Logik; ersetzt durch Schwachstellen- / Conditioning- / Cardio-Tage je Ziel.
+- **Schwachstellen-Tag (5 Tage Muskelaufbau/Recomp):** Klient wählt Fokus in der Anamnese
+  (Arme / Brust / Rücken / Schultern / Beine). → **neues Anamnese-/Typeform-Feld nötig.**
+
+### Wochen-Struktur nach Trainingstagen
+
+**Muskelaufbau / Recomp** (identische Struktur):
+| Tage | Struktur |
+|---|---|
+| 3 | Full Body |
+| 4 | Upper / Lower (A/B) |
+| 5 | Upper/Lower + 1 Schwachstellen-Tag (Fokus aus Anamnese) |
+| 6 | Upper/Lower 3× wiederholt → jeder Muskel 3×/Woche (PPL entfällt) |
+
+**Fettabbau** (Kraft + Conditioning — KEIN reines Conditioning mehr):
+| Tage | Struktur |
+|---|---|
+| 3 | Full Body mit metabolischen Akzenten |
+| 4 | 3 Kraft + 1 Conditioning |
+| 5 | 4 Kraft + 1 Conditioning |
+| 6 | 4 Kraft + 2 Conditioning |
+→ ⚠️ große Änderung ggü. Code (heute: Fettabbau = 100 % Conditioning).
+
+**Longevity** (Kraft + Cardio + Athletik):
+| Tage | Struktur |
+|---|---|
+| 3 | Full Body |
+| 4 | Upper/Lower + 1–2 Cardio/Athletik |
+| 5 | 3 Kraft + 2 Cardio/Athletik |
+| 6 | 4 Kraft + 2 Cardio/Athletik |
+
+**Longevity-Definition:** der **Generalist-Pfad** — Kraft + Cardio + Athletik (Sprünge, Koordination,
+Bewegungs-Vielseitigkeit) für allgemeine Fitness fürs Leben. Enthält nur **ROM-Arbeit im Aufwärmen**
+und allgemeines **Zone-2-Cardio**.
+
+**Abgrenzung zu späteren Extra-Modulen** (ergänzen Longevity bei Bedarf, ersetzen es nicht):
+- **Mobility-Modul:** tägliche dedizierte Mobility-Routine, löst spezifische Einschränkungen.
+- **Endurance-Modul:** Event-Vorbereitung (Marathon etc.) mit strukturierter Lauf-Periodisierung.
+
+### Pattern-Logik je Session-Typ (verpflichtende Mindest-Patterns)
+
+**Upper-Day** — muss enthalten:
+- 1× Horizontal Push · 1× Horizontal Pull · 1× Vertical Push · 1× Vertical Pull
+- optional 1–2 Isolation (Bizeps / Trizeps / Schulter-Detail)
+
+**Lower-Day** — muss enthalten:
+- 1× Squat (kniedominant) · 1× Hinge (hüftdominant) · 1× Single Leg · 1× Core/Carry
+- optional 1 Isolation (Waden / Glutes-Detail)
+
+**Full Body** — muss enthalten:
+- 1× Squat ODER Hinge · 1× Push (horiz. o. vert.) · 1× Pull (horiz. o. vert.) · 1× Core/Carry
+- optional 1–2 Akzent-Übungen
+
+**Upper/Lower-Schwerpunkte (4 Tage):**
+- Upper A: Push-Fokus (Horizontal Push = schwerste Compound)
+- Upper B: Pull-Fokus (Vertical/Horizontal Pull = schwerste Compound)
+- Lower A: Squat-Fokus · Lower B: Hinge-Fokus
+
+**6 Tage (Upper/Lower 3×):** Rotation A/B/A oder A/B/C, je nach Schwerpunkt-Wunsch.
+
+**Push : Pull-Balance über die Woche:** minimum 1:1, ideal **1 : 1,2** (leicht mehr Pull als Push).
+
+### Entschieden & Umsetzungs-Hinweise
+
+- **Ziel-Set: 4 Pfade bestätigt** (Muskelaufbau · Recomp · Fettabbau · Longevity). Ausdauer & Gesundheit
+  entfallen. → Code-Änderung: `Hauptziel`-Enum, Typeform-Labels, `models.py`, `parsers.py`.
+- **Mindestens 3 Trainingstage** — 2 Tage werden nicht angeboten. → Code-Änderung:
+  `KlientenInput.tage_pro_woche` von `ge=2` auf `ge=3`; Typeform-Option „2" entfernen.
+- **Pflicht-Patterns vs. Dauer: Dauer gewinnt.** Reicht die Zeit nicht für alle Pflicht-Patterns, werden
+  sie nach Priorität gekürzt (wichtigste/schwerste Compound zuerst, dann Balance) — Session bleibt in der
+  gewünschten Dauer. Konsistent mit Thema 3.
+  → **Umsetzungs-Detail offen:** die Prioritäts-Reihenfolge je Session-Typ (welches Pattern zuerst fällt)
+  definieren wir bei der Implementierung. Vorschlag: Schwerpunkt-Compound des Tages immer behalten.
+- **Recomp-Metcon-Finisher:** behält Recomp einen Conditioning-Finisher? → offen, Detail für **Thema 6**.
+- Frequenz-Verfeinerung ggü. Thema 3: 4 Tage → 2×/Muskel, **6 Tage → 3×/Muskel**.
+
+**Begründung:** Full Body → Upper/Lower → U/L 3× nach Tagen, weil so die Frequenz pro Muskel mit den
+Tagen mitwächst (wenige Tage = hohe FB-Frequenz; 4 Tage = 2×; 6 Tage = 3×). PPL verworfen, weil ein
+einmaliger Durchlauf nur 1×/Muskel bringt (für Hypertrophie suboptimal) — U/L 3× ist dichter. Min. 3 Tage,
+weil 2 Tage für keines der Ziele sinnvoll programmierbar ist. 4 Ziele statt 5: Ausdauer + Gesundheit
+überlappten stark → zu **Longevity** (Generalist) zusammengefasst; spezifische Bedürfnisse (Marathon,
+Mobility) kommen als eigene Zusatz-Module statt als verwässerte Hauptziele. Pflicht-Patterns je Session
+sichern die Bewegungs-Balance über alle Ebenen; bei Konflikt gewinnt die Dauer (konsistent mit Thema 3 —
+Session läuft nie über). Push:Pull 1:1,2 leicht pull-lastig, weil Alltag/Haltung meist push-dominant ist.
+Schwachstellen-Tag statt Mobility-Tag bei 5 Tagen, weil Mobility ein eigenes Modul wird.
+
+---
+
+## 5. Recovery-Anpassung — ✅ entschieden (2026-06-04)
+
+**Nur die RPE wird angepasst — das Volumen (Sätze) bleibt in allen Fällen unverändert.** Keine
+Steigerung über den Level-Korridor hinaus. Eingaben: `stress_level` (1–10), `schlaf_stunden` (4–10).
+Die RPE wird relativ zur RPE-Spanne des Klienten-Levels gesetzt:
+
+| Recovery-Lage | Bedingung | RPE-Ziel |
+|---|---|---|
+| Sehr hohe Belastung | Stress ≥ 9 **oder** Schlaf ≤ 4 h | unteres Ende der Spanne **− 1** |
+| Hohe Belastung | Stress ≥ 8 **oder** Schlaf ≤ 5 h | unteres Ende der Spanne |
+| Gute Recovery | Stress < 5 **und** Schlaf ≥ 7 h | oberes Ende der Spanne |
+| Normal/moderat | sonst (z.B. Stress 6–7, Schlaf 6 h) | normale Spanne, keine Anpassung |
+
+Auswertung in dieser Reihenfolge (schlechtester zutreffender Fall gewinnt): sehr hoch → hoch → gut → normal.
+
+_Beispiel (Level 2, RPE-Spanne 7–8):_ gute Recovery → bis 8 · hohe Belastung → max 7 · sehr hohe → max 6.
+
+**Untergrenze:** RPE fällt nie unter **4** (Plan-Minimum).
+
+**Umsetzungs-Detail (beim Coden klären) — Zusammenspiel mit der 3:1-Welle:** Bisher steigt die RPE über
+die Welle (Akkumulation → Intensivierung). Vorschlag zur Auflösung: Die Welle bestimmt die Basis-RPE;
+die Recovery-Regel wirkt als **Deckel nach oben** (schlechte Recovery) bzw. **Freigabe bis oberes Ende**
+(gute Recovery). In der Deload-Woche greift ohnehin der RPE-Floor (Thema 1).
+
+**Begründung:** Nur RPE anpassen, Volumen unangetastet, weil zwei gleichzeitige Stellschrauben (Volumen
+UND RPE) sich überlagern und schwer nachvollziehbar machen — die RPE ist der direktere Hebel für die
+Tagesform. Verworfen: Volumen senken (kollidiert mit Modell A und der Block-Progression über Logs),
+beides gleichzeitig (zu aggressiv/intransparent). Nur abwärts, keine Steigerung über den Korridor: gute
+Recovery nutzt das obere Ende der bestehenden Spanne, geht aber nie über das Level-Erholbare hinaus.
+Zweistufige Schwelle, weil Stress 9 / Schlaf ≤ 4 h eine deutlich stärkere Entlastung rechtfertigt als
+Stress 8 / Schlaf 5 h. RPE-Floor 4, damit das Training ein Reiz bleibt.
+
+---
+
+## 6. Conditioning- & Cardio-Formate — ✅ entschieden (2026-06-04)
+
+### Format-Baukasten
+
+| Format | Definition |
+|---|---|
+| AMRAP | feste Zeit, so viele Runden wie möglich |
+| EMOM | jede Minute eine Aufgabe, Rest = Pause |
+| Zirkel | Übungen nacheinander ohne Pause, X Runden |
+| Intervalle | HIIT, Arbeit/Pause-Verhältnis (z.B. 30/20 s), Ziel 85–90 % HF-Max |
+| Tabata | 20 s on / 10 s off × 8 (4-Min-Format) |
+| Density Block | feste Wdh-Zahl in fester Zeit |
+| For Time | Liste von Übungen so schnell wie möglich |
+| Komplexe | mehrere Übungen mit einem Gerät am Stück ohne Absetzen (v.a. Kettlebell) |
+| Ladders | auf-/absteigende Wdh-Zahlen (v.a. Kettlebell) |
+
+→ ⚠️ Neu ggü. Code (heute nur amrap/emom/zirkel/intervalle): **Tabata, Density Block, For Time,
+Komplexe, Ladders** + **Athletik** (s.u.). Betrifft `MetconBlock.typ`-Enum + Format-Logik. Die genauen
+Zahlen je Format (Runden, Arbeit/Pause, RPE je Wochentyp) sind ein Umsetzungs-Detail (beim Coden setzen).
+
+### Recomp-Finisher
+
+Jede Recomp-Kraftsession endet mit einem **globalen Bodyweight-Conditioning-Finisher**:
+- **Dauer:** 5–10 Min · **RPE:** 6–7
+- **Equipment:** ausschließlich Bodyweight (unabhängig vom Setup des Klienten)
+- **Übungsauswahl:** globale Bewegungen, **keine** isolierten Hauptmuskelgruppen der Session.
+  Geeignet: Burpees, Mountain Climbers, Jumping Jacks, Squat Jumps, Push-Ups, High Knees, Bear Crawl,
+  Plank Variations.
+- **Formate (KI wählt automatisch):** AMRAP, EMOM, Tabata, Density Block, For Time, Zirkel.
+- **Abwechslung:** nicht zweimal hintereinander dasselbe Format im 4-Wochen-Block.
+
+### Fettabbau — Conditioning-Tage
+
+- **Rotierend** über die verfügbaren Formate (Intervalle, AMRAP, Zirkel, EMOM, Density Block, For Time,
+  Tabata) der Reihe nach — **jeder Conditioning-Tag im 4-Wochen-Block ein anderes Format.**
+- Bei **2 Conditioning-Tagen/Woche** (6-Tage-Pfad): in derselben Woche zwei unterschiedliche Formate.
+- **Equipment-spezifische Bevorzugung:**
+  - Kettlebell → EMOM, Komplexe, Density, Ladders
+  - Bodyweight → AMRAP, Tabata, For Time, Zirkel
+  - Gym / Home-Gym → alle Formate möglich
+
+### Longevity — Cardio/Athletik-Tage
+
+Rotieren zwischen zwei Typen:
+- **Zone-2-Cardio:** 30–60 Min lockeres Dauer-Cardio (120–135 bpm) — Laufen, Rad, Rower, schneller Spaziergang.
+- **Athletik:** Sprünge (Box Jumps, Broad Jumps), Koordination (Agility-Drills, Sprung-Variationen),
+  Bewegungs-Vielseitigkeit (Crawls, Throws).
+
+**Verteilung:**
+- 1 Tag/Woche → alternierend (Woche 1 Zone-2, Woche 2 Athletik, …).
+- 2 Tage/Woche → 1× Zone-2 + 1× Athletik.
+
+**Begründung:** Breiter Format-Baukasten statt weniger Formate, weil Abwechslung den Reiz frisch hält und
+verschiedene Energiesysteme trifft. Rotation (jeder Conditioning-Tag ein anderes Format, nie 2× hintereinander
+dasselbe im Block) gegen Monotonie und Anpassung. Equipment-spezifische Bevorzugung, weil z.B. Komplexe/
+Ladders an die Kettlebell gehören, Tabata/For Time eher Bodyweight. Recomp-Finisher als globales Bodyweight-
+Conditioning (5–10 Min, RPE 6–7), bewusst NICHT die Hauptmuskeln der Session (sonst Ermüdung der Arbeitssätze)
+und equipment-unabhängig (immer machbar). Fettabbau jetzt Kraft + Conditioning statt 100 % Conditioning, weil
+reines Conditioning im Defizit Muskelmasse kostet — der Kraftreiz erhält Muskel. Longevity Zone-2 + Athletik
+alternierend, weil Generalist = Ausdauer UND Athletik (Sprünge/Koordination), nicht nur lockeres Cardio.
+
+---
+
+## 7. Progression über Blöcke hinweg — ✅ entschieden V1 (2026-06-06)
+
+Der Übergang **Block N → N+1** basiert auf drei Datenquellen:
+
+**1) Mini-Anamnese (Check-in am Blockende):**
+- Ziel-Änderung? (Muskelaufbau / Fettabbau / Recomp / Longevity)
+- Equipment-Änderung?
+- **Trainingserfahrung (Trainingsjahre) — neu erfasst**, damit der Level-Deckel (Thema 2) mitwächst (K4).
+- **„Hast du aktuell Schmerzen oder Beschwerden?" (Ja/Nein)** → falls ja: **„Welche Körperbereiche?"**
+  (Mehrfachauswahl: Knie, Schulter, Rücken, …). Generische Frage — der Klient muss NICHT zwischen
+  „neuem" und „altem" Schmerz unterscheiden. Das System gleicht die Antwort intern mit den bisherigen
+  Schmerz-/Verletzungsdaten ab und entscheidet, ob ein Filter aktiv bleibt oder neu greift (K2).
+- aktuelles Stress-Level (1–10) · aktuelle Schlafstunden
+- → Auswertung über bereits definierte Logik (Level, Recovery, Equipment-Filter, Verletzungs-Overrides).
+
+**2) PST Re-Test (Woche 4):**
+- Gleiche 5 Übungen wie initial, eigene Session in Woche 4.
+- Fließt in die Level-Berechnung für den nächsten Block — **max. ±1 Level pro Block (symmetrisch):**
+  deutlich besserer Re-Test → +1, deutlich schlechterer (Detraining) → −1 (K5). Der Trainingsjahre-Deckel
+  (aktualisiert via Mini-Anamnese) gilt weiterhin als Obergrenze.
+
+**3) Trainings-Logging während des Blocks:**
+- Pro Session: Session-RPE (1–10), Session-Bewertung (zu leicht / passend / zu schwer), optional Notiz.
+- Pro Übung: tatsächliche Gewichte und Wiederholungen.
+
+**Logging-basierte Block-Anpassung — zwei Hebel in fester Reihenfolge:**
+
+_Stufe 1 — Sätze (Haupt-Hebel):_ überwiegend „zu leicht" → **+1 Satz** pro Hauptübung (bis Cap 4);
+überwiegend „zu schwer" → **−1 Satz** (bis Minimal-Satz).
+
+_Stufe 2 — Übungs-Schwierigkeit (erst wenn Stufe 1 ausgeschöpft):_ „zu leicht" UND Cap 4 erreicht →
+schwierigere Variante (`progressions_up`); „zu schwer" UND Minimal-Satz erreicht → leichtere Variante
+(`progressions_down`).
+
+- **RPE-Einstieg wird NICHT durch Logging angepasst** — RPE steuert ausschließlich Periodisierung (Welle)
+  + Recovery (Stress/Schlaf). Sonst überlagern sich die Hebel.
+- **Last-Logs (Gewichte/Wdh):** konkrete **Last-Ziele für den nächsten Block** + **Overload-Tracking**.
+- _V1-Hinweis:_ Schwellen für „überwiegend zu leicht/schwer" + Gewichtung über Sessions werden mit
+  echten Klienten-Daten feinjustiert.
+
+**Übungs-Rotation — „Kern bleibt, Rest rotiert":**
+- **Haupt-Compounds bleiben konstant** über Blöcke (Squat-, Hinge-, Press-, Pull-Slot). Wechsel nur bei
+  Equipment-Änderung, Verletzung oder Level-Sprung (→ schwierigere Variante derselben Bewegung).
+  Grund: Technik-Aufbau + Progressions-Tracking brauchen Konsistenz.
+- **Accessories & Isolation rotieren** — pro Slot möglichst andere Übung als im Vorblock.
+- **Bei Ziel-Änderung:** Haupt-Compounds meist gleich (Pattern bleibt), nur Volumen/Format ändert sich.
+- **Bei Equipment-Änderung:** alle Übungen neu gewählt (Equipment-Filter greift).
+
+**Volumen/Intensität-Progression:** abgeleitet aus den drei Indikatoren (PST-Re-Test + Mini-Anamnese +
+Trainings-Logs), umgesetzt über die Hebel oben (Sätze → Schwierigkeit; RPE nur via Welle + Recovery).
+
+### Session-Feedback — UX-Konzept
+
+- **Während der Session:** Klient trägt nur **Gewicht + Wiederholungen pro Satz** ein. Keine Bewertung
+  während des Trainings (kein Flow-Bruch).
+- **Session-Review am Ende:** alle Übungen mit den eingegebenen Werten · pro Übung 3-Stufen-Bewertung
+  **Leicht / Passend / Schwer** (optional) · **Session-Gesamtbewertung 1–10 (Pflicht zum Abschluss)** ·
+  optionale Notiz.
+- **Skala-Bedeutung (Frontend-Hinweis):** 1–3 sehr leicht (kein Reiz) · 4–6 passend · 7–8 anstrengend
+  aber machbar · 9–10 an der Grenze.
+- **Abgebrochene Sessions:** geloggte Sätze bleiben gespeichert; beim nächsten App-Start Hinweis
+  „Letzte Session nicht abgeschlossen — bewerten?". Nach 24 h ohne Abschluss → automatisch als
+  unvollständig markiert, Daten bleiben.
+
+### Datenbank (neu)
+
+- `exercise_feedback`: client_id, session_id, exercise_name, difficulty_rating (leicht/passend/schwer)
+- `session_feedback`: client_id, session_id, difficulty_score (1–10), notes, completed_at
+
+### Self-Service Übungs-Tausch (Feature)
+
+Klient kann Übungen **vor oder während** der Session tauschen, ohne Coach-Anfrage.
+- **Trigger:** vor Session „Tauschen"-Button pro Übung (Plan-Ansicht); während Session „Tauschen"-Option.
+- **Flow:** Übung wählen → Grund angeben (`Schmerzen/Verletzung` / `Equipment fehlt` / `Variation`) →
+  System schlägt **2–3 Alternativen aus gleichem Pattern** vor (aus `substitution_pool`) → Klient wählt →
+  Plan wird aktualisiert.
+- **Auswahl-Regeln:** Tausch nur innerhalb desselben Patterns (Push→Push, Squat→Squat). Bei
+  `Schmerzen/Verletzung` greift **derselbe 3-Stufen-Filter wie im Generator** (Thema 8): `joint_stress`
+  + `impact_level: high` + pattern-spezifische Blocker (z.B. Knie → `deep_squat, lunge, jump, plyo`).
+  Wochen-Balance bleibt erhalten. (K1)
+
+**Geltungsbereich nach Grund:**
+- `Schmerzen/Verletzung`: Übung wird in der aktuellen Session **und automatisch in ALLEN folgenden
+  Sessions des aktuellen Blocks** ersetzt. Klient-Hinweis „auch in den folgenden Wochen ersetzt".
+  Coach-Notification „Klient X hat Y wegen Schmerzen durch Z ersetzt — für gesamten Block aktiv".
+- `Equipment fehlt` / `Variation`: **nur die einzelne Session**, andere Wochen unverändert.
+
+**Block-Übergang:** getauschte Übungen werden im neuen Block **nicht** automatisch wieder aufgenommen.
+Mini-Anamnese fragt „Besteht das Schmerz-Problem noch?" → ja: bleibt ersetzt · nein: Original wird
+wieder angeboten.
+
+**Neue Tabelle `exercise_swaps`:** client_id, block_number, session_id, exercise_swapped_out,
+exercise_swapped_in, reason (schmerzen_verletzung / equipment_fehlt / variation), scope
+(single_session / entire_block), swapped_at, active (bool — true bis Block-Übergang oder Aufhebung).
+
+**V2-Potenzial:** System lernt aus Tausch-Patterns (z.B. 3× in Folge getauschte Übung → in der
+Standard-Auswahl reduzieren).
+
+### ⚠️ Scope-Hinweis — neue System-Bausteine (weit über die heutige Plan-Generierung hinaus)
+
+- Check-in/Mini-Anamnese-Flow am Blockende (neues Formular).
+- Trainings-Logging im Block + Session-Review (UI + Tabellen `exercise_feedback`, `session_feedback`).
+- Block-Übergangs-Generator (Logs + Re-Test + Check-in → Block N+1).
+- Self-Service Übungs-Tausch (UI + Tabelle `exercise_swaps` + Bibliotheks-Felder).
+- Eigene Features/Tabellen, nicht nur Logik-Änderungen — für die Roadmap zentral.
+
+**Begründung:** Drei Datenquellen (Re-Test + Mini-Anamnese + Logs), weil echte Langzeit-Progression
+objektive Rückmeldung braucht — ein blind neu generierter Block stagniert. Sätze als Haupt-Hebel, dann
+Übungs-Schwierigkeit: erst mehr Volumen im erprobten Bewegungsmuster (sicher, messbar), erst bei
+ausgeschöpftem Cap die schwerere Variante. RPE bewusst NICHT durch Logs gesteuert (nur Welle + Recovery),
+um Hebel-Überlagerung zu vermeiden. „Kern bleibt, Rest rotiert": schwere Compounds konstant für
+Technik-Aufbau und sauberes Overload-Tracking; Accessory/Isolation rotiert für Abwechslung und breitere
+Bewegungserfahrung. Max. +1 Level/Block gegen zu große Sprünge. Bewertung erst im Session-Review (nicht
+während des Trainings), um den Flow nicht zu brechen. V1-Schwellen bewusst offen — werden mit echten Daten
+kalibriert statt geraten.
+
+---
+
+## 8. Sonderfälle — ✅ entschieden (2026-06-06)
+
+### Verletzungs-Filterung (Generator-Seite) — kombiniert
+
+Bei Verletzungs-Eingabe (z.B. „Knie") filtert der Generator in dieser Reihenfolge:
+1. Übungen mit `joint_stress: knee` ausschließen.
+2. Übungen mit `impact_level: high` ausschließen (bei Verletzung generell vorsichtiger).
+3. Pattern-spezifische Blocker bleiben **zusätzlich** (Knie → `deep_squat, lunge, jump, plyo`).
+
+Ersatz immer aus gleichem Pattern. **Wichtige Klarstellung:** das System erkennt Gelenk-Belastung NICHT
+aus dem Übungsnamen — **jede Übung muss explizit getaggt sein.**
+
+### Übungs-Bibliothek — Ziel-Schema (`exercises`)
+
+| Feld | Inhalt |
+|---|---|
+| name | Anzeigename |
+| pattern | horizontal_push, vertical_push, squat, hinge, … |
+| joint_stress | Liste belasteter Gelenke (knee, shoulder, hip, lower_back, ankle, …) |
+| impact_level | low / medium / high |
+| muscle_groups_primary | Liste |
+| muscle_groups_secondary | Liste |
+| equipment | Liste |
+| skill_level | 1–4 (ersetzt heutiges `level_min`) |
+| substitution_pool | Liste alternativer Übungen (für Tausch) |
+
+**Tagging-Prozess:** bestehende Bibliothek manuell/KI-assistiert taggen · neue Übungen bei Anlage direkt
+taggen · Coach kann Tags im Backoffice korrigieren.
+
+**⚠️ Voraussetzung für Produktivgang:** Die Übungs-Bibliothek muss **vollständig getaggt** sein —
+Bedingung für die Verletzungs-Logik UND den Self-Service-Tausch (Thema 7).
+
+### Nebenziel
+
+**Wird entfernt.** Nebenziel hat keinen Effekt auf den Plan → raus aus Formular, `models.py`, `parsers.py`.
+Klare Ausrichtung auf ein Hauptziel.
+
+### Akuter Schmerz — „Schmerz-Meldung" (Dashboard-Feature)
+
+Das bisherige Formular-Feld `schmerzen_akut` (Ja/Nein in der Anamnese) **entfällt als Formular-Eingabe**
+und wird zu einer **jederzeit verfügbaren Schmerz-Meldung im Klient-Dashboard.**
+
+- **Trigger:** Button „Schmerz melden" im Dashboard, jederzeit (unabhängig von Anamnese-Zeitpunkten).
+- **Flow:** Klient klickt → gibt **Körperbereich** (Knie, Schulter, Rücken, …) + kurze **Beschreibung** an
+  → Meldung wird gespeichert → Coach bekommt **sofortige Notification** „Klient X hat Schmerzen gemeldet".
+- **Plan:** läuft **normal weiter, kein automatischer Eingriff.** Klient kann einzelne Übungen weiterhin
+  selbst tauschen (Self-Service, Thema 7). Coach entscheidet manuell, ob/wie er eingreift.
+- **Neue Tabelle `pain_reports`:** client_id, report_date, body_part, description, status
+  (`open` / `coach_acknowledged` / `resolved`).
+- **Begründung:** jederzeit ein Melde-Kanal ohne auf die nächste Anamnese zu warten; Coach bleibt
+  informiert; **kein** Auto-Eingriff, weil „akuter Schmerz" zu unspezifisch für automatische Logik ist —
+  Coach-Urteil ist hier sicherer.
+- **Abgrenzung zur Mini-Anamnese (Thema 7, K3):** Die Mini-Anamnese-Schmerzfrage erfasst beim
+  **Block-Übergang** den aktuellen Zustand und steuert den **Übungs-Filter des nächsten Blocks**. Die
+  Dashboard-Meldung ist der **akute Ad-hoc-Kanal mitten im Block** (Coach-Info, kein Auto-Eingriff).
+  Beide schreiben in dieselbe Schmerz-/Verletzungshistorie; das System gleicht ab.
+- → Code-Änderung: `schmerzen_akut` raus aus Anamnese/Typeform & `models.py`; neues Dashboard-Feature +
+  `pain_reports`-Tabelle + Coach-Notification.
+
+**Begründung:** Verletzungs-Filter kombiniert (joint_stress + impact_level als Hauptfilter, pattern_tags
+als Sicherung), weil getaggte Gelenkbelastung präziser ist als Namens-/Tag-Heuristik — die Doppelung gibt
+Sicherheitsmarge bei einem Gesundheitsthema. Explizites Tagging nötig, weil das System Belastung nicht aus
+Übungsnamen ableiten kann; daher die vollständig getaggte Bibliothek als Produktiv-Voraussetzung. Nebenziel
+gestrichen, weil es nie wirkte und ein klar fokussiertes Hauptziel bessere Pläne gibt als ein verwässerter
+Mix. Akuter Schmerz als Dashboard-Meldung statt Formular-Flag mit Auto-Eingriff, weil „Schmerz" zu
+unspezifisch für automatische Programm-Logik ist — Coach-Urteil ist sicherer; der Jederzeit-Kanal hält den
+Coach informiert, ohne auf die nächste Anamnese zu warten.
+
+---
+
+## Konsistenz-Check — Protokoll (2026-06-06)
+
+Vollständige Spec auf Widersprüche geprüft.
+
+**✅ Sauber:** Volumen- und RPE-Hebel sind klar getrennt (Volumen: Modell A + Logs; RPE: Welle +
+Recovery + Deload-Floor) — keine Überlagerung. PST-Re-Test nutzt dieselbe Test-Battery & Scoring wie die
+Erst-Berechnung (Thema 2).
+
+**Behobene Widersprüche:**
+- **K1** — Self-Service-Tausch nutzt bei Schmerz jetzt denselben 3-Stufen-Verletzungsfilter wie der
+  Generator (`joint_stress` + `impact_level` + pattern-Blocker).
+- **K2** — Mini-Anamnese stellt eine generische Schmerzfrage; das System gleicht intern mit der Historie
+  ab. Der Klient unterscheidet nicht neu/alt.
+- **K3** — Schmerz-Kanäle abgegrenzt: Mini-Anamnese (Block-Übergang, steuert Filter) vs. Dashboard
+  (akut, Coach-Info, kein Auto-Eingriff).
+- **K4** — Trainingsjahre werden in der Mini-Anamnese neu erfasst → Level-Deckel wächst mit.
+- **K5** — Level kann beim Re-Test symmetrisch um max. ±1/Block steigen oder sinken (Detraining).
