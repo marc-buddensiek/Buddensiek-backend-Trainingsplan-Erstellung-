@@ -65,7 +65,6 @@ def parse_typeform_payload(payload: dict) -> KlientenInput:
         stress_level=_number("stress_level"),
         schlaf_stunden=float(_choice_label("schlaf_stunden")),
         verletzungen=[v for v in _choices_labels("verletzungen") if v != "keine"],
-        schmerzen_akut=_boolean("schmerzen_akut") or False,
         medizinische_diagnosen=_text("medizinische_diagnosen"),
         motivation=_text("motivation"),
         aktuelles_training=_text("aktuelles_training"),

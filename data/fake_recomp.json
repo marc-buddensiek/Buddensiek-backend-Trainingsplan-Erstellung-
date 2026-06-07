@@ -294,13 +294,6 @@
           ]
         },
         {
-          "id": "QoRo1Wqzod9K",
-          "ref": "schmerzen_akut",
-          "type": "yes_no",
-          "title": "Hast du Schmerzen die dein Training aktuell einschränken?",
-          "properties": {}
-        },
-        {
           "id": "U5RamO2oPtlL",
           "ref": "medizinische_diagnosen",
           "type": "long_text",
@@ -481,15 +474,6 @@
           "id": "aYVyr5uiVIQc",
           "type": "multiple_choice",
           "ref": "verletzungen"
-        }
-      },
-      {
-        "type": "boolean",
-        "boolean": false,
-        "field": {
-          "id": "QoRo1Wqzod9K",
-          "type": "yes_no",
-          "ref": "schmerzen_akut"
         }
       },
       {

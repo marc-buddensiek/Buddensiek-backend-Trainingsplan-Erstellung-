@@ -105,13 +105,6 @@ class KlientenInput(BaseModel):
     # Typeform Choice-Labels: "knie" | "schulter" | "wirbelsäule" | "hüfte" | "ellenbogen" | "handgelenk" | "hals" | "knöchel"
     verletzungen: list[VerletzungsBereich] = Field(default_factory=list)
 
-    # Typeform ref: schmerzen_akut
-    # Typeform: Ja/Nein
-    schmerzen_akut: bool = Field(
-        default=False,
-        description="Akuter Schmerz der das Training einschränkt — löst Coach-Eskalation aus"
-    )
-
     # Typeform ref: medizinische_diagnosen
     # Typeform: Open text (optional)
     medizinische_diagnosen: Optional[str] = Field(None, max_length=500)
@@ -146,16 +139,6 @@ class KlientenInput(BaseModel):
 
     # Typeform ref: plank_sek
     plank_sek: int = Field(..., ge=0, le=600, description="Plank-Haltezeit in Sekunden")
-
-    # ── Validatoren ────────────────────────────────────────────────────────
-
-    @field_validator("schmerzen_akut", mode="before")
-    @classmethod
-    def parse_bool_from_typeform(cls, v):
-        # Typeform sendet "Ja"/"Nein" als String
-        if isinstance(v, str):
-            return v.lower() in ("ja", "yes", "true", "1")
-        return v
 
 
 # ═══════════════════════════════════════════════════════════════════════════════

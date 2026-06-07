@@ -199,8 +199,6 @@ def build_user_prompt(
         if klient.verletzungen else "keine"
     )
 
-    schmerzen_str = "⚠️ AKUTER SCHMERZ — besonders vorsichtig bei Übungsauswahl" if klient.schmerzen_akut else "kein akuter Schmerz"
-
     motivation_str = f'"{klient.motivation}"' if klient.motivation else "nicht angegeben"
 
     lines = [
@@ -213,7 +211,6 @@ def build_user_prompt(
         f"Ziel:        {klient.hauptziel.value}",
         f"Equipment:   {klient.equipment.value}",
         f"Verletzungen: {verletzungen_str}",
-        f"Schmerz:     {schmerzen_str}",
         f"Stress:      {klient.stress_level}/10 | Schlaf: {klient.schlaf_stunden}h",
         f"Motivation:  {motivation_str}",
         "",

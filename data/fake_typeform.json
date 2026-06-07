@@ -69,7 +69,6 @@
           {"id": "v5VJluIDp0Dm", "ref": "uuid-knoechel", "label": "knöchel"},
           {"id": "7NCFZS2Varn8", "ref": "uuid-keine", "label": "keine"}
         ]},
-        {"id": "QoRo1Wqzod9K", "ref": "schmerzen_akut", "type": "yes_no", "title": "Hast du Schmerzen die dein Training aktuell einschränken?", "properties": {}},
         {"id": "U5RamO2oPtlL", "ref": "medizinische_diagnosen", "type": "long_text", "title": "Diagnosen oder Einschränkungen die wir wissen sollten?", "properties": {}},
         {"id": "sWQxneRD3y7n", "ref": "motivation", "type": "long_text", "title": "Was ist dein größter Antrieb — warum startest du jetzt?", "properties": {}},
         {"id": "TqcPraICPKmi", "ref": "aktuelles_training", "type": "long_text", "title": "Was machst du aktuell sportlich?", "properties": {}},
@@ -91,7 +90,6 @@
       {"type": "number", "number": 4, "field": {"id": "yDA29lonLqb9", "type": "opinion_scale", "ref": "stress_level"}},
       {"type": "choice", "choice": {"id": "4gRliBhkUV2v", "label": "7", "ref": "uuid-7h"}, "field": {"id": "6dTJirZNGLMy", "type": "multiple_choice", "ref": "schlaf_stunden"}},
       {"type": "choices", "choices": {"ids": ["sULQvW1YHDHJ"], "labels": ["schulter"], "refs": ["uuid-schulter"]}, "field": {"id": "aYVyr5uiVIQc", "type": "multiple_choice", "ref": "verletzungen"}},
-      {"type": "boolean", "boolean": false, "field": {"id": "QoRo1Wqzod9K", "type": "yes_no", "ref": "schmerzen_akut"}},
       {"type": "text", "text": "Leichtes Schulterimpingement links, kein akuter Schmerz", "field": {"id": "U5RamO2oPtlL", "type": "long_text", "ref": "medizinische_diagnosen"}},
       {"type": "text", "text": "Ich will fit sein für meine Kinder und mehr Energie im Alltag", "field": {"id": "sWQxneRD3y7n", "type": "long_text", "ref": "motivation"}},
       {"type": "text", "text": "Gelegentlich Laufen, kein strukturiertes Training", "field": {"id": "TqcPraICPKmi", "type": "long_text", "ref": "aktuelles_training"}},
