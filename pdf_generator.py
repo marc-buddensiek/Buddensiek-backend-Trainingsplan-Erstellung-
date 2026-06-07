@@ -13,6 +13,9 @@ import pathlib
 import sys
 from fpdf import FPDF
 
+from models import Hauptziel
+from realism_validator import pruefe_realismus
+
 
 # ── Farben (Buddensiek-Stil) ──────────────────────────────────────────────────
 C_BLACK      = (20, 20, 20)
@@ -74,6 +77,20 @@ class PlanPDF(FPDF):
         self.set_text_color(*C_BLACK)
         self.cell(0, 5, value, new_x="LMARGIN", new_y="NEXT")
 
+    def realismus_block(self, typ: str, nachricht: str):
+        self.ln(3)
+        if typ == "warnung":
+            self.set_fill_color(*C_ACCENT)
+            self.set_text_color(*C_WHITE)
+            prefix = "!  WARNUNG: "
+        else:
+            self.set_fill_color(*C_LIGHT_GREY)
+            self.set_text_color(*C_DARK_GREY)
+            prefix = "HINWEIS: "
+        self.set_font("Helvetica", "B", 7.5)
+        self.multi_cell(0, 5, f"  {prefix}{nachricht}", fill=True)
+        self.ln(2)
+
 
 def build_pdf(plan_data: dict) -> FPDF:
     snap = plan_data["klient_snapshot"]
@@ -106,16 +123,28 @@ def build_pdf(plan_data: dict) -> FPDF:
     # Klienten-Info
     pdf.section_title("Klientenprofil")
     verletzungen = ", ".join(snap["verletzungen"]) if snap["verletzungen"] else "keine"
+    session_dauer = snap.get("session_dauer_min", 60)
+    tage = snap["tage_pro_woche"]
+    wochenzeit = tage * session_dauer
+
     pdf.kv("Name:", vorname, bold_value=True)
     pdf.kv("Level:", f"Level {snap['level']}/4", bold_value=True)
     pdf.kv("Ziel:", snap["ziel"].replace("_", " ").title())
     pdf.kv("Equipment:", snap["equipment"].replace("_", " ").title())
     pdf.kv("Split:", snap["split_typ"])
-    pdf.kv("Tage/Woche:", str(snap["tage_pro_woche"]))
+    pdf.kv("Tage/Woche:", str(tage))
+    pdf.kv("Session-Dauer:", f"{session_dauer} Min.")
+    pdf.kv("Wochenzeit:", f"~{wochenzeit} Min. / Woche")
     pdf.kv("Verletzungen:", verletzungen)
     pdf.kv("Block:", f"Block {plan_data['block_nummer']}")
     pdf.kv("Erstellt:", plan_data["erstellt_am"][:10])
-    pdf.ln(4)
+    pdf.ln(2)
+
+    realismus = pruefe_realismus(Hauptziel(snap["ziel"]), tage, session_dauer)
+    if realismus:
+        pdf.realismus_block(realismus["typ"], realismus["nachricht"])
+    else:
+        pdf.ln(2)
 
     # Wochen-Übersicht
     pdf.section_title("4-Wochen-Übersicht")
@@ -164,6 +193,14 @@ def build_pdf(plan_data: dict) -> FPDF:
             pdf.cell(0, 6, header, fill=True, new_x="LMARGIN", new_y="NEXT")
             pdf.ln(1)
 
+            # Format-Notiz (AMRAP / EMOM / Zirkel / Intervalle)
+            if s.get("format_notiz"):
+                pdf.set_fill_color(30, 30, 30)
+                pdf.set_text_color(*C_WHITE)
+                pdf.set_font("Helvetica", "B", 7.5)
+                pdf.multi_cell(0, 5, f"  FORMAT: {s['format_notiz']}", fill=True)
+                pdf.ln(2)
+
             # Warm-Up
             pdf.set_font("Helvetica", "BI", 7)
             pdf.set_text_color(*C_ACCENT)
@@ -179,10 +216,21 @@ def build_pdf(plan_data: dict) -> FPDF:
             pdf.set_text_color(*C_ACCENT)
             pdf.cell(0, 4, "  HAUPTÜBUNGEN", new_x="LMARGIN", new_y="NEXT")
 
+            is_metabolic_session = s.get("session_typ") in ("zirkel", "amrap", "emom", "intervalle")
             for u in s["haupt_uebungen"]:
-                # Übungs-Zeile
-                vol_str = f"{u['saetze']}×{u['wdh']}"
-                spec_str = f"RPE {u['rpe']}  ·  Tempo {u['tempo']}  ·  Pause {u['pausenzeit_sek']}s"
+                if is_metabolic_session:
+                    # Metabolic: kein Tempo, Pause nur bei Intervallen
+                    if u["saetze"] > 1:
+                        vol_str = f"{u['saetze']}× {u['wdh']}"
+                    else:
+                        vol_str = u["wdh"]
+                    spec_parts = [f"RPE {u['rpe']}"]
+                    if u["pausenzeit_sek"] > 0:
+                        spec_parts.append(f"Pause {u['pausenzeit_sek']}s")
+                    spec_str = "  ·  ".join(spec_parts)
+                else:
+                    vol_str  = f"{u['saetze']}×{u['wdh']}"
+                    spec_str = f"RPE {u['rpe']}  ·  Tempo {u['tempo']}  ·  Pause {u['pausenzeit_sek']}s"
 
                 pdf.set_font("Helvetica", "B", 8)
                 pdf.set_text_color(*C_BLACK)
@@ -209,6 +257,45 @@ def build_pdf(plan_data: dict) -> FPDF:
                     pdf.set_fill_color(255, 248, 230)
                     pdf.set_x(20)
                     pdf.multi_cell(176, 4, f"📝 {u['notiz']}", fill=True)
+                pdf.ln(1)
+
+            # MetconBlock (Recomp Finisher)
+            if s.get("metcon_block"):
+                mb = s["metcon_block"]
+                pdf.ln(2)
+                pdf.set_fill_color(40, 40, 80)
+                pdf.set_text_color(*C_WHITE)
+                pdf.set_font("Helvetica", "B", 7.5)
+                pdf.cell(0, 6, f"  CONDITIONING FINISHER — {mb['typ'].upper()}", fill=True, new_x="LMARGIN", new_y="NEXT")
+                pdf.set_fill_color(50, 50, 100)
+                pdf.set_text_color(*C_WHITE)
+                pdf.set_font("Helvetica", "I", 7)
+                pdf.multi_cell(0, 4.5, f"  {mb['format_notiz']}", fill=True)
+                pdf.ln(1)
+                for u in mb["uebungen"]:
+                    if u["saetze"] > 1:
+                        vol_str = f"{u['saetze']}× {u['wdh']}"
+                    else:
+                        vol_str = u["wdh"]
+                    spec_parts = [f"RPE {u['rpe']}"]
+                    if u["pausenzeit_sek"] > 0:
+                        spec_parts.append(f"Pause {u['pausenzeit_sek']}s")
+                    spec_str = "  ·  ".join(spec_parts)
+                    pdf.set_font("Helvetica", "B", 8)
+                    pdf.set_text_color(*C_BLACK)
+                    pdf.cell(6, 5, f"  {u['reihenfolge']}.")
+                    pdf.cell(78, 5, u["name"])
+                    pdf.set_text_color(40, 40, 180)
+                    pdf.cell(22, 5, vol_str)
+                    pdf.set_font("Helvetica", "", 7)
+                    pdf.set_text_color(*C_MID_GREY)
+                    pdf.cell(0, 5, spec_str, new_x="LMARGIN", new_y="NEXT")
+                    cues = "  ·  ".join(u["coaching_cues"])
+                    pdf.set_font("Helvetica", "I", 6.5)
+                    pdf.set_text_color(*C_MID_GREY)
+                    pdf.set_x(20)
+                    pdf.multi_cell(176, 3.5, f"-> {cues}")
+                    pdf.ln(0.5)
                 pdf.ln(1)
 
             # Cardio

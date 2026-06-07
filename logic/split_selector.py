@@ -1,60 +1,268 @@
 """
-Hauptziel × Tage → Split-Name + Sessions mit Slots
+Hauptziel × Tage × session_dauer_min → Split-Name + Sessions mit Slots
 
-Split-Tabelle aus PDF Seite 8:
-  muskelaufbau: 3T=Full Body 3×, 4T=Upper/Lower+Mobility, 5T=Upper/Lower×2+Mobility
-  fettabbau:    3T=Full Body+Conditioning, 4T=Upper/Lower+Conditioning+Mobility
-  ausdauer:     3T=Full Body 3×, 4T=Upper/Lower+Mobility
-  gesundheit:   3T=Full Body+Zone2, 4T=Upper/Lower+Zone2+Mobility
+Slot-Anzahl nach Session-Dauer:
+  20 min → 3 Slots: [compound, accessory, core]
+  30 min → 4 Slots: [compound, compound, accessory, core]
+  45 min → 5 Slots: [compound, compound, accessory, isolation, core]
+  60 min → 6 Slots: [compound, compound, accessory, accessory, isolation, core]
 
-Ab 4 Tagen immer 1× Mobility-Session als eigene Session.
-
-Sessions: list of {"session_id": "w1_sN", "fokus": str, "session_typ": str, "slots": [...]}
+Special Case: session_dauer_min == 20 → immer Full Body, unabhängig von tage_pro_woche
+Mobility erst ab 5 Tagen als eigene Session (nur wenn dauer >= 30).
 """
 
 from __future__ import annotations
 from models import KlientenInput, Hauptziel
 
 
-def _slot(beschreibung: str, pattern: str, max_level: int = 4) -> dict:
-    return {"beschreibung": beschreibung, "pattern": pattern, "max_level": max_level}
+def _slot(beschreibung: str, pattern: str, tier: str = "compound", max_level: int = 4) -> dict:
+    return {"beschreibung": beschreibung, "pattern": pattern, "tier": tier, "max_level": max_level}
 
 
-def _tag_session(session_id: str, fokus: str, slots: list[dict], session_typ: str = "kraft") -> dict:
-    return {"session_id": session_id, "fokus": fokus, "session_typ": session_typ, "slots": slots}
+def _tag_session(session_id: str, fokus: str, slots: list[dict], session_typ: str = "kraft", metcon_typ: str | None = None) -> dict:
+    s = {"session_id": session_id, "fokus": fokus, "session_typ": session_typ, "slots": slots}
+    if metcon_typ:
+        s["metcon_typ"] = metcon_typ
+    return s
 
 
-# ── Session templates ──────────────────────────────────────────────────────────
+# ── Dauer-basierte Slot-Templates ─────────────────────────────────────────────
 
-def _full_body_sessions(tage: int, level: int) -> list[dict]:
+def _upper_a_slots(dauer: int, level: int) -> list[dict]:
+    if dauer <= 20:
+        return [
+            _slot("Haupt-Horizontaldruck",        "push_horizontal", "compound",  level),
+            _slot("Horizontales Ziehen (Balance)", "pull_horizontal", "accessory", level),
+            _slot("Core",                          "core",            "core",       level),
+        ]
+    elif dauer <= 30:
+        return [
+            _slot("Haupt-Horizontaldruck",     "push_horizontal", "compound",  level),
+            _slot("Haupt-Vertikalzug",         "pull_vertical",   "compound",  level),
+            _slot("Vertikales Drücken",        "push_vertical",   "accessory", level),
+            _slot("Core",                      "core",            "core",       level),
+        ]
+    elif dauer <= 45:
+        return [
+            _slot("Haupt-Horizontaldruck",     "push_horizontal", "compound",       level),
+            _slot("Haupt-Vertikalzug",         "pull_vertical",   "compound",       level),
+            _slot("Vertikales Drücken",        "push_vertical",   "accessory",      level),
+            _slot("Hintere Schulter Isolation","pull_horizontal",  "isolation", min(level, 2)),
+            _slot("Core",                      "core",            "core",            level),
+        ]
+    else:  # 60
+        return [
+            _slot("Haupt-Horizontaldruck",     "push_horizontal", "compound",       level),
+            _slot("Horizontales Ziehen",       "pull_horizontal", "compound",       level),
+            _slot("Vertikales Drücken",        "push_vertical",   "accessory",      level),
+            _slot("Vertikales Ziehen",         "pull_vertical",   "accessory",      level),
+            _slot("Schulter / Arm Isolation",  "push_vertical",   "isolation", min(level, 2)),
+            _slot("Core",                      "core",            "core",            level),
+        ]
+
+
+def _upper_b_slots(dauer: int, level: int) -> list[dict]:
+    """Spiegelbildlich zu Upper A — Pull-Betonung für Push/Pull-Balance."""
+    if dauer <= 20:
+        return [
+            _slot("Haupt-Vertikalzug",          "pull_vertical",   "compound",  level),
+            _slot("Horizontales Drücken",        "push_horizontal", "accessory", level),
+            _slot("Core",                        "core",            "core",       level),
+        ]
+    elif dauer <= 30:
+        return [
+            _slot("Haupt-Horizontales Ziehen",  "pull_horizontal", "compound",  level),
+            _slot("Vertikales Drücken",         "push_vertical",   "compound",  level),
+            _slot("Vertikales Ziehen",          "pull_vertical",   "accessory", level),
+            _slot("Core",                       "core",            "core",       level),
+        ]
+    elif dauer <= 45:
+        return [
+            _slot("Haupt-Vertikalzug",          "pull_vertical",   "compound",       level),
+            _slot("Haupt-Horizontales Ziehen",  "pull_horizontal", "compound",       level),
+            _slot("Push-Support",               "push_horizontal", "accessory",      level),
+            _slot("Schulter Isolation",         "push_vertical",   "isolation", min(level, 2)),
+            _slot("Core",                       "core",            "core",            level),
+        ]
+    else:  # 60
+        return [
+            _slot("Haupt-Vertikalzug",          "pull_vertical",   "compound",       level),
+            _slot("Horizontales Drücken",       "push_horizontal", "compound",       level),
+            _slot("Horizontales Ziehen",        "pull_horizontal", "accessory",      level),
+            _slot("Push-Support",               "push_horizontal", "accessory",      level),
+            _slot("Hintere Schulter Isolation", "pull_horizontal", "isolation", min(level, 2)),
+            _slot("Core",                       "core",            "core",            level),
+        ]
+
+
+def _lower_a_slots(dauer: int, level: int) -> list[dict]:
+    if dauer <= 20:
+        return [
+            _slot("Haupt-Squat (bilateral)",   "squat",      "compound",  level),
+            _slot("Hinge / Posterior Chain",   "hinge",      "accessory", level),
+            _slot("Core",                      "core",        "core",      level),
+        ]
+    elif dauer <= 30:
+        return [
+            _slot("Haupt-Squat (bilateral)",   "squat",      "compound",  level),
+            _slot("Haupt-Hinge",               "hinge",      "compound",  level),
+            _slot("Unilateral Squat / Lunge",  "single_leg", "accessory", level),
+            _slot("Core",                      "core",        "core",      level),
+        ]
+    elif dauer <= 45:
+        return [
+            _slot("Haupt-Squat (bilateral)",   "squat",      "compound",       level),
+            _slot("Haupt-Hinge",               "hinge",      "compound",       level),
+            _slot("Unilateral Squat / Lunge",  "single_leg", "accessory",      level),
+            _slot("Posterior Chain Isolation", "hinge",      "isolation", min(level, 2)),
+            _slot("Core",                      "core",        "core",           level),
+        ]
+    else:  # 60
+        return [
+            _slot("Haupt-Squat (bilateral)",   "squat",      "compound",       level),
+            _slot("Haupt-Hinge",               "hinge",      "compound",       level),
+            _slot("Unilateral Squat / Lunge",  "single_leg", "accessory",      level),
+            _slot("Posterior Chain",           "hinge",      "accessory",      level),
+            _slot("Wade / Isolation",          "single_leg", "isolation", min(level, 2)),
+            _slot("Core",                      "core",        "core",           level),
+        ]
+
+
+def _lower_b_slots(dauer: int, level: int) -> list[dict]:
+    """Hinge-Betonung als Gegenstück zu Lower A (Squat-Betonung)."""
+    if dauer <= 20:
+        return [
+            _slot("Haupt-Hinge (Deadlift)",    "hinge",      "compound",  level),
+            _slot("Squat-Support",             "squat",      "accessory", level),
+            _slot("Core",                      "core",        "core",      level),
+        ]
+    elif dauer <= 30:
+        return [
+            _slot("Haupt-Hinge (Deadlift)",    "hinge",      "compound",  level),
+            _slot("Squat-Support / Presse",    "squat",      "compound",  level),
+            _slot("Single Leg Hip Hinge",      "single_leg", "accessory", level),
+            _slot("Core",                      "core",        "core",      level),
+        ]
+    elif dauer <= 45:
+        return [
+            _slot("Haupt-Hinge (Deadlift)",    "hinge",      "compound",       level),
+            _slot("Squat-Support / Presse",    "squat",      "compound",       level),
+            _slot("Single Leg Hip Hinge",      "single_leg", "accessory",      level),
+            _slot("Hip Thrust Isolation",      "hinge",      "isolation", min(level, 2)),
+            _slot("Core",                      "core",        "core",           level),
+        ]
+    else:  # 60
+        return [
+            _slot("Haupt-Hinge (Deadlift)",    "hinge",      "compound",  level),
+            _slot("Squat-Support / Presse",    "squat",      "compound",  level),
+            _slot("Single Leg Hip Hinge",      "single_leg", "accessory", level),
+            _slot("Posterior Chain / Hip Thrust","hinge",    "accessory", level),
+            _slot("Carry / Loaded Carry",      "carry",      "isolation", level),
+            _slot("Core",                      "core",        "core",      level),
+        ]
+
+
+# ── Session-Zusammenbau ────────────────────────────────────────────────────────
+
+def _upper_lower_sessions(level: int, dauer: int) -> list[dict]:
+    return [
+        _tag_session("w1_s1", "Upper A — Push", _upper_a_slots(dauer, level)),
+        _tag_session("w1_s2", "Lower A — Squat", _lower_a_slots(dauer, level)),
+        _tag_session("w1_s3", "Upper B — Pull", _upper_b_slots(dauer, level)),
+        _tag_session("w1_s4", "Lower B — Hinge", _lower_b_slots(dauer, level)),
+    ]
+
+
+def _full_body_sessions(tage: int, level: int, dauer: int) -> list[dict]:
+    """Für Full Body: dauer bestimmt Slot-Zahl, aber Patterns bleiben full-body."""
+    def _fb_slots(fokus_typ: str) -> list[dict]:
+        if fokus_typ == "a":
+            # Squat + Push
+            if dauer <= 20:
+                return [
+                    _slot("Haupt-Squat",           "squat",          "compound",  level),
+                    _slot("Horizontales Drücken",  "push_horizontal", "accessory", level),
+                    _slot("Core",                  "core",            "core",       level),
+                ]
+            elif dauer <= 30:
+                return [
+                    _slot("Haupt-Squat",           "squat",          "compound",  level),
+                    _slot("Horizontales Drücken",  "push_horizontal", "compound",  level),
+                    _slot("Vertikales Ziehen",     "pull_vertical",   "accessory", level),
+                    _slot("Core",                  "core",            "core",       level),
+                ]
+            elif dauer <= 45:
+                return [
+                    _slot("Haupt-Squat",           "squat",          "compound",  level),
+                    _slot("Horizontales Drücken",  "push_horizontal", "compound",  level),
+                    _slot("Vertikales Ziehen",     "pull_vertical",   "accessory", level),
+                    _slot("Single Leg",            "single_leg",      "accessory", level),
+                    _slot("Core",                  "core",            "core",       level),
+                ]
+            else:  # 60 — bleibt 4-Slot Full Body
+                return [
+                    _slot("Haupt-Squat (bilateral)", "squat",          "compound",  level),
+                    _slot("Horizontales Drücken",    "push_horizontal", "compound",  level),
+                    _slot("Vertikales Ziehen",       "pull_vertical",   "accessory", level),
+                    _slot("Core",                    "core",            "core",       level),
+                ]
+        elif fokus_typ == "b":
+            # Hinge + Pull
+            if dauer <= 20:
+                return [
+                    _slot("Haupt-Hinge",           "hinge",          "compound",  level),
+                    _slot("Horizontales Ziehen",   "pull_horizontal", "accessory", level),
+                    _slot("Core",                  "core",            "core",       level),
+                ]
+            elif dauer <= 30:
+                return [
+                    _slot("Haupt-Hinge",           "hinge",          "compound",  level),
+                    _slot("Horizontales Ziehen",   "pull_horizontal", "compound",  level),
+                    _slot("Vertikales Drücken",    "push_vertical",   "accessory", level),
+                    _slot("Core",                  "core",            "core",       level),
+                ]
+            elif dauer <= 45:
+                return [
+                    _slot("Haupt-Hinge",           "hinge",          "compound",  level),
+                    _slot("Horizontales Ziehen",   "pull_horizontal", "compound",  level),
+                    _slot("Vertikales Drücken",    "push_vertical",   "accessory", level),
+                    _slot("Single Leg",            "single_leg",      "accessory", level),
+                    _slot("Core",                  "core",            "core",       level),
+                ]
+            else:
+                return [
+                    _slot("Haupt-Hinge",           "hinge",          "compound",  level),
+                    _slot("Horizontales Ziehen",   "pull_horizontal", "compound",  level),
+                    _slot("Vertikales Drücken",    "push_vertical",   "accessory", level),
+                    _slot("Single Leg",            "single_leg",      "accessory", level),
+                ]
+        else:
+            # Full Body C — Single Leg + Carry
+            if dauer <= 20:
+                return [
+                    _slot("Single Leg",            "single_leg",      "accessory", level),
+                    _slot("Horizontales Drücken",  "push_horizontal", "compound",  level),
+                    _slot("Core",                  "core",            "core",       level),
+                ]
+            elif dauer <= 30:
+                return [
+                    _slot("Single Leg",            "single_leg",      "accessory", level),
+                    _slot("Horizontales Drücken",  "push_horizontal", "compound",  level),
+                    _slot("Horizontales Ziehen",   "pull_horizontal", "compound",  level),
+                    _slot("Core",                  "core",            "core",       level),
+                ]
+            else:
+                return [
+                    _slot("Single Leg Squat/Lunge","single_leg",      "accessory", level),
+                    _slot("Horizontales Drücken",  "push_horizontal", "compound",  level),
+                    _slot("Horizontales Ziehen",   "pull_horizontal", "compound",  level),
+                    _slot("Carry / Core",          "carry",           "core",       level),
+                ]
+
     templates = [
-        {
-            "fokus": "Full Body A — Squat + Push",
-            "slots": [
-                _slot("Haupt-Squat (bilateral)", "squat", level),
-                _slot("Horizontales Drücken", "push_horizontal", level),
-                _slot("Vertikales Ziehen", "pull_vertical", level),
-                _slot("Core", "core", level),
-            ],
-        },
-        {
-            "fokus": "Full Body B — Hinge + Pull",
-            "slots": [
-                _slot("Haupt-Hinge", "hinge", level),
-                _slot("Horizontales Ziehen", "pull_horizontal", level),
-                _slot("Vertikales Drücken", "push_vertical", level),
-                _slot("Single Leg", "single_leg", level),
-            ],
-        },
-        {
-            "fokus": "Full Body C — Single Leg + Carry",
-            "slots": [
-                _slot("Single Leg Squat/Lunge", "single_leg", level),
-                _slot("Horizontales Drücken", "push_horizontal", level),
-                _slot("Horizontales Ziehen", "pull_horizontal", level),
-                _slot("Carry / Core", "carry", level),
-            ],
-        },
+        {"fokus": "Full Body A — Squat + Push", "slots": _fb_slots("a")},
+        {"fokus": "Full Body B — Hinge + Pull", "slots": _fb_slots("b")},
+        {"fokus": "Full Body C — Single Leg + Carry", "slots": _fb_slots("c")},
     ]
     return [
         _tag_session(f"w1_s{i+1}", t["fokus"], t["slots"], "kraft")
@@ -62,50 +270,29 @@ def _full_body_sessions(tage: int, level: int) -> list[dict]:
     ]
 
 
-def _upper_lower_sessions(level: int) -> list[dict]:
-    return [
-        _tag_session("w1_s1", "Upper A — Push", [
-            _slot("Haupt-Horizontaldruck (Compound)", "push_horizontal", level),
-            _slot("Vertikales Drücken", "push_vertical", level),
-            _slot("Horizontales Ziehen (Balance)", "pull_horizontal", level),
-            _slot("Isolation / Prähab", "push_horizontal", min(level, 2)),
-        ]),
-        _tag_session("w1_s2", "Lower A — Squat", [
-            _slot("Haupt-Squat (bilateral)", "squat", level),
-            _slot("Single Leg Squat / Lunge", "single_leg", level),
-            _slot("Hinge-Support (Romanian)", "hinge", level),
-            _slot("Core", "core", level),
-        ]),
-        _tag_session("w1_s3", "Upper B — Pull", [
-            _slot("Haupt-Vertikalzug (Compound)", "pull_vertical", level),
-            _slot("Horizontales Ziehen", "pull_horizontal", level),
-            _slot("Drück-Support", "push_horizontal", level),
-            _slot("Schulter / Prähab", "push_vertical", min(level, 2)),
-        ]),
-        _tag_session("w1_s4", "Lower B — Hinge", [
-            _slot("Haupt-Hinge (Deadlift-Variante)", "hinge", level),
-            _slot("Squat-Support / Beinpresse", "squat", level),
-            _slot("Single Leg Hip Hinge", "single_leg", level),
-            _slot("Core / Carry", "core", level),
-        ]),
-    ]
+_FOKUS_MAP = {
+    "zirkel":     "Zirkel — Ganzkörper Kondition",
+    "amrap":      "AMRAP — Kraft-Ausdauer",
+    "emom":       "EMOM — Metabolic Training",
+    "intervalle": "Intervalle — HIIT Kondition",
+}
+
+_CONDITIONING_SLOTS = [
+    _slot("Compound / Squat",    "squat",          "accessory", 2),
+    _slot("Hinge / Swing",       "hinge",          "accessory", 2),
+    _slot("Push-Variation",      "push_horizontal", "accessory", 2),
+    _slot("Core / Carry",        "core",            "core",       2),
+]
+
+# Reihenfolge der Conditioning-Typen für Fettabbau (rotierend je Session)
+_FETTABBAU_TYPEN = ["intervalle", "amrap", "zirkel", "emom"]
 
 
 def _conditioning_session(idx: int, session_typ: str = "zirkel") -> dict:
-    fokus_map = {
-        "zirkel": "Kondition — Zirkel",
-        "amrap":  "Kondition — AMRAP",
-        "emom":   "Kondition — EMOM",
-    }
     return _tag_session(
         f"w1_s{idx}",
-        fokus_map.get(session_typ, "Kondition — Zirkel"),
-        [
-            _slot("Ganzkörper-Compound (leicht)", "squat", 2),
-            _slot("Hinge / Swing", "hinge", 2),
-            _slot("Push-Variation", "push_horizontal", 2),
-            _slot("Core / Carry", "core", 2),
-        ],
+        _FOKUS_MAP.get(session_typ, "Kondition"),
+        _CONDITIONING_SLOTS,
         session_typ,
     )
 
@@ -115,10 +302,10 @@ def _zone2_session(idx: int) -> dict:
         f"w1_s{idx}",
         "Zone 2 / Longevity",
         [
-            _slot("Mobility / Squat-Variation", "squat", 2),
-            _slot("Hinge / Carries", "hinge", 2),
-            _slot("Push / Pull leicht", "push_horizontal", 2),
-            _slot("Core / Cool-Down", "core", 1),
+            _slot("Mobility / Squat-Variation", "squat",          "accessory", 2),
+            _slot("Hinge / Carries",            "hinge",          "accessory", 2),
+            _slot("Push / Pull leicht",         "push_horizontal", "accessory", 2),
+            _slot("Core / Cool-Down",           "core",            "core",       1),
         ],
         "kraft",
     )
@@ -128,7 +315,7 @@ def _mobility_session(idx: int) -> dict:
     return _tag_session(
         f"w1_s{idx}",
         "Mobility & Beweglichkeit",
-        [],  # Assembler verwendet hardcodierte Mobility-Übungen — keine Slots nötig
+        [],
         "mobility",
     )
 
@@ -144,79 +331,93 @@ def _renumber(sessions: list[dict]) -> list[dict]:
 def waehle_split(klient: KlientenInput, level: int) -> dict:
     """
     Returns {"split_typ": str, "sessions": list[dict]}.
-    Ab 4 Tagen enthält jede Woche 1× Mobility-Session als letzten Slot.
+    20-min → immer Full Body.
+    Mobility nur ab 5 Tagen (und nur wenn dauer >= 30).
     """
-    ziel = klient.hauptziel
-    tage = klient.tage_pro_woche
-    mit_mobility = tage >= 4
+    ziel   = klient.hauptziel
+    tage   = klient.tage_pro_woche
+    dauer  = klient.session_dauer_min
+    mit_mobility = tage >= 5 and dauer >= 30
+
+    # ── 20 Min: immer Full Body, egal wie viele Tage ──────────────────────────
+    if dauer == 20:
+        return {
+            "split_typ": f"Full Body {tage}×",
+            "sessions":  _full_body_sessions(min(tage, 3), level, dauer),
+        }
+
+    # ── Normale Split-Logik ───────────────────────────────────────────────────
 
     if ziel == Hauptziel.muskelaufbau:
         if tage <= 3:
-            return {"split_typ": "Full Body 3×", "sessions": _full_body_sessions(tage, level)}
+            return {"split_typ": "Full Body 3×", "sessions": _full_body_sessions(tage, level, dauer)}
         elif tage == 4:
-            sessions = _upper_lower_sessions(level)[:3] + [_mobility_session(4)]
-            return {"split_typ": "Upper/Lower + Mobility", "sessions": sessions}
+            return {"split_typ": "Upper/Lower 4×", "sessions": _upper_lower_sessions(level, dauer)}
         elif tage == 5:
-            sessions = _upper_lower_sessions(level) + [_mobility_session(5)]
+            sessions = _renumber(_upper_lower_sessions(level, dauer) + [_mobility_session(5)])
             return {"split_typ": "Upper/Lower × 2 + Mobility", "sessions": sessions}
-        else:  # 6 Tage
-            ul = _upper_lower_sessions(level)
-            extra = _full_body_sessions(1, level)[0]
+        else:
+            ul = _upper_lower_sessions(level, dauer)
+            extra = _full_body_sessions(1, level, dauer)[0]
             extra["session_id"] = "w1_s5"
-            sessions = ul + [extra, _mobility_session(6)]
+            sessions = _renumber(ul + [extra, _mobility_session(6)])
             return {"split_typ": "PPL + Mobility", "sessions": sessions}
 
     elif ziel == Hauptziel.recomp:
-        # Recomp = Kraft + EMOM (Fettabbau nutzt Zirkel, Recomp nutzt EMOM)
+        # Alle Sessions: Kraftteil + Metcon-Finisher (außer 20 min — zu kurz)
+        metcon_typ = None if dauer <= 20 else "amrap" if dauer <= 45 else "emom"
+
+        def _recomp_session(sid: str, fokus: str, slots: list[dict]) -> dict:
+            return _tag_session(sid, fokus, slots, "kraft", metcon_typ)
+
         if tage <= 3:
-            kraft = _full_body_sessions(tage - 1, level) if tage > 1 else []
-            sessions = _renumber(kraft + [_conditioning_session(tage, "emom")])
-            return {"split_typ": "Full Body + EMOM", "sessions": sessions}
+            sessions = [
+                _recomp_session(f"w1_s{i+1}", t["fokus"], t["slots"])
+                for i, t in enumerate(_full_body_sessions(tage, level, dauer))
+            ]
+            return {"split_typ": f"Full Body {tage}× + Metcon", "sessions": sessions}
         elif tage == 4:
-            ul = _upper_lower_sessions(level)[:2]
-            sessions = _renumber(ul + [_conditioning_session(3, "emom"), _mobility_session(4)])
-            return {"split_typ": "Upper/Lower + EMOM + Mobility", "sessions": sessions}
+            ul = _upper_lower_sessions(level, dauer)
+            sessions = [_recomp_session(s["session_id"], s["fokus"], s["slots"]) for s in ul]
+            return {"split_typ": "Upper/Lower 4× + Metcon", "sessions": sessions}
         else:
-            ul = _upper_lower_sessions(level)
-            sessions = _renumber(ul + [_conditioning_session(5, "emom"), _mobility_session(6)])
-            return {"split_typ": "Upper/Lower x2 + EMOM + Mobility", "sessions": sessions[:tage]}
+            ul = _upper_lower_sessions(level, dauer)
+            sessions = [_recomp_session(s["session_id"], s["fokus"], s["slots"]) for s in ul]
+            if mit_mobility:
+                sessions = _renumber(sessions + [_mobility_session(5)])
+            return {"split_typ": "Upper/Lower × 2 + Metcon + Mobility", "sessions": sessions[:tage]}
 
     elif ziel == Hauptziel.fettabbau:
-        if tage <= 3:
-            kraft = _full_body_sessions(tage - 1, level) if tage > 1 else []
-            sessions = _renumber(kraft + [_conditioning_session(tage, "zirkel")])
-            return {"split_typ": "Full Body + Conditioning", "sessions": sessions}
-        elif tage == 4:
-            ul = _upper_lower_sessions(level)[:2]
-            sessions = _renumber(ul + [_conditioning_session(3, "zirkel"), _mobility_session(4)])
-            return {"split_typ": "Upper/Lower + Conditioning + Mobility", "sessions": sessions}
-        else:  # 5-6 Tage
-            ul = _upper_lower_sessions(level)
-            sessions = _renumber(ul + [_conditioning_session(5, "zirkel"), _mobility_session(6)])
-            return {"split_typ": "Upper/Lower × 2 + Conditioning + Mobility", "sessions": sessions[:tage]}
+        # ALLE Sessions sind Conditioning — kein klassisches Kraft-Training
+        typen = (_FETTABBAU_TYPEN * (tage // 4 + 1))[:tage]
+        sessions = [_conditioning_session(i + 1, typen[i]) for i in range(tage)]
+        if mit_mobility:
+            sessions = _renumber(sessions[:-1] + [_mobility_session(tage)])
+        typ_labels = " + ".join(dict.fromkeys(typen))  # unique, ordered
+        return {"split_typ": f"Conditioning {tage}× ({typ_labels})", "sessions": _renumber(sessions)}
 
     elif ziel == Hauptziel.ausdauer:
         if tage <= 3:
-            return {"split_typ": "Full Body Strength", "sessions": _full_body_sessions(tage, level)}
+            return {"split_typ": "Full Body Strength", "sessions": _full_body_sessions(tage, level, dauer)}
         elif tage == 4:
-            ul = _upper_lower_sessions(level)[:3]
-            sessions = ul + [_mobility_session(4)]
-            return {"split_typ": "Upper/Lower + Mobility", "sessions": sessions}
+            return {"split_typ": "Upper/Lower 4×", "sessions": _upper_lower_sessions(level, dauer)}
         else:
-            ul = _upper_lower_sessions(level)
-            sessions = _renumber(ul + [_conditioning_session(5, "intervalle"), _mobility_session(6)])
-            return {"split_typ": "Upper/Lower × 2 + Intervalle + Mobility", "sessions": sessions[:tage]}
+            ul = _upper_lower_sessions(level, dauer)
+            extra = [_conditioning_session(5, "intervalle")]
+            if mit_mobility:
+                extra.append(_mobility_session(6))
+            return {"split_typ": "Upper/Lower × 2 + Intervalle + Mobility", "sessions": _renumber(ul + extra)[:tage]}
 
-    else:  # gesundheit / longevity
+    else:  # gesundheit
         if tage <= 3:
-            sessions = _full_body_sessions(tage - 1, level) if tage > 1 else []
-            sessions = _renumber(sessions + [_zone2_session(tage)])
-            return {"split_typ": "Full Body + Zone 2", "sessions": sessions}
+            sessions = _full_body_sessions(tage - 1, level, dauer) if tage > 1 else []
+            return {"split_typ": "Full Body + Zone 2", "sessions": _renumber(sessions + [_zone2_session(tage)])}
         elif tage == 4:
-            ul = _upper_lower_sessions(level)[:2]
-            sessions = _renumber(ul + [_zone2_session(3), _mobility_session(4)])
-            return {"split_typ": "Upper/Lower + Zone 2 + Mobility", "sessions": sessions}
+            ul = _upper_lower_sessions(level, dauer)[:3]
+            return {"split_typ": "Upper/Lower + Zone 2", "sessions": _renumber(ul + [_zone2_session(4)])}
         else:
-            ul = _upper_lower_sessions(level)[:3]
-            sessions = _renumber(ul + [_zone2_session(4), _mobility_session(5)])
-            return {"split_typ": "Upper/Lower + Zone 2 + Mobility", "sessions": sessions[:tage]}
+            ul = _upper_lower_sessions(level, dauer)[:3]
+            extra = [_zone2_session(4)]
+            if mit_mobility:
+                extra.append(_mobility_session(5))
+            return {"split_typ": "Upper/Lower + Zone 2 + Mobility", "sessions": _renumber(ul + extra)[:tage]}

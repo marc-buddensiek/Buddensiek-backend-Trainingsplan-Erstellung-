@@ -40,6 +40,9 @@
       ],
       "progressions_down": [
         "gym_goblet_squat_db"
+      ],
+      "pattern_tags": [
+        "deep_squat"
       ]
     },
     {
@@ -81,6 +84,10 @@
       ],
       "progressions_down": [
         "gym_back_squat"
+      ],
+      "pattern_tags": [
+        "deep_squat",
+        "front_squat"
       ]
     },
     {
@@ -122,7 +129,8 @@
       ],
       "progressions_down": [
         "gym_goblet_squat_db"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_goblet_squat_db",
@@ -164,6 +172,9 @@
       ],
       "progressions_down": [
         "bw_squat"
+      ],
+      "pattern_tags": [
+        "deep_squat"
       ]
     },
     {
@@ -205,6 +216,9 @@
       ],
       "progressions_down": [
         "bw_squat"
+      ],
+      "pattern_tags": [
+        "deep_squat"
       ]
     },
     {
@@ -244,6 +258,9 @@
       ],
       "progressions_down": [
         "gym_leg_press_machine"
+      ],
+      "pattern_tags": [
+        "deep_squat"
       ]
     },
     {
@@ -281,7 +298,8 @@
       "progressions_up": [
         "gym_hack_squat_machine"
       ],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "bw_squat",
@@ -327,6 +345,9 @@
       ],
       "progressions_down": [
         "bw_wall_sit"
+      ],
+      "pattern_tags": [
+        "deep_squat"
       ]
     },
     {
@@ -370,6 +391,9 @@
       ],
       "progressions_down": [
         "bw_squat"
+      ],
+      "pattern_tags": [
+        "deep_squat"
       ]
     },
     {
@@ -410,7 +434,8 @@
       "progressions_up": [
         "bw_squat"
       ],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "bw_cossack_squat",
@@ -452,6 +477,10 @@
       ],
       "progressions_down": [
         "bw_squat"
+      ],
+      "pattern_tags": [
+        "deep_squat",
+        "wide_lunge"
       ]
     },
     {
@@ -497,6 +526,10 @@
       ],
       "progressions_down": [
         "bw_reverse_lunge"
+      ],
+      "pattern_tags": [
+        "deep_squat",
+        "lunge"
       ]
     },
     {
@@ -541,6 +574,9 @@
       ],
       "progressions_down": [
         "gym_trap_bar_deadlift"
+      ],
+      "pattern_tags": [
+        "heavy_hinge"
       ]
     },
     {
@@ -583,6 +619,9 @@
       ],
       "progressions_down": [
         "gym_rdl_barbell"
+      ],
+      "pattern_tags": [
+        "heavy_hinge"
       ]
     },
     {
@@ -622,6 +661,9 @@
       ],
       "progressions_down": [
         "gym_rdl_db"
+      ],
+      "pattern_tags": [
+        "heavy_hinge"
       ]
     },
     {
@@ -662,7 +704,8 @@
       ],
       "progressions_down": [
         "bw_glute_bridge"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_hip_thrust_barbell",
@@ -700,7 +743,8 @@
       ],
       "progressions_down": [
         "gym_hip_thrust_machine"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_hip_thrust_machine",
@@ -737,7 +781,8 @@
       ],
       "progressions_down": [
         "bw_glute_bridge"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "kb_deadlift",
@@ -777,7 +822,8 @@
       ],
       "progressions_down": [
         "bw_glute_bridge"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "kb_swing_two_hand",
@@ -819,7 +865,8 @@
       ],
       "progressions_down": [
         "kb_deadlift"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "kb_swing_one_hand",
@@ -862,7 +909,8 @@
       ],
       "progressions_down": [
         "kb_swing_two_hand"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "kb_snatch",
@@ -902,7 +950,8 @@
       "progressions_up": [],
       "progressions_down": [
         "kb_swing_one_hand"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "kb_clean",
@@ -944,7 +993,8 @@
       ],
       "progressions_down": [
         "kb_swing_two_hand"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "bw_glute_bridge",
@@ -986,7 +1036,8 @@
         "bw_single_leg_glute_bridge",
         "gym_hip_thrust_machine"
       ],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "bw_single_leg_rdl",
@@ -1031,7 +1082,8 @@
       ],
       "progressions_down": [
         "bw_glute_bridge"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_bench_press",
@@ -1071,6 +1123,9 @@
       ],
       "progressions_down": [
         "gym_db_bench_press"
+      ],
+      "pattern_tags": [
+        "bench_heavy"
       ]
     },
     {
@@ -1111,7 +1166,8 @@
       ],
       "progressions_down": [
         "gym_db_floor_press"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_incline_db_press",
@@ -1150,7 +1206,8 @@
       ],
       "progressions_down": [
         "gym_db_bench_press"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_db_floor_press",
@@ -1189,7 +1246,8 @@
       ],
       "progressions_down": [
         "bw_pushup"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_machine_chest_press",
@@ -1227,7 +1285,8 @@
       ],
       "progressions_down": [
         "bw_incline_pushup"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_cable_fly",
@@ -1262,7 +1321,8 @@
       "progressions_up": [],
       "progressions_down": [
         "gym_machine_chest_press"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "bw_pushup",
@@ -1308,6 +1368,9 @@
       ],
       "progressions_down": [
         "bw_incline_pushup"
+      ],
+      "pattern_tags": [
+        "push_up_floor"
       ]
     },
     {
@@ -1350,6 +1413,9 @@
       ],
       "progressions_down": [
         "bw_pushup"
+      ],
+      "pattern_tags": [
+        "push_up_floor"
       ]
     },
     {
@@ -1391,6 +1457,9 @@
       ],
       "progressions_down": [
         "gym_db_shoulder_press"
+      ],
+      "pattern_tags": [
+        "overhead_press"
       ]
     },
     {
@@ -1431,6 +1500,9 @@
       ],
       "progressions_down": [
         "gym_landmine_ohp"
+      ],
+      "pattern_tags": [
+        "overhead_press"
       ]
     },
     {
@@ -1468,7 +1540,8 @@
       "progressions_up": [
         "gym_db_shoulder_press"
       ],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "gym_cable_lateral_raise",
@@ -1501,7 +1574,8 @@
         "elbow": "gym_face_pull"
       },
       "progressions_up": [],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "gym_db_lateral_raise",
@@ -1535,7 +1609,8 @@
         "elbow": "gym_face_pull"
       },
       "progressions_up": [],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "gym_face_pull",
@@ -1570,7 +1645,8 @@
         "elbow": "gym_band_pull_apart"
       },
       "progressions_up": [],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "gym_cuban_press",
@@ -1606,7 +1682,8 @@
         "elbow": "gym_band_pull_apart"
       },
       "progressions_up": [],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "kb_single_press",
@@ -1648,6 +1725,9 @@
       ],
       "progressions_down": [
         "gym_db_shoulder_press"
+      ],
+      "pattern_tags": [
+        "overhead_press"
       ]
     },
     {
@@ -1687,6 +1767,9 @@
       "progressions_up": [],
       "progressions_down": [
         "kb_single_press"
+      ],
+      "pattern_tags": [
+        "overhead_press"
       ]
     },
     {
@@ -1732,7 +1815,8 @@
       ],
       "progressions_down": [
         "gym_chinup"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_chinup",
@@ -1777,7 +1861,8 @@
       ],
       "progressions_down": [
         "gym_lat_pulldown"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_lat_pulldown",
@@ -1816,7 +1901,8 @@
       ],
       "progressions_down": [
         "bw_ring_row"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_cable_pullover",
@@ -1850,7 +1936,8 @@
         "elbow": "gym_lat_pulldown"
       },
       "progressions_up": [],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "bw_ring_row",
@@ -1891,7 +1978,8 @@
       "progressions_up": [
         "bw_negative_pullup"
       ],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "gym_barbell_row",
@@ -1929,7 +2017,8 @@
       "progressions_up": [],
       "progressions_down": [
         "gym_db_row"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_db_row",
@@ -1970,7 +2059,8 @@
       ],
       "progressions_down": [
         "bw_inverted_row"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_seated_cable_row",
@@ -2009,7 +2099,8 @@
       ],
       "progressions_down": [
         "gym_db_row"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_band_pull_apart",
@@ -2046,7 +2137,8 @@
         "elbow": "gym_cuban_press"
       },
       "progressions_up": [],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "kb_row",
@@ -2086,7 +2178,8 @@
       ],
       "progressions_down": [
         "bw_inverted_row"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "kb_renegade_row",
@@ -2125,6 +2218,9 @@
       "progressions_up": [],
       "progressions_down": [
         "kb_row"
+      ],
+      "pattern_tags": [
+        "push_up_floor"
       ]
     },
     {
@@ -2167,6 +2263,10 @@
       ],
       "progressions_down": [
         "bw_bulgarian_split_squat"
+      ],
+      "pattern_tags": [
+        "lunge",
+        "deep_squat"
       ]
     },
     {
@@ -2212,6 +2312,10 @@
       ],
       "progressions_down": [
         "bw_reverse_lunge"
+      ],
+      "pattern_tags": [
+        "lunge",
+        "deep_squat"
       ]
     },
     {
@@ -2257,6 +2361,9 @@
       ],
       "progressions_down": [
         "bw_squat"
+      ],
+      "pattern_tags": [
+        "lunge"
       ]
     },
     {
@@ -2297,6 +2404,9 @@
       ],
       "progressions_down": [
         "bw_reverse_lunge"
+      ],
+      "pattern_tags": [
+        "lunge"
       ]
     },
     {
@@ -2337,6 +2447,10 @@
       ],
       "progressions_down": [
         "kb_reverse_lunge"
+      ],
+      "pattern_tags": [
+        "lunge",
+        "deep_squat"
       ]
     },
     {
@@ -2377,7 +2491,8 @@
       ],
       "progressions_down": [
         "bw_reverse_lunge"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_single_leg_rdl_db",
@@ -2416,7 +2531,8 @@
       "progressions_up": [],
       "progressions_down": [
         "bw_single_leg_rdl"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "bw_pistol_squat",
@@ -2456,6 +2572,10 @@
       "progressions_up": [],
       "progressions_down": [
         "bw_assisted_pistol_squat"
+      ],
+      "pattern_tags": [
+        "deep_squat",
+        "lunge"
       ]
     },
     {
@@ -2498,7 +2618,8 @@
         "gym_suitcase_carry_db",
         "gym_overhead_carry_db"
       ],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "gym_suitcase_carry_db",
@@ -2539,7 +2660,8 @@
       ],
       "progressions_down": [
         "gym_farmers_carry_db"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_overhead_carry_db",
@@ -2579,6 +2701,9 @@
       ],
       "progressions_down": [
         "gym_suitcase_carry_db"
+      ],
+      "pattern_tags": [
+        "overhead_press"
       ]
     },
     {
@@ -2618,7 +2743,8 @@
       "progressions_up": [
         "kb_rack_walk"
       ],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "kb_rack_walk",
@@ -2659,7 +2785,8 @@
       ],
       "progressions_down": [
         "kb_farmers_carry"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "kb_bottoms_up_carry",
@@ -2697,6 +2824,9 @@
       "progressions_up": [],
       "progressions_down": [
         "kb_rack_walk"
+      ],
+      "pattern_tags": [
+        "overhead_press"
       ]
     },
     {
@@ -2743,6 +2873,9 @@
       ],
       "progressions_down": [
         "bw_dead_bug"
+      ],
+      "pattern_tags": [
+        "push_up_floor"
       ]
     },
     {
@@ -2786,7 +2919,8 @@
       ],
       "progressions_down": [
         "bw_mcgill_bird_dog"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_pallof_press",
@@ -2824,7 +2958,8 @@
       "progressions_up": [],
       "progressions_down": [
         "bw_plank"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_ab_wheel",
@@ -2865,6 +3000,10 @@
       ],
       "progressions_down": [
         "bw_plank"
+      ],
+      "pattern_tags": [
+        "loaded_flexion",
+        "push_up_floor"
       ]
     },
     {
@@ -2902,6 +3041,9 @@
       ],
       "progressions_down": [
         "bw_dead_bug"
+      ],
+      "pattern_tags": [
+        "loaded_flexion"
       ]
     },
     {
@@ -2942,6 +3084,9 @@
       "progressions_up": [],
       "progressions_down": [
         "bw_plank"
+      ],
+      "pattern_tags": [
+        "overhead_press"
       ]
     },
     {
@@ -2981,6 +3126,9 @@
       "progressions_up": [],
       "progressions_down": [
         "gym_pallof_press"
+      ],
+      "pattern_tags": [
+        "overhead_press"
       ]
     },
     {
@@ -3025,7 +3173,8 @@
       ],
       "progressions_down": [
         "bw_plank"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "bw_copenhagen_plank",
@@ -3065,7 +3214,8 @@
       "progressions_up": [],
       "progressions_down": [
         "bw_side_plank"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "gym_reverse_hyper",
@@ -3101,7 +3251,8 @@
       "progressions_up": [],
       "progressions_down": [
         "bw_glute_bridge"
-      ]
+      ],
+      "pattern_tags": []
     },
     {
       "id": "bw_mcgill_bird_dog",
@@ -3143,7 +3294,8 @@
       "progressions_up": [
         "bw_dead_bug"
       ],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "bw_mcgill_curl_up",
@@ -3181,7 +3333,8 @@
       "progressions_up": [
         "bw_hollow_body"
       ],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "bw_tibialis_raise",
@@ -3219,7 +3372,8 @@
         "ankle": "bw_squat"
       },
       "progressions_up": [],
-      "progressions_down": []
+      "progressions_down": [],
+      "pattern_tags": []
     },
     {
       "id": "gym_paused_back_squat",
@@ -3260,7 +3414,10 @@
         "knee": "gym_box_squat",
         "spine": "gym_goblet_squat_db",
         "hip": "gym_box_squat"
-      }
+      },
+      "pattern_tags": [
+        "deep_squat"
+      ]
     },
     {
       "id": "gym_tempo_squat",
@@ -3299,7 +3456,10 @@
         "knee": "gym_box_squat",
         "spine": "gym_goblet_squat_db",
         "hip": "gym_goblet_squat_db"
-      }
+      },
+      "pattern_tags": [
+        "deep_squat"
+      ]
     },
     {
       "id": "bw_jump_squat",
@@ -3343,7 +3503,13 @@
         "knee": "bw_squat",
         "hip": "bw_squat",
         "ankle": "bw_squat"
-      }
+      },
+      "pattern_tags": [
+        "deep_squat",
+        "jump",
+        "plyo",
+        "jumping"
+      ]
     },
     {
       "id": "kb_front_squat",
@@ -3382,7 +3548,11 @@
         "knee": "kb_goblet_squat",
         "spine": "kb_goblet_squat",
         "wrist": "kb_goblet_squat"
-      }
+      },
+      "pattern_tags": [
+        "deep_squat",
+        "front_squat"
+      ]
     },
     {
       "id": "bw_assisted_pistol_squat",
@@ -3426,7 +3596,10 @@
       "substitutions_b": {
         "knee": "bw_reverse_lunge",
         "hip": "bw_reverse_lunge"
-      }
+      },
+      "pattern_tags": [
+        "deep_squat"
+      ]
     },
     {
       "id": "bw_single_leg_glute_bridge",
@@ -3470,7 +3643,8 @@
       "substitutions_b": {
         "knee": "bw_glute_bridge",
         "spine": "bw_glute_bridge"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_45_degree_back_extension",
@@ -3508,7 +3682,8 @@
       "substitutions_b": {
         "spine": "bw_glute_bridge",
         "hip": "bw_glute_bridge"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_good_morning",
@@ -3547,7 +3722,11 @@
       "substitutions_b": {
         "spine": "gym_rdl_db",
         "knee": "gym_rdl_barbell"
-      }
+      },
+      "pattern_tags": [
+        "heavy_hinge",
+        "loaded_flexion"
+      ]
     },
     {
       "id": "gym_glute_ham_raise",
@@ -3586,7 +3765,8 @@
       "substitutions_b": {
         "spine": "gym_rdl_db",
         "knee": "gym_hip_thrust_barbell"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_nordic_curl",
@@ -3623,7 +3803,8 @@
       "substitutions_b": {
         "spine": "gym_rdl_db",
         "knee": "gym_hip_thrust_barbell"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_single_leg_hip_thrust_db",
@@ -3662,7 +3843,8 @@
       "substitutions_b": {
         "spine": "bw_single_leg_glute_bridge",
         "knee": "bw_glute_bridge"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "bw_incline_pushup",
@@ -3705,7 +3887,8 @@
         "shoulder": "gym_machine_chest_press",
         "elbow": "gym_machine_chest_press",
         "wrist": "gym_machine_chest_press"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "bw_wide_pushup",
@@ -3750,7 +3933,10 @@
         "shoulder": "bw_incline_pushup",
         "wrist": "bw_incline_pushup",
         "elbow": "gym_machine_chest_press"
-      }
+      },
+      "pattern_tags": [
+        "push_up_floor"
+      ]
     },
     {
       "id": "bw_diamond_pushup",
@@ -3795,7 +3981,10 @@
         "shoulder": "bw_pushup",
         "elbow": "bw_incline_pushup",
         "wrist": "bw_incline_pushup"
-      }
+      },
+      "pattern_tags": [
+        "push_up_floor"
+      ]
     },
     {
       "id": "bw_decline_pushup",
@@ -3840,7 +4029,10 @@
       "substitutions_b": {
         "shoulder": "bw_pushup",
         "wrist": "bw_incline_pushup"
-      }
+      },
+      "pattern_tags": [
+        "push_up_floor"
+      ]
     },
     {
       "id": "bw_one_arm_pushup_negatives",
@@ -3884,7 +4076,10 @@
       "substitutions_b": {
         "shoulder": "bw_pushup",
         "wrist": "bw_archer_pushup"
-      }
+      },
+      "pattern_tags": [
+        "push_up_floor"
+      ]
     },
     {
       "id": "bw_one_arm_pushup",
@@ -3924,7 +4119,10 @@
       "substitutions_b": {
         "shoulder": "bw_archer_pushup",
         "wrist": "bw_archer_pushup"
-      }
+      },
+      "pattern_tags": [
+        "push_up_floor"
+      ]
     },
     {
       "id": "kb_floor_press",
@@ -3964,7 +4162,8 @@
         "shoulder": "bw_pushup",
         "elbow": "bw_incline_pushup",
         "wrist": "bw_incline_pushup"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_weighted_dips",
@@ -4000,7 +4199,11 @@
       "substitutions_b": {
         "shoulder": "gym_db_bench_press",
         "elbow": "gym_machine_chest_press"
-      }
+      },
+      "pattern_tags": [
+        "dip",
+        "bench_heavy"
+      ]
     },
     {
       "id": "gym_close_grip_bench",
@@ -4037,7 +4240,10 @@
         "shoulder": "gym_db_floor_press",
         "elbow": "gym_machine_chest_press",
         "wrist": "gym_machine_chest_press"
-      }
+      },
+      "pattern_tags": [
+        "bench_heavy"
+      ]
     },
     {
       "id": "bw_pike_pushup",
@@ -4082,7 +4288,10 @@
         "shoulder": "bw_decline_pushup",
         "elbow": "bw_incline_pushup",
         "wrist": "bw_incline_pushup"
-      }
+      },
+      "pattern_tags": [
+        "overhead_press"
+      ]
     },
     {
       "id": "bw_pike_pushup_elevated",
@@ -4126,7 +4335,10 @@
       "substitutions_b": {
         "shoulder": "bw_pike_pushup",
         "wrist": "bw_pike_pushup"
-      }
+      },
+      "pattern_tags": [
+        "overhead_press"
+      ]
     },
     {
       "id": "bw_wall_handstand_pushup",
@@ -4168,7 +4380,10 @@
         "shoulder": "bw_pike_pushup",
         "wrist": "bw_pike_pushup",
         "elbow": "bw_pike_pushup"
-      }
+      },
+      "pattern_tags": [
+        "overhead_press"
+      ]
     },
     {
       "id": "kb_push_press",
@@ -4208,7 +4423,10 @@
         "shoulder": "kb_single_press",
         "elbow": "gym_db_shoulder_press",
         "knee": "kb_single_press"
-      }
+      },
+      "pattern_tags": [
+        "overhead_press"
+      ]
     },
     {
       "id": "gym_push_press_barbell",
@@ -4247,7 +4465,10 @@
         "shoulder": "gym_landmine_ohp",
         "elbow": "gym_db_shoulder_press",
         "knee": "gym_ohp_barbell"
-      }
+      },
+      "pattern_tags": [
+        "overhead_press"
+      ]
     },
     {
       "id": "gym_z_press",
@@ -4285,7 +4506,10 @@
       "substitutions_b": {
         "shoulder": "gym_landmine_ohp",
         "spine": "gym_db_shoulder_press"
-      }
+      },
+      "pattern_tags": [
+        "overhead_press"
+      ]
     },
     {
       "id": "bw_negative_pullup",
@@ -4329,7 +4553,8 @@
         "shoulder": "gym_lat_pulldown",
         "elbow": "gym_lat_pulldown",
         "wrist": "bw_ring_row"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_close_grip_pulldown",
@@ -4368,7 +4593,8 @@
         "shoulder": "gym_cable_pullover",
         "elbow": "gym_cable_pullover",
         "wrist": "bw_ring_row"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_weighted_pullup",
@@ -4406,7 +4632,8 @@
         "shoulder": "gym_lat_pulldown",
         "elbow": "gym_lat_pulldown",
         "wrist": "gym_lat_pulldown"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "bw_inverted_row",
@@ -4450,7 +4677,8 @@
       "substitutions_b": {
         "shoulder": "gym_lat_pulldown",
         "elbow": "gym_lat_pulldown"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "bw_towel_row",
@@ -4489,7 +4717,8 @@
       "substitutions_b": {
         "shoulder": "gym_band_pull_apart",
         "elbow": "gym_band_pull_apart"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_chest_supported_db_row",
@@ -4529,7 +4758,8 @@
       "substitutions_b": {
         "spine": "bw_ring_row",
         "shoulder": "gym_seated_cable_row"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_single_arm_cable_row",
@@ -4569,7 +4799,8 @@
       "substitutions_b": {
         "spine": "gym_seated_cable_row",
         "elbow": "gym_seated_cable_row"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "bw_skater_squat",
@@ -4613,7 +4844,11 @@
       "substitutions_b": {
         "knee": "bw_reverse_lunge",
         "hip": "bw_reverse_lunge"
-      }
+      },
+      "pattern_tags": [
+        "deep_squat",
+        "lunge"
+      ]
     },
     {
       "id": "gym_single_leg_press",
@@ -4651,7 +4886,8 @@
       "substitutions_b": {
         "knee": "gym_leg_press_machine",
         "hip": "gym_leg_press_machine"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "kb_single_leg_rdl",
@@ -4690,7 +4926,8 @@
         "knee": "bw_glute_bridge",
         "spine": "bw_glute_bridge",
         "hip": "bw_glute_bridge"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_barbell_overhead_carry",
@@ -4729,7 +4966,10 @@
         "shoulder": "gym_farmers_carry_db",
         "elbow": "gym_farmers_carry_db",
         "spine": "gym_farmers_carry_db"
-      }
+      },
+      "pattern_tags": [
+        "overhead_press"
+      ]
     },
     {
       "id": "bw_side_plank",
@@ -4774,7 +5014,8 @@
         "shoulder": "bw_dead_bug",
         "wrist": "bw_dead_bug",
         "spine": "bw_dead_bug"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_hanging_knee_raise",
@@ -4816,7 +5057,8 @@
         "shoulder": "bw_dead_bug",
         "wrist": "gym_cable_crunch",
         "elbow": "gym_cable_crunch"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "gym_hanging_leg_raise",
@@ -4857,7 +5099,8 @@
         "shoulder": "bw_hollow_body",
         "wrist": "gym_cable_crunch",
         "spine": "bw_dead_bug"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "bw_v_up",
@@ -4899,7 +5142,8 @@
       "substitutions_b": {
         "spine": "bw_dead_bug",
         "hip": "bw_dead_bug"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "bw_l_sit",
@@ -4942,7 +5186,8 @@
         "shoulder": "bw_hollow_body",
         "wrist": "gym_hanging_leg_raise",
         "spine": "bw_dead_bug"
-      }
+      },
+      "pattern_tags": []
     },
     {
       "id": "bw_dragon_flag",
@@ -4982,7 +5227,10 @@
       "substitutions_b": {
         "shoulder": "bw_hollow_body",
         "spine": "bw_dead_bug"
-      }
+      },
+      "pattern_tags": [
+        "loaded_flexion"
+      ]
     },
     {
       "id": "gym_ab_rollout_standing",
@@ -5023,7 +5271,11 @@
         "shoulder": "bw_hollow_body",
         "wrist": "bw_plank",
         "spine": "bw_dead_bug"
-      }
+      },
+      "pattern_tags": [
+        "loaded_flexion",
+        "push_up_floor"
+      ]
     },
     {
       "id": "gym_overhead_squat",
@@ -5063,7 +5315,11 @@
         "shoulder": "gym_front_squat",
         "wrist": "gym_front_squat",
         "spine": "gym_paused_back_squat"
-      }
+      },
+      "pattern_tags": [
+        "deep_squat",
+        "overhead_press"
+      ]
     }
   ]
 }

@@ -45,6 +45,18 @@ _EQUIPMENT_INCLUDES: dict[str, list[str]] = {
     "hybrid":     ["hybrid", "kettlebell", "bodyweight"],
 }
 
+# Übungen werden Python-seitig gefiltert BEVOR Claude sie sieht
+_VERLETZUNG_BLOCKED: dict[str, set[str]] = {
+    "knie":         {"deep_squat", "lunge", "jump", "plyo"},
+    "schulter":     {"overhead_press", "bench_heavy", "dip"},
+    "wirbelsäule":  {"heavy_hinge", "loaded_flexion"},
+    "hüfte":        {"deep_squat", "wide_lunge"},
+    "ellenbogen":   {"curl_pronation", "skull_crusher"},
+    "handgelenk":   {"front_squat", "push_up_floor"},
+    "hals":         {"heavy_shrug", "behind_neck"},
+    "knöchel":      {"deep_squat", "jumping", "sprinting"},
+}
+
 
 def _lade_exercises() -> list[dict]:
     return json.loads(_EXERCISES_PATH.read_text())["exercises"]
@@ -64,17 +76,29 @@ def filtere_uebungen(klient: KlientenInput, level: int) -> dict[str, list[dict]]
         if v.value in _VERLETZUNG_MAP
     }
 
+    # Geblockte pattern_tags aus allen Verletzungen zusammenstellen
+    blocked_patterns: set[str] = set()
+    for v in klient.verletzungen:
+        blocked_patterns |= _VERLETZUNG_BLOCKED.get(v.value, set())
+
     result: dict[str, list[dict]] = {}
 
     for ex in alle:
         # Equipment-Check
         if not any(eq in erlaubte_equipment for eq in ex["equipment"]):
             continue
-        # Level-Check — zeige nur Übungen die für dieses Level geeignet sind
+        # Level-Check
         if ex["level_min"] > level:
             continue
+        # Equipment-Detail-Check: Übung braucht spezifisches Gerät das der Klient hat?
+        required = ex.get("equipment_requires", [])
+        if required and klient.equipment_items and not any(item in klient.equipment_items for item in required):
+            continue
+        # Verletzungs-Blocking via pattern_tags (Python-seitig, vor Claude)
+        if blocked_patterns and set(ex.get("pattern_tags", [])) & blocked_patterns:
+            continue
 
-        # Verletzungs-Flag aufbauen
+        # Verletzungs-Flag für Substitutions-Hinweise aufbauen
         sub_b = ex.get("substitutions_b", {})
         betroffene = [key for key in verletzungs_keys if key in sub_b]
 

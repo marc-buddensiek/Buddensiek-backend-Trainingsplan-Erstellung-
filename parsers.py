@@ -49,16 +49,21 @@ def parse_typeform_payload(payload: dict) -> KlientenInput:
             return a["choices"]["labels"]
         return []
 
+    # Equipment-Details aus den vier möglichen Follow-Up-Feldern zusammenführen
+    equipment_items: list[str] = []
+    for _ref in ("home_gym_items", "travel_items", "kettlebell_items", "hybrid_items"):
+        equipment_items.extend(_choices_labels(_ref))
+
     return KlientenInput(
         client_id=payload["form_response"]["hidden"]["client_id"],
         vorname=_text("vorname"),
         alter=_number("alter"),
-        hauptziel=_choice_ref("hauptziel"),                    # ref: "muskelaufbau" | "fettabbau" | ...
-        nebenziel=_choice_ref("nebenziel"),                    # nur gesetzt wenn Typeform Q7=Ja, sonst None
+        hauptziel=_choice_ref("hauptziel"),
+        nebenziel=_choice_ref("nebenziel"),
         tage_pro_woche=int(_choice_label("tage_pro_woche")),
         session_dauer_min=int(_choice_label("session_dauer_min")),
-        equipment=_choice_ref("equipment"),                    # ref: "gym" | "home_gym" | ...
-        trainingsjahre=_choice_ref("trainingsjahre"),          # ref: "keine" | "unter_1" | ...
+        equipment=_choice_ref("equipment"),
+        trainingsjahre=_choice_ref("trainingsjahre"),
         stress_level=_number("stress_level"),
         schlaf_stunden=float(_choice_label("schlaf_stunden")),
         verletzungen=[v for v in _choices_labels("verletzungen") if v != "keine"],
@@ -66,6 +71,7 @@ def parse_typeform_payload(payload: dict) -> KlientenInput:
         medizinische_diagnosen=_text("medizinische_diagnosen"),
         motivation=_text("motivation"),
         aktuelles_training=_text("aktuelles_training"),
+        equipment_items=equipment_items,
         kniebeugen_wdh=_number("kniebeugen_wdh"),
         pushups_wdh=_number("pushups_wdh"),
         situps_wdh=_number("situps_wdh"),

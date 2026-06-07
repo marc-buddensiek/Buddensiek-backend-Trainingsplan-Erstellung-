@@ -36,10 +36,11 @@ class Equipment(str, Enum):
 
 
 class Trainingsjahre(str, Enum):
-    keine       = "keine"          # 0 Jahre → Level-Cap: 1
-    unter_1     = "unter_1"        # < 1 Jahr → Level-Cap: 1
-    ein_bis_zwei = "ein_bis_zwei"  # 1–2 Jahre → Level-Cap: 2
-    drei_plus   = "drei_plus"      # 3+ Jahre → kein Cap
+    keine          = "keine"           # 0 Jahre → Level-Cap: 1
+    unter_1        = "unter_1"         # < 1 Jahr → Level-Cap: 2
+    ein_bis_zwei   = "ein_bis_zwei"    # 1–2 Jahre → Level-Cap: 3
+    drei_bis_fuenf = "drei_bis_fuenf"  # 3–5 Jahre → Level-Cap: 4
+    fuenf_plus     = "fuenf_plus"      # 5+ Jahre → kein Cap
 
 
 class VerletzungsBereich(str, Enum):
@@ -85,8 +86,8 @@ class KlientenInput(BaseModel):
     tage_pro_woche: int = Field(..., ge=2, le=6)
 
     # Typeform ref: session_dauer_min
-    # Typeform Choice-Labels: "30" | "45" | "60" | "75" | "90"
-    session_dauer_min: Literal[20, 30, 45, 60, 75, 90]
+    # Typeform Choice-Labels: "20" | "30" | "45" | "60"
+    session_dauer_min: Literal[20, 30, 45, 60]
 
     # Typeform ref: equipment
     # Typeform Choice-Labels: "gym" | "home_gym" | "kettlebell" | "bodyweight" | "travel" | "hybrid"
@@ -129,6 +130,11 @@ class KlientenInput(BaseModel):
     # Typeform ref: aktuelles_training
     # Typeform: Open text (optional) — "Was machst du aktuell sportlich?"
     aktuelles_training: Optional[str] = Field(None, max_length=300)
+
+    # Typeform refs: home_gym_items | travel_items | kettlebell_items | hybrid_items
+    # Spezifische Geräte aus dem Follow-Up zur equipment-Frage
+    # Beispiele: "barbell", "dumbbells", "pull_up_bar", "cables", "resistance_bands", "trx", ...
+    equipment_items: list[str] = Field(default_factory=list)
 
     # ── PST — Physical Screening Test ─────────────────────────────────────
     # Durchgeführt bevor das Formular ausgefüllt wird (oder am selben Tag)
@@ -224,11 +230,11 @@ class HauptUebung(BaseModel):
     reihenfolge: int = Field(..., ge=1, le=10)
     exercise_id: str
     name: str
-    saetze: int = Field(..., ge=1, le=8)
+    saetze: int = Field(..., ge=1, le=15)
     wdh: str = Field(..., description="z.B. '8-10' oder '45sec' oder '20m'")
     rpe: int = Field(..., ge=1, le=10)
     tempo: str = Field(..., description="z.B. '2-1-1-0' oder 'halten'")
-    pausenzeit_sek: int = Field(..., ge=30, le=300)
+    pausenzeit_sek: int = Field(..., ge=0, le=300)
     coaching_cues: list[str] = Field(..., min_length=1, max_length=5)
     notiz: str = Field(default="", max_length=300)
 
@@ -256,6 +262,13 @@ class PSTTest(BaseModel):
     ergebnis: Optional[int] = None  # wird nach Re-Test gefüllt
 
 
+class MetconBlock(BaseModel):
+    """Konditionierungs-Finisher innerhalb einer Recomp-Session (nach dem Kraftteil)."""
+    typ: Literal["amrap", "emom", "intervalle", "zirkel"]
+    format_notiz: str
+    uebungen: list[HauptUebung]
+
+
 class Session(BaseModel):
     session_id: str
     tag: Literal["montag", "dienstag", "mittwoch", "donnerstag", "freitag", "samstag", "sonntag"]
@@ -265,16 +278,17 @@ class Session(BaseModel):
     dauer_min_geschaetzt: int = Field(..., ge=20, le=120)
     warm_up: WarmUp
     haupt_uebungen: list[HauptUebung]
+    metcon_block: Optional[MetconBlock] = None   # Recomp: Finisher nach Kraftteil
     cardio: Optional[Cardio] = None
     cool_down: CoolDown
-    pst_tests: Optional[list[PSTTest]] = None  # Re-Test in letzter Session der Peak-Woche
+    pst_tests: Optional[list[PSTTest]] = None
 
 
 class Woche(BaseModel):
     woche_nummer: int = Field(..., ge=1, le=4)
-    block_typ: Literal["akkumulation", "progression", "intensivierung", "peak"]
+    block_typ: Literal["akkumulation", "progression", "intensivierung", "deload"]
     volumen_stufe: Literal["sehr_niedrig", "niedrig", "mittel", "hoch"]
-    ziel_saetze: int = Field(..., ge=1, le=6)
+    ziel_saetze: int = Field(..., ge=1, le=20)
     ziel_rpe: int = Field(..., ge=4, le=10)
     sessions: list[Session]
 
@@ -286,6 +300,7 @@ class KlientenSnapshot(BaseModel):
     equipment: Equipment
     split_typ: str
     tage_pro_woche: int
+    session_dauer_min: int
     verletzungen: list[VerletzungsBereich] = Field(default_factory=list)
     stress: int
     schlaf_stunden: float
@@ -302,7 +317,7 @@ class Plan(BaseModel):
     @field_validator("wochen")
     @classmethod
     def validate_wochen_typen(cls, v: list[Woche]) -> list[Woche]:
-        expected = ["akkumulation", "progression", "intensivierung", "peak"]
+        expected = ["akkumulation", "progression", "intensivierung", "deload"]
         typen = [w.block_typ for w in v]
         if typen != expected:
             raise ValueError(

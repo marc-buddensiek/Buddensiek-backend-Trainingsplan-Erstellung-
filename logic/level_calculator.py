@@ -9,7 +9,7 @@ Scoring-Tabelle aus Buddensiek_KI_Trainingsplan_Uebersicht.pdf Seite 7:
   Plank (s):  <60=1, 60-120=2, 121-180=3, 181+=4
 
 Level-Schwellenwerte: 5-8=1, 9-13=2, 14-17=3, 18-20=4
-Trainingsjahre-Cap: keine→1, unter_1→2, ein_bis_zwei→3, drei_plus→kein Cap
+Trainingsjahre-Cap: keine→1, unter_1→2, ein_bis_zwei→3, drei_bis_fuenf→4, fuenf_plus→4
 """
 
 from __future__ import annotations
@@ -52,10 +52,11 @@ def _plank_punkte(sek: int) -> int:
 
 
 _JAHRES_CAP = {
-    Trainingsjahre.keine:        1,
-    Trainingsjahre.unter_1:      2,
-    Trainingsjahre.ein_bis_zwei: 3,
-    Trainingsjahre.drei_plus:    4,
+    Trainingsjahre.keine:          1,
+    Trainingsjahre.unter_1:        2,
+    Trainingsjahre.ein_bis_zwei:   3,
+    Trainingsjahre.drei_bis_fuenf: 4,
+    Trainingsjahre.fuenf_plus:     4,
 }
 
 

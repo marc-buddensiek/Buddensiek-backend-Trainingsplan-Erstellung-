@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 
 from models import (
     KlientenInput, ClaudeOutput, Hauptziel, Equipment,
-    Plan, Woche, Session, KlientenSnapshot,
+    Plan, Woche, Session, KlientenSnapshot, MetconBlock,
     WarmUp, WarmUpUebung, HauptUebung, Cardio, CoolDown, CoolDownUebung, PSTTest,
 )
 from logic.volume_calculator import berechne_volumen
@@ -23,7 +23,7 @@ from logic.volume_calculator import berechne_volumen
 
 _EXERCISES_PATH = pathlib.Path(__file__).parent.parent / "data" / "exercises.json"
 
-_WOCHEN_TYPEN = ["akkumulation", "progression", "intensivierung", "peak"]
+_WOCHEN_TYPEN = ["akkumulation", "progression", "intensivierung", "deload"]
 
 _TAGE_VERTEILUNG = {
     2: ["montag", "donnerstag"],
@@ -34,85 +34,118 @@ _TAGE_VERTEILUNG = {
 }
 
 
-# ── Wdh-Strings je Ziel + Pattern ─────────────────────────────────────────────
+# ── Wdh-Strings je Ziel + Tier ────────────────────────────────────────────────
 
-def _wdh(hauptziel: Hauptziel, pattern: str, reihenfolge: int, session_typ: str = "kraft") -> str:
+_WDH_MAP: dict[Hauptziel, dict[str, str]] = {
+    Hauptziel.muskelaufbau: {"compound": "6-10",  "accessory": "8-12",  "isolation": "12-20"},
+    Hauptziel.recomp:       {"compound": "6-10",  "accessory": "10-15", "isolation": "12-20"},
+    Hauptziel.fettabbau:    {"compound": "8-12",  "accessory": "12-15", "isolation": "15-20"},
+    Hauptziel.ausdauer:     {"compound": "12-20", "accessory": "15-20", "isolation": "20-25"},
+    Hauptziel.gesundheit:   {"compound": "8-12",  "accessory": "10-15", "isolation": "12-20"},
+}
+
+_CORE_WDH = {1: "20sec", 2: "30sec", 3: "45sec", 4: "60sec"}
+
+
+def _wdh(hauptziel: Hauptziel, pattern: str, tier: str, level: int) -> str:
     if pattern == "carry":
         return "20m"
-    if pattern == "core":
-        return "45sec"
-
-    if session_typ in ("zirkel", "amrap", "emom", "intervalle"):
-        return "12-15"  # metabolisches Format → höheres Wdh-Spektrum
-
-    is_compound = reihenfolge == 1
-    if hauptziel == Hauptziel.muskelaufbau:
-        return "6-8" if is_compound else "10-12"
-    elif hauptziel == Hauptziel.fettabbau:
-        return "12-15"
-    elif hauptziel == Hauptziel.recomp:
-        return "8-10" if is_compound else "10-12"
-    elif hauptziel == Hauptziel.ausdauer:
-        return "15-20"
-    else:  # gesundheit
-        return "10-12"
+    if tier == "core" or pattern == "core":
+        return _CORE_WDH.get(level, "30sec")
+    return _WDH_MAP.get(hauptziel, {}).get(tier, "8-12")
 
 
-# ── Tempo je Pattern ───────────────────────────────────────────────────────────
+# ── Tempo je Pattern + Session-Typ ────────────────────────────────────────────
 
-def _tempo(pattern: str) -> str:
-    if pattern in ("squat", "hinge"):
+def _tempo(pattern: str, session_typ: str = "kraft") -> str:
+    if session_typ in ("amrap", "zirkel"):
+        return "zügig"
+    if session_typ == "emom":
+        return "kontrolliert"
+    if session_typ == "intervalle":
+        return "explosiv"
+    if pattern in ("squat", "hinge", "push_horizontal", "push_vertical"):
         return "3-1-1-0"
-    elif pattern in ("push_horizontal", "push_vertical"):
-        return "3-1-1-0"
-    elif pattern in ("pull_horizontal", "pull_vertical"):
+    if pattern in ("pull_horizontal", "pull_vertical"):
         return "2-0-1-1"
-    elif pattern == "single_leg":
+    if pattern == "single_leg":
         return "2-1-1-0"
-    elif pattern == "core":
+    if pattern == "core":
         return "halten"
-    elif pattern == "carry":
+    if pattern == "carry":
         return "gleichmäßig"
     return "2-1-1-0"
 
 
-# ── Pausenzeit je Position + Pattern ─────────────────────────────────────────
+# ── Pausenzeit je Tier (nur Kraft) ────────────────────────────────────────────
 
-def _pausenzeit(reihenfolge: int, pattern: str, session_typ: str = "kraft") -> int:
-    if session_typ in ("zirkel", "amrap", "emom"):
-        return 30  # minimale Pause im Zirkel/Metabolischen Format
-    if pattern in ("core", "carry"):
-        return 45
-    if reihenfolge == 1:
-        return 180
-    if reihenfolge == 2:
-        return 120
-    return 60
+_TIER_PAUSENZEIT = {"compound": 180, "accessory": 90, "isolation": 60, "core": 45}
 
 
-# ── Format-Notiz je Session-Typ ────────────────────────────────────────────────
+def _pausenzeit(tier: str, pattern: str) -> int:
+    if pattern == "carry":
+        return 90
+    return _TIER_PAUSENZEIT.get(tier, 60)
 
-def _format_notiz(session_typ: str, n_uebungen: int, saetze: int) -> str | None:
+
+# ── Metabolic-Config: Sätze + WDH + RPE + Pause je Session-Typ × Woche ───────
+
+_METABOLIC_CONFIG: dict[str, dict[str, dict]] = {
+    "amrap": {
+        "akkumulation":   {"saetze": 1, "dauer_min": 10, "wdh": "10 Wdh", "rpe": 7, "pause": 0},
+        "progression":    {"saetze": 1, "dauer_min": 12, "wdh": "10 Wdh", "rpe": 7, "pause": 0},
+        "intensivierung": {"saetze": 1, "dauer_min": 15, "wdh": "10 Wdh", "rpe": 8, "pause": 0},
+        "deload":         {"saetze": 1, "dauer_min":  8, "wdh": "10 Wdh", "rpe": 6, "pause": 0},
+    },
+    "emom": {
+        "akkumulation":   {"saetze": 1, "dauer_min": 15, "wdh": "8 Wdh",  "rpe": 6, "pause": 0},
+        "progression":    {"saetze": 1, "dauer_min": 18, "wdh": "8 Wdh",  "rpe": 7, "pause": 0},
+        "intensivierung": {"saetze": 1, "dauer_min": 20, "wdh": "8 Wdh",  "rpe": 7, "pause": 0},
+        "deload":         {"saetze": 1, "dauer_min": 12, "wdh": "8 Wdh",  "rpe": 5, "pause": 0},
+    },
+    "zirkel": {
+        "akkumulation":   {"saetze": 3, "wdh": "12 Wdh", "rpe": 7, "pause": 0},
+        "progression":    {"saetze": 3, "wdh": "12 Wdh", "rpe": 8, "pause": 0},
+        "intensivierung": {"saetze": 4, "wdh": "12 Wdh", "rpe": 8, "pause": 0},
+        "deload":         {"saetze": 2, "wdh": "12 Wdh", "rpe": 6, "pause": 0},
+    },
+    "intervalle": {
+        "akkumulation":   {"saetze": 4, "wdh": "30 Sek", "rpe": 8, "pause": 20},
+        "progression":    {"saetze": 5, "wdh": "35 Sek", "rpe": 9, "pause": 20},
+        "intensivierung": {"saetze": 6, "wdh": "40 Sek", "rpe": 9, "pause": 20},
+        "deload":         {"saetze": 3, "wdh": "30 Sek", "rpe": 7, "pause": 30},
+    },
+}
+
+
+def _metabolic_wdh(session_typ: str, pattern: str, woche_typ: str) -> str:
+    cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {})
+    if pattern == "core":
+        return "45 Sek" if session_typ != "emom" else "30 Sek / Min"
+    return cfg.get("wdh", "10 Wdh")
+
+
+# ── Format-Notiz je Session-Typ × Woche ───────────────────────────────────────
+
+def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str) -> str | None:
+    cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {})
     if session_typ == "zirkel":
-        return (
-            f"{saetze} Runden Zirkel — alle {n_uebungen} Übungen nacheinander ohne Pause. "
-            f"30 Sek. Pause nach jeder Runde. Anzahl der Runden notieren."
-        )
+        r = cfg.get("saetze", 3)
+        return (f"{r} Runden Zirkel — alle {n_uebungen} Übungen nacheinander ohne Pause. "
+                f"60 Sek. Pause nach jeder Runde. Runden notieren.")
     if session_typ == "amrap":
-        return (
-            f"12 Min. AMRAP — so viele Runden wie möglich mit allen {n_uebungen} Übungen. "
-            f"Keine festgelegte Pause — eigenes Tempo. Runden am Ende notieren."
-        )
+        d = cfg.get("dauer_min", 12)
+        return (f"{d} Min. AMRAP — so viele Runden wie möglich mit allen {n_uebungen} Übungen. "
+                f"Kein Stop zwischen Übungen. Runden am Ende notieren.")
     if session_typ == "emom":
-        return (
-            f"20 Min. EMOM — jede Minute eine Übung, Übungen rotieren. "
-            f"Was in der Minute übrig ist = Pause. Saubere Technik vor Tempo."
-        )
+        d = cfg.get("dauer_min", 20)
+        return (f"{d} Min. EMOM — jede Minute eine Übung, Übungen rotieren. "
+                f"Was in der Minute übrig ist = Pause. Technik vor Tempo.")
     if session_typ == "intervalle":
-        return (
-            "Intervalle: 30 Sek. Arbeit / 30 Sek. Pause — 5 Runden pro Übung. "
-            "Intensität: 85-90% der maximalen Herzfrequenz."
-        )
+        r = cfg.get("saetze", 4)
+        w = cfg.get("wdh", "30 Sek")
+        return (f"Intervalle: {r} Runden je Übung — {w} Arbeit / 20 Sek. Pause. "
+                f"2 Min. Pause zwischen Übungen. Ziel: 85-90% HF-Max.")
     return None
 
 
@@ -324,10 +357,74 @@ _PST_TESTS = [
 ]
 
 
+# ── Metcon-Block Builder (Recomp-Finisher) ────────────────────────────────────
+
+# Muster-Sequenz für Metcon-Übungen: abwechseln damit nicht dieselbe wie Kraftteil
+_METCON_PATTERNS = ["squat", "hinge", "push_horizontal", "core"]
+
+
+def _build_metcon_block(
+    metcon_typ: str,
+    woche_typ: str,
+    uebungen_gefiltert: dict,
+) -> MetconBlock | None:
+    if not metcon_typ:
+        return None
+    cfg = _METABOLIC_CONFIG.get(metcon_typ, {}).get(woche_typ, {})
+    selected: list[HauptUebung] = []
+
+    for i, pattern in enumerate(_METCON_PATTERNS[:3]):
+        candidates = uebungen_gefiltert.get(pattern, [])
+        if not candidates:
+            continue
+        # Nimm zweite Übung wenn verfügbar (erste gehört meist zum Kraftteil)
+        ex = candidates[min(1, len(candidates) - 1)]
+        selected.append(HauptUebung(
+            reihenfolge=i + 1,
+            exercise_id=ex["id"],
+            name=ex["name"],
+            saetze=cfg.get("saetze", 1),
+            wdh=_metabolic_wdh(metcon_typ, pattern, woche_typ),
+            rpe=cfg.get("rpe", 7),
+            tempo=_tempo(pattern, metcon_typ),
+            pausenzeit_sek=cfg.get("pause", 0),
+            coaching_cues=ex["coaching_cues"][:2],
+            notiz="",
+        ))
+
+    if not selected:
+        return None
+
+    return MetconBlock(
+        typ=metcon_typ,
+        format_notiz=_format_notiz(metcon_typ, len(selected), woche_typ) or "",
+        uebungen=selected,
+    )
+
+
+# ── Reale Zeit pro Satz inkl. Pause (Minuten) — für Dauer-Schätzung ─────────
+
+_SET_MIN: dict[str, float] = {
+    "compound":  (45 + 180) / 60,   # 3.75 min
+    "accessory": (40 + 90)  / 60,   # 2.17 min
+    "isolation": (30 + 60)  / 60,   # 1.50 min
+    "core":      (30 + 45)  / 60,   # 1.25 min
+}
+
+
 # ── Session-Dauer schätzen ─────────────────────────────────────────────────────
 
-def _schaetze_dauer(n_uebungen: int, saetze: int, warm_up_min: int, cool_down_min: int, cardio_min: int) -> int:
-    haupt_min = n_uebungen * saetze * 2
+def _schaetze_dauer(haupt_uebungen: list, warm_up_min: int, cool_down_min: int, cardio_min: int) -> int:
+    haupt_min = sum(
+        u.saetze * _SET_MIN.get(
+            "compound" if u.pausenzeit_sek >= 150
+            else "accessory" if u.pausenzeit_sek >= 75
+            else "isolation" if u.pausenzeit_sek >= 50
+            else "core",
+            1.5
+        )
+        for u in haupt_uebungen
+    )
     total = warm_up_min + haupt_min + cool_down_min + cardio_min
     return min(120, max(20, round(total / 5) * 5))
 
@@ -340,9 +437,14 @@ def assemble_plan(
     split: dict,           # {"split_typ": str, "sessions": list[dict]}
     claude_output: ClaudeOutput,
     block_nummer: int = 1,
+    uebungen_gefiltert: dict | None = None,
 ) -> Plan:
     exercises_data = json.loads(_EXERCISES_PATH.read_text())
     ex_by_id = {e["id"]: e for e in exercises_data["exercises"]}
+
+    if uebungen_gefiltert is None:
+        from logic.equipment_filter import filtere_uebungen
+        uebungen_gefiltert = filtere_uebungen(klient, level)
 
     claude_sessions = {s.session_id: s.uebungen for s in claude_output.sessions}
 
@@ -356,7 +458,7 @@ def assemble_plan(
         stufe  = volumen["volumen_stufe"]
 
         sessions: list[Session] = []
-        ist_peak = woche_typ == "peak"
+        ist_deload = woche_typ == "deload"
 
         # Letzter Kraft-Session-Index für PST Re-Test (nicht Mobility/Metabolic)
         pst_session_idx = max(
@@ -370,8 +472,10 @@ def assemble_plan(
             fokus        = session_template["fokus"]
             session_typ  = session_template.get("session_typ", "kraft")
             tag          = tage[session_idx] if session_idx < len(tage) else "samstag"
+            ist_mobility = session_typ == "mobility"
+            metcon_blk   = None
 
-            if session_typ == "mobility":
+            if ist_mobility:
                 haupt_uebungen = _mobility_haupt_uebungen()
                 warm_up        = _mobility_warm_up()
                 cardio         = None
@@ -379,51 +483,72 @@ def assemble_plan(
                 fmt_notiz      = None
                 pst_tests      = None
                 dauer = _schaetze_dauer(
-                    n_uebungen=len(haupt_uebungen),
-                    saetze=1,
+                    haupt_uebungen=haupt_uebungen,
                     warm_up_min=warm_up.dauer_min,
                     cool_down_min=cool_down.dauer_min,
                     cardio_min=0,
                 )
             else:
                 is_metabolic = session_typ in ("zirkel", "amrap", "emom", "intervalle")
+                m_cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {}) if is_metabolic else {}
+
                 uebungen_auswahl = claude_sessions.get(original_id, [])
                 haupt_uebungen: list[HauptUebung] = []
 
+                slot_templates = session_template.get("slots", [])
                 for u in uebungen_auswahl:
                     ex = ex_by_id.get(u.exercise_id)
                     if not ex:
                         continue
                     pattern = ex["pattern"]
+                    slot_idx = u.reihenfolge - 1
+                    slot_tier = (
+                        slot_templates[slot_idx]["tier"]
+                        if slot_idx < len(slot_templates)
+                        else "compound"
+                    )
+
+                    if is_metabolic:
+                        u_saetze     = m_cfg.get("saetze", 3)
+                        u_wdh        = _metabolic_wdh(session_typ, pattern, woche_typ)
+                        u_rpe        = m_cfg.get("rpe", 7)
+                        u_pausenzeit = m_cfg.get("pause", 0)
+                    else:
+                        u_saetze     = volumen.get(f"{slot_tier}_saetze", saetze)
+                        u_wdh        = _wdh(klient.hauptziel, pattern, slot_tier, level)
+                        u_rpe        = volumen.get(f"{slot_tier}_rpe", rpe)
+                        u_pausenzeit = _pausenzeit(slot_tier, pattern)
+
                     haupt_uebungen.append(
                         HauptUebung(
                             reihenfolge=u.reihenfolge,
                             exercise_id=u.exercise_id,
                             name=ex["name"],
-                            saetze=3 if is_metabolic else saetze,
-                            wdh=_wdh(klient.hauptziel, pattern, u.reihenfolge, session_typ),
-                            rpe=max(4, rpe - 1) if is_metabolic else rpe,
-                            tempo=_tempo(pattern),
-                            pausenzeit_sek=_pausenzeit(u.reihenfolge, pattern, session_typ),
+                            saetze=u_saetze,
+                            wdh=u_wdh,
+                            rpe=u_rpe,
+                            tempo=_tempo(pattern, session_typ),
+                            pausenzeit_sek=u_pausenzeit,
                             coaching_cues=ex["coaching_cues"][:3],
                             notiz=u.notiz,
                         )
                     )
 
-                warm_up   = _warm_up(klient.equipment, fokus)
-                cardio    = _cardio(klient.hauptziel, fokus)
-                cool_down = _cool_down(fokus)
-                fmt_notiz = _format_notiz(session_typ, len(haupt_uebungen), 3 if is_metabolic else saetze)
+                warm_up    = _warm_up(klient.equipment, fokus)
+                cardio     = _cardio(klient.hauptziel, fokus)
+                cool_down  = _cool_down(fokus)
+                fmt_notiz  = _format_notiz(session_typ, len(haupt_uebungen), woche_typ)
+                metcon_typ = session_template.get("metcon_typ")
+                metcon_blk = _build_metcon_block(metcon_typ, woche_typ, uebungen_gefiltert) if metcon_typ else None
 
-                # PST Re-Test in letzter Kraft-Session der Peak-Woche
+                # PST Re-Test in letzter Kraft-Session der Deload-Woche
                 pst_tests = None
-                if ist_peak and session_idx == pst_session_idx:
+                if ist_deload and session_idx == pst_session_idx:
                     pst_tests = _PST_TESTS
 
                 cardio_min = cardio.dauer_min if cardio else 0
                 dauer = _schaetze_dauer(
-                    n_uebungen=len(haupt_uebungen),
-                    saetze=3 if is_metabolic else saetze,
+                    haupt_uebungen=haupt_uebungen,
                     warm_up_min=warm_up.dauer_min,
                     cool_down_min=cool_down.dauer_min,
                     cardio_min=cardio_min,
@@ -439,6 +564,7 @@ def assemble_plan(
                     dauer_min_geschaetzt=dauer,
                     warm_up=warm_up,
                     haupt_uebungen=haupt_uebungen,
+                    metcon_block=metcon_blk,
                     cardio=cardio,
                     cool_down=cool_down,
                     pst_tests=pst_tests,
@@ -462,6 +588,7 @@ def assemble_plan(
         equipment=klient.equipment,
         split_typ=split["split_typ"],
         tage_pro_woche=klient.tage_pro_woche,
+        session_dauer_min=klient.session_dauer_min,
         verletzungen=klient.verletzungen,
         stress=klient.stress_level,
         schlaf_stunden=klient.schlaf_stunden,

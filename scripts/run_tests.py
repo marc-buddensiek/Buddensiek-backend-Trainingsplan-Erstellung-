@@ -24,6 +24,8 @@ from logic.volume_calculator import berechne_volumen
 from logic.split_selector import waehle_split
 from logic.equipment_filter import filtere_uebungen
 from logic.plan_assembler import assemble_plan
+from realism_validator import pruefe_realismus
+from models import Hauptziel
 
 BASE_HIDDEN   = {"client_id": "00000000-0000-0000-0000-000000000001"}
 BASE_SUBMITTED = "2026-05-28T12:00:00Z"
@@ -135,7 +137,7 @@ TEST_CASES = [
     ("Level 1 — Absoluter Anfänger",     dict(kniebeugen=5, pushups=5, situps=5, burpees=3, plank=20,
                                               trainingsjahre_ref="keine")),
     ("Level 4 — Athlet",                 dict(kniebeugen=80, pushups=60, situps=75, burpees=40, plank=200,
-                                              trainingsjahre_ref="drei_plus")),
+                                              trainingsjahre_ref="fuenf_plus")),
 
     # Verletzungen
     ("Schulter-Verletzung",              dict(verletzungen_labels=["schulter"])),
@@ -150,6 +152,18 @@ TEST_CASES = [
     # Nebenziel
     ("Mit Nebenziel (Muskel+Fett)",      dict(hauptziel_ref="muskelaufbau", nebenziel_ref="fettabbau")),
     ("Mit Nebenziel (Fett+Ausdauer)",    dict(hauptziel_ref="fettabbau",    nebenziel_ref="ausdauer")),
+
+    # Dauer-kontrollierte Slot-Architektur
+    ("Anna — L1, Recomp, 4×45, 5 Slots",
+     dict(hauptziel_ref="recomp", tage=4, session_min=45,
+          kniebeugen=20, pushups=10, situps=25, burpees=10, plank=45,
+          trainingsjahre_ref="keine")),
+    ("Max — L2, Muskelaufbau, 4×60, 6 Slots",
+     dict(hauptziel_ref="muskelaufbau", tage=4, session_min=60,
+          kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80,
+          trainingsjahre_ref="ein_bis_zwei")),
+    ("Tim — Muskelaufbau, 2×20, 3-Slot FB",
+     dict(hauptziel_ref="muskelaufbau", tage=2, session_min=20)),
 ]
 
 # Subset für Claude-Tests (teuer + langsam)
@@ -183,7 +197,11 @@ def run_logic_test(name: str, kwargs: dict) -> tuple[bool, str]:
         total = sum(len(v) for v in uebungen.values())
         assert total >= 4, f"Zu wenige Übungen: {total}"
 
-        detail = f"Level {level} | {split['split_typ']} | {total} Übungen"
+        # Slot-Anzahl der ersten Kraft-Session
+        kraft_s = next((s for s in split["sessions"] if s.get("session_typ","kraft") == "kraft"), None)
+        slots_str = f"{len(kraft_s['slots'])}S" if kraft_s and "slots" in kraft_s else "?"
+
+        detail = f"Level {level} | {split['split_typ']} | {slots_str} Slots | {total} Übungen"
         return True, detail
 
     except Exception as e:
@@ -241,6 +259,38 @@ def main():
 
     print()
     print(f"  Ergebnis: {passed}/{passed+failed} bestanden")
+
+    # ── Realism-Validator-Tests ───────────────────────────────────────────────
+    print()
+    print("=" * 65)
+    print("REALISM-VALIDATOR TESTS")
+    print("=" * 65)
+
+    realismus_cases = [
+        # (beschreibung, ziel, tage, dauer, erwarteter_typ)
+        ("Tim 2×20 → Warnung Muskelaufbau",   "muskelaufbau", 2, 20,  "warnung"),
+        ("3×30 → Warnung Recomp",              "recomp",       3, 30,  "warnung"),
+        ("3×45 → Hinweis Muskelaufbau",        "muskelaufbau", 3, 45,  "hinweis"),  # 135 min < 180
+        ("4×45 → OK Muskelaufbau",             "muskelaufbau", 4, 45,  None),
+        ("4×60 → OK Recomp",                   "recomp",       4, 60,  None),
+        ("2×60 → OK Gesundheit",               "gesundheit",   2, 60,  None),       # 120 min = schwelle, nicht drunter
+        ("2×20 → Warnung Gesundheit",          "gesundheit",   2, 20,  "warnung"),
+    ]
+
+    r_passed = r_failed = 0
+    for desc, ziel_str, tage, dauer, erwartet in realismus_cases:
+        result = pruefe_realismus(Hauptziel(ziel_str), tage, dauer)
+        got_typ = result["typ"] if result else None
+        ok = got_typ == erwartet
+        icon = "✅" if ok else "❌"
+        got_label = got_typ or "OK"
+        erwartet_label = erwartet or "OK"
+        print(f"  {icon} {desc:<40}  erwartet={erwartet_label:<8} got={got_label}")
+        if ok: r_passed += 1
+        else:  r_failed += 1
+
+    print()
+    print(f"  Ergebnis: {r_passed}/{r_passed+r_failed} bestanden")
 
     if with_claude:
         import os
