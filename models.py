@@ -212,6 +212,10 @@ class HauptUebung(BaseModel):
     pausenzeit_sek: int = Field(..., ge=0, le=300)
     coaching_cues: list[str] = Field(..., min_length=1, max_length=5)
     notiz: str = Field(default="", max_length=300)
+    rpe_hinweis: Optional[str] = Field(
+        default=None, max_length=120,
+        description="RIR-Klartext für Level 1, z.B. '2-3 Wiederholungen in Reserve' (Spec Thema 3)"
+    )
 
 
 class Cardio(BaseModel):
