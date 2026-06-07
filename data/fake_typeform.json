@@ -27,7 +27,6 @@
           {"id": "THFAjuA2lNtU", "ref": "longevity", "label": "Longevity & optimale Gesundheit"}
         ]},
         {"id": "NyECDGdPFmyN", "ref": "tage_pro_woche", "type": "multiple_choice", "title": "Trainingstage pro Woche?", "properties": {}, "choices": [
-          {"id": "uL1TUW4LkuTr", "ref": "uuid-2", "label": "2"},
           {"id": "TJE3UyUZodWj", "ref": "uuid-3", "label": "3"},
           {"id": "1m91grsmfm8T", "ref": "uuid-4", "label": "4"},
           {"id": "kpsOZdDhMABw", "ref": "uuid-5", "label": "5"},

@@ -90,11 +90,6 @@
           "properties": {},
           "choices": [
             {
-              "id": "uL1TUW4LkuTr",
-              "ref": "uuid-2",
-              "label": "2"
-            },
-            {
               "id": "TJE3UyUZodWj",
               "ref": "uuid-3",
               "label": "3"

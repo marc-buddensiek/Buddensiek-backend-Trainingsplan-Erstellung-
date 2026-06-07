@@ -82,7 +82,7 @@ class KlientenInput(BaseModel):
     nebenziel: Optional[Hauptziel] = None
 
     # Typeform ref: tage_pro_woche
-    tage_pro_woche: int = Field(..., ge=2, le=6)
+    tage_pro_woche: int = Field(..., ge=3, le=6)
 
     # Typeform ref: session_dauer_min
     # Typeform Choice-Labels: "20" | "30" | "45" | "60"
