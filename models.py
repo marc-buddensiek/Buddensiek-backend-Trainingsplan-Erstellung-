@@ -22,8 +22,7 @@ class Hauptziel(str, Enum):
     muskelaufbau = "muskelaufbau"
     fettabbau    = "fettabbau"
     recomp       = "recomp"
-    ausdauer     = "ausdauer"
-    gesundheit   = "gesundheit"
+    longevity    = "longevity"   # ersetzt ausdauer + gesundheit (Spec Thema 4)
 
 
 class Equipment(str, Enum):
@@ -74,12 +73,12 @@ class KlientenInput(BaseModel):
 
     # ── Trainingspräferenzen ───────────────────────────────────────────────
     # Typeform ref: hauptziel
-    # Typeform Choice-Labels: "muskelaufbau" | "fettabbau" | "ausdauer" | "gesundheit"
+    # Typeform Choice-Labels: "muskelaufbau" | "fettabbau" | "recomp" | "longevity"
     hauptziel: Hauptziel
 
     # Typeform ref: nebenziel
     # Typeform: Nur sichtbar wenn hat_nebenziel == Ja (Logic Jump)
-    # Typeform Choice-Labels: "muskelaufbau" | "fettabbau" | "ausdauer" | "gesundheit"
+    # Typeform Choice-Labels: "muskelaufbau" | "fettabbau" | "recomp" | "longevity"
     nebenziel: Optional[Hauptziel] = None
 
     # Typeform ref: tage_pro_woche

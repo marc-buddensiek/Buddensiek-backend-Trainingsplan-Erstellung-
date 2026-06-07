@@ -14,8 +14,7 @@ _SCHWELLEN: dict[Hauptziel, tuple[int, int]] = {
     Hauptziel.muskelaufbau: (120, 180),
     Hauptziel.fettabbau:    (90,  150),
     Hauptziel.recomp:       (150, 210),
-    Hauptziel.ausdauer:     (90,  150),
-    Hauptziel.gesundheit:   (60,  120),
+    Hauptziel.longevity:    (60,  120),   # TODO(longevity-volume): Platzhalter = alte gesundheit-Werte, final mit MVP-3 / Thema 4-6
 }
 
 _WARNUNGEN: dict[Hauptziel, str] = {
@@ -31,11 +30,8 @@ _WARNUNGEN: dict[Hauptziel, str] = {
         "Body Recomposition ist das anspruchsvollste Ziel — es braucht mindestens 3× à 45 Min. pro Woche. "
         "Mit {wmin} Min./Woche ist der Fortschritt sehr langsam."
     ),
-    Hauptziel.ausdauer: (
-        "Ausdaueraufbau erfordert mindestens 3 Einheiten pro Woche. "
-        "Mit {wmin} Min./Woche ist ein messbarer Ausdauereffekt kaum zu erwarten."
-    ),
-    Hauptziel.gesundheit: (
+    # TODO(longevity-volume): Platzhalter = alte gesundheit-Werte, final mit MVP-3 / Thema 4-6
+    Hauptziel.longevity: (
         "Für allgemeine Gesundheitsverbesserung empfehlen die WHO mindestens 150 Min. moderate Aktivität pro Woche. "
         "Das aktuelle Volumen ({wmin} Min./Woche) liegt darunter."
     ),
@@ -54,11 +50,8 @@ _HINWEISE: dict[Hauptziel, str] = {
         "Recomp mit {wmin} Min./Woche ist möglich, aber dauert länger. "
         "Ernährung (Protein!) ist hier genauso entscheidend wie das Training."
     ),
-    Hauptziel.ausdauer: (
-        "{wmin} Min./Woche reicht für Einstieg und Gesundheitserhalt. "
-        "Für merkliche Ausdauerverbesserungen mittelfristig auf 150+ Min./Woche steigern."
-    ),
-    Hauptziel.gesundheit: (
+    # TODO(longevity-volume): Platzhalter = alte gesundheit-Werte, final mit MVP-3 / Thema 4-6
+    Hauptziel.longevity: (
         "{wmin} Min./Woche ist ein solider Start. "
         "Für maximalen Gesundheitsnutzen schrittweise auf 3 Einheiten à 45 Min. steigern."
     ),

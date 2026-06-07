@@ -46,13 +46,8 @@
             },
             {
               "id": "9CFWY92zpDW3",
-              "ref": "ausdauer",
-              "label": "Ausdauer & Fitness"
-            },
-            {
-              "id": "4FXLtybnTUeU",
-              "ref": "gesundheit",
-              "label": "Gesundheit & Beweglichkeit"
+              "ref": "longevity",
+              "label": "Longevity & optimale Gesundheit"
             }
           ]
         },
@@ -82,13 +77,8 @@
             },
             {
               "id": "THFAjuA2lNtU",
-              "ref": "ausdauer",
-              "label": "Ausdauer & Fitness"
-            },
-            {
-              "id": "q5PXCpoBr1vK",
-              "ref": "gesundheit",
-              "label": "Gesundheit & Beweglichkeit"
+              "ref": "longevity",
+              "label": "Longevity & optimale Gesundheit"
             }
           ]
         },

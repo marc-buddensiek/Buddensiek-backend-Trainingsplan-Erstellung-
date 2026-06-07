@@ -40,8 +40,8 @@ _WDH_MAP: dict[Hauptziel, dict[str, str]] = {
     Hauptziel.muskelaufbau: {"compound": "6-10",  "accessory": "8-12",  "isolation": "12-20"},
     Hauptziel.recomp:       {"compound": "6-10",  "accessory": "10-15", "isolation": "12-20"},
     Hauptziel.fettabbau:    {"compound": "8-12",  "accessory": "12-15", "isolation": "15-20"},
-    Hauptziel.ausdauer:     {"compound": "12-20", "accessory": "15-20", "isolation": "20-25"},
-    Hauptziel.gesundheit:   {"compound": "8-12",  "accessory": "10-15", "isolation": "12-20"},
+    # TODO(longevity-volume): Platzhalter = alte gesundheit-Werte, final mit MVP-3 / Thema 4-6
+    Hauptziel.longevity:    {"compound": "8-12",  "accessory": "10-15", "isolation": "12-20"},
 }
 
 _CORE_WDH = {1: "20sec", 2: "30sec", 3: "45sec", 4: "60sec"}
