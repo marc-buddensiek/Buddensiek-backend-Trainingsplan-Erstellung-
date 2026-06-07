@@ -294,6 +294,13 @@ class KlientenSnapshot(BaseModel):
     schlaf_stunden: float
 
 
+class PlanMetadata(BaseModel):
+    """Internes Coach-Kapazitäts-Flag (Spec Thema 3) — NICHT im Klient-PDF sichtbar."""
+    volume_below_optimal: bool = False
+    recommended_extra_days: int = Field(default=0, ge=0)
+    recommended_extra_minutes: int = Field(default=0, ge=0)
+
+
 class Plan(BaseModel):
     plan_id: str
     client_id: str
@@ -301,6 +308,7 @@ class Plan(BaseModel):
     block_nummer: int = Field(..., ge=1)
     klient_snapshot: KlientenSnapshot
     wochen: list[Woche] = Field(..., min_length=4, max_length=4)
+    plan_metadata: Optional[PlanMetadata] = None   # internes Coach-Flag (Thema 3); None = nichts zu melden
 
     @field_validator("wochen")
     @classmethod
