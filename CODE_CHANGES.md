@@ -19,12 +19,20 @@ _Erstellt: 2026-06-06_
   recomp · longevity`.
 - 🔧 **`KlientenInput.tage_pro_woche`:** `ge=2` → `ge=3`.
 - 🔴 **`KlientenInput.nebenziel`** entfernen (+ den `nebenziel_nicht_gleich_hauptziel`-Validator).
+  _Korrektur (MVP-1 umgesetzt):_ betrifft zusätzlich `claude/prompt_template.py` und
+  `scripts/test_pipeline.py` (Anzeige-Zeilen `klient.nebenziel`, sonst Laufzeit-`AttributeError`) —
+  also nicht nur `models.py` + `parsers.py`.
 - 🔴 **`KlientenInput.schmerzen_akut`** entfernen (+ `parse_bool_from_typeform`-Validator) → wird zur
   Dashboard-Schmerz-Meldung `[V2]`.
 - ➕ **`KlientenInput.schwachstelle`** (optional): `Literal["arme","brust","ruecken","schultern","beine"]`
   — Fokus für den Schwachstellen-Tag (5-Tage-Muskelaufbau/Recomp).
-- 🔧 **`Session.session_typ`-Literal:** `mobility` raus; Conditioning-Typen erweitern um
+- 🔧 **`Session.session_typ`-Literal:** Conditioning-Typen erweitern um
   `tabata, density, for_time, komplexe, ladders`; `zone2`, `athletik` ergänzen (Longevity).
+  _Korrektur (MVP-1 umgesetzt):_ `mobility` **NICHT** im Daten-Fundament entfernen — es hat einen live
+  Produzenten (`split_selector._mobility_session` → `plan_assembler` → `Session`), das Entfernen aus dem
+  Literal bräche den Plan-Bau (5/6-Tage Muskelaufbau/Recomp). Bleibt mit `# TODO(mobility-removal)`;
+  Entfernung gebündelt mit dem **Split-/Assembler-Rewrite (MVP-4/8)**, wo der Produzent stirbt.
+  In MVP-1 nur additiv erweitert.
 - 🔧 **`MetconBlock.typ`-Literal:** analog erweitern (Tabata/Density/For Time/Komplexe/Ladders).
 - ➕ **`HauptUebung.rpe_hinweis`** (optional `str`): RIR-Klartext für Level 1 (Thema 3).
 - ➕ **`Plan.plan_metadata`** (oder eigenes Sub-Modell): `volume_below_optimal: bool`,

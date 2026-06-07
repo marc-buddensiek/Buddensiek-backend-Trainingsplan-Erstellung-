@@ -149,3 +149,18 @@ Swap (V2-21) + Schmerz-Meldung (V2-22) + Backoffice (V2-23) + Kalibrierung (V2-2
 
 Die in der Spec geparkten Detailzahlen (Conditioning-Format-Parameter, Pattern-Prioritäts-Reihenfolge,
 Log-Schwellen) werden **jeweils zu Beginn des zugehörigen Arbeitspakets** festgelegt — nicht jetzt.
+
+---
+
+## Ideen / später
+
+> Lose Notizen, noch nicht eingeplant. Werden bei Bedarf in ein Arbeitspaket überführt.
+
+- **Körper-Fokus OK/UK-Gewichtung:** Klient wählt einen Schwerpunkt (Oberkörper vs. Unterkörper), der
+  die Volumen-/Split-Verteilung gewichtet. Logik gehört in den Generator-Rewrite (MVP-3/4); Spec dafür ist
+  **noch offen**. Eigenes Feld, getrennt vom bestehenden `schwachstelle` (Region-Fokus für den
+  Schwachstellen-Tag).
+- **Output-Pfad-Klärung:** Das **Plan-JSON** ist der eigentliche Output für die Web-App. Das **PDF** ist
+  ein Test-/Coach-Tool (Sichtprüfung, Coaching), nicht der primäre Auslieferungsweg. Welche Plan-Teile der
+  **Klient** vs. der **Coach** sieht (z.B. internes `plan_metadata` nur für den Coach), regelt das
+  Web-App-Backend — nicht der Generator/das PDF.
