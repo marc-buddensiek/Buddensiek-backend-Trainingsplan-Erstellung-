@@ -58,6 +58,7 @@ def parse_typeform_payload(payload: dict) -> KlientenInput:
         vorname=_text("vorname"),
         alter=_number("alter"),
         hauptziel=_choice_ref("hauptziel"),
+        schwachstelle=_choice_ref("schwachstelle"),
         tage_pro_woche=int(_choice_label("tage_pro_woche")),
         session_dauer_min=int(_choice_label("session_dauer_min")),
         equipment=_choice_ref("equipment"),

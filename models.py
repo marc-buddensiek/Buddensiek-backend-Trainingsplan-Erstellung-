@@ -91,6 +91,11 @@ class KlientenInput(BaseModel):
     # Typeform Choice-Labels: "keine" | "unter_1" | "ein_bis_zwei" | "drei_plus"
     trainingsjahre: Trainingsjahre
 
+    # Typeform ref: schwachstelle
+    # Optional — Region-Fokus für den Schwachstellen-Tag (nur 5-Tage-Muskelaufbau/Recomp)
+    # Typeform Choice-Labels: "arme" | "brust" | "ruecken" | "schultern" | "beine"
+    schwachstelle: Optional[Literal["arme", "brust", "ruecken", "schultern", "beine"]] = None
+
     # ── Gesundheit & Recovery ──────────────────────────────────────────────
     # Typeform ref: stress_level
     # Typeform: Skala 1–10
