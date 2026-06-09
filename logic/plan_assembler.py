@@ -18,7 +18,9 @@ from models import (
     Plan, Woche, Session, KlientenSnapshot, MetconBlock,
     WarmUp, WarmUpUebung, HauptUebung, Cardio, CoolDown, CoolDownUebung, PSTTest,
 )
-from logic.volume_calculator import berechne_volumen
+from logic.volume_calculator import (
+    berechne_volumen, WARMUP_MIN, ZEIT_PRO_SATZ_KRAFT, ZEIT_PRO_SATZ_COND, finisher_min,
+)
 
 
 _EXERCISES_PATH = pathlib.Path(__file__).parent.parent / "data" / "exercises.json"
@@ -402,30 +404,13 @@ def _build_metcon_block(
     )
 
 
-# ── Reale Zeit pro Satz inkl. Pause (Minuten) — für Dauer-Schätzung ─────────
+# ── Session-Dauer schätzen (flaches Modell, Spec Thema 3 Zeit-Parameter) ────────
+# Konstanten/Helper aus volume_calculator (Single Source of Truth, = budget_saetze).
+# Cooldown ist in die Warmup-Pauschale gefaltet; Cardio additiv (Block bleibt sichtbar).
 
-_SET_MIN: dict[str, float] = {
-    "compound":  (45 + 180) / 60,   # 3.75 min
-    "accessory": (40 + 90)  / 60,   # 2.17 min
-    "isolation": (30 + 60)  / 60,   # 1.50 min
-    "core":      (30 + 45)  / 60,   # 1.25 min
-}
-
-
-# ── Session-Dauer schätzen ─────────────────────────────────────────────────────
-
-def _schaetze_dauer(haupt_uebungen: list, warm_up_min: int, cool_down_min: int, cardio_min: int) -> int:
-    haupt_min = sum(
-        u.saetze * _SET_MIN.get(
-            "compound" if u.pausenzeit_sek >= 150
-            else "accessory" if u.pausenzeit_sek >= 75
-            else "isolation" if u.pausenzeit_sek >= 50
-            else "core",
-            1.5
-        )
-        for u in haupt_uebungen
-    )
-    total = warm_up_min + haupt_min + cool_down_min + cardio_min
+def _schaetze_dauer(haupt_uebungen: list, zeit_pro_satz: float, ziel: Hauptziel, cardio_min: int = 0) -> int:
+    sets_total = sum(u.saetze for u in haupt_uebungen)
+    total = WARMUP_MIN + sets_total * zeit_pro_satz + finisher_min(ziel) + cardio_min
     return min(120, max(20, round(total / 5) * 5))
 
 
@@ -482,12 +467,7 @@ def assemble_plan(
                 cool_down      = _mobility_cool_down()
                 fmt_notiz      = None
                 pst_tests      = None
-                dauer = _schaetze_dauer(
-                    haupt_uebungen=haupt_uebungen,
-                    warm_up_min=warm_up.dauer_min,
-                    cool_down_min=cool_down.dauer_min,
-                    cardio_min=0,
-                )
+                dauer = _schaetze_dauer(haupt_uebungen, ZEIT_PRO_SATZ_COND, klient.hauptziel)
             else:
                 is_metabolic = session_typ in ("zirkel", "amrap", "emom", "intervalle")
                 m_cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {}) if is_metabolic else {}
@@ -547,12 +527,8 @@ def assemble_plan(
                     pst_tests = _PST_TESTS
 
                 cardio_min = cardio.dauer_min if cardio else 0
-                dauer = _schaetze_dauer(
-                    haupt_uebungen=haupt_uebungen,
-                    warm_up_min=warm_up.dauer_min,
-                    cool_down_min=cool_down.dauer_min,
-                    cardio_min=cardio_min,
-                )
+                zeit_pro_satz = ZEIT_PRO_SATZ_COND if is_metabolic else ZEIT_PRO_SATZ_KRAFT
+                dauer = _schaetze_dauer(haupt_uebungen, zeit_pro_satz, klient.hauptziel, cardio_min)
 
             sessions.append(
                 Session(

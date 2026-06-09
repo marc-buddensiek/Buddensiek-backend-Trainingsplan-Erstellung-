@@ -52,10 +52,16 @@ _TIER_CAP: dict[str, tuple[int, int]] = {   # Satz-Cap je Tier, harte Obergrenze
     "core":      (2, 3),
 }
 
-# Kapazitäts-Konstanten (Spec Thema 3, Zeit-Parameter)
-_WARMUP_MIN          = 10
-_FINISHER_MIN_RECOMP = 8
-_ZEIT_PRO_SATZ_KRAFT = 2.0
+# Kapazitäts-Konstanten (Spec Thema 3, Zeit-Parameter) — Single Source of Truth,
+# auch von plan_assembler konsumiert (Naht 2).
+WARMUP_MIN          = 10
+FINISHER_MIN_RECOMP = 8
+ZEIT_PRO_SATZ_KRAFT = 2.0
+ZEIT_PRO_SATZ_COND  = 1.5
+
+
+def finisher_min(ziel: Hauptziel) -> int:
+    return FINISHER_MIN_RECOMP if ziel == Hauptziel.recomp else 0
 
 _RPE_RANGES: dict[int, tuple[int, int]] = {
     1: (6, 7),
@@ -123,8 +129,7 @@ def berechne_volumen(
     core_saetze      = _tier_saetze("core", woche_typ)
 
     # Session-Budget (Kraft): harte Dauer-Grenze, konsumiert in Naht 2 (plan_assembler).
-    finisher = _FINISHER_MIN_RECOMP if klient.hauptziel == Hauptziel.recomp else 0
-    budget_saetze = int((klient.session_dauer_min - _WARMUP_MIN - finisher) / _ZEIT_PRO_SATZ_KRAFT)
+    budget_saetze = int((klient.session_dauer_min - WARMUP_MIN - finisher_min(klient.hauptziel)) / ZEIT_PRO_SATZ_KRAFT)
 
     # ── RPE: unverändert (Recovery → RPE-Tiers, Spec Thema 5) ──
     if woche_typ == "deload":
