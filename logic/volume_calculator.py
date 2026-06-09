@@ -1,5 +1,5 @@
 """
-Level + Ziel + Wochen-Typ + Trainingsjahre + Recovery → per-Tier Sätze + RPE
+Level + Ziel + Wochen-Typ + Recovery → per-Tier Sätze + RPE
 
 Wöchentliches Ziel-Volumen (Sätze pro Muskelgruppe):
   muskelaufbau: L1=(8,10),  L2=(12,16), L3=(16,20), L4=(18,22)
@@ -9,9 +9,6 @@ Wöchentliches Ziel-Volumen (Sätze pro Muskelgruppe):
 
 Periodisierungs-Faktor:
   akkumulation=0.70, progression=0.85, intensivierung=1.00, deload=0.50
-
-Trainingsjahre-Modifier:
-  keine=0.8, unter_1=1.0, ein_bis_zwei=1.0, drei_bis_fuenf=1.1, fuenf_plus=1.2
 
 Slot-Tier-Multiplikator:
   compound=1.0, accessory=0.9, isolation=0.7, core=0.8
@@ -26,7 +23,7 @@ Recovery-Modifier:
 
 from __future__ import annotations
 from typing import Literal
-from models import KlientenInput, Hauptziel, Trainingsjahre
+from models import KlientenInput, Hauptziel
 
 
 WocheTyp = Literal["akkumulation", "progression", "intensivierung", "deload"]
@@ -37,14 +34,6 @@ _WOCHEN_VOLUMEN: dict[Hauptziel, dict[int, tuple[int, int]]] = {
     Hauptziel.recomp:       {1: (8, 10),  2: (12, 16), 3: (16, 20), 4: (18, 22)},
     # TODO(longevity-volume): Platzhalter = alte gesundheit-Werte, final mit MVP-3 / Thema 4-6
     Hauptziel.longevity:    {1: (6, 8),   2: (8, 10),  3: (8, 12),  4: (10, 12)},
-}
-
-_TRAININGSJAHRE_MODIFIER: dict[Trainingsjahre, float] = {
-    Trainingsjahre.keine:          0.8,
-    Trainingsjahre.unter_1:        1.0,
-    Trainingsjahre.ein_bis_zwei:   1.0,
-    Trainingsjahre.drei_bis_fuenf: 1.1,
-    Trainingsjahre.fuenf_plus:     1.2,
 }
 
 _PERIODISIERUNG_FAKTOR: dict[str, float] = {
@@ -93,12 +82,11 @@ def berechne_volumen(
     s_low, s_high = _WOCHEN_VOLUMEN[klient.hauptziel][level]
     rpe_low, rpe_high = _RPE_RANGES[level]
     modifier = _recovery_modifier(klient)
-    tj_mod = _TRAININGSJAHRE_MODIFIER[klient.trainingsjahre]
     periodo = _PERIODISIERUNG_FAKTOR[woche_typ]
 
     # Deload = 50% des Intensivierungs-Volumens (nicht skaliert vom s_low)
     if woche_typ == "deload":
-        intensiv_base = s_high * tj_mod
+        intensiv_base = s_high
         base = intensiv_base * 0.5
         raw_rpe = float(rpe_low)  # RPE-Floor für Deload
     else:
@@ -107,7 +95,6 @@ def berechne_volumen(
             base *= 0.8
         elif modifier == "erhoht":
             base *= 1.1
-        base *= tj_mod
         raw_rpe = rpe_low + (rpe_high - rpe_low) * periodo
         if modifier == "reduziert":
             raw_rpe = min(raw_rpe, 8)
