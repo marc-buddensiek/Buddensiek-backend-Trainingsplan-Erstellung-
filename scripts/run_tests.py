@@ -117,15 +117,16 @@ TEST_CASES = [
     # Alle Equipment-Pfade
     ("Gym / 4T / Muskelaufbau",          dict(equipment_ref="gym",        tage=4, hauptziel_ref="muskelaufbau")),
     ("Home Gym / 3T / Fettabbau",        dict(equipment_ref="home_gym",   tage=3, hauptziel_ref="fettabbau")),
+    # TODO(ausdauer-rename): 'ausdauer' ist toter Enum (→ longevity, Spec Thema 4) — separate Altlast, eigener Commit. Betrifft auch split_selector.py:399 (Produktionscode).
     ("Kettlebell / 3T / Ausdauer",       dict(equipment_ref="kettlebell", tage=3, hauptziel_ref="ausdauer")),
-    ("Bodyweight / 5T / Gesundheit",     dict(equipment_ref="bodyweight", tage=5, hauptziel_ref="gesundheit")),
+    ("Bodyweight / 5T / Longevity",      dict(equipment_ref="bodyweight", tage=5, hauptziel_ref="longevity")),
     ("Travel / 2T / Muskelaufbau",       dict(equipment_ref="travel",     tage=2, hauptziel_ref="muskelaufbau")),
     ("Hybrid / 4T / Fettabbau",          dict(equipment_ref="hybrid",     tage=4, hauptziel_ref="fettabbau")),
 
     # Alle Ziele mit 4 Tagen Gym
     ("Gym / 4T / Fettabbau",             dict(equipment_ref="gym", tage=4, hauptziel_ref="fettabbau")),
     ("Gym / 4T / Ausdauer",              dict(equipment_ref="gym", tage=4, hauptziel_ref="ausdauer")),
-    ("Gym / 4T / Gesundheit",            dict(equipment_ref="gym", tage=4, hauptziel_ref="gesundheit")),
+    ("Gym / 4T / Longevity",             dict(equipment_ref="gym", tage=4, hauptziel_ref="longevity")),
 
     # Verschiedene Tage
     ("Gym / 2T / Muskelaufbau",          dict(equipment_ref="gym", tage=2, hauptziel_ref="muskelaufbau")),
@@ -172,8 +173,8 @@ CLAUDE_TEST_CASES = [
      dict(equipment_ref="gym", tage=4, hauptziel_ref="muskelaufbau", verletzungen_labels=["schulter"])),
     ("Kettlebell / 3T / Fettabbau",
      dict(equipment_ref="kettlebell", tage=3, hauptziel_ref="fettabbau")),
-    ("Bodyweight / 3T / Gesundheit / Hoher Stress",
-     dict(equipment_ref="bodyweight", tage=3, hauptziel_ref="gesundheit", stress=9, schlaf="5")),
+    ("Bodyweight / 3T / Longevity / Hoher Stress",
+     dict(equipment_ref="bodyweight", tage=3, hauptziel_ref="longevity", stress=9, schlaf="5")),
 ]
 
 
@@ -273,8 +274,8 @@ def main():
         ("3×45 → Hinweis Muskelaufbau",        "muskelaufbau", 3, 45,  "hinweis"),  # 135 min < 180
         ("4×45 → OK Muskelaufbau",             "muskelaufbau", 4, 45,  None),
         ("4×60 → OK Recomp",                   "recomp",       4, 60,  None),
-        ("2×60 → OK Gesundheit",               "gesundheit",   2, 60,  None),       # 120 min = schwelle, nicht drunter
-        ("2×20 → Warnung Gesundheit",          "gesundheit",   2, 20,  "warnung"),
+        ("2×60 → OK Longevity",                "longevity",    2, 60,  None),       # 120 min = schwelle, nicht drunter
+        ("2×20 → Warnung Longevity",           "longevity",    2, 20,  "warnung"),
     ]
 
     r_passed = r_failed = 0
