@@ -3,8 +3,8 @@ Level + Ziel + Wochen-Typ + Trainingsjahre + Recovery → per-Tier Sätze + RPE
 
 Wöchentliches Ziel-Volumen (Sätze pro Muskelgruppe):
   muskelaufbau: L1=(8,10),  L2=(12,16), L3=(16,20), L4=(18,22)
-  fettabbau:    L1=(6,8),   L2=(10,12), L3=(12,14), L4=(12,16)
-  recomp:       L1=(8,10),  L2=(12,14), L3=(14,18), L4=(16,20)
+  fettabbau:    L1=(6,8),   L2=(10,14), L3=(14,18), L4=(16,20)
+  recomp:       L1=(8,10),  L2=(12,16), L3=(16,20), L4=(18,22)
   longevity:    L1=(6,8),   L2=(8,10),  L3=(8,12),  L4=(10,12)   # TODO(longevity-volume): Platzhalter = alte gesundheit-Werte, final mit MVP-3 / Thema 4-6
 
 Periodisierungs-Faktor:
@@ -33,8 +33,8 @@ WocheTyp = Literal["akkumulation", "progression", "intensivierung", "deload"]
 
 _WOCHEN_VOLUMEN: dict[Hauptziel, dict[int, tuple[int, int]]] = {
     Hauptziel.muskelaufbau: {1: (8, 10),  2: (12, 16), 3: (16, 20), 4: (18, 22)},
-    Hauptziel.fettabbau:    {1: (6, 8),   2: (10, 12), 3: (12, 14), 4: (12, 16)},
-    Hauptziel.recomp:       {1: (8, 10),  2: (12, 14), 3: (14, 18), 4: (16, 20)},
+    Hauptziel.fettabbau:    {1: (6, 8),   2: (10, 14), 3: (14, 18), 4: (16, 20)},
+    Hauptziel.recomp:       {1: (8, 10),  2: (12, 16), 3: (16, 20), 4: (18, 22)},
     # TODO(longevity-volume): Platzhalter = alte gesundheit-Werte, final mit MVP-3 / Thema 4-6
     Hauptziel.longevity:    {1: (6, 8),   2: (8, 10),  3: (8, 12),  4: (10, 12)},
 }
