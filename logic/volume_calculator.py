@@ -15,10 +15,12 @@ Slot-Tier-Multiplikator:
 
 Frequenz (FREQ): tage ≤ 3 → FREQ=tage; tage ≥ 4 → FREQ=2 (Upper/Lower)
 
-Recovery-Modifier:
-  Stress 8+ ODER Schlaf < 6h  → Volumen ×0.8, RPE-Cap 8
-  Stress < 5 UND Schlaf ≥ 7h  → Volumen ×1.1
-  Sonst                        → Standard
+Recovery (nur RPE, NIE Volumen) — schlechtester Fall gewinnt:
+  Stress ≥9 ODER Schlaf ≤4h → unteres Ende der RPE-Spanne − 1
+  Stress ≥8 ODER Schlaf ≤5h → unteres Ende der RPE-Spanne
+  Stress <5 UND Schlaf ≥7h  → oberes Ende der RPE-Spanne
+  sonst                      → keine Anpassung
+  RPE-Boden: nie < 4. Deload: RPE-Floor (rpe_low) greift, Recovery wirkt nicht.
 """
 
 from __future__ import annotations
@@ -58,12 +60,28 @@ _RPE_RANGES: dict[int, tuple[int, int]] = {
 }
 
 
-def _recovery_modifier(klient: KlientenInput) -> str:
-    if klient.stress_level >= 8 or klient.schlaf_stunden < 6:
-        return "reduziert"
+def _recovery_lage(klient: KlientenInput) -> str:
+    # Schlechtester zutreffender Fall gewinnt → schwerste Lage ZUERST:
+    if klient.stress_level >= 9 or klient.schlaf_stunden <= 4:
+        return "sehr_hoch"
+    if klient.stress_level >= 8 or klient.schlaf_stunden <= 5:
+        return "hoch"
     if klient.stress_level < 5 and klient.schlaf_stunden >= 7:
-        return "erhoht"
-    return "standard"
+        return "gut"
+    return "normal"
+
+
+def _recovery_rpe(lage: str, wave_rpe: float, rpe_low: int, rpe_high: int) -> float:
+    # Welle = Basis-RPE; Recovery = Deckel nach oben (schlecht) / Freigabe bis oberes Ende (gut)
+    if lage == "sehr_hoch":
+        rpe = min(wave_rpe, rpe_low - 1)   # unteres Ende − 1
+    elif lage == "hoch":
+        rpe = min(wave_rpe, rpe_low)        # unteres Ende
+    elif lage == "gut":
+        rpe = max(wave_rpe, rpe_high)       # oberes Ende
+    else:
+        rpe = wave_rpe                       # keine Anpassung
+    return max(4, rpe)                       # RPE-Boden: nie < 4
 
 
 def berechne_volumen(
@@ -81,23 +99,19 @@ def berechne_volumen(
     """
     s_low, s_high = _WOCHEN_VOLUMEN[klient.hauptziel][level]
     rpe_low, rpe_high = _RPE_RANGES[level]
-    modifier = _recovery_modifier(klient)
+    lage = _recovery_lage(klient)
     periodo = _PERIODISIERUNG_FAKTOR[woche_typ]
 
+    # Volumen ist recovery-unabhängig — Stress/Schlaf bewegen NUR die RPE (Spec Thema 5).
     # Deload = 50% des Intensivierungs-Volumens (nicht skaliert vom s_low)
     if woche_typ == "deload":
         intensiv_base = s_high
         base = intensiv_base * 0.5
-        raw_rpe = float(rpe_low)  # RPE-Floor für Deload
+        raw_rpe = float(rpe_low)  # Deload: RPE-Floor greift, Recovery wirkt nicht
     else:
         base = s_low + (s_high - s_low) * periodo
-        if modifier == "reduziert":
-            base *= 0.8
-        elif modifier == "erhoht":
-            base *= 1.1
-        raw_rpe = rpe_low + (rpe_high - rpe_low) * periodo
-        if modifier == "reduziert":
-            raw_rpe = min(raw_rpe, 8)
+        wave_rpe = rpe_low + (rpe_high - rpe_low) * periodo
+        raw_rpe = _recovery_rpe(lage, wave_rpe, rpe_low, rpe_high)
 
     # Upper/Lower-Splits (4+ Tage) trainieren jeden Muskel 2× pro Woche
     freq = 2 if klient.tage_pro_woche >= 4 else klient.tage_pro_woche
@@ -114,7 +128,7 @@ def berechne_volumen(
     elif woche_typ == "progression":
         stufe = "mittel"
     else:
-        stufe = "mittel" if modifier == "reduziert" else "hoch"
+        stufe = "hoch"
 
     compound_saetze = _sets("compound")
     return {
@@ -128,5 +142,5 @@ def berechne_volumen(
         "accessory_rpe":    max(4, ziel_rpe - 1),
         "isolation_rpe":    max(4, ziel_rpe - 2),
         "volumen_stufe":    stufe,
-        "recovery_modifier": modifier,
+        "recovery_modifier": lage,
     }
