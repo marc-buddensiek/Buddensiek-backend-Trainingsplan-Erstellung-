@@ -19,7 +19,7 @@ from models import (
     WarmUp, WarmUpUebung, HauptUebung, Cardio, CoolDown, CoolDownUebung, PSTTest,
 )
 from logic.volume_calculator import (
-    berechne_volumen, WARMUP_MIN, ZEIT_PRO_SATZ_KRAFT, ZEIT_PRO_SATZ_COND, finisher_min,
+    berechne_volumen, WARMUP_MIN, ZEIT_PRO_SATZ_KRAFT, ZEIT_PRO_SATZ_COND, finisher_min, tier_floor,
 )
 
 
@@ -414,6 +414,35 @@ def _schaetze_dauer(haupt_uebungen: list, zeit_pro_satz: float, ziel: Hauptziel,
     return min(120, max(20, round(total / 5) * 5))
 
 
+def _trim_auf_dauer(uebungen: list, tiers: list, wunschdauer: int,
+                    zeit_pro_satz: float, ziel: Hauptziel, cardio_min: int) -> None:
+    """Kürzt Sätze (nicht Übungen), bis die geschätzte Dauer in die Wunschdauer passt.
+    Reihenfolge: core → isolation → accessory → Zweit-Compound → Haupt-Compound (zuletzt,
+    nie unter Cap-Unterkante). Sind alle Slots auf ihrem Floor, bleibt die Session minimal
+    über der Dauer — KEIN Pflicht-Pattern fällt weg (Spec Thema 3 Z. 286-290 / Z. 290)."""
+    haupt_comp = next((i for i, t in enumerate(tiers) if t == "compound"), None)  # Schwerpunkt
+
+    def _kandidat():
+        for tier in ("core", "isolation", "accessory"):
+            for i, t in enumerate(tiers):
+                if t == tier and uebungen[i].saetze > tier_floor(tier):
+                    return i
+        for i, t in enumerate(tiers):                       # Zweit-Compounds vor Schwerpunkt
+            if t == "compound" and i != haupt_comp and uebungen[i].saetze > tier_floor("compound"):
+                return i
+        if haupt_comp is not None and uebungen[haupt_comp].saetze > tier_floor("compound"):
+            return haupt_comp                               # Haupt-Compound zuletzt
+        return None
+
+    while _schaetze_dauer(uebungen, zeit_pro_satz, ziel, cardio_min) > wunschdauer:
+        i = _kandidat()
+        if i is None:
+            # TODO(short-session-pattern-drop): V1 entfernt kein Pflicht-Pattern. An der
+            # Untergrenze (z.B. 20min, 30min-Recomp) bleibt die Session minimal über der Dauer.
+            break
+        uebungen[i].saetze -= 1
+
+
 # ── Hauptfunktion ─────────────────────────────────────────────────────────────
 
 def assemble_plan(
@@ -474,6 +503,7 @@ def assemble_plan(
 
                 uebungen_auswahl = claude_sessions.get(original_id, [])
                 haupt_uebungen: list[HauptUebung] = []
+                slot_tiers: list[str] = []            # Tier je HauptUebung (aligned) für den Trim
 
                 slot_templates = session_template.get("slots", [])
                 for u in uebungen_auswahl:
@@ -513,6 +543,7 @@ def assemble_plan(
                             notiz=u.notiz,
                         )
                     )
+                    slot_tiers.append(slot_tier)
 
                 warm_up    = _warm_up(klient.equipment, fokus)
                 cardio     = _cardio(klient.hauptziel, fokus)
@@ -528,6 +559,9 @@ def assemble_plan(
 
                 cardio_min = cardio.dauer_min if cardio else 0
                 zeit_pro_satz = ZEIT_PRO_SATZ_COND if is_metabolic else ZEIT_PRO_SATZ_KRAFT
+                if not is_metabolic and haupt_uebungen:   # Dauer gewinnt: Kraft-Sätze auf Wunschdauer trimmen
+                    _trim_auf_dauer(haupt_uebungen, slot_tiers, klient.session_dauer_min,
+                                    zeit_pro_satz, klient.hauptziel, cardio_min)
                 dauer = _schaetze_dauer(haupt_uebungen, zeit_pro_satz, klient.hauptziel, cardio_min)
 
             sessions.append(

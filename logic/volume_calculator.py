@@ -63,6 +63,10 @@ ZEIT_PRO_SATZ_COND  = 1.5
 def finisher_min(ziel: Hauptziel) -> int:
     return FINISHER_MIN_RECOMP if ziel == Hauptziel.recomp else 0
 
+
+def tier_floor(tier: str) -> int:
+    return _TIER_CAP[tier][0]   # Cap-Unterkante je Tier — Trim-Floor in Naht 2b
+
 _RPE_RANGES: dict[int, tuple[int, int]] = {
     1: (6, 7),
     2: (7, 8),
@@ -128,7 +132,8 @@ def berechne_volumen(
     isolation_saetze = _tier_saetze("isolation", woche_typ)
     core_saetze      = _tier_saetze("core", woche_typ)
 
-    # Session-Budget (Kraft): harte Dauer-Grenze, konsumiert in Naht 2 (plan_assembler).
+    # Session-Budget (Kraft, cardio-frei): Soll-Kapazität. Echte Dauer-Grenze setzt Naht 2b
+    # über _schaetze_dauer (cardio-aware) durch.
     budget_saetze = int((klient.session_dauer_min - WARMUP_MIN - finisher_min(klient.hauptziel)) / ZEIT_PRO_SATZ_KRAFT)
 
     # ── RPE: unverändert (Recovery → RPE-Tiers, Spec Thema 5) ──
@@ -161,6 +166,8 @@ def berechne_volumen(
         "isolation_rpe":    max(4, ziel_rpe - 2),
         "volumen_stufe":    stufe,
         "recovery_modifier": lage,
-        # TODO(modell-a-time-fit): budget_saetze in Naht 2 als Dauer-Grenze konsumieren
+        # budget_saetze = cardio-freie Soll-Kapazität. Time-Fit läuft seit Naht 2b über
+        # _schaetze_dauer (cardio-aware); Key behalten als möglicher Naht-3-Konsument.
+        # TODO(modell-a-time-fit): in Naht 3 prüfen, ob noch gebraucht oder entfernen.
         "budget_saetze":    budget_saetze,
     }
