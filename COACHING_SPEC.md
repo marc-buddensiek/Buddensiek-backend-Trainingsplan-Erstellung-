@@ -159,6 +159,23 @@ _Recomp = wie Muskelaufbau:_ bei Erhaltungskalorien / leichtem Überschuss ist v
 **RPE-Spannen je Level (steigen über die Welle):** L1 = 6–7 · L2 = 7–8 · L3 = 7–9 · L4 = 7–9.
 Tier-Abstufung: accessory = compound − 1, isolation = compound − 2 (min. 4).
 
+**Session-Kapazität — Zeit-Parameter (Modell-A-Eingaben):**
+
+Arbeitssätze pro Session = (Session-Dauer − Warmup − Finisher) ÷ Zeit pro Arbeitssatz.
+
+| Parameter | Wert |
+|---|---|
+| Zeit pro Arbeitssatz (inkl. Pause) — Kraft | 2 Min |
+| Zeit pro Arbeitssatz (inkl. Pause) — Conditioning | 1,5 Min |
+| Warmup-Abzug pro Session | 10 Min |
+| Finisher-Abzug — Recomp-Sessions | 8 Min (aus Recomp-Finisher 5–10 Min, Thema 6) |
+| Finisher-Abzug — andere Kraft-Sessions | 0 Min |
+| Session-Dauer | Klienten-Input (keine feste Liste), harte Obergrenze |
+
+_Warum ein Schnitt pro Session-Typ (nicht pro Tier):_ Der Tier-Mix mittelt sich innerhalb der Session —
+die Tier-Satz-Caps begrenzen die einzelne Übung, die Zeit-Formel verteilt das verfügbare Budget.
+Per-Tier-Zeitwerte sind V2-Feintuning mit echten Daten.
+
 **Begründung:** Modell A („von der Session aus") gewählt, weil das alte „festes Wochenvolumen ÷ Frequenz"
 kurze Einheiten überlud (45 → ~100 Min im Recomp-PDF) und bei vielen Tagen Potenzial verschenkte.
 Verworfen: festes Wochenvolumen (Überlauf bleibt), reines Zeitbudget (kein „so viel verträgt das Level"-
