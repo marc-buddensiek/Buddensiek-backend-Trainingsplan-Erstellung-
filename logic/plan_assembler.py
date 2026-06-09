@@ -405,7 +405,7 @@ def _build_metcon_block(
 
 
 # ── Session-Dauer schätzen (flaches Modell, Spec Thema 3 Zeit-Parameter) ────────
-# Konstanten/Helper aus volume_calculator (Single Source of Truth, = budget_saetze).
+# Konstanten/Helper aus volume_calculator (Single Source of Truth: Modell-A-Zeitparameter).
 # Cooldown ist in die Warmup-Pauschale gefaltet; Cardio additiv (Block bleibt sichtbar).
 
 def _schaetze_dauer(haupt_uebungen: list, zeit_pro_satz: float, ziel: Hauptziel, cardio_min: int = 0) -> int:

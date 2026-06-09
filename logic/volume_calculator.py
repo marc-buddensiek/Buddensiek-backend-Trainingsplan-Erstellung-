@@ -120,7 +120,6 @@ def berechne_volumen(
       ziel_rpe, compound_rpe, accessory_rpe, isolation_rpe: int
       volumen_stufe: str
       recovery_modifier: str
-      budget_saetze: int (Session-Kapazität für Naht 2 — TODO(modell-a-time-fit))
     """
     rpe_low, rpe_high = _RPE_RANGES[level]
     lage = _recovery_lage(klient)
@@ -131,10 +130,6 @@ def berechne_volumen(
     accessory_saetze = _tier_saetze("accessory", woche_typ)
     isolation_saetze = _tier_saetze("isolation", woche_typ)
     core_saetze      = _tier_saetze("core", woche_typ)
-
-    # Session-Budget (Kraft, cardio-frei): Soll-Kapazität. Echte Dauer-Grenze setzt Naht 2b
-    # über _schaetze_dauer (cardio-aware) durch.
-    budget_saetze = int((klient.session_dauer_min - WARMUP_MIN - finisher_min(klient.hauptziel)) / ZEIT_PRO_SATZ_KRAFT)
 
     # ── RPE: unverändert (Recovery → RPE-Tiers, Spec Thema 5) ──
     if woche_typ == "deload":
@@ -166,8 +161,4 @@ def berechne_volumen(
         "isolation_rpe":    max(4, ziel_rpe - 2),
         "volumen_stufe":    stufe,
         "recovery_modifier": lage,
-        # budget_saetze = cardio-freie Soll-Kapazität. Time-Fit läuft seit Naht 2b über
-        # _schaetze_dauer (cardio-aware); Key behalten als möglicher Naht-3-Konsument.
-        # TODO(modell-a-time-fit): in Naht 3 prüfen, ob noch gebraucht oder entfernen.
-        "budget_saetze":    budget_saetze,
     }
