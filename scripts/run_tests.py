@@ -120,6 +120,7 @@ TEST_CASES = [
     # TODO(ausdauer-rename): 'ausdauer' ist toter Enum (→ longevity, Spec Thema 4) — separate Altlast, eigener Commit. Betrifft auch split_selector.py:399 (Produktionscode).
     ("Kettlebell / 3T / Ausdauer",       dict(equipment_ref="kettlebell", tage=3, hauptziel_ref="ausdauer")),
     ("Bodyweight / 5T / Longevity",      dict(equipment_ref="bodyweight", tage=5, hauptziel_ref="longevity")),
+    # TODO(testdata-tage-min3): tage=2 < Modell-Minimum (tage_pro_woche >= 3) — veraltete Testdaten, eigener Commit.
     ("Travel / 2T / Muskelaufbau",       dict(equipment_ref="travel",     tage=2, hauptziel_ref="muskelaufbau")),
     ("Hybrid / 4T / Fettabbau",          dict(equipment_ref="hybrid",     tage=4, hauptziel_ref="fettabbau")),
 
@@ -129,6 +130,7 @@ TEST_CASES = [
     ("Gym / 4T / Longevity",             dict(equipment_ref="gym", tage=4, hauptziel_ref="longevity")),
 
     # Verschiedene Tage
+    # TODO(testdata-tage-min3): tage=2 < Modell-Minimum (tage_pro_woche >= 3) — veraltete Testdaten, eigener Commit.
     ("Gym / 2T / Muskelaufbau",          dict(equipment_ref="gym", tage=2, hauptziel_ref="muskelaufbau")),
     ("Gym / 3T / Muskelaufbau",          dict(equipment_ref="gym", tage=3, hauptziel_ref="muskelaufbau")),
     ("Gym / 5T / Muskelaufbau",          dict(equipment_ref="gym", tage=5, hauptziel_ref="muskelaufbau")),
@@ -163,6 +165,7 @@ TEST_CASES = [
      dict(hauptziel_ref="muskelaufbau", tage=4, session_min=60,
           kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80,
           trainingsjahre_ref="ein_bis_zwei")),
+    # TODO(testdata-tage-min3): tage=2 < Modell-Minimum (tage_pro_woche >= 3) — veraltete Testdaten, eigener Commit.
     ("Tim — Muskelaufbau, 2×20, 3-Slot FB",
      dict(hauptziel_ref="muskelaufbau", tage=2, session_min=20)),
 ]
