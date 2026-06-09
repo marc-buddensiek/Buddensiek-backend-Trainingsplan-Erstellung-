@@ -9,9 +9,6 @@ Volumen = Modell A (Session-Kapazität):
 Session-Budget (Kraft, für Naht 2): (Dauer − Warmup 10 − Finisher) ÷ 2 Min/Satz;
   Finisher = 8 Min bei Recomp, sonst 0. Conditioning läuft separat über _METABOLIC_CONFIG.
 
-Level-Korridor (_WOCHEN_VOLUMEN, Sätze/Muskel/Woche): in Naht 1 NICHT gelesen —
-  Deckel-Konsum kommt in Naht 3. TODO(modell-a-corridor-ceiling).
-
 Recovery (nur RPE, NIE Volumen) — schlechtester Fall gewinnt:
   Stress ≥9 ODER Schlaf ≤4h → unteres Ende der RPE-Spanne − 1
   Stress ≥8 ODER Schlaf ≤5h → unteres Ende der RPE-Spanne
@@ -26,16 +23,6 @@ from models import KlientenInput, Hauptziel
 
 
 WocheTyp = Literal["akkumulation", "progression", "intensivierung", "deload"]
-
-# TODO(modell-a-corridor-ceiling): in Naht 1 NICHT gelesen — Konsum = Naht 3 (plan_assembler):
-# Sätze/Muskel/Woche gegen diese Tabelle deckeln, Level-Deckel gewinnt.
-_WOCHEN_VOLUMEN: dict[Hauptziel, dict[int, tuple[int, int]]] = {
-    Hauptziel.muskelaufbau: {1: (8, 10),  2: (12, 16), 3: (16, 20), 4: (18, 22)},
-    Hauptziel.fettabbau:    {1: (6, 8),   2: (10, 14), 3: (14, 18), 4: (16, 20)},
-    Hauptziel.recomp:       {1: (8, 10),  2: (12, 16), 3: (16, 20), 4: (18, 22)},
-    # TODO(longevity-volume): Platzhalter = alte gesundheit-Werte, final mit MVP-3 / Thema 4-6
-    Hauptziel.longevity:    {1: (6, 8),   2: (8, 10),  3: (8, 12),  4: (10, 12)},
-}
 
 _PERIODISIERUNG_FAKTOR: dict[str, float] = {
     "akkumulation":   0.70,
