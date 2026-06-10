@@ -1,124 +1,79 @@
 # Projektstatus — Buddensiek Performance KI-Trainingsplan
 
-_Zuletzt aktualisiert: 2026-06-02_
+_Zuletzt aktualisiert: 2026-06-10 · git HEAD `19f8d5f` · Branch `mvp-1-data-foundation`_
 
 ---
 
-## 1. Aktueller Stand
+## 1. Aktueller Stand (kurz)
 
-Das System ist vollständig implementiert von Typeform-Webhook bis PDF.  
-Alle Tests grün: **26/26 Logik-Tests** + **7/7 Realism-Tests**.  
-**16 Test-PDFs** generiert (alle Pipeline-Pfade ohne Claude API).
+Backend importiert sauber (`import main` ✅). Tests: **Logik 19/26 · Realism 7/7** — die 7 roten sind ausschließlich veraltete Testdaten + ein nicht-gebautes Feature (MVP-4), **keine Regression** (Belege: Abschnitt 5).
 
-Die Pipeline läuft durch:
-```
-Typeform → parsers.py → level_calculator → split_selector → equipment_filter → claude_client → plan_assembler → PDF + Supabase
-```
+Spec ist komplett (alle 8 Themen entschieden). Umsetzung läuft entlang der ROADMAP (MVP-1…12).
+**Fertig:** MVP-1 (Daten-Fundament) + MVP-3-Kern (Volumen „Modell A").
+**Offen / nächste große Brocken:** MVP-2 (Bibliothek) und MVP-4 (Split-Logik).
+Pipeline (Typeform → … → PDF/Supabase) steht strukturell; Claude/Supabase nicht live.
 
-Claude API und Supabase sind noch nicht live geschaltet — der gesamte Logik-Stack läuft und ist testbar ohne API-Keys.
+## 2. Spec-Themen (COACHING_SPEC.md)
 
----
+Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein in der Umsetzung:
+1 Periodisierung · 2 Level/PST · 3 Volumen & Intensität · 4 Split-Logik · 5 Recovery · 6 Conditioning/Cardio · 7 Progression (V1) · 8 Sonderfälle.
 
-## 2. Was in der letzten Session gemacht wurde
+## 3. MVP-Pakete 1–12 (verifizierter Stand)
 
-**Fix 1 — `plan_assembler.py`**  
-Variable `ist_mobility` war nie explizit gesetzt (nur implizit durch den if/else-Zweig).  
-`metcon_blk` war im Mobility-Zweig nicht initialisiert — hätte zur Laufzeit `NameError` geworfen.  
-Fix: `ist_mobility = session_typ == "mobility"` und `metcon_blk = None` vor dem if/else; `Session()`-Konstruktor vereinfacht zu `metcon_block=metcon_blk`.
+| # | Paket | Status | Beleg | Hängt ab von |
+|---|---|---|---|---|
+| 1 | Daten-Fundament | ✅ fertig | Hauptziel 4 Ziele, tage ge=3, nebenziel/schmerzen_akut raus, schwachstelle, PlanMetadata, rpe_hinweis (models.py) | — |
+| 2 | Bibliothek/Tagging | ❌ offen | 125 Übungen (Ziel 250–300), altes Schema: `level_min`, **kein** skill_level/joint_stress/impact_level/substitution_pool | — |
+| 3 | Volumen „Modell A" | 🟡 Kern fertig, Korridor-Deckel offen | _TIER_CAP/_tier_saetze ✓, TJ-Faktor + Tier-Multiplikator raus ✓, Recovery-RPE ✓; **Level-Korridor-Deckel nicht gebaut** (war Naht 3, zurückgerollt) | 1 |
+| 4 | Split-Logik | ❌ offen / nicht begonnen | split_selector:399 ausdauer-Crash, :411 else#gesundheit, :391 Fettabbau 100% Conditioning, **kein longevity-Zweig**, _mobility_session noch da | 1, 3 |
+| 5 | Equipment/Verletzungs-Filter | ❌ offen | nutzt `level_min`, **kein** joint_stress/impact_level → 3-Stufen nicht gebaut | 2 |
+| 6 | Recovery-RPE + Periodisierung | 🟡 teilweise | Recovery-RPE ✓, 3:1-Welle ✓; **Deload 60% nicht** (noch 0.50, tot/TODO); **L1-RIR (rpe_hinweis) nicht befüllt** | 3 |
+| 7 | Conditioning-Formate + Recomp-Finisher | 🟡 teilweise | _METABOLIC_CONFIG nur amrap/emom/zirkel/intervalle; **tabata/density/for_time/komplexe/ladders + Athletik fehlen**; Recomp-Finisher ✓ | 4 |
+| 8 | Assembler/PDF + Coach-Flag | 🟡 Dauer-Kopplung ja, Flag/PDF nein | Modell-A-Satz/Dauer-Kopplung ✓; **Coach-Flag gebaut+verworfen** (plan_metadata=None); PDF rendert **noch** Klient-Realism-Warnung | 4, 6, 7 |
+| 9 | Claude-Integration | 🟡 läuft generisch, nicht finalisiert | prompt nutzt hauptziel.value generisch; **nicht** auf neue Bibliotheks-Felder/Pflicht-Patterns aktualisiert | 5 |
+| 10 | Supabase | 🟡 Code da, nicht live | db.py: create_client + speichere_klient/_plan; nicht live | 1 |
+| 11 | Test-Harness | ❌ offen | run_tests Alt-Stil; neuer Spec-Validator-Harness nicht gebaut | 3–8 |
+| 12 | Deployment | ❌ offen | Railway/Typeform-live nicht erfolgt | alle |
 
-**Fix 2 — `pdf_generator.py`**  
-`MetconBlock` wurde im PDF nicht gerendert.  
-Fix: Neuer **CONDITIONING FINISHER** Block nach den Hauptübungen — dunkelblauer Header, Format-Notiz, Übungsliste mit Volumen/RPE/Cues.
+**Abhängigkeit (Grep-verifiziert):** 4→1,3 **einseitig** (kein Rückkanal — MVP-1/3-Code zieht nichts aus split_selector; MVP-1/3 bleiben korrekt ohne MVP-4). Korridor-Deckel (MVP-3-Rest) + Coach-Flag (MVP-8) sind **downstream** von MVP-2 **und** MVP-4.
 
-**CLAUDE.md erstellt**  
-Tech-Stack, Ordnerstruktur, Befehle, Pipeline, Coaching-Konventionen, Enums.
+## 4. Offene TODO-Marker (gruppiert nach MVP)
 
----
-
-## 3. Was die Test-Suite prüft
-
-### Logik-Tests (26 Tests) — `scripts/run_tests.py`
-
-Die Tests prüfen die Pipeline bis Schritt 5 (kein Claude, kein Supabase).  
-Jeder Test: `parse → level → volumen (alle 4 Wochentypen) → split → equipment_filter`.
-
-**Assertions pro Test:**
-- `ziel_saetze >= 1` für alle 4 Wochentypen
-- `4 <= ziel_rpe <= 10` für alle 4 Wochentypen
-- Split hat mindestens eine Session
-- Equipment-Filter liefert mindestens 4 Übungen gesamt
-
-**Abgedeckte Pfade:**
-
-| Kategorie | Was getestet wird |
-|---|---|
-| Equipment (6×) | gym / home_gym / kettlebell / bodyweight / travel / hybrid |
-| Ziele (5×) | muskelaufbau / fettabbau / recomp / ausdauer / gesundheit |
-| Tage (5×) | 2 / 3 / 4 / 5 / 6 Trainingstage |
-| Level (2×) | Level 1 (Anfänger-PST) / Level 4 (Athleten-PST) |
-| Verletzungen (4×) | Schulter / Knie / mehrere / akuter Schmerz |
-| Recovery (2×) | Hoher Stress (9/10, 5h Schlaf) / Optimale Recovery |
-| Nebenziel (2×) | Muskel+Fett / Fett+Ausdauer |
-| Slot-Architektur (3×) | Anna L1 Recomp 4×45 (5 Slots) / Max L2 Muskel 4×60 (6 Slots) / Tim 2×20 (3 Slots Full Body) |
-
-### Realism-Tests (7 Tests)
-
-Prüft `pruefe_realismus(ziel, tage, dauer_min)` gegen Wochenzeit-Schwellen:
-
-| Test | Wochenzeit | Erwartet |
+| Marker | Stellen | → MVP |
 |---|---|---|
-| Muskelaufbau 2×20 | 40 min | warnung |
-| Recomp 3×30 | 90 min | warnung |
-| Muskelaufbau 3×45 | 135 min | hinweis |
-| Muskelaufbau 4×45 | 180 min | OK |
-| Recomp 4×60 | 240 min | OK |
-| Gesundheit 2×60 | 120 min | OK (exakt an Schwelle) |
-| Gesundheit 2×20 | 40 min | warnung |
+| `TODO(ausdauer-rename)` | split_selector:399 (Prod-Crash), run_tests:120 | MVP-4 |
+| `TODO(mobility-removal)` | models:262 | MVP-4/8 |
+| `TODO(short-session-pattern-drop)` | plan_assembler:440 | MVP-3/4 |
+| `TODO(longevity-volume)` | realism_validator:17/33/53, plan_assembler:45 | MVP-3/4/6 |
+| `TODO(deload-faktor-tot)` | volume_calculator:31 | MVP-3-Tidy |
+| `TODO(testdata-tage-min3)` | run_tests:123/133/168 | MVP-11/Hygiene |
 
----
+## 5. Test-Stand (verifiziert)
 
-## 4. Offene Frage: Bilden die Test-Regeln deine echten Coaching-Standards ab?
+`python3 scripts/run_tests.py` → **Logik 19/26 · Realism 7/7**. Die 7 roten Logik-Tests, eindeutig zugeordnet. **Keine Regression durch den Flag-Rückbau** — Gegentest auf Pre-Rückbau-Stand `06b7aeb` ergab identische 7 (alle scheitern beim Parse oder in split_selector, nicht in volume_calculator):
 
-**Das muss mit dir abgeglichen werden.**
+| Test(s) | Fehler | Ursache |
+|---|---|---|
+| Kettlebell/3T/Ausdauer · Gym/4T/Ausdauer | ValidationError: hauptziel | totes `ausdauer`-Enum in Testdaten → MVP-4 |
+| Bodyweight/5T/Longevity · Gym/4T/Longevity | AttributeError split_selector:399 | longevity-Split nicht gebaut → MVP-4 |
+| Travel/2T · Gym/2T · Tim 2×20 | ValidationError: tage_pro_woche | `tage=2 < 3` veraltete Testdaten → tage-min3 |
 
-Die Tests prüfen aktuell nur dass das System _läuft und keine Fehler wirft_ — nicht ob die inhaltlichen Ergebnisse deinen Coaching-Standards entsprechen. Konkret unklar:
+→ **4× MVP-4, 3× tage-min3.** Keiner „etwas anderes".
 
-**Level-Berechnung:**
-- Stimmen die PST-Punkte-Schwellen für Level 1/2/3/4 mit deiner Erfahrung überein?
-- Sind die Trainingsjahre-Caps (keine→L1, unter_1→L2, ein_bis_zwei→L3, drei+→kein Cap) so richtig?
+## 6. Session-Historie (neueste zuerst)
 
-**Volumen:**
-- Sind die Satz-Ranges pro Level und Wochentyp (z.B. L2 Akkumulation: X Sätze, RPE Y) realistisch für deine Klienten?
-- Recovery-Modifier: Stress ≥ 8 oder Schlaf ≤ 5h → RPE −1 und −10% Volumen — zu aggressiv? Zu mild?
+**2026-06-09/10 — Modell A (MVP-3-Kern) + Coach-Flag-Rückbau (MVP-8 out-of-order)**
+- Modell A gebaut: Naht 1 Tier-Satz-Caps statt Wochenvolumen÷Frequenz (`277e396`), Naht 2a flaches Zeit-Modell (`493d2eb`), Naht 2b Dauer-Trim „Dauer gewinnt" inkl. Cardio (`06b7aeb`). Davor: Recovery→RPE-Tiers (`2b54d98`), Trainingsjahre-Faktor raus (`8150666`), Spec-Thema-3-Zeitparameter (`e2ab9b8`), Korridor-Werte + Test-Renames (`d8cd1f3`/`1730d3b`/`a854ee3`).
+- Coach-Flag (MVP-8) gebaut → **Doppelzähl-Bug** (Sub-Label-Mehrfachzählung) + **Tagging-/Skalen-Problem** (glutes/quads zu breit primary getaggt; echte Wochen-Sätze ≫ alter frequenz-geteilter Korridor) gefunden. Recherche: Korridor (12–16) **und** Zählmethode (primary 1,0 / secondary 0,5) sind fachlich korrekt — **Wurzel ist das Tagging**.
+- Entscheidung: Flag **komplett verworfen** statt Tagging jetzt zu fixen → 2 Cleanup-Commits (`408c079` budget_saetze raus, `19f8d5f` _WOCHEN_VOLUMEN raus). **Erkenntnis: MVP-8 war out-of-order** (hängt an ungebautem MVP-2 + MVP-3-Deckel + MVP-4). `PlanMetadata` bleibt leerer `Optional=None`-Platzhalter. Reihenfolge auf Roadmap-Kernpfad zurückgesetzt.
 
-**Split-Logik:**
-- Fettabbau = 100% Conditioning (kein Kraft) — ist das so gewollt für alle Fettabbau-Klienten?
-- Recomp = Kraft + MetconBlock-Finisher — passt das Format?
-- Ausdauer und Gesundheit sind noch nicht final definiert (aufgeschoben).
+**2026-06-07 — MVP-1 Daten-Fundament**
+- Hauptziel auf 4 Ziele (longevity statt ausdauer+gesundheit), tage_pro_woche ge=3, nebenziel + schmerzen_akut entfernt, schwachstelle-Feld ergänzt, session_typ/MetconBlock-Literale additiv erweitert, HauptUebung.rpe_hinweis + PlanMetadata-Submodell. Spec/Roadmap/CODE_CHANGES angelegt.
 
-**Realism-Schwellen:**
-- Muskelaufbau: warnung < 120 min/Woche, hinweis 120–180 min, OK ≥ 180 min — stimmt das?
-- Gesundheit: warnung < 60 min, hinweis 60–120 min, OK ≥ 120 min — stimmt das?
+**2026-06-02 — Pre-Spec-Fixes**
+- `ist_mobility`/`metcon_blk`-Initialisierung in plan_assembler (NameError-Risiko), MetconBlock-Rendering im PDF (CONDITIONING-FINISHER-Block), CLAUDE.md erstellt.
 
-**Was fehlt in der Test-Suite:**
-- Kein Test prüft ob die _richtigen_ Übungs-Pattern für einen Split assigned werden
-- Kein Test prüft ob Verletzungs-Substitutionen korrekt greifen (nur dass die Übungszahl kleiner wird)
-- Kein Test prüft den tatsächlichen PDF-Inhalt
+## 7. Nächster Schritt
 
----
-
-## 5. Nächste Schritte
-
-1. **Coaching-Standards abgleichen** — die Fragen aus Abschnitt 4 mit Alen durchgehen, Schwellen und Regeln ggf. korrigieren
-
-2. **Ausdauer + Gesundheit definieren** — Session-Format festlegen (analog zu Muskelaufbau/Recomp/Fettabbau), dann in `split_selector.py` implementieren
-
-3. **Fettabbau dual-conditioning** — User hatte erwähnt: bei 45/60 min ggf. zwei Conditioning-Formate kombinieren statt nur eines. Logik definieren und umsetzen.
-
-4. **Claude-Prompt finalisieren** — `claude/prompt_template.py` auf aktuellen Stand bringen und mit echten API-Calls testen (`python3 scripts/run_tests.py --claude`)
-
-5. **Supabase-Schema anlegen** — Tabellen `klienten` und `plaene` in Supabase erstellen, `db.py` testen
-
-6. **Railway Deployment** — App live schalten, Typeform-Webhook konfigurieren, End-to-End-Test mit echtem Formular
-
-7. **Vercel Frontend** — Plan-JSON aus Supabase lesen und anzeigen (separates Repo)
+**MVP-2 — Übungs-Bibliothek** (Schema-Migration `level_min`→`skill_level` + neue Felder, Ausbau auf 250–300 getaggte Übungen). Begründung: längster Posten (Coach-Zeit), blockt MVP-5, und ist Voraussetzung, um Korridor-Deckel (MVP-3-Rest) + Coach-Flag (MVP-8) später sauber zu kalibrieren.
+**Parallel dev-seitig möglich:** MVP-4 (Split-Logik-Neubau — behebt longevity-Crash + Fettabbau-Struktur), hängt nur an MVP-1+3 (beide bereit).
