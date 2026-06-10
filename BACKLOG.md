@@ -55,6 +55,32 @@ _Stand: 2026-06-10 · git HEAD `4c00caa`_
 - **Hier entscheidet sich, WIE conditioning-Übungen abgefragt werden** → bestimmt Schreibweise
   + Tagging der neuen `conditioning`/`athletik`-Pattern (in SCHEMA.md noch offen).
 
+**Kernproblem, das MVP-7 lösen muss:** Die aktuelle Logik (`_METCON_PATTERNS`,
+`plan_assembler:365`) kann „hat Kraft-Pattern" **nicht** von „ist conditioning-tauglich"
+unterscheiden — das differenzierende Merkmal fehlt. Folge: der Metcon zieht potenziell reine
+Kraftübungen (z.B. schwerer Back Squat, Kreuzheben) in eine Conditioning-Session, nur weil das
+Pattern passt — obwohl sie keinen Puls oben halten.
+
+**Designfrage (NICHT jetzt entscheiden, nur festhalten): conditioning-tauglich vs. reine
+Kraftübung im selben Pattern differenzieren —**
+- _Option A:_ eigenes `conditioning`-Pattern. Problem: eine Übung hat nur **1** Pattern; ein
+  Thruster ist Conditioning **UND** push_vertical → geht nicht sauber.
+- _Option B:_ zusätzliches Feld `conditioning_geeignet` (bool) bzw. `conditioning_role`,
+  unabhängig vom Pattern. Metcon filtert dann **pattern UND conditioning-tauglich**.
+- → **Tendenz Option B**, aber erst entscheiden, wenn der Metcon-Selektor-Neubau (MVP-7) steht.
+  **Tag-Definition hängt am Konsumenten** — nicht den MVP-8-Fehler wiederholen (Tag ohne fertige
+  Logik bauen).
+
+**Bestandsaufnahme (2026-06-10, signal-basiert — kein conditioning-Tag vorhanden):** dediziert
+conditioning/athletik-tauglich, aber in Kraft-Pattern getaggt: **6** (KB Swing ×2, KB Snatch,
+KB Clean → `hinge`; Jump Squat → `squat`; Skater Squat → `single_leg`). Wiederverwendbarer Pool:
+**44 bodyweight-fähig / 65 kettlebell-fähig**. Klassische Staples (Burpee, Mountain Climber, Box
+Jump, Bear Crawl, Throw …): **0 vorhanden → net-new** (~25, ROADMAP-Mindestabdeckung).
+
+**Bei MVP-7 konkret zu prüfen:** für **jede** der 6 mis-filed + den 44/65-Reuse-Pool **einzeln**
+entscheiden, ob conditioning-tauglich ja/nein. Coach-Fachwissen pro Übung, **kein**
+Pattern-Automatismus.
+
 ## MVP-8 — Assembler + Coach-Flag (zurückgerollt, kommt zurück wenn MVP-2/3/4 stehen)
 
 - **Coach-Flag komplett entfernt** (volume_below_optimal, recommended_extras, Muskel-Aggregation).
