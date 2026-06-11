@@ -43,9 +43,10 @@ _Erstellt: 2026-06-06_
 
 ## `data/exercises.json` `[MVP]` — Coach-Datenarbeit
 
-- 🔧 **Schema-Migration je Übung:** `level_min` → `skill_level`; neue Felder `joint_stress` (Liste),
-  `impact_level` (low/medium/high), `substitution_pool` (Liste); `muscle_groups` → `muscle_groups_primary`
-  / `muscle_groups_secondary` (oder verschachtelt belassen — eine Variante festlegen).
+- 🔧 **Schema-Migration je Übung** _(✅ umgesetzt 2026-06-11, `scripts/migrate_schema_mvp2.py`)_:
+  `level_min` → `skill_level`; neue Felder `joint_stress` (Liste), `impact_level` (low/medium/high),
+  `substitution_pool` (Liste); `muscle_groups` bleibt **verschachtelt** (`{primary: [], secondary: []}`,
+  entschieden — siehe SCHEMA.md).
 - ➕ **Ausbau auf 250–300 Übungen** mit Mindestabdeckung je Pattern × Skill-Level (siehe ROADMAP).
 - 🟢 Bestehende Felder `id, name, pattern, equipment, coaching_cues, progressions_up/down` bleiben.
 - _Hinweis:_ überwiegend Coach-Zeit; ab `[V1.5]` über das „Neue Übung anlegen"-Backoffice pflegbar.

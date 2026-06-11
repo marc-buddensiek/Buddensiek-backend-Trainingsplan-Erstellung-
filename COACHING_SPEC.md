@@ -4,7 +4,15 @@
 > Generierungs-Logik und (später) für den Test-Harness. Wird Thema für Thema gemeinsam
 > erarbeitet. Solange ein Thema "offen" ist, sind die Werte im Code **unbestätigt**.
 
-_Zuletzt aktualisiert: 2026-06-06_
+_Zuletzt aktualisiert: 2026-06-11_
+
+## Arbeitsregel: Spec-vs-Code-Konflikte
+
+Bei Konflikten zwischen Spec und Code wird der Konflikt als **Befund** behandelt, nie
+automatisch aufgelöst. **Fachliche Konflikte** (Methodik, Korridore, Zähllogik): Spec
+gewinnt, Code wird gefixt. **Bezeichner-Konflikte** (Enum-Strings, Feldnamen,
+Schreibweisen): Code gewinnt, Spec wird korrigiert. In beiden Fällen wird die
+Verliererseite im selben oder nächsten Commit angeglichen — kein Konflikt bleibt stehen.
 
 ## Themen-Roadmap
 
@@ -532,17 +540,10 @@ aus dem Übungsnamen — **jede Übung muss explizit getaggt sein.**
 
 ### Übungs-Bibliothek — Ziel-Schema (`exercises`)
 
-| Feld | Inhalt |
-|---|---|
-| name | Anzeigename |
-| pattern | horizontal_push, vertical_push, squat, hinge, … |
-| joint_stress | Liste belasteter Gelenke (knee, shoulder, hip, lower_back, ankle, …) |
-| impact_level | low / medium / high |
-| muscle_groups_primary | Liste |
-| muscle_groups_secondary | Liste |
-| equipment | Liste |
-| skill_level | 1–4 (ersetzt heutiges `level_min`) |
-| substitution_pool | Liste alternativer Übungen (für Tausch) |
+Verbindliches Schema inkl. Tagging-Vokabel: siehe **`SCHEMA.md`**. Diese Spec definiert
+nur die fachlichen Anforderungen: 3-Stufen-Verletzungsfilter (`joint_stress` →
+`impact_level: high` → pattern-Blocker), Ersatz aus gleichem Pattern, explizites Tagging
+jeder Übung als Produktiv-Voraussetzung.
 
 **Tagging-Prozess:** bestehende Bibliothek manuell/KI-assistiert taggen · neue Übungen bei Anlage direkt
 taggen · Coach kann Tags im Backoffice korrigieren.

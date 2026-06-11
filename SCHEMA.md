@@ -2,8 +2,8 @@
 
 _Stand: 2026-06-10 · abgenickt · verbindliche Referenz für MVP-2 (Migration + Tagging)_
 
-> Quelle: COACHING_SPEC.md Thema 8 + Code-verifizierte Konsumenten-Analyse. Bei
-> Spec-vs-Code-Konflikt **gewinnt das Code-Vokabular** (lebende Konsumenten matchen dagegen).
+> Quelle: COACHING_SPEC.md Thema 8 + Code-verifizierte Konsumenten-Analyse.
+> Konfliktregel: siehe Abschnitt 3 → COACHING_SPEC.md „Arbeitsregel: Spec-vs-Code-Konflikte".
 
 ---
 
@@ -46,8 +46,9 @@ Besonders: **`spine`** (nicht „lower_back", nicht „wirbelsäule").
 ```
 squat · hinge · single_leg · push_horizontal · push_vertical · pull_horizontal · pull_vertical · core · carry
 ```
-NICHT „horizontal_push" — die Spec-Tabelle (COACHING_SPEC Z.538) ist falsch herum;
-equipment_filter / split_selector / plan_assembler matchen auf die obigen Code-Strings.
+NICHT „horizontal_push" — die frühere Spec-Tabelle (Thema 8, 2026-06-11 durch Verweis
+ersetzt) war falsch herum; equipment_filter / split_selector / plan_assembler matchen
+auf die obigen Code-Strings.
 
 **`impact_level` — 3 Strings:**
 ```
@@ -61,12 +62,14 @@ Kraft-Pattern oben.
 
 ---
 
-## 3. Naming-Regel: Code gewinnt
+## 3. Konfliktregel → COACHING_SPEC.md
 
-Bei Spec-vs-Code-Konflikt ist das **Code-Vokabular bindend** (lebende Konsumenten matchen
-dagegen). Die Spec-Prosa ist an zwei Stellen ungenau:
-- `push_horizontal` (Code) vs. „horizontal_push" (Spec Z.538)
-- `spine` (Code/Enum) vs. „lower_back" (Spec Z.539)
+Spec-vs-Code-Konflikte regelt die **„Arbeitsregel: Spec-vs-Code-Konflikte"** in
+COACHING_SPEC.md — die einzige ausformulierte Stelle. Kurzform: fachlich gewinnt die
+Spec (Code wird gefixt), bei Bezeichnern gewinnt der Code (Spec wird korrigiert);
+die Verliererseite wird im selben oder nächsten Commit angeglichen.
+Historische Bezeichner-Drifts („horizontal_push", „lower_back" in der früheren
+Thema-8-Tabelle) wurden 2026-06-11 in der Spec bereinigt (Tabelle → Verweis hierher).
 
 ---
 
