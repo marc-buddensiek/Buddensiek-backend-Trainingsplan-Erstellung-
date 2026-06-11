@@ -37,6 +37,12 @@ _Stand: 2026-06-11 · git HEAD `4960c26`_
 
 ## MVP-5 — Verletzungs- & Equipment-Filter (aus Szenario-Analyse)
 
+- **Stufe-1-vs-Stufe-3-Spannung (Befund aus dem Tagging, 2026-06-11):** Die pattern_tags-Blocker
+  (Stufe 3, `_VERLETZUNG_BLOCKED` z.B. Knie→lunge) können Übungen blocken, die nach
+  Ausschluss-Semantik bewusst NICHT joint_stress-getaggt sind — z.B. blockt Knie→`lunge`
+  das eigene Knie-Ersatzziel `bw_reverse_lunge`. Beim MVP-5-Bau entscheiden: Stufe-3-Mapping
+  ausdünnen, Reha-Keeper davon ausnehmen, oder Stufe 3 ganz in joint_stress aufgehen lassen. ·
+  _Hängt ab von:_ MVP-2-Tagging fertig.
 - **Mehrere Verletzungen gleichzeitig:** Filter muss eine Liste verarbeiten, nicht einen
   Einzelwert. · _Hängt ab von:_ MVP-2 (joint_stress/impact_level getaggt).
 - **Leerer `substitution_pool` nach Mehrfach-Filter** (z.B. Knie + nur Bodyweight + L1):
