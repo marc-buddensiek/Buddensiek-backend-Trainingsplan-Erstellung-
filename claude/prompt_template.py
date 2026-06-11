@@ -253,7 +253,7 @@ def build_user_prompt(
             # equipment_filter adds 'verletzungs_flag' (English keys) per exercise
             flagged = u.get("verletzungs_flag", [])
             verletzungs_hinweis = f" ⚠️ hat Substitution für: {', '.join(flagged)}" if flagged else ""
-            lines.append(f"  - {u['id']} (Level {u['level_min']}){verletzungs_hinweis}")
+            lines.append(f"  - {u['id']} (Level {u['skill_level']}){verletzungs_hinweis}")
 
     # Output-Anweisung
     lines += [

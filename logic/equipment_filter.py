@@ -88,7 +88,7 @@ def filtere_uebungen(klient: KlientenInput, level: int) -> dict[str, list[dict]]
         if not any(eq in erlaubte_equipment for eq in ex["equipment"]):
             continue
         # Level-Check
-        if ex["level_min"] > level:
+        if ex["skill_level"] > level:
             continue
         # Equipment-Detail-Check: Übung braucht spezifisches Gerät das der Klient hat?
         required = ex.get("equipment_requires", [])
@@ -99,6 +99,8 @@ def filtere_uebungen(klient: KlientenInput, level: int) -> dict[str, list[dict]]
             continue
 
         # Verletzungs-Flag für Substitutions-Hinweise aufbauen
+        # TODO(mvp5-substitutions-b-removal): substitutions_b stirbt mit dem
+        # 3-Stufen-Filter (MVP-5); Ersatz kommt dann aus substitution_pool.
         sub_b = ex.get("substitutions_b", {})
         betroffene = [key for key in verletzungs_keys if key in sub_b]
 

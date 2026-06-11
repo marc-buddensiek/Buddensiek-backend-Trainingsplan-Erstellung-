@@ -18,13 +18,13 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Knie nach außen drücken",
         "Brust hoch, Oberkörper aufrecht",
         "Gewicht gleichmäßig auf dem ganzen Fuß"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_box_squat",
         "gym_goblet_squat_db",
         "gym_hack_squat_machine"
@@ -43,7 +43,10 @@
       ],
       "pattern_tags": [
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_front_squat",
@@ -62,16 +65,17 @@
           "spinal_erectors"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Ellenbogen hoch, Stange auf den vorderen Deltas",
         "Oberkörper so aufrecht wie möglich",
         "Knie nach außen über die Zehen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_back_squat",
         "gym_goblet_squat_db",
-        "gym_hack_squat_machine"
+        "gym_hack_squat_machine",
+        "gym_box_squat"
       ],
       "substitutions_b": {
         "knee": "gym_box_squat",
@@ -88,7 +92,10 @@
       "pattern_tags": [
         "deep_squat",
         "front_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_box_squat",
@@ -108,13 +115,13 @@
           "spinal_erectors"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Sanft auf die Box setzen, kurz halten",
         "Knie nach außen beim Hochkommen",
         "Füße schulterbreit oder etwas weiter"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_goblet_squat_db",
         "gym_hack_squat_machine",
         "bw_wall_sit"
@@ -130,7 +137,10 @@
       "progressions_down": [
         "gym_goblet_squat_db"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_goblet_squat_db",
@@ -150,16 +160,17 @@
           "shoulders"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Hantel nah am Körper, Ellenbogen innen an den Knien",
         "Tief in die Hocke, Fersen bleiben auf dem Boden",
         "Aufrecht aus der Hocke drücken"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_goblet_squat",
         "gym_box_squat",
-        "bw_squat"
+        "bw_squat",
+        "bw_wall_sit"
       ],
       "substitutions_b": {
         "knee": "bw_wall_sit",
@@ -175,7 +186,10 @@
       ],
       "pattern_tags": [
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_goblet_squat",
@@ -195,16 +209,17 @@
           "shoulders"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "KB an Griffen halten, nah am Körper",
         "Tief in die Hocke, Knie nach außen",
         "Fersen fest auf dem Boden"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_goblet_squat_db",
         "bw_squat",
-        "bw_pause_squat"
+        "bw_pause_squat",
+        "bw_wall_sit"
       ],
       "substitutions_b": {
         "knee": "bw_wall_sit",
@@ -219,7 +234,10 @@
       ],
       "pattern_tags": [
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_hack_squat_machine",
@@ -237,13 +255,13 @@
           "hamstrings"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Füße schulterbreit auf der Plattform",
         "Knie tracken mit den Zehen",
         "Volle ROM nutzen ohne den Rücken zu runden"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_goblet_squat_db",
         "gym_box_squat",
         "gym_leg_press_machine"
@@ -261,7 +279,10 @@
       ],
       "pattern_tags": [
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_leg_press_machine",
@@ -279,13 +300,13 @@
           "hamstrings"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Füße hüftbreit auf der Plattform",
         "Knie nicht vollständig durchstrecken",
         "Rücken flach an der Polsterung"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_hack_squat_machine",
         "gym_goblet_squat_db",
         "gym_box_squat"
@@ -299,7 +320,10 @@
         "gym_hack_squat_machine"
       ],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_squat",
@@ -323,13 +347,13 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Knie in Richtung Zehen drücken",
         "Arme als Gegengewicht nach vorne",
         "Tief gehen, Fersen bleiben unten"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_pause_squat",
         "gym_goblet_squat_db",
         "bw_wall_sit"
@@ -348,7 +372,10 @@
       ],
       "pattern_tags": [
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_pause_squat",
@@ -370,13 +397,13 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "3 Sekunden unten halten",
         "Spannung in der Hocke aufrechterhalten",
         "Kontrolliert aus der Pause hochkommen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_squat",
         "bw_wall_sit",
         "gym_goblet_squat_db"
@@ -394,7 +421,10 @@
       ],
       "pattern_tags": [
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_wall_sit",
@@ -416,13 +446,13 @@
           "glutes"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "90° Kniewinkel anstreben",
         "Rücken flach an der Wand",
         "Oberschenkel parallel zum Boden"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_squat",
         "bw_pause_squat",
         "gym_box_squat"
@@ -435,7 +465,10 @@
         "bw_squat"
       ],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_cossack_squat",
@@ -457,13 +490,13 @@
           "hamstrings"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Fuß des gestreckten Beins zeigt nach oben",
         "Gewicht auf dem Standbein, Ferse bleibt unten",
         "Oberkörper aufrecht, Hüfte tief"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_squat",
         "bw_reverse_lunge",
         "gym_goblet_squat_db"
@@ -481,7 +514,10 @@
       "pattern_tags": [
         "deep_squat",
         "wide_lunge"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_atg_split_squat",
@@ -506,13 +542,13 @@
           "hip_flexors"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Knie so weit wie möglich nach vorne über die Zehen",
         "Ferse bleibt auf dem Boden",
         "Langsam und kontrolliert — volle ROM ist das Ziel"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_reverse_lunge",
         "gym_box_squat",
         "bw_squat"
@@ -530,7 +566,10 @@
       "pattern_tags": [
         "deep_squat",
         "lunge"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_conventional_deadlift",
@@ -552,16 +591,17 @@
           "forearms"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Stange nah am Körper — über den Schienbeinen",
         "Hüfte und Schultern gleichzeitig hochziehen",
         "Gesäß anspannen am Ende der Bewegung"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_trap_bar_deadlift",
         "gym_rdl_barbell",
-        "gym_rdl_db"
+        "gym_rdl_db",
+        "gym_hip_thrust_barbell"
       ],
       "substitutions_b": {
         "spine": "gym_trap_bar_deadlift",
@@ -577,7 +617,10 @@
       ],
       "pattern_tags": [
         "heavy_hinge"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_trap_bar_deadlift",
@@ -598,16 +641,17 @@
           "forearms"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Griffe auf mittlerer Höhe für mehr Quad-Aktivierung",
         "Gleichmäßig aus Hüfte und Knien drücken",
         "Schultern über der Stange"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_rdl_barbell",
         "gym_rdl_db",
-        "gym_goblet_squat_db"
+        "gym_goblet_squat_db",
+        "gym_hip_thrust_barbell"
       ],
       "substitutions_b": {
         "spine": "gym_rdl_db",
@@ -622,7 +666,10 @@
       ],
       "pattern_tags": [
         "heavy_hinge"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_rdl_barbell",
@@ -641,16 +688,17 @@
           "back_upper"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Hüfte nach hinten schieben, nicht runterdrücken",
         "Stange nah am Körper über Schienbeinen",
         "Weiche Knie — kein Lock-Out am Boden"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_rdl_db",
         "gym_trap_bar_deadlift",
-        "bw_single_leg_rdl"
+        "bw_single_leg_rdl",
+        "gym_hip_thrust_barbell"
       ],
       "substitutions_b": {
         "spine": "gym_hip_thrust_barbell",
@@ -664,7 +712,10 @@
       ],
       "pattern_tags": [
         "heavy_hinge"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_rdl_db",
@@ -683,13 +734,13 @@
           "spinal_erectors"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Hanteln nah am Körper entlang führen",
         "Hüfte zurück, Oberkörper neigt sich nach vorne",
         "Dehnung in den Oberschenkeln spüren"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_rdl_barbell",
         "bw_single_leg_rdl",
         "gym_hip_thrust_machine"
@@ -705,7 +756,10 @@
       "progressions_down": [
         "bw_glute_bridge"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_hip_thrust_barbell",
@@ -723,13 +777,13 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Schulterblätter auf der Bank, Kinn zur Brust",
         "Volle Hüftstreckung oben — Glutes maximal anspannen",
         "Knie 90° am höchsten Punkt"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_hip_thrust_machine",
         "bw_glute_bridge",
         "gym_rdl_db"
@@ -744,7 +798,10 @@
       "progressions_down": [
         "gym_hip_thrust_machine"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_hip_thrust_machine",
@@ -761,13 +818,13 @@
           "hamstrings"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Polster auf Hüfthöhe positionieren",
         "Volle Streckung oben, kurz halten",
         "Kein Hohlkreuz am oberen Umkehrpunkt"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_hip_thrust_barbell",
         "bw_glute_bridge",
         "gym_rdl_db"
@@ -782,7 +839,10 @@
       "progressions_down": [
         "bw_glute_bridge"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_deadlift",
@@ -802,13 +862,13 @@
           "back_upper"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "KB zwischen den Füßen, Hüfte zurück",
         "Rücken flach, Schulterblätter zusammen",
         "Gesäß anspannen beim Hochkommen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_swing_two_hand",
         "bw_glute_bridge",
         "gym_rdl_db"
@@ -823,7 +883,10 @@
       "progressions_down": [
         "bw_glute_bridge"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_swing_two_hand",
@@ -844,16 +907,17 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Hinge — nicht Squat: Hüfte geht zurück, nicht runter",
         "Gesäß am Umkehrpunkt maximal anspannen",
         "KB zieht die Hüfte nach vorne — nicht die Arme"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_swing_one_hand",
         "kb_deadlift",
-        "gym_rdl_db"
+        "gym_rdl_db",
+        "bw_glute_bridge"
       ],
       "substitutions_b": {
         "spine": "bw_glute_bridge",
@@ -866,7 +930,10 @@
       "progressions_down": [
         "kb_deadlift"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_swing_one_hand",
@@ -888,13 +955,13 @@
           "obliques"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Wechsel in der Luftphase — KB kurz schwerelos",
         "Standbein bleibt stabil",
         "Keine Rotation im Oberkörper"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_swing_two_hand",
         "kb_deadlift",
         "gym_rdl_db"
@@ -910,7 +977,10 @@
       "progressions_down": [
         "kb_swing_two_hand"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_snatch",
@@ -931,13 +1001,13 @@
           "forearms"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Zug aus der Hüfte, nicht aus dem Arm",
         "KB eng am Körper führen",
         "Handgelenk beim Einlochen entspannen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_swing_one_hand",
         "kb_swing_two_hand",
         "kb_clean"
@@ -951,7 +1021,10 @@
       "progressions_down": [
         "kb_swing_one_hand"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_clean",
@@ -972,13 +1045,13 @@
           "forearms"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "KB eng am Körper, Ellenbogen nah",
         "In die Rack-Position, KB ruht auf dem Unterarm",
         "Hüfte treibt die Bewegung — kein Arm-Curl"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_swing_two_hand",
         "kb_deadlift",
         "kb_swing_one_hand"
@@ -994,7 +1067,10 @@
       "progressions_down": [
         "kb_swing_two_hand"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_glute_bridge",
@@ -1017,13 +1093,13 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Fersen nahe am Gesäß, Füße hüftbreit",
         "Glutes oben maximal anspannen",
         "Hüfte voll strecken — kein Hohlkreuz"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_hip_thrust_machine",
         "bw_single_leg_rdl",
         "gym_rdl_db"
@@ -1037,7 +1113,10 @@
         "gym_hip_thrust_machine"
       ],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_single_leg_rdl",
@@ -1061,13 +1140,13 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Hüfte und Schultern parallel zum Boden halten",
         "Spielbein und Oberkörper bilden eine Linie",
         "Standbein hat weiche Knie — nicht durchstrecken"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_glute_bridge",
         "gym_rdl_db",
         "gym_hip_thrust_machine"
@@ -1083,7 +1162,10 @@
       "progressions_down": [
         "bw_glute_bridge"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_bench_press",
@@ -1101,16 +1183,17 @@
           "shoulders_front"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Schulterblätter zusammenziehen und zur Bank drücken",
         "Ellenbogen ca. 45–60° zum Körper",
         "Brust berühren — kein Abprellen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_bench_press",
         "gym_incline_db_press",
-        "gym_machine_chest_press"
+        "gym_machine_chest_press",
+        "gym_db_floor_press"
       ],
       "substitutions_b": {
         "shoulder": "gym_db_floor_press",
@@ -1126,7 +1209,10 @@
       ],
       "pattern_tags": [
         "bench_heavy"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_db_bench_press",
@@ -1145,16 +1231,17 @@
           "shoulders_front"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Hanteln auf Brusthöhe, neutrale oder leicht pronierte Griffhaltung",
         "Mehr ROM möglich als bei Langhantel — nutzen",
         "Kontrolliert absenken"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_bench_press",
         "gym_incline_db_press",
-        "gym_db_floor_press"
+        "gym_db_floor_press",
+        "gym_machine_chest_press"
       ],
       "substitutions_b": {
         "shoulder": "gym_db_floor_press",
@@ -1167,7 +1254,10 @@
       "progressions_down": [
         "gym_db_floor_press"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_incline_db_press",
@@ -1186,16 +1276,17 @@
           "triceps"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Bank auf 30–45° — nicht zu steil",
         "Schulterblätter zusammen und einsinken lassen",
         "Kontrolliertes Absenken bis auf Höhe der oberen Brust"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_bench_press",
         "gym_bench_press",
-        "gym_machine_chest_press"
+        "gym_machine_chest_press",
+        "gym_db_floor_press"
       ],
       "substitutions_b": {
         "shoulder": "gym_db_floor_press",
@@ -1207,7 +1298,10 @@
       "progressions_down": [
         "gym_db_bench_press"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_db_floor_press",
@@ -1226,13 +1320,13 @@
           "shoulders_front"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Oberschenkel aufgestellt, Ellenbogen werden vom Boden gestoppt",
         "Keine Schulter-Überdehnung möglich — gut bei Schulter-Issues",
         "Volle Streckung oben, Trizeps hart anspannen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_bench_press",
         "bw_pushup",
         "gym_machine_chest_press"
@@ -1247,7 +1341,10 @@
       "progressions_down": [
         "bw_pushup"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_machine_chest_press",
@@ -1265,16 +1362,17 @@
           "shoulders_front"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Rücken flach an der Polsterung",
         "Ellenbogen leicht gebeugt am Endpunkt",
         "Kontrolliert zurückführen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_bench_press",
         "gym_db_floor_press",
-        "bw_pushup"
+        "bw_pushup",
+        "gym_cable_fly"
       ],
       "substitutions_b": {
         "shoulder": "gym_cable_fly",
@@ -1286,7 +1384,10 @@
       "progressions_down": [
         "bw_incline_pushup"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_cable_fly",
@@ -1303,13 +1404,13 @@
           "shoulders_front"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Leicht gebeugte Ellenbogen — konstant halten",
         "Bewegung aus der Schulter, nicht aus dem Ellenbogen",
         "Brust in der Mitte zusammendrücken und kurz halten"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_bench_press",
         "gym_machine_chest_press",
         "bw_pushup"
@@ -1322,7 +1423,10 @@
       "progressions_down": [
         "gym_machine_chest_press"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_pushup",
@@ -1346,16 +1450,17 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Körper als Brett — Hüfte nicht hängen lassen",
         "Ellenbogen leicht angewinkelt zum Körper",
         "Volle Streckung oben, volle ROM unten"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_archer_pushup",
         "gym_db_floor_press",
-        "gym_incline_db_press"
+        "gym_incline_db_press",
+        "gym_machine_chest_press"
       ],
       "substitutions_b": {
         "shoulder": "gym_db_floor_press",
@@ -1371,7 +1476,10 @@
       ],
       "pattern_tags": [
         "push_up_floor"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_archer_pushup",
@@ -1393,13 +1501,13 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Ein Arm streckt sich seitwärts aus, der andere macht den Push-Up",
         "Gewicht zu einem Arm verlagern",
         "Langsam und kontrolliert — Vorstufe zum einarmigen Push-Up"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_pushup",
         "gym_db_floor_press",
         "gym_incline_db_press"
@@ -1416,7 +1524,10 @@
       ],
       "pattern_tags": [
         "push_up_floor"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_ohp_barbell",
@@ -1436,13 +1547,13 @@
           "spinal_erectors"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Stange über dem Kopf — nicht vor dem Körper",
         "Gesäß und Bauch anspannen, kein Hohlkreuz",
         "Ellenbogen leicht nach vorne, nicht zur Seite"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_shoulder_press",
         "gym_landmine_ohp",
         "kb_single_press"
@@ -1460,7 +1571,10 @@
       ],
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_db_shoulder_press",
@@ -1479,13 +1593,13 @@
           "triceps"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Neutrale oder leicht pronierter Griff — weniger Schulterbelastung",
         "Ellenbogen leicht nach vorne — kein 90° T-Form",
         "Kontrolliert absenken bis Ohrenhöhe"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_ohp_barbell",
         "gym_landmine_ohp",
         "kb_single_press"
@@ -1503,7 +1617,10 @@
       ],
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_landmine_ohp",
@@ -1522,16 +1639,17 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Stange auf Schulterhöhe, aus dem Hüft-Strecken heraus drücken",
         "Schulterschonend durch diagonale Drückbahn",
         "Standfuß schulterbreit, stabiler Stand"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_shoulder_press",
         "kb_single_press",
-        "gym_ohp_barbell"
+        "gym_ohp_barbell",
+        "gym_cable_lateral_raise"
       ],
       "substitutions_b": {
         "shoulder": "gym_cable_lateral_raise",
@@ -1541,7 +1659,10 @@
         "gym_db_shoulder_press"
       ],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_cable_lateral_raise",
@@ -1558,13 +1679,13 @@
           "shoulders_rear"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Leicht gebeugte Ellenbogen, Bewegung aus der Schulter",
         "Daumen leicht nach unten — mehr Lateral Head",
         "Kontrolliert absenken, nicht fallen lassen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_lateral_raise",
         "gym_face_pull",
         "gym_cuban_press"
@@ -1575,7 +1696,10 @@
       },
       "progressions_up": [],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_db_lateral_raise",
@@ -1593,13 +1717,13 @@
           "shoulders_rear"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Arme leicht gebeugt, Pinky leicht nach oben",
         "Bis Schulterhöhe — nicht höher",
         "Keine Schwungbewegung — Kontrolle über die ganze ROM"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_cable_lateral_raise",
         "gym_face_pull",
         "gym_cuban_press"
@@ -1610,7 +1734,10 @@
       },
       "progressions_up": [],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_face_pull",
@@ -1629,13 +1756,13 @@
           "biceps"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Seil zum Gesicht ziehen, Ellenbogen hoch",
         "Außenrotation am Endpunkt — Daumen nach hinten",
         "Schultergesundheit: täglich möglich"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_cuban_press",
         "gym_band_pull_apart",
         "gym_db_lateral_raise"
@@ -1646,7 +1773,10 @@
       },
       "progressions_up": [],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_cuban_press",
@@ -1666,13 +1796,13 @@
           "triceps"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "3 Phasen: Seitheben → Außenrotation → Drücken",
         "Leichtes Gewicht — Schulterpflege, kein Krafttraining",
         "Langsam und bewusst — Schultermanschette aktivieren"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_face_pull",
         "gym_band_pull_apart",
         "gym_db_lateral_raise"
@@ -1683,7 +1813,10 @@
       },
       "progressions_up": [],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_single_press",
@@ -1704,13 +1837,13 @@
           "obliques"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "KB in der Rack-Position — Unterarm senkrecht",
         "Drücken und gleichzeitig Körper stabilisieren",
         "Volle Streckung oben, Schulter aktiv gepackt"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_shoulder_press",
         "gym_landmine_ohp",
         "kb_bottoms_up_press"
@@ -1728,7 +1861,10 @@
       ],
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_bottoms_up_press",
@@ -1748,13 +1884,13 @@
           "triceps"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "KB auf dem Kopf balancieren — volle Schulteraktivierung",
         "Langsam und kontrolliert — Instabilität trainiert Stabilisatoren",
         "Slow exhale für mehr Stabilität"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_single_press",
         "gym_db_shoulder_press",
         "gym_landmine_ohp"
@@ -1770,7 +1906,10 @@
       ],
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_pullup",
@@ -1794,13 +1933,13 @@
           "abs"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Schulterblätter zuerst nach unten und zusammen — dann ziehen",
         "Brust zur Stange führen, nicht das Kinn",
         "Kontrolliertes Absenken bis volle Streckung"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_lat_pulldown",
         "gym_chinup",
         "bw_ring_row"
@@ -1816,7 +1955,10 @@
       "progressions_down": [
         "gym_chinup"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_chinup",
@@ -1840,13 +1982,13 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Untergriff — mehr Bizeps, etwas einfacher als Pull-Up",
         "Volle Streckung unten",
         "Kinn über die Stange bringen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_pullup",
         "gym_lat_pulldown",
         "bw_ring_row"
@@ -1862,7 +2004,10 @@
       "progressions_down": [
         "gym_lat_pulldown"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_lat_pulldown",
@@ -1880,16 +2025,17 @@
           "back_upper"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Schulterblätter nach unten und zusammen vor dem Ziehen",
         "Stange zur Brust — nicht hinter den Kopf",
         "Volle Streckung am Endpunkt oben"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_pullup",
         "gym_chinup",
-        "bw_ring_row"
+        "bw_ring_row",
+        "gym_cable_pullover"
       ],
       "substitutions_b": {
         "shoulder": "gym_cable_pullover",
@@ -1902,7 +2048,10 @@
       "progressions_down": [
         "bw_ring_row"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_cable_pullover",
@@ -1920,13 +2069,13 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Stehend, Kabel von oben — Lat isolieren",
         "Arme gestreckt oder leicht gebeugt",
         "Nur Schultergelenk bewegt sich — keine Ellenbogen-Beugung"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_lat_pulldown",
         "bw_ring_row",
         "gym_db_row"
@@ -1937,7 +2086,10 @@
       },
       "progressions_up": [],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_ring_row",
@@ -1960,13 +2112,13 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Körper als Brett — keine Hüftbeuge",
         "Schwierigkeit durch Körperwinkel anpassen",
         "Schulterblätter zusammen am Ende der Bewegung"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_lat_pulldown",
         "gym_chinup",
         "gym_db_row"
@@ -1979,7 +2131,10 @@
         "bw_negative_pullup"
       ],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_barbell_row",
@@ -1999,13 +2154,13 @@
           "shoulders_rear"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Rumpf ca. 45° — Spannung im unteren Rücken halten",
         "Stange zur Hüfte ziehen, nicht zur Brust",
         "Schulterblätter am Endpunkt zusammendrücken"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_row",
         "gym_seated_cable_row",
         "kb_row"
@@ -2018,7 +2173,10 @@
       "progressions_down": [
         "gym_db_row"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_db_row",
@@ -2038,13 +2196,13 @@
           "shoulders_rear"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Knie auf der Bank für Support — Rücken flach",
         "Hantel zur Hüfte, Ellenbogen nah am Körper",
         "Schulterblatt am Endpunkt maximal zusammenziehen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_barbell_row",
         "gym_seated_cable_row",
         "kb_row"
@@ -2060,7 +2218,10 @@
       "progressions_down": [
         "bw_inverted_row"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_seated_cable_row",
@@ -2079,16 +2240,17 @@
           "shoulders_rear"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Aufrecht sitzen — kein Schwung aus dem Rücken",
         "Schulterblätter zuerst nach hinten, dann Ellenbogen ziehen",
         "Kurz halten am Endpunkt, dann kontrolliert zurück"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_row",
         "gym_barbell_row",
-        "bw_ring_row"
+        "bw_ring_row",
+        "gym_face_pull"
       ],
       "substitutions_b": {
         "spine": "bw_ring_row",
@@ -2100,7 +2262,10 @@
       "progressions_down": [
         "gym_db_row"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_band_pull_apart",
@@ -2121,13 +2286,13 @@
           "shoulders_lateral"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Arme gestreckt auf Schulterhöhe",
         "Band auseinanderziehen bis über die Brust",
         "Schulterblätter zusammen am Endpunkt — 1 Sek. halten"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_face_pull",
         "gym_cuban_press",
         "gym_db_lateral_raise"
@@ -2138,7 +2303,10 @@
       },
       "progressions_up": [],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_row",
@@ -2158,13 +2326,13 @@
           "shoulders_rear"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Freie Hand auf dem Knie für Stabilität",
         "KB zur Hüfte ziehen, Ellenbogen nah",
         "Schulterblatt maximal einziehen am Endpunkt"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_row",
         "bw_ring_row",
         "gym_seated_cable_row"
@@ -2179,7 +2347,10 @@
       "progressions_down": [
         "bw_inverted_row"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_renegade_row",
@@ -2199,13 +2370,13 @@
           "chest"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Plank-Position halten — Hüfte nicht rotieren",
         "KB eng am Körper hoch, kein Schwung",
         "Beine weit auseinander für mehr Stabilität"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_row",
         "gym_db_row",
         "bw_ring_row"
@@ -2221,7 +2392,10 @@
       ],
       "pattern_tags": [
         "push_up_floor"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_bulgarian_split_squat_db",
@@ -2241,13 +2415,13 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Hinteren Fuß auf der Bank — Rist, nicht Zehen",
         "Vorderen Fuß weit genug vorne, Knie über den Zehen",
         "Hüfte gerade absenken — kein Schieben nach vorne"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_reverse_lunge",
         "gym_step_up_db",
         "bw_bulgarian_split_squat"
@@ -2267,7 +2441,10 @@
       "pattern_tags": [
         "lunge",
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_bulgarian_split_squat",
@@ -2291,13 +2468,13 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Hinteren Fuß auf dem Stuhl oder der Bank",
         "Vorderes Knie verfolgt die Zehen",
         "Tief gehen — Oberschenkel parallel zum Boden"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_reverse_lunge",
         "bw_atg_split_squat",
         "gym_step_up_db"
@@ -2316,7 +2493,10 @@
       "pattern_tags": [
         "lunge",
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_reverse_lunge",
@@ -2340,13 +2520,13 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Schritt nach hinten — knieschonender als Forward Lunge",
         "Vorderes Knie über dem Fuß, nicht dahinter",
         "Oberkörper aufrecht — kein Vornüberlehnen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_squat",
         "gym_step_up_db",
         "bw_bulgarian_split_squat"
@@ -2364,7 +2544,10 @@
       ],
       "pattern_tags": [
         "lunge"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_reverse_lunge",
@@ -2384,13 +2567,13 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "KB in Rack-Position oder hängend",
         "Schritt kontrolliert nach hinten",
         "Aufrecht bleiben, Rumpf anspannen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_reverse_lunge",
         "kb_bulgarian_split_squat",
         "gym_step_up_db"
@@ -2407,7 +2590,10 @@
       ],
       "pattern_tags": [
         "lunge"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_bulgarian_split_squat",
@@ -2427,13 +2613,13 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "KB in einer oder beiden Händen",
         "Hinteren Fuß auf einer Erhöhung",
         "Kontrolliert senken, explosiv drücken"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_reverse_lunge",
         "bw_bulgarian_split_squat",
         "bw_reverse_lunge"
@@ -2451,7 +2637,10 @@
       "pattern_tags": [
         "lunge",
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_step_up_db",
@@ -2471,13 +2660,13 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Fuß vollständig auf die Box stellen",
         "Aus dem vorderen Bein drücken — nicht vom hinteren abstoßen",
         "Oberkörper aufrecht"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_reverse_lunge",
         "gym_bulgarian_split_squat_db",
         "bw_squat"
@@ -2492,7 +2681,10 @@
       "progressions_down": [
         "bw_reverse_lunge"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_single_leg_rdl_db",
@@ -2512,13 +2704,13 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Spielbein und Oberkörper bilden eine Linie",
         "Hantel nah am Standbein entlangführen",
         "Hüfte gerade halten — nicht rotieren"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_single_leg_rdl",
         "gym_rdl_db",
         "bw_glute_bridge"
@@ -2532,7 +2724,10 @@
       "progressions_down": [
         "bw_single_leg_rdl"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_pistol_squat",
@@ -2554,13 +2749,13 @@
           "calves"
         ]
       },
-      "level_min": 4,
+      "skill_level": 4,
       "coaching_cues": [
         "Spielbein gestreckt nach vorne, Arme als Gegengewicht",
         "Tief und kontrolliert — volle ROM",
         "Ferse bleibt auf dem Boden"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_bulgarian_split_squat",
         "bw_reverse_lunge",
         "bw_squat"
@@ -2576,7 +2771,10 @@
       "pattern_tags": [
         "deep_squat",
         "lunge"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_farmers_carry_db",
@@ -2598,16 +2796,17 @@
           "calves"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Hanteln seitlich am Körper, Schultern zurückgezogen",
         "Aufrechter Gang, Blick geradeaus",
         "Kontrolliertes Tempo — kein Hetzen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_farmers_carry",
         "gym_suitcase_carry_db",
-        "gym_overhead_carry_db"
+        "gym_overhead_carry_db",
+        "bw_dead_bug"
       ],
       "substitutions_b": {
         "spine": "bw_dead_bug",
@@ -2619,7 +2818,10 @@
         "gym_overhead_carry_db"
       ],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_suitcase_carry_db",
@@ -2640,13 +2842,13 @@
           "quads"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Nur eine Seite belastet — Oberkörper trotzdem gerade",
         "Nicht zur Hantelseite neigen",
         "Seitliche Stabilisatoren maximal aktiviert"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_farmers_carry_db",
         "kb_rack_walk",
         "bw_plank"
@@ -2661,7 +2863,10 @@
       "progressions_down": [
         "gym_farmers_carry_db"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_overhead_carry_db",
@@ -2681,13 +2886,13 @@
           "forearms"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Arm vollständig gestreckt, Schulter aktiv gepackt",
         "Ellenbogen zeigt nach innen — nicht nach außen",
         "Kern maximal angespannt für Stabilität"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_farmers_carry_db",
         "kb_rack_walk",
         "kb_bottoms_up_carry"
@@ -2704,7 +2909,10 @@
       ],
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_farmers_carry",
@@ -2725,16 +2933,17 @@
           "quads"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "KB seitlich am Körper, Griff fest",
         "Aufrechte Haltung — kein Rundrücken",
         "Schultern nach unten und hinten gezogen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_farmers_carry_db",
         "kb_rack_walk",
-        "gym_suitcase_carry_db"
+        "gym_suitcase_carry_db",
+        "bw_dead_bug"
       ],
       "substitutions_b": {
         "spine": "bw_dead_bug",
@@ -2744,7 +2953,10 @@
         "kb_rack_walk"
       ],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_rack_walk",
@@ -2765,13 +2977,13 @@
           "quads"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "KB in Rack-Position — Unterarm senkrecht, KB ruht auf Arm",
         "Schulter des KB-Arms aktiv nach unten gepackt",
         "Aufrechter Gang, kein Ausweichen zur Seite"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_farmers_carry",
         "gym_suitcase_carry_db",
         "kb_bottoms_up_carry"
@@ -2786,7 +2998,10 @@
       "progressions_down": [
         "kb_farmers_carry"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_bottoms_up_carry",
@@ -2805,13 +3020,13 @@
           "back_upper"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "KB auf dem Kopf balancieren — Schulterrotation maximal aktiviert",
         "Langsam gehen, KB nicht kippen lassen",
         "Körper komplett aufgerichtet und stabil"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_rack_walk",
         "kb_farmers_carry",
         "gym_overhead_carry_db"
@@ -2827,7 +3042,10 @@
       ],
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_plank",
@@ -2851,13 +3069,13 @@
           "shoulders"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Körper von Kopf bis Ferse eine Linie",
         "Bauch einziehen und Glutes anspannen",
         "Atmung nicht anhalten — flach atmen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_dead_bug",
         "bw_hollow_body",
         "gym_pallof_press"
@@ -2876,7 +3094,10 @@
       ],
       "pattern_tags": [
         "push_up_floor"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_dead_bug",
@@ -2899,13 +3120,13 @@
           "spinal_erectors"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Lendenwirbel flach auf dem Boden halten — immer",
         "Gegenüberliegendes Arm/Bein strecken",
         "Langsam und kontrolliert — Atemkontrolle"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_plank",
         "bw_hollow_body",
         "gym_pallof_press"
@@ -2920,7 +3141,10 @@
       "progressions_down": [
         "bw_mcgill_bird_dog"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_pallof_press",
@@ -2940,13 +3164,13 @@
           "shoulders"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Seitlich zum Kabel stehen, Kern maximal anspannen",
         "Arme langsam nach vorne strecken, Rotationswiderstand halten",
         "Kein Eindrehen der Hüfte — Anti-Rotation ist das Ziel"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_plank",
         "bw_dead_bug",
         "gym_ab_wheel"
@@ -2959,7 +3183,10 @@
       "progressions_down": [
         "bw_plank"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_ab_wheel",
@@ -2979,16 +3206,17 @@
           "back_lat"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Nur so weit ausrollen wie Lendenwirbel flach bleibt",
         "Langsam — der Rückweg ist der Trainingsstimulus",
         "Schultern über den Handgelenken zu Beginn"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_plank",
         "bw_hollow_body",
-        "gym_pallof_press"
+        "gym_pallof_press",
+        "bw_dead_bug"
       ],
       "substitutions_b": {
         "shoulder": "bw_plank",
@@ -3004,7 +3232,10 @@
       "pattern_tags": [
         "loaded_flexion",
         "push_up_floor"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_cable_crunch",
@@ -3021,13 +3252,13 @@
           "obliques"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Hände an den Schläfen — nicht hinter dem Kopf ziehen",
         "Oberkörper einrollen, nicht nur vornüber kippen",
         "Unten kurz halten, kontrolliert zurück"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_ab_wheel",
         "bw_dead_bug",
         "bw_hollow_body"
@@ -3044,7 +3275,10 @@
       ],
       "pattern_tags": [
         "loaded_flexion"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_turkish_getup",
@@ -3065,13 +3299,13 @@
           "back_upper"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Auge auf die KB — immer",
         "Jede Phase einzeln und kontrolliert ausführen",
         "Gewicht erst lernen ohne KB, dann leicht starten"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_plank",
         "gym_pallof_press",
         "bw_dead_bug"
@@ -3087,7 +3321,10 @@
       ],
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_windmill",
@@ -3107,13 +3344,13 @@
           "abs"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Auge auf die KB overhead — immer",
         "Hüfte zur Seite — nicht Oberkörper zur Seite neigen",
         "Nur so tief wie die Hüftmobilität es erlaubt"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_pallof_press",
         "bw_plank",
         "bw_dead_bug"
@@ -3129,7 +3366,10 @@
       ],
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_hollow_body",
@@ -3152,13 +3392,13 @@
           "shoulders"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Lendenwirbel bleibt flach auf dem Boden",
         "Arme und Beine gestreckt, knapp über dem Boden",
         "Wenn nötig: Knie beugen oder Arme anlegen zur Erleichterung"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_dead_bug",
         "bw_plank",
         "gym_ab_wheel"
@@ -3174,7 +3414,10 @@
       "progressions_down": [
         "bw_plank"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_copenhagen_plank",
@@ -3196,13 +3439,13 @@
           "glutes"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Oberes Bein auf der Bank, Körper als Brett",
         "Hüfte hoch halten — kein Durchhängen",
         "Für Einsteiger: Knie auf der Bank statt Fuß"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_plank",
         "bw_dead_bug",
         "gym_pallof_press"
@@ -3215,7 +3458,10 @@
       "progressions_down": [
         "bw_side_plank"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_reverse_hyper",
@@ -3233,13 +3479,13 @@
           "spinal_erectors"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Hüfte auf dem Rand der Maschine oder Bank",
         "Beine gestreckt langsam heben und senken",
         "Rückendekompressions-Effekt — gut bei Bandscheibenproblemen"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_glute_bridge",
         "gym_hip_thrust_machine",
         "bw_dead_bug"
@@ -3252,7 +3498,10 @@
       "progressions_down": [
         "bw_glute_bridge"
       ],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_mcgill_bird_dog",
@@ -3276,13 +3525,13 @@
           "shoulders"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Vierfüßler — Rücken flach wie ein Tisch",
         "Gegenüberliegendes Arm+Bein gleichzeitig strecken",
         "Wirbelsäule während der Bewegung neutral halten"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_dead_bug",
         "bw_plank",
         "gym_pallof_press"
@@ -3295,7 +3544,10 @@
         "bw_dead_bug"
       ],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_mcgill_curl_up",
@@ -3315,13 +3567,13 @@
         ],
         "secondary": []
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Ein Knie gebeugt, anderes Bein gestreckt",
         "Hände unter dem Lendenwirbel — neutrale Kurve halten",
         "Schulterblätter minimal abheben — kein voller Crunch"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_dead_bug",
         "bw_plank",
         "bw_hollow_body"
@@ -3334,7 +3586,10 @@
         "bw_hollow_body"
       ],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_tibialis_raise",
@@ -3356,13 +3611,13 @@
           "quads"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Rücken an die Wand, Füße ca. 30cm entfernt",
         "Zehen maximal nach oben ziehen, Fersen auf dem Boden",
         "Kniegesundheit — täglich möglich"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_atg_split_squat",
         "bw_squat",
         "bw_reverse_lunge"
@@ -3373,7 +3628,10 @@
       },
       "progressions_up": [],
       "progressions_down": [],
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_paused_back_squat",
@@ -3393,7 +3651,7 @@
           "abs"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "3 Sek. unten halten — keine Entspannung",
         "Aus dem Loch heraus drücken, kein Rebound",
@@ -3405,10 +3663,12 @@
       "progressions_down": [
         "gym_back_squat"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_front_squat",
         "gym_tempo_squat",
-        "gym_back_squat"
+        "gym_back_squat",
+        "gym_box_squat",
+        "gym_goblet_squat_db"
       ],
       "substitutions_b": {
         "knee": "gym_box_squat",
@@ -3417,7 +3677,10 @@
       },
       "pattern_tags": [
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_tempo_squat",
@@ -3437,7 +3700,7 @@
           "abs"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "4 Sek. runter — maximal langsam und kontrolliert",
         "Kein Pause unten, sofort hoch",
@@ -3447,10 +3710,12 @@
       "progressions_down": [
         "gym_paused_back_squat"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_paused_back_squat",
         "gym_front_squat",
-        "gym_back_squat"
+        "gym_back_squat",
+        "gym_box_squat",
+        "gym_goblet_squat_db"
       ],
       "substitutions_b": {
         "knee": "gym_box_squat",
@@ -3459,7 +3724,10 @@
       },
       "pattern_tags": [
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_jump_squat",
@@ -3484,7 +3752,7 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Sanft landen — erst Zehen, dann Ferse",
         "Squat-Tiefe vor dem Sprung, nicht nur Hüftbeuge",
@@ -3494,7 +3762,7 @@
       "progressions_down": [
         "bw_squat"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_squat",
         "bw_pause_squat",
         "bw_cossack_squat"
@@ -3509,7 +3777,10 @@
         "jump",
         "plyo",
         "jumping"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_front_squat",
@@ -3529,7 +3800,7 @@
           "shoulders"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Beide KBs in Rack-Position — Unterarme senkrecht",
         "Oberkörper so aufrecht wie möglich",
@@ -3539,7 +3810,7 @@
       "progressions_down": [
         "kb_goblet_squat"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_goblet_squat",
         "bw_pause_squat",
         "bw_atg_split_squat"
@@ -3552,7 +3823,10 @@
       "pattern_tags": [
         "deep_squat",
         "front_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_assisted_pistol_squat",
@@ -3576,7 +3850,7 @@
           "calves"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "An einer Stange oder Tür festhalten — Gewicht langsam reduzieren",
         "Spielbein nach vorne strecken",
@@ -3588,10 +3862,11 @@
       "progressions_down": [
         "bw_atg_split_squat"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_atg_split_squat",
         "bw_bulgarian_split_squat",
-        "bw_skater_squat"
+        "bw_skater_squat",
+        "bw_reverse_lunge"
       ],
       "substitutions_b": {
         "knee": "bw_reverse_lunge",
@@ -3599,7 +3874,10 @@
       },
       "pattern_tags": [
         "deep_squat"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_single_leg_glute_bridge",
@@ -3622,7 +3900,7 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Ein Bein gestreckt, das andere Knie gebeugt",
         "Hüfte voll strecken oben — Glutes maximal anspannen",
@@ -3635,7 +3913,7 @@
       "progressions_down": [
         "bw_glute_bridge"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_glute_bridge",
         "gym_hip_thrust_machine",
         "gym_rdl_db"
@@ -3644,7 +3922,10 @@
         "knee": "bw_glute_bridge",
         "spine": "bw_glute_bridge"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_45_degree_back_extension",
@@ -3662,7 +3943,7 @@
           "hamstrings"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Oberkörper nur bis parallel zum Boden heben — kein Hyperextend",
         "Langsam absenken — Dehnung im unteren Rücken",
@@ -3674,7 +3955,7 @@
       "progressions_down": [
         "bw_glute_bridge"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_rdl_db",
         "bw_glute_bridge",
         "gym_hip_thrust_machine"
@@ -3683,7 +3964,10 @@
         "spine": "bw_glute_bridge",
         "hip": "bw_glute_bridge"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_good_morning",
@@ -3702,7 +3986,7 @@
           "abs"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Stange auf dem Trapezius — weiche Knie, nicht gestreckt",
         "Hüfte zurück schieben — Oberkörper neigt sich nach vorne",
@@ -3714,10 +3998,11 @@
       "progressions_down": [
         "gym_rdl_barbell"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_rdl_barbell",
         "gym_45_degree_back_extension",
-        "gym_glute_ham_raise"
+        "gym_glute_ham_raise",
+        "gym_rdl_db"
       ],
       "substitutions_b": {
         "spine": "gym_rdl_db",
@@ -3726,7 +4011,10 @@
       "pattern_tags": [
         "heavy_hinge",
         "loaded_flexion"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_glute_ham_raise",
@@ -3745,7 +4033,7 @@
           "calves"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Füße fixiert, Körper langsam absenken — exzentrisch ist der Schlüssel",
         "Hüfte gestreckt halten während der Bewegung",
@@ -3757,16 +4045,21 @@
       "progressions_down": [
         "gym_good_morning"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_nordic_curl",
         "gym_rdl_barbell",
-        "gym_good_morning"
+        "gym_good_morning",
+        "gym_rdl_db",
+        "gym_hip_thrust_barbell"
       ],
       "substitutions_b": {
         "spine": "gym_rdl_db",
         "knee": "gym_hip_thrust_barbell"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_nordic_curl",
@@ -3785,7 +4078,7 @@
           "spinal_erectors"
         ]
       },
-      "level_min": 4,
+      "skill_level": 4,
       "coaching_cues": [
         "Füße fixiert — langsam fallen lassen, so lang wie möglich kontrollieren",
         "Hüfte gestreckt — keine Beugung während der Bewegung",
@@ -3795,16 +4088,21 @@
       "progressions_down": [
         "gym_glute_ham_raise"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_glute_ham_raise",
         "gym_rdl_barbell",
-        "gym_conventional_deadlift"
+        "gym_conventional_deadlift",
+        "gym_rdl_db",
+        "gym_hip_thrust_barbell"
       ],
       "substitutions_b": {
         "spine": "gym_rdl_db",
         "knee": "gym_hip_thrust_barbell"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_single_leg_hip_thrust_db",
@@ -3823,7 +4121,7 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Schulterblätter auf der Bank, Hantel auf der Hüfte",
         "Ein Bein gestreckt, volle Hüftstreckung oben",
@@ -3835,16 +4133,20 @@
       "progressions_down": [
         "gym_hip_thrust_machine"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_hip_thrust_barbell",
         "bw_single_leg_glute_bridge",
-        "gym_hip_thrust_machine"
+        "gym_hip_thrust_machine",
+        "bw_glute_bridge"
       ],
       "substitutions_b": {
         "spine": "bw_single_leg_glute_bridge",
         "knee": "bw_glute_bridge"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_incline_pushup",
@@ -3868,7 +4170,7 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Hände auf Bank oder Stuhl — Winkel reduziert Körpergewicht",
         "Körper als Brett — Hüfte nicht hängen",
@@ -3878,7 +4180,7 @@
         "bw_pushup"
       ],
       "progressions_down": [],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_pushup",
         "gym_machine_chest_press",
         "gym_db_floor_press"
@@ -3888,7 +4190,10 @@
         "elbow": "gym_machine_chest_press",
         "wrist": "gym_machine_chest_press"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_wide_pushup",
@@ -3912,7 +4217,7 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Hände weiter als schulterbreit — mehr Brustfokus",
         "Körper als Brett, kein Hohlkreuz",
@@ -3924,10 +4229,12 @@
       "progressions_down": [
         "bw_pushup"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_pushup",
         "bw_diamond_pushup",
-        "bw_archer_pushup"
+        "bw_archer_pushup",
+        "bw_incline_pushup",
+        "gym_machine_chest_press"
       ],
       "substitutions_b": {
         "shoulder": "bw_incline_pushup",
@@ -3936,7 +4243,10 @@
       },
       "pattern_tags": [
         "push_up_floor"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_diamond_pushup",
@@ -3960,7 +4270,7 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Hände bilden Diamant unter der Brust",
         "Ellenbogen nah am Körper bleiben",
@@ -3972,10 +4282,11 @@
       "progressions_down": [
         "bw_pushup"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_pushup",
         "bw_wide_pushup",
-        "bw_archer_pushup"
+        "bw_archer_pushup",
+        "bw_incline_pushup"
       ],
       "substitutions_b": {
         "shoulder": "bw_pushup",
@@ -3984,7 +4295,10 @@
       },
       "pattern_tags": [
         "push_up_floor"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_decline_pushup",
@@ -4008,7 +4322,7 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Füße auf Bank oder Stuhl — obere Brust und Schultern betont",
         "Körper als Brett, Hüfte nicht fallen lassen",
@@ -4021,10 +4335,11 @@
       "progressions_down": [
         "bw_pushup"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_pushup",
         "bw_archer_pushup",
-        "bw_wide_pushup"
+        "bw_wide_pushup",
+        "bw_incline_pushup"
       ],
       "substitutions_b": {
         "shoulder": "bw_pushup",
@@ -4032,7 +4347,10 @@
       },
       "pattern_tags": [
         "push_up_floor"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_one_arm_pushup_negatives",
@@ -4056,7 +4374,7 @@
           "obliques"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Nur die exzentrische Phase (runter) einhändig — 5 Sek.",
         "Andere Hand kurz abstützen für den Rückweg",
@@ -4068,10 +4386,11 @@
       "progressions_down": [
         "bw_archer_pushup"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_archer_pushup",
         "bw_diamond_pushup",
-        "gym_weighted_dips"
+        "gym_weighted_dips",
+        "bw_pushup"
       ],
       "substitutions_b": {
         "shoulder": "bw_pushup",
@@ -4079,7 +4398,10 @@
       },
       "pattern_tags": [
         "push_up_floor"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_one_arm_pushup",
@@ -4101,7 +4423,7 @@
           "obliques"
         ]
       },
-      "level_min": 4,
+      "skill_level": 4,
       "coaching_cues": [
         "Hand unter der Brust, Beine weit auseinander",
         "Körper so gerade wie möglich — keine starke Rotation",
@@ -4111,7 +4433,7 @@
       "progressions_down": [
         "bw_one_arm_pushup_negatives"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_one_arm_pushup_negatives",
         "bw_archer_pushup",
         "gym_weighted_dips"
@@ -4122,7 +4444,10 @@
       },
       "pattern_tags": [
         "push_up_floor"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_floor_press",
@@ -4141,7 +4466,7 @@
           "shoulders_front"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Auf dem Boden liegend — Ellenbogen werden gestoppt",
         "Keine Schulterüberdehnung möglich",
@@ -4153,17 +4478,21 @@
       "progressions_down": [
         "bw_pushup"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_pushup",
         "gym_db_floor_press",
-        "bw_diamond_pushup"
+        "bw_diamond_pushup",
+        "bw_incline_pushup"
       ],
       "substitutions_b": {
         "shoulder": "bw_pushup",
         "elbow": "bw_incline_pushup",
         "wrist": "bw_incline_pushup"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_weighted_dips",
@@ -4181,7 +4510,7 @@
           "shoulders_front"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Oberkörper leicht nach vorne für mehr Brustfokus",
         "Bis Schultern unter Ellenbogen absenken — volle ROM",
@@ -4191,10 +4520,12 @@
       "progressions_down": [
         "gym_bench_press"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_bench_press",
         "gym_close_grip_bench",
-        "bw_one_arm_pushup_negatives"
+        "bw_one_arm_pushup_negatives",
+        "gym_db_bench_press",
+        "gym_machine_chest_press"
       ],
       "substitutions_b": {
         "shoulder": "gym_db_bench_press",
@@ -4203,7 +4534,10 @@
       "pattern_tags": [
         "dip",
         "bench_heavy"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_close_grip_bench",
@@ -4221,7 +4555,7 @@
           "shoulders_front"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Griffweite schulterbreit — nicht zu eng",
         "Ellenbogen nah am Körper, ca. 30° Winkel",
@@ -4231,10 +4565,12 @@
       "progressions_down": [
         "gym_bench_press"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_bench_press",
         "gym_weighted_dips",
-        "gym_db_bench_press"
+        "gym_db_bench_press",
+        "gym_db_floor_press",
+        "gym_machine_chest_press"
       ],
       "substitutions_b": {
         "shoulder": "gym_db_floor_press",
@@ -4243,7 +4579,10 @@
       },
       "pattern_tags": [
         "bench_heavy"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_pike_pushup",
@@ -4267,7 +4606,7 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Hüfte hoch — umgekehrtes V mit dem Körper",
         "Kopf zwischen den Armen zum Boden",
@@ -4279,10 +4618,11 @@
       "progressions_down": [
         "bw_decline_pushup"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_decline_pushup",
         "kb_single_press",
-        "gym_db_shoulder_press"
+        "gym_db_shoulder_press",
+        "bw_incline_pushup"
       ],
       "substitutions_b": {
         "shoulder": "bw_decline_pushup",
@@ -4291,7 +4631,10 @@
       },
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_pike_pushup_elevated",
@@ -4315,7 +4658,7 @@
           "abs"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Füße auf Bank — je höher, desto schwerer und schulterähnlicher",
         "Kopf tief zum Boden",
@@ -4327,7 +4670,7 @@
       "progressions_down": [
         "bw_pike_pushup"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_pike_pushup",
         "bw_decline_pushup",
         "gym_db_shoulder_press"
@@ -4338,7 +4681,10 @@
       },
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_wall_handstand_pushup",
@@ -4361,7 +4707,7 @@
           "spinal_erectors"
         ]
       },
-      "level_min": 4,
+      "skill_level": 4,
       "coaching_cues": [
         "Gesicht zur Wand — Hände 15cm entfernt",
         "Körper so gerade wie möglich",
@@ -4371,10 +4717,11 @@
       "progressions_down": [
         "bw_pike_pushup_elevated"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_pike_pushup_elevated",
         "gym_ohp_barbell",
-        "gym_z_press"
+        "gym_z_press",
+        "bw_pike_pushup"
       ],
       "substitutions_b": {
         "shoulder": "bw_pike_pushup",
@@ -4383,7 +4730,10 @@
       },
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_push_press",
@@ -4404,7 +4754,7 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Kurzer Knie-Dip als Impuls — dann explosiv drücken",
         "Mehr Gewicht als bei Strict Press möglich",
@@ -4414,7 +4764,7 @@
       "progressions_down": [
         "kb_single_press"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "kb_single_press",
         "gym_db_shoulder_press",
         "gym_push_press_barbell"
@@ -4426,7 +4776,10 @@
       },
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_push_press_barbell",
@@ -4446,7 +4799,7 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Knie-Dip: nur 10–15cm — kein tiefer Squat",
         "Impuls aus den Beinen, Arme drücken durch",
@@ -4456,10 +4809,11 @@
       "progressions_down": [
         "gym_ohp_barbell"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_ohp_barbell",
         "gym_db_shoulder_press",
-        "kb_push_press"
+        "kb_push_press",
+        "gym_landmine_ohp"
       ],
       "substitutions_b": {
         "shoulder": "gym_landmine_ohp",
@@ -4468,7 +4822,10 @@
       },
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_z_press",
@@ -4488,7 +4845,7 @@
           "spinal_erectors"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Auf dem Boden sitzen, Beine gestreckt — kein Rückhalt möglich",
         "Maximale Core-Aktivierung nötig für Stabilität",
@@ -4498,10 +4855,11 @@
       "progressions_down": [
         "gym_ohp_barbell"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_ohp_barbell",
         "gym_db_shoulder_press",
-        "kb_single_press"
+        "kb_single_press",
+        "gym_landmine_ohp"
       ],
       "substitutions_b": {
         "shoulder": "gym_landmine_ohp",
@@ -4509,7 +4867,10 @@
       },
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_negative_pullup",
@@ -4532,7 +4893,7 @@
           "back_upper"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Oben starten (springen oder Box), langsam absenken — 5-8 Sek.",
         "Volle Streckung am Ende — Schultern aktiv",
@@ -4544,7 +4905,7 @@
       "progressions_down": [
         "bw_ring_row"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_lat_pulldown",
         "bw_ring_row",
         "gym_close_grip_pulldown"
@@ -4554,7 +4915,10 @@
         "elbow": "gym_lat_pulldown",
         "wrist": "bw_ring_row"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_close_grip_pulldown",
@@ -4572,7 +4936,7 @@
           "back_upper"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Neutraler Griff (Palmen zueinander) — schulterschonender",
         "Stange zur Brust, Ellenbogen zur Hüfte führen",
@@ -4584,17 +4948,21 @@
       "progressions_down": [
         "gym_lat_pulldown"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_lat_pulldown",
         "gym_chinup",
-        "bw_ring_row"
+        "bw_ring_row",
+        "gym_cable_pullover"
       ],
       "substitutions_b": {
         "shoulder": "gym_cable_pullover",
         "elbow": "gym_cable_pullover",
         "wrist": "bw_ring_row"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_weighted_pullup",
@@ -4613,7 +4981,7 @@
           "abs"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Gewicht am Gürtel — Technik identisch mit Pull-Up",
         "Kein Schwung — strikt",
@@ -4623,7 +4991,7 @@
       "progressions_down": [
         "gym_pullup"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_pullup",
         "gym_chinup",
         "gym_lat_pulldown"
@@ -4633,7 +5001,10 @@
         "elbow": "gym_lat_pulldown",
         "wrist": "gym_lat_pulldown"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_inverted_row",
@@ -4657,7 +5028,7 @@
           "abs"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Unter Tisch oder Stange — Brust zur Kante ziehen",
         "Schwierigkeit durch Körperwinkel steuern",
@@ -4669,16 +5040,20 @@
       "progressions_down": [
         "bw_towel_row"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_ring_row",
         "gym_db_row",
-        "bw_towel_row"
+        "bw_towel_row",
+        "gym_lat_pulldown"
       ],
       "substitutions_b": {
         "shoulder": "gym_lat_pulldown",
         "elbow": "gym_lat_pulldown"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_towel_row",
@@ -4699,7 +5074,7 @@
           "biceps"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Handtuch um Türknauf — zurücklehnen und Brust zur Tür ziehen",
         "Füße an der Wand neben der Tür für Stabilität",
@@ -4709,7 +5084,7 @@
         "bw_inverted_row"
       ],
       "progressions_down": [],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_inverted_row",
         "bw_ring_row",
         "gym_band_pull_apart"
@@ -4718,7 +5093,10 @@
         "shoulder": "gym_band_pull_apart",
         "elbow": "gym_band_pull_apart"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_chest_supported_db_row",
@@ -4738,7 +5116,7 @@
           "shoulders_rear"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Brust auf Schrägbank — kein Schwung aus dem Rücken möglich",
         "Ideal für Rücken-Isolation ohne Rückenbeschwerden",
@@ -4750,16 +5128,20 @@
       "progressions_down": [
         "gym_db_row"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_db_row",
         "gym_seated_cable_row",
-        "gym_barbell_row"
+        "gym_barbell_row",
+        "bw_ring_row"
       ],
       "substitutions_b": {
         "spine": "bw_ring_row",
         "shoulder": "gym_seated_cable_row"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_single_arm_cable_row",
@@ -4779,7 +5161,7 @@
           "obliques"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Einhändig — mehr Rotation und Schulterblatt-ROM möglich",
         "Zur Hüfte ziehen, Ellenbogen nah",
@@ -4791,7 +5173,7 @@
       "progressions_down": [
         "gym_seated_cable_row"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_seated_cable_row",
         "gym_db_row",
         "gym_barbell_row"
@@ -4800,7 +5182,10 @@
         "spine": "gym_seated_cable_row",
         "elbow": "gym_seated_cable_row"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_skater_squat",
@@ -4824,7 +5209,7 @@
           "abs"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Kein Aufstützen — freistehend auf einem Bein",
         "Hinteres Knie taucht fast den Boden",
@@ -4836,7 +5221,7 @@
       "progressions_down": [
         "gym_bulgarian_split_squat_db"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_assisted_pistol_squat",
         "gym_bulgarian_split_squat_db",
         "bw_reverse_lunge"
@@ -4848,7 +5233,10 @@
       "pattern_tags": [
         "deep_squat",
         "lunge"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_single_leg_press",
@@ -4866,7 +5254,7 @@
           "hamstrings"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Ein Fuß auf der Plattform — Mitte",
         "Knie trackt über die Zehen",
@@ -4878,7 +5266,7 @@
       "progressions_down": [
         "bw_reverse_lunge"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_step_up_db",
         "bw_reverse_lunge",
         "gym_leg_press_machine"
@@ -4887,7 +5275,10 @@
         "knee": "gym_leg_press_machine",
         "hip": "gym_leg_press_machine"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "kb_single_leg_rdl",
@@ -4907,7 +5298,7 @@
           "abs"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "KB in Gegenhand zum Standbein — mehr Balance-Challenge",
         "Hüfte und Schultern parallel zum Boden",
@@ -4917,17 +5308,21 @@
       "progressions_down": [
         "kb_deadlift"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_single_leg_rdl",
         "gym_single_leg_rdl_db",
-        "kb_deadlift"
+        "kb_deadlift",
+        "bw_glute_bridge"
       ],
       "substitutions_b": {
         "knee": "bw_glute_bridge",
         "spine": "bw_glute_bridge",
         "hip": "bw_glute_bridge"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_barbell_overhead_carry",
@@ -4947,7 +5342,7 @@
           "spinal_erectors"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Stange über dem Kopf — Schultern aktiv gepackt",
         "Kein Hohlkreuz — Rippen runter",
@@ -4957,7 +5352,7 @@
       "progressions_down": [
         "gym_overhead_carry_db"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_overhead_carry_db",
         "kb_bottoms_up_carry",
         "gym_farmers_carry_db"
@@ -4969,7 +5364,10 @@
       },
       "pattern_tags": [
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_side_plank",
@@ -4993,7 +5391,7 @@
           "shoulders"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Hüfte nicht durchhängen lassen — gerade Linie",
         "Schulter aktiv — nicht ins Gelenk sinken",
@@ -5005,7 +5403,7 @@
       "progressions_down": [
         "bw_plank"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_plank",
         "bw_dead_bug",
         "gym_pallof_press"
@@ -5015,7 +5413,10 @@
         "wrist": "bw_dead_bug",
         "spine": "bw_dead_bug"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_hanging_knee_raise",
@@ -5036,7 +5437,7 @@
           "back_lat"
         ]
       },
-      "level_min": 1,
+      "skill_level": 1,
       "coaching_cues": [
         "Keine Schwungbewegung — Knie kontrolliert heben",
         "Schultern aktiv — nicht hängen lassen",
@@ -5048,7 +5449,7 @@
       "progressions_down": [
         "gym_cable_crunch"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_cable_crunch",
         "bw_dead_bug",
         "bw_hollow_body"
@@ -5058,7 +5459,10 @@
         "wrist": "gym_cable_crunch",
         "elbow": "gym_cable_crunch"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_hanging_leg_raise",
@@ -5078,7 +5482,7 @@
           "obliques"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Beine gestreckt bis horizontal — kein Schwung",
         "Hüfte leicht nach hinten rollen am Endpunkt",
@@ -5090,17 +5494,22 @@
       "progressions_down": [
         "gym_hanging_knee_raise"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_hanging_knee_raise",
         "bw_hollow_body",
-        "bw_v_up"
+        "bw_v_up",
+        "gym_cable_crunch",
+        "bw_dead_bug"
       ],
       "substitutions_b": {
         "shoulder": "bw_hollow_body",
         "wrist": "gym_cable_crunch",
         "spine": "bw_dead_bug"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_v_up",
@@ -5122,7 +5531,7 @@
           "hip_flexors"
         ]
       },
-      "level_min": 2,
+      "skill_level": 2,
       "coaching_cues": [
         "Arme und Beine gleichzeitig heben — treffen sich oben",
         "Lendenwirbel nicht durchhängen — kurz am Boden",
@@ -5134,7 +5543,7 @@
       "progressions_down": [
         "bw_hollow_body"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_hollow_body",
         "bw_dead_bug",
         "gym_hanging_knee_raise"
@@ -5143,7 +5552,10 @@
         "spine": "bw_dead_bug",
         "hip": "bw_dead_bug"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_l_sit",
@@ -5165,7 +5577,7 @@
           "triceps"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Hände neben den Hüften — Arme gestreckt",
         "Beine horizontal halten — Quads aktiv anspannen",
@@ -5177,17 +5589,21 @@
       "progressions_down": [
         "bw_hollow_body"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_hollow_body",
         "gym_hanging_leg_raise",
-        "bw_v_up"
+        "bw_v_up",
+        "bw_dead_bug"
       ],
       "substitutions_b": {
         "shoulder": "bw_hollow_body",
         "wrist": "gym_hanging_leg_raise",
         "spine": "bw_dead_bug"
       },
-      "pattern_tags": []
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "bw_dragon_flag",
@@ -5209,7 +5625,7 @@
           "back_lat"
         ]
       },
-      "level_min": 4,
+      "skill_level": 4,
       "coaching_cues": [
         "Schultern auf der Bank — Körper als Brett nach oben",
         "Langsam absenken, nie den Boden berühren",
@@ -5219,10 +5635,11 @@
       "progressions_down": [
         "bw_l_sit"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "bw_l_sit",
         "bw_hollow_body",
-        "gym_ab_rollout_standing"
+        "gym_ab_rollout_standing",
+        "bw_dead_bug"
       ],
       "substitutions_b": {
         "shoulder": "bw_hollow_body",
@@ -5230,7 +5647,10 @@
       },
       "pattern_tags": [
         "loaded_flexion"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_ab_rollout_standing",
@@ -5250,7 +5670,7 @@
           "spinal_erectors"
         ]
       },
-      "level_min": 3,
+      "skill_level": 3,
       "coaching_cues": [
         "Von stehend ausrollen — viel schwerer als kniend",
         "Lendenwirbel flach halten — kein Durchhängen",
@@ -5262,10 +5682,12 @@
       "progressions_down": [
         "gym_ab_wheel"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_ab_wheel",
         "bw_l_sit",
-        "bw_hollow_body"
+        "bw_hollow_body",
+        "bw_plank",
+        "bw_dead_bug"
       ],
       "substitutions_b": {
         "shoulder": "bw_hollow_body",
@@ -5275,7 +5697,10 @@
       "pattern_tags": [
         "loaded_flexion",
         "push_up_floor"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     },
     {
       "id": "gym_overhead_squat",
@@ -5296,7 +5721,7 @@
           "back_upper"
         ]
       },
-      "level_min": 4,
+      "skill_level": 4,
       "coaching_cues": [
         "Stange breit greifen, über dem Kopf und leicht hinter",
         "Schultern aktiv gepackt — nie entspannen",
@@ -5306,7 +5731,7 @@
       "progressions_down": [
         "gym_front_squat"
       ],
-      "substitutions_a": [
+      "substitution_pool": [
         "gym_front_squat",
         "gym_paused_back_squat",
         "gym_tempo_squat"
@@ -5319,7 +5744,10 @@
       "pattern_tags": [
         "deep_squat",
         "overhead_press"
-      ]
+      ],
+      "joint_stress": [],
+      "impact_level": null,
+      "equipment_requires": []
     }
   ]
 }

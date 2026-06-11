@@ -1,4 +1,9 @@
 """
+TODO(mvp2-schema-stale): Dieses Skript ist nach der MVP-2-Schema-Migration
+veraltet (NEW_EXERCISES nutzen noch level_min/substitutions_a, neue Felder
+joint_stress/impact_level/substitution_pool/equipment_requires fehlen).
+NICHT erneut laufen lassen ohne Anpassung an SCHEMA.md.
+
 Adds progressions_up / progressions_down to every existing exercise
 and appends ~44 new exercises (L3-L4 + equipment gaps).
 Run from buddensiek-backend/: python scripts/update_exercises.py
