@@ -1261,8 +1261,12 @@
       "pattern_tags": [
         "bench_heavy"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "elbow",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -1306,8 +1310,11 @@
         "gym_db_floor_press"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "elbow"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -1350,8 +1357,11 @@
         "gym_db_bench_press"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "elbow"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -1393,8 +1403,10 @@
         "bw_pushup"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "elbow"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -1437,7 +1449,7 @@
       ],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -1475,8 +1487,10 @@
         "gym_machine_chest_press"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -1528,8 +1542,10 @@
       "pattern_tags": [
         "push_up_floor"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -1576,8 +1592,11 @@
       "pattern_tags": [
         "push_up_floor"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4301,7 +4320,7 @@
       },
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4353,8 +4372,11 @@
       "pattern_tags": [
         "push_up_floor"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4405,8 +4427,11 @@
       "pattern_tags": [
         "push_up_floor"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "elbow",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4457,8 +4482,11 @@
       "pattern_tags": [
         "push_up_floor"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4508,8 +4536,11 @@
       "pattern_tags": [
         "push_up_floor"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4554,8 +4585,11 @@
       "pattern_tags": [
         "push_up_floor"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4599,8 +4633,11 @@
         "wrist": "bw_incline_pushup"
       },
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "elbow",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4644,8 +4681,11 @@
         "dip",
         "bench_heavy"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "elbow"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4689,8 +4729,12 @@
       "pattern_tags": [
         "bench_heavy"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "elbow",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
