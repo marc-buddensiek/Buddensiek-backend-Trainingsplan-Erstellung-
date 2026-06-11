@@ -2045,8 +2045,12 @@
         "gym_chinup"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "elbow",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2094,8 +2098,12 @@
         "gym_lat_pulldown"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "elbow",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2139,7 +2147,7 @@
       ],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2177,7 +2185,7 @@
       "progressions_down": [],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2222,7 +2230,7 @@
       "progressions_down": [],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -5115,8 +5123,12 @@
         "wrist": "bw_ring_row"
       },
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "elbow",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -5160,7 +5172,7 @@
       },
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -5201,8 +5213,12 @@
         "wrist": "gym_lat_pulldown"
       },
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "elbow",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
