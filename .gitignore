@@ -1,5 +1,7 @@
 .env
 __pycache__/
+# Migrations-Backups (z.B. exercises.json.bak)
+*.bak
 *.pyc
 *.pyo
 .DS_Store
