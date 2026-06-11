@@ -226,6 +226,8 @@ das Modell ehrlich und vorhersehbar — der Coach steuert via internem Kapazitä
   mehr in der Split-Logik; ersetzt durch Schwachstellen- / Conditioning- / Cardio-Tage je Ziel.
 - **Schwachstellen-Tag (5 Tage Muskelaufbau/Recomp):** Klient wählt Fokus in der Anamnese
   (Arme / Brust / Rücken / Schultern / Beine). → **neues Anamnese-/Typeform-Feld nötig.**
+  > **V1-Stand (2026-06-11):** Ohne Fokus-Angabe (`schwachstelle=None` — Typeform-Feld folgt)
+  > wird der 5. Tag als **Ganzkörper-Akzent-Tag** gebaut (`split_selector._schwachstellen_session`).
 
 ### Wochen-Struktur nach Trainingstagen
 
