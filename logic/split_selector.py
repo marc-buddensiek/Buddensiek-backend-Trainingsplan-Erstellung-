@@ -298,6 +298,8 @@ def _conditioning_session(idx: int, session_typ: str = "zirkel") -> dict:
 
 
 def _zone2_session(idx: int) -> dict:
+    # TODO(mvp7-athletik): V1 nur Zone-2-Cardio-Tage; die Athletik-Rotation
+    # (Spec Thema 4/6) kommt mit den MVP-7-Athletik-Übungen (Bibliothek: 0 vorhanden).
     return _tag_session(
         f"w1_s{idx}",
         "Zone 2 / Longevity",
@@ -307,7 +309,7 @@ def _zone2_session(idx: int) -> dict:
             _slot("Push / Pull leicht",         "push_horizontal", "accessory", 2),
             _slot("Core / Cool-Down",           "core",            "core",       1),
         ],
-        "kraft",
+        "zone2",
     )
 
 
@@ -396,28 +398,19 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
         typ_labels = " + ".join(dict.fromkeys(typen))  # unique, ordered
         return {"split_typ": f"Conditioning {tage}× ({typ_labels})", "sessions": _renumber(sessions)}
 
-    elif ziel == Hauptziel.ausdauer:
+    else:  # Hauptziel.longevity — Generalist: Kraft + Zone-2-Cardio (Spec Thema 4)
         if tage <= 3:
-            return {"split_typ": "Full Body Strength", "sessions": _full_body_sessions(tage, level, dauer)}
+            return {"split_typ": "Full Body 3× (Longevity)",
+                    "sessions": _full_body_sessions(tage, level, dauer)}
         elif tage == 4:
-            return {"split_typ": "Upper/Lower 4×", "sessions": _upper_lower_sessions(level, dauer)}
-        else:
+            fb = _full_body_sessions(3, level, dauer)
+            return {"split_typ": "3× Kraft + Zone 2",
+                    "sessions": _renumber(fb + [_zone2_session(4)])}
+        elif tage == 5:
+            fb = _full_body_sessions(3, level, dauer)
+            return {"split_typ": "3× Kraft + 2× Zone 2",
+                    "sessions": _renumber(fb + [_zone2_session(4), _zone2_session(5)])}
+        else:  # 6: jeder Muskel 2× Kraft + 2 Cardio-Tage
             ul = _upper_lower_sessions(level, dauer)
-            extra = [_conditioning_session(5, "intervalle")]
-            if mit_mobility:
-                extra.append(_mobility_session(6))
-            return {"split_typ": "Upper/Lower × 2 + Intervalle + Mobility", "sessions": _renumber(ul + extra)[:tage]}
-
-    else:  # gesundheit
-        if tage <= 3:
-            sessions = _full_body_sessions(tage - 1, level, dauer) if tage > 1 else []
-            return {"split_typ": "Full Body + Zone 2", "sessions": _renumber(sessions + [_zone2_session(tage)])}
-        elif tage == 4:
-            ul = _upper_lower_sessions(level, dauer)[:3]
-            return {"split_typ": "Upper/Lower + Zone 2", "sessions": _renumber(ul + [_zone2_session(4)])}
-        else:
-            ul = _upper_lower_sessions(level, dauer)[:3]
-            extra = [_zone2_session(4)]
-            if mit_mobility:
-                extra.append(_mobility_session(5))
-            return {"split_typ": "Upper/Lower + Zone 2 + Mobility", "sessions": _renumber(ul + extra)[:tage]}
+            return {"split_typ": "Upper/Lower 4× + 2× Zone 2",
+                    "sessions": _renumber(ul + [_zone2_session(5), _zone2_session(6)])}

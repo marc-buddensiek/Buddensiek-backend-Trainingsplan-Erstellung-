@@ -117,7 +117,6 @@ TEST_CASES = [
     # Alle Equipment-Pfade
     ("Gym / 4T / Muskelaufbau",          dict(equipment_ref="gym",        tage=4, hauptziel_ref="muskelaufbau")),
     ("Home Gym / 3T / Fettabbau",        dict(equipment_ref="home_gym",   tage=3, hauptziel_ref="fettabbau")),
-    # TODO(ausdauer-rename): Testdaten umgestellt (MVP-4 Naht 1); Rest-Crash liegt in split_selector.py:399 (toter ausdauer-Zweig, faellt mit MVP-4 Naht 2).
     ("Kettlebell / 3T / Longevity",      dict(equipment_ref="kettlebell", tage=3, hauptziel_ref="longevity")),
     ("Bodyweight / 5T / Longevity",      dict(equipment_ref="bodyweight", tage=5, hauptziel_ref="longevity")),
     # TODO(testdata-tage-min3): tage=2 < Modell-Minimum (tage_pro_woche >= 3) — veraltete Testdaten, eigener Commit.

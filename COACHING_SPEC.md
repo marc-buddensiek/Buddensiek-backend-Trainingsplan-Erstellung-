@@ -397,6 +397,10 @@ Rotieren zwischen zwei Typen:
 - 1 Tag/Woche → alternierend (Woche 1 Zone-2, Woche 2 Athletik, …).
 - 2 Tage/Woche → 1× Zone-2 + 1× Athletik.
 
+> **V1-Stand (2026-06-11):** Longevity-Cardio-Tage sind in V1 ausschließlich **Zone-2** —
+> die Athletik-Rotation kommt mit der MVP-7-Bibliothek (0 Athletik-Übungen vorhanden);
+> Marker `TODO(mvp7-athletik)` in `split_selector._zone2_session`.
+
 **Begründung:** Breiter Format-Baukasten statt weniger Formate, weil Abwechslung den Reiz frisch hält und
 verschiedene Energiesysteme trifft. Rotation (jeder Conditioning-Tag ein anderes Format, nie 2× hintereinander
 dasselbe im Block) gegen Monotonie und Anpassung. Equipment-spezifische Bevorzugung, weil z.B. Komplexe/
