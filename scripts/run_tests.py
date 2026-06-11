@@ -117,8 +117,8 @@ TEST_CASES = [
     # Alle Equipment-Pfade
     ("Gym / 4T / Muskelaufbau",          dict(equipment_ref="gym",        tage=4, hauptziel_ref="muskelaufbau")),
     ("Home Gym / 3T / Fettabbau",        dict(equipment_ref="home_gym",   tage=3, hauptziel_ref="fettabbau")),
-    # TODO(ausdauer-rename): 'ausdauer' ist toter Enum (→ longevity, Spec Thema 4) — separate Altlast, eigener Commit. Betrifft auch split_selector.py:399 (Produktionscode).
-    ("Kettlebell / 3T / Ausdauer",       dict(equipment_ref="kettlebell", tage=3, hauptziel_ref="ausdauer")),
+    # TODO(ausdauer-rename): Testdaten umgestellt (MVP-4 Naht 1); Rest-Crash liegt in split_selector.py:399 (toter ausdauer-Zweig, faellt mit MVP-4 Naht 2).
+    ("Kettlebell / 3T / Longevity",      dict(equipment_ref="kettlebell", tage=3, hauptziel_ref="longevity")),
     ("Bodyweight / 5T / Longevity",      dict(equipment_ref="bodyweight", tage=5, hauptziel_ref="longevity")),
     # TODO(testdata-tage-min3): tage=2 < Modell-Minimum (tage_pro_woche >= 3) — veraltete Testdaten, eigener Commit.
     ("Travel / 2T / Muskelaufbau",       dict(equipment_ref="travel",     tage=2, hauptziel_ref="muskelaufbau")),
@@ -126,7 +126,7 @@ TEST_CASES = [
 
     # Alle Ziele mit 4 Tagen Gym
     ("Gym / 4T / Fettabbau",             dict(equipment_ref="gym", tage=4, hauptziel_ref="fettabbau")),
-    ("Gym / 4T / Ausdauer",              dict(equipment_ref="gym", tage=4, hauptziel_ref="ausdauer")),
+    ("Gym / 6T / Longevity",             dict(equipment_ref="gym", tage=6, hauptziel_ref="longevity")),
     ("Gym / 4T / Longevity",             dict(equipment_ref="gym", tage=4, hauptziel_ref="longevity")),
 
     # Verschiedene Tage
