@@ -1,6 +1,6 @@
 # Backlog — vertagte Arbeit (nach MVP-Paket)
 
-_Stand: 2026-06-10 · git HEAD `4c00caa`_
+_Stand: 2026-06-11 · git HEAD `4960c26`_
 
 > Bewusst aufgeschobene Arbeit, gruppiert nach MVP-Paket. Jeder Eintrag:
 > Beschreibung · warum vertagt · Code-Marker (Datei:Zeile, Grep-verifiziert) · Abhängigkeit.
@@ -45,7 +45,8 @@ _Stand: 2026-06-10 · git HEAD `4c00caa`_
   kein Auto-Plan, manuelle Coach-Betreuung. Bewusste Scope-Grenze, **KEIN** viertes
   Sicherheits-Tag. · _Hängt ab von:_ Anamnese (MVP-1-Erweiterung).
 - **`substitutions_b` raus**, sobald der 3-Stufen-Filter den dynamischen Ersatz übernimmt
-  (lebender Leser `equipment_filter:102` — letzter Konsument zuerst). · _Hängt ab von:_ MVP-5.
+  (lebender Leser `equipment_filter:104` — letzter Konsument zuerst). · _Marker:_
+  `TODO(mvp5-substitutions-b-removal)`. · _Hängt ab von:_ MVP-5.
 
 ## MVP-7 — Conditioning-Formate
 
@@ -100,9 +101,14 @@ Pattern-Automatismus.
 ## MVP-2 — laufend
 
 - **Schema-Spec abgenickt** → `SCHEMA.md` ist die verbindliche Referenz.
+- **Schema-Migration umgesetzt** (`4960c26`, `scripts/migrate_schema_mvp2.py`): alle 125 auf
+  neuem Schema; `joint_stress`/`impact_level` noch ungetaggt (`[]` / `null`). **Offen: Tagging
+  der 125 (SCHEMA.md-Vokabel!) + Ausbau auf 250–300.**
+- **`update_exercises.py` schema-stale** (NEW_EXERCISES-Literale noch Alt-Schema) — nicht erneut
+  laufen lassen ohne Anpassung. · _Marker:_ `TODO(mvp2-schema-stale)` (Kopf-Kommentar).
 - **Bestandsaufnahme offen:** wie viele der 125 sind schon conditioning-tauglich, nur in
   Kraft-Pattern getaggt? Echte Anlage neuer conditioning/athletik-Übungen erst nach MVP-7.
 - **`TODO(longevity-volume)`:** Platzhalter-Werte in `realism_validator.py:17` / `:33` / `:53`
   und `logic/plan_assembler.py:45` (`_WDH_MAP`), final mit Thema 4–6.
-- **`equipment_requires` bleibt** (dormant, 0 Daten, default `[]`) — darf bei der Migration
-  nicht rausfallen (lebender Leser `equipment_filter:94`).
+- **`equipment_requires`** seit der Migration in allen 125 als `[]` materialisiert (dormant,
+  0 echte Daten; lebender Leser `equipment_filter:94`).

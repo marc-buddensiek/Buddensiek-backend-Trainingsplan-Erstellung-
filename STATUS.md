@@ -1,6 +1,6 @@
 # Projektstatus — Buddensiek Performance KI-Trainingsplan
 
-_Zuletzt aktualisiert: 2026-06-10 · git HEAD `19f8d5f` · Branch `mvp-1-data-foundation`_
+_Zuletzt aktualisiert: 2026-06-11 · git HEAD `4960c26` (MVP-2-Migration) · Branch `mvp-1-data-foundation`_
 
 ---
 
@@ -9,8 +9,8 @@ _Zuletzt aktualisiert: 2026-06-10 · git HEAD `19f8d5f` · Branch `mvp-1-data-fo
 Backend importiert sauber (`import main` ✅). Tests: **Logik 19/26 · Realism 7/7** — die 7 roten sind ausschließlich veraltete Testdaten + ein nicht-gebautes Feature (MVP-4), **keine Regression** (Belege: Abschnitt 5).
 
 Spec ist komplett (alle 8 Themen entschieden). Umsetzung läuft entlang der ROADMAP (MVP-1…12).
-**Fertig:** MVP-1 (Daten-Fundament) + MVP-3-Kern (Volumen „Modell A").
-**Offen / nächste große Brocken:** MVP-2 (Bibliothek) und MVP-4 (Split-Logik).
+**Fertig:** MVP-1 (Daten-Fundament) + MVP-3-Kern (Volumen „Modell A") + MVP-2-Schema-Migration (`4960c26`).
+**Offen / nächste große Brocken:** MVP-2-Rest (Tagging der 125 + Ausbau auf 250–300) und MVP-4 (Split-Logik).
 Pipeline (Typeform → … → PDF/Supabase) steht strukturell; Claude/Supabase nicht live.
 
 ## 2. Spec-Themen (COACHING_SPEC.md)
@@ -23,10 +23,10 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | # | Paket | Status | Beleg | Hängt ab von |
 |---|---|---|---|---|
 | 1 | Daten-Fundament | ✅ fertig | Hauptziel 4 Ziele, tage ge=3, nebenziel/schmerzen_akut raus, schwachstelle, PlanMetadata, rpe_hinweis (models.py) | — |
-| 2 | Bibliothek/Tagging | ❌ offen | 125 Übungen (Ziel 250–300), altes Schema: `level_min`, **kein** skill_level/joint_stress/impact_level/substitution_pool | — |
+| 2 | Bibliothek/Tagging | 🟡 Schema migriert, Tagging offen | Migration `4960c26` (`migrate_schema_mvp2.py`): skill_level ✓, substitution_pool ✓, joint_stress=`[]`/impact_level=`null` (= ungetaggt), equipment_requires=`[]`; substitutions_b bleibt bis MVP-5. **Offen: Tagging der 125 + Ausbau auf 250–300** | — |
 | 3 | Volumen „Modell A" | 🟡 Kern fertig, Korridor-Deckel offen | _TIER_CAP/_tier_saetze ✓, TJ-Faktor + Tier-Multiplikator raus ✓, Recovery-RPE ✓; **Level-Korridor-Deckel nicht gebaut** (war Naht 3, zurückgerollt) | 1 |
 | 4 | Split-Logik | ❌ offen / nicht begonnen | split_selector:399 ausdauer-Crash, :411 else#gesundheit, :391 Fettabbau 100% Conditioning, **kein longevity-Zweig**, _mobility_session noch da | 1, 3 |
-| 5 | Equipment/Verletzungs-Filter | ❌ offen | nutzt `level_min`, **kein** joint_stress/impact_level → 3-Stufen nicht gebaut | 2 |
+| 5 | Equipment/Verletzungs-Filter | ❌ offen | liest jetzt `skill_level` (migriert); **kein** joint_stress/impact_level-Filter → 3-Stufen nicht gebaut | 2 |
 | 6 | Recovery-RPE + Periodisierung | 🟡 teilweise | Recovery-RPE ✓, 3:1-Welle ✓; **Deload 60% nicht** (noch 0.50, tot/TODO); **L1-RIR (rpe_hinweis) nicht befüllt** | 3 |
 | 7 | Conditioning-Formate + Recomp-Finisher | 🟡 teilweise | _METABOLIC_CONFIG nur amrap/emom/zirkel/intervalle; **tabata/density/for_time/komplexe/ladders + Athletik fehlen**; Recomp-Finisher ✓ | 4 |
 | 8 | Assembler/PDF + Coach-Flag | 🟡 Dauer-Kopplung ja, Flag/PDF nein | Modell-A-Satz/Dauer-Kopplung ✓; **Coach-Flag gebaut+verworfen** (plan_metadata=None); PDF rendert **noch** Klient-Realism-Warnung | 4, 6, 7 |
@@ -62,6 +62,16 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 
 ## 6. Session-Historie (neueste zuerst)
 
+**2026-06-11 — MVP-2 Schema-Migration (`4960c26`)**
+- `scripts/migrate_schema_mvp2.py` (idempotent, Backup `.bak`, Verifikation vor dem Schreiben):
+  `level_min`→`skill_level` · `substitution_pool` = dedup(subs_a + subs_b.values()) · `substitutions_a`
+  raus (0 Leser) · `substitutions_b` bleibt bis MVP-5 (`TODO(mvp5-substitutions-b-removal)`,
+  equipment_filter) · `joint_stress=[]` / `impact_level=null` (= bewusst ungetaggt, NICHT "low") /
+  `equipment_requires=[]` neu auf allen 125.
+- Konsumenten mitgezogen: `equipment_filter:91` + `prompt_template:256` lesen `skill_level`.
+  `update_exercises.py` als schema-stale markiert (`TODO(mvp2-schema-stale)`).
+- Tests unverändert: Logik 19/26 · Realism 7/7 (dieselben bekannten 7 Roten — keine Regression).
+
 **2026-06-09/10 — Modell A (MVP-3-Kern) + Coach-Flag-Rückbau (MVP-8 out-of-order)**
 - Modell A gebaut: Naht 1 Tier-Satz-Caps statt Wochenvolumen÷Frequenz (`277e396`), Naht 2a flaches Zeit-Modell (`493d2eb`), Naht 2b Dauer-Trim „Dauer gewinnt" inkl. Cardio (`06b7aeb`). Davor: Recovery→RPE-Tiers (`2b54d98`), Trainingsjahre-Faktor raus (`8150666`), Spec-Thema-3-Zeitparameter (`e2ab9b8`), Korridor-Werte + Test-Renames (`d8cd1f3`/`1730d3b`/`a854ee3`).
 - Coach-Flag (MVP-8) gebaut → **Doppelzähl-Bug** (Sub-Label-Mehrfachzählung) + **Tagging-/Skalen-Problem** (glutes/quads zu breit primary getaggt; echte Wochen-Sätze ≫ alter frequenz-geteilter Korridor) gefunden. Recherche: Korridor (12–16) **und** Zählmethode (primary 1,0 / secondary 0,5) sind fachlich korrekt — **Wurzel ist das Tagging**.
@@ -75,5 +85,5 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 
 ## 7. Nächster Schritt
 
-**MVP-2 — Übungs-Bibliothek** (Schema-Migration `level_min`→`skill_level` + neue Felder, Ausbau auf 250–300 getaggte Übungen). Begründung: längster Posten (Coach-Zeit), blockt MVP-5, und ist Voraussetzung, um Korridor-Deckel (MVP-3-Rest) + Coach-Flag (MVP-8) später sauber zu kalibrieren.
+**MVP-2-Rest — Tagging + Ausbau** (Schema-Migration ✅ `4960c26`; jetzt: `joint_stress`/`impact_level` auf den 125 taggen nach SCHEMA.md-Vokabel + Ausbau auf 250–300). Begründung unverändert: längster Posten (Coach-Zeit), blockt MVP-5, und ist Voraussetzung, um Korridor-Deckel (MVP-3-Rest) + Coach-Flag (MVP-8) später sauber zu kalibrieren.
 **Parallel dev-seitig möglich:** MVP-4 (Split-Logik-Neubau — behebt longevity-Crash + Fettabbau-Struktur), hängt nur an MVP-1+3 (beide bereit).
