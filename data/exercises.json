@@ -2819,8 +2819,10 @@
       ],
       "progressions_down": [],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2864,8 +2866,11 @@
         "gym_farmers_carry_db"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "spine",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2910,8 +2915,11 @@
       "pattern_tags": [
         "overhead_press"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "elbow"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2954,8 +2962,10 @@
       ],
       "progressions_down": [],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2999,8 +3009,10 @@
         "kb_farmers_carry"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -3043,8 +3055,12 @@
       "pattern_tags": [
         "overhead_press"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "wrist",
+        "elbow"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -5365,8 +5381,12 @@
       "pattern_tags": [
         "overhead_press"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "elbow",
+        "spine"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
