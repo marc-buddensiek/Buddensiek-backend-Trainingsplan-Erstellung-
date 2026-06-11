@@ -31,6 +31,18 @@ _Stand: 2026-06-10 · abgenickt · verbindliche Referenz für MVP-2 (Migration +
 
 ## 2. Verbindliche Tagging-Vokabel ⚠️ (hier passieren beim Taggen die Fehler)
 
+**Tagging-Semantik (entschieden 2026-06-11 · Konsument = MVP-5-3-Stufen-Filter):**
+- `joint_stress` ist ein **Ausschluss-Tag**, keine Beteiligungs-Liste: nur Gelenke taggen,
+  bei deren Verletzung der Coach die Übung dem Klienten **wegnehmen** würde (Stufe 1
+  filtert hart). Beteiligung allein (z.B. Schulter hält die Stange beim Squat) ist KEIN
+  Tag-Grund. Over-Tagging leert die Substitutions-Pools — im Zweifel schmaler taggen.
+- `impact_level` bewertet **Stoßbelastung** (Sprünge/Landungen/Plyo), nicht Lastschwere:
+  `high` fliegt bei JEDER Verletzung raus (Stufe 2). Schweres Kreuzheben = `low`.
+- **Fertig-Marker:** `impact_level != null` = Übung ist getaggt. `joint_stress: []` ist
+  nach dem Tagging ein legitimer Endwert (bewusst kein Ausschluss); `impact_level: null`
+  bleibt das einzige Ungetaggt-Signal. Halb getaggt (joint_stress gesetzt, impact null)
+  ist ein Validator-Fehler.
+
 **`joint_stress` — ENGLISCH, exakt diese 8:**
 ```
 knee · shoulder · spine · hip · elbow · wrist · neck · ankle
