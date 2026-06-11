@@ -645,8 +645,12 @@
       "pattern_tags": [
         "heavy_hinge"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "spine",
+        "hip",
+        "knee"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -694,8 +698,11 @@
       "pattern_tags": [
         "heavy_hinge"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -740,8 +747,10 @@
       "pattern_tags": [
         "heavy_hinge"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "spine"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -785,7 +794,7 @@
       ],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -827,7 +836,7 @@
       ],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -868,7 +877,7 @@
       ],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -912,7 +921,7 @@
       ],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -958,8 +967,10 @@
         "kb_deadlift"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "spine"
+      ],
+      "impact_level": "medium",
       "equipment_requires": []
     },
     {
@@ -1005,8 +1016,11 @@
         "kb_swing_two_hand"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "spine",
+        "shoulder"
+      ],
+      "impact_level": "medium",
       "equipment_requires": []
     },
     {
@@ -1049,8 +1063,12 @@
         "kb_swing_one_hand"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "wrist",
+        "spine"
+      ],
+      "impact_level": "medium",
       "equipment_requires": []
     },
     {
@@ -1095,8 +1113,12 @@
         "kb_swing_two_hand"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "wrist",
+        "spine"
+      ],
+      "impact_level": "medium",
       "equipment_requires": []
     },
     {
@@ -1142,7 +1164,7 @@
       "progressions_down": [],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -1190,8 +1212,10 @@
         "bw_glute_bridge"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -3983,7 +4007,7 @@
       },
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4024,8 +4048,10 @@
         "hip": "bw_glute_bridge"
       },
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "spine"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4071,8 +4097,11 @@
         "heavy_hinge",
         "loaded_flexion"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "spine",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4116,8 +4145,10 @@
         "knee": "gym_hip_thrust_barbell"
       },
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4159,8 +4190,10 @@
         "knee": "gym_hip_thrust_barbell"
       },
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -4204,7 +4237,7 @@
       },
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
