@@ -2493,8 +2493,11 @@
         "lunge",
         "deep_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2545,8 +2548,11 @@
         "lunge",
         "deep_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2597,7 +2603,7 @@
         "lunge"
       ],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2643,7 +2649,7 @@
         "lunge"
       ],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2689,8 +2695,11 @@
         "lunge",
         "deep_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2734,7 +2743,7 @@
       ],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2776,8 +2785,10 @@
         "bw_single_leg_rdl"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -2823,8 +2834,11 @@
         "deep_squat",
         "lunge"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -3958,8 +3972,11 @@
       "pattern_tags": [
         "deep_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -5326,8 +5343,11 @@
         "deep_squat",
         "lunge"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -5369,7 +5389,7 @@
       },
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -5412,8 +5432,10 @@
         "hip": "bw_glute_bridge"
       },
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
