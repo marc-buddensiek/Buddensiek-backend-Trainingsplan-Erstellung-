@@ -101,8 +101,7 @@ async def _pipeline(payload: dict):
     )
 
     # ── 3. Claude: Übungsauswahl ──────────────────────────────────────────────
-    # Mobility-Sessions werden hardcodiert gebaut — nicht an Claude senden
-    sessions_fuer_claude = [s for s in split["sessions"] if s.get("session_typ") != "mobility"]
+    sessions_fuer_claude = split["sessions"]
     claude_output = generiere_uebungsauswahl(
         klient=klient,
         level=level,
@@ -159,7 +158,7 @@ async def test_plan(request: Request):
     split = waehle_split(klient, level)
     uebungen = filtere_uebungen(klient, level)
 
-    sessions_fuer_claude = [s for s in split["sessions"] if s.get("session_typ") != "mobility"]
+    sessions_fuer_claude = split["sessions"]
     claude_output = generiere_uebungsauswahl(
         klient=klient,
         level=level,

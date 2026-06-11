@@ -39,9 +39,6 @@ def _auto_claude_output(split: dict, uebungen: dict[str, list]) -> ClaudeOutput:
 
     sessions = []
     for session_tmpl in split["sessions"]:
-        if session_tmpl.get("session_typ") == "mobility":
-            continue
-
         uebungen_auswahl = []
         slots = session_tmpl.get("slots", [])
 

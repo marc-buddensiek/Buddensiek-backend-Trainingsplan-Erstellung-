@@ -4,7 +4,6 @@ ClaudeOutput + berechnete Parameter → vollständiger Plan (4 Wochen)
 Claude wählt die Übungen für Block 1 einmal aus.
 Dieselben Übungen laufen durch alle 4 Wochen — nur Sätze/RPE ändern sich.
 Python ergänzt: name, coaching_cues, wdh, tempo, pausenzeit, warm_up, cardio, cool_down.
-Mobility-Sessions werden hardcodiert ohne Claude-Input zusammengebaut.
 """
 
 from __future__ import annotations
@@ -213,19 +212,6 @@ def _warm_up(equipment: Equipment, fokus: str) -> WarmUp:
             )
 
 
-def _mobility_warm_up() -> WarmUp:
-    return WarmUp(
-        protokoll="mobility",
-        dauer_min=10,
-        uebungen=[
-            WarmUpUebung(name="Cat-Cow (Wirbelsäulen-Aktivierung)", saetze=2, wdh=10),
-            WarmUpUebung(name="Hip Circle", dauer_sek=30, seiten=2),
-            WarmUpUebung(name="Arm Swings (vorwärts + rückwärts)", dauer_sek=30, seiten=2),
-            WarmUpUebung(name="Neck Rolls (langsam)", dauer_sek=30),
-        ],
-    )
-
-
 # ── Cool-Down je Session-Fokus ────────────────────────────────────────────────
 
 def _cool_down(fokus: str) -> CoolDown:
@@ -261,17 +247,6 @@ def _cool_down(fokus: str) -> CoolDown:
         )
 
 
-def _mobility_cool_down() -> CoolDown:
-    return CoolDown(
-        dauer_min=8,
-        uebungen=[
-            CoolDownUebung(name="Supine Twist", dauer_sek=45, seiten=2),
-            CoolDownUebung(name="Happy Baby Pose", dauer_sek=45),
-            CoolDownUebung(name="Legs Up the Wall", dauer_sek=60),
-        ],
-    )
-
-
 # ── Cardio je Session-Fokus + Ziel ───────────────────────────────────────────
 
 def _cardio(hauptziel: Hauptziel, fokus: str) -> Cardio | None:
@@ -297,55 +272,6 @@ def _cardio(hauptziel: Hauptziel, fokus: str) -> Cardio | None:
             beschreibung="10 Min ruhiges Gehen oder Bike als aktive Erholung nach der Session",
         )
     return None
-
-
-# ── Mobility-Session Übungen (hardcodiert — nicht über Claude) ────────────────
-
-def _mobility_haupt_uebungen() -> list[HauptUebung]:
-    return [
-        HauptUebung(
-            reihenfolge=1, exercise_id="mobility_hip_90_90",
-            name="Hip 90/90 Stretch",
-            saetze=3, wdh="45sec", rpe=3, tempo="halten", pausenzeit_sek=30,
-            coaching_cues=["Becken aufrecht halten", "Beide Gesäßhälften gleichmäßig belasten"],
-            notiz="",
-        ),
-        HauptUebung(
-            reihenfolge=2, exercise_id="mobility_thoracic_rotation",
-            name="Thorakale Rotation (Knie an Wand)",
-            saetze=2, wdh="8 je Seite", rpe=3, tempo="langsam", pausenzeit_sek=30,
-            coaching_cues=["Lendenwirbelsäule bleibt stabil", "Rotation kommt aus der BWS"],
-            notiz="",
-        ),
-        HauptUebung(
-            reihenfolge=3, exercise_id="mobility_worlds_greatest_stretch",
-            name="World's Greatest Stretch",
-            saetze=2, wdh="6 je Seite", rpe=3, tempo="langsam", pausenzeit_sek=30,
-            coaching_cues=["Tief in die Dehnung sinken", "Auf gleichmäßige Atmung achten"],
-            notiz="",
-        ),
-        HauptUebung(
-            reihenfolge=4, exercise_id="mobility_deep_squat_hold",
-            name="Tiefe Kniebeugen-Halteposition",
-            saetze=3, wdh="30sec", rpe=3, tempo="halten", pausenzeit_sek=30,
-            coaching_cues=["Fersen bleiben am Boden", "Brust aufrecht und offen"],
-            notiz="",
-        ),
-        HauptUebung(
-            reihenfolge=5, exercise_id="mobility_shoulder_cars",
-            name="Schulter CARs (Controlled Articular Rotations)",
-            saetze=2, wdh="5 je Seite", rpe=2, tempo="sehr langsam", pausenzeit_sek=30,
-            coaching_cues=["Maximalen Bewegungsumfang ausschöpfen", "Restlicher Körper bleibt statisch"],
-            notiz="",
-        ),
-        HauptUebung(
-            reihenfolge=6, exercise_id="mobility_cat_cow",
-            name="Cat-Cow — Wirbelsäulenmobilisation",
-            saetze=2, wdh="10", rpe=2, tempo="atemgesteuert", pausenzeit_sek=30,
-            coaching_cues=["Mit Atemrhythmus synchronisieren", "Jeden einzelnen Wirbel bewegen"],
-            notiz="",
-        ),
-    ]
 
 
 # ── PST Re-Test ───────────────────────────────────────────────────────────────
@@ -474,7 +400,7 @@ def assemble_plan(
         sessions: list[Session] = []
         ist_deload = woche_typ == "deload"
 
-        # Letzter Kraft-Session-Index für PST Re-Test (nicht Mobility/Metabolic)
+        # Letzter Kraft-Session-Index für PST Re-Test (nicht Zone-2/Metabolic)
         pst_session_idx = max(
             (i for i, s in enumerate(split["sessions"]) if s.get("session_typ") == "kraft"),
             default=len(split["sessions"]) - 1,
@@ -486,83 +412,73 @@ def assemble_plan(
             fokus        = session_template["fokus"]
             session_typ  = session_template.get("session_typ", "kraft")
             tag          = tage[session_idx] if session_idx < len(tage) else "samstag"
-            ist_mobility = session_typ == "mobility"
             metcon_blk   = None
 
-            if ist_mobility:
-                haupt_uebungen = _mobility_haupt_uebungen()
-                warm_up        = _mobility_warm_up()
-                cardio         = None
-                cool_down      = _mobility_cool_down()
-                fmt_notiz      = None
-                pst_tests      = None
-                dauer = _schaetze_dauer(haupt_uebungen, ZEIT_PRO_SATZ_COND, klient.hauptziel)
-            else:
-                is_metabolic = session_typ in ("zirkel", "amrap", "emom", "intervalle")
-                m_cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {}) if is_metabolic else {}
+            is_metabolic = session_typ in ("zirkel", "amrap", "emom", "intervalle")
+            m_cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {}) if is_metabolic else {}
 
-                uebungen_auswahl = claude_sessions.get(original_id, [])
-                haupt_uebungen: list[HauptUebung] = []
-                slot_tiers: list[str] = []            # Tier je HauptUebung (aligned) für den Trim
+            uebungen_auswahl = claude_sessions.get(original_id, [])
+            haupt_uebungen: list[HauptUebung] = []
+            slot_tiers: list[str] = []            # Tier je HauptUebung (aligned) für den Trim
 
-                slot_templates = session_template.get("slots", [])
-                for u in uebungen_auswahl:
-                    ex = ex_by_id.get(u.exercise_id)
-                    if not ex:
-                        continue
-                    pattern = ex["pattern"]
-                    slot_idx = u.reihenfolge - 1
-                    slot_tier = (
-                        slot_templates[slot_idx]["tier"]
-                        if slot_idx < len(slot_templates)
-                        else "compound"
+            slot_templates = session_template.get("slots", [])
+            for u in uebungen_auswahl:
+                ex = ex_by_id.get(u.exercise_id)
+                if not ex:
+                    continue
+                pattern = ex["pattern"]
+                slot_idx = u.reihenfolge - 1
+                slot_tier = (
+                    slot_templates[slot_idx]["tier"]
+                    if slot_idx < len(slot_templates)
+                    else "compound"
+                )
+
+                if is_metabolic:
+                    u_saetze     = m_cfg.get("saetze", 3)
+                    u_wdh        = _metabolic_wdh(session_typ, pattern, woche_typ)
+                    u_rpe        = m_cfg.get("rpe", 7)
+                    u_pausenzeit = m_cfg.get("pause", 0)
+                else:
+                    u_saetze     = volumen.get(f"{slot_tier}_saetze", saetze)
+                    u_wdh        = _wdh(klient.hauptziel, pattern, slot_tier, level)
+                    u_rpe        = volumen.get(f"{slot_tier}_rpe", rpe)
+                    u_pausenzeit = _pausenzeit(slot_tier, pattern)
+
+                haupt_uebungen.append(
+                    HauptUebung(
+                        reihenfolge=u.reihenfolge,
+                        exercise_id=u.exercise_id,
+                        name=ex["name"],
+                        saetze=u_saetze,
+                        wdh=u_wdh,
+                        rpe=u_rpe,
+                        tempo=_tempo(pattern, session_typ),
+                        pausenzeit_sek=u_pausenzeit,
+                        coaching_cues=ex["coaching_cues"][:3],
+                        notiz=u.notiz,
                     )
+                )
+                slot_tiers.append(slot_tier)
 
-                    if is_metabolic:
-                        u_saetze     = m_cfg.get("saetze", 3)
-                        u_wdh        = _metabolic_wdh(session_typ, pattern, woche_typ)
-                        u_rpe        = m_cfg.get("rpe", 7)
-                        u_pausenzeit = m_cfg.get("pause", 0)
-                    else:
-                        u_saetze     = volumen.get(f"{slot_tier}_saetze", saetze)
-                        u_wdh        = _wdh(klient.hauptziel, pattern, slot_tier, level)
-                        u_rpe        = volumen.get(f"{slot_tier}_rpe", rpe)
-                        u_pausenzeit = _pausenzeit(slot_tier, pattern)
+            warm_up    = _warm_up(klient.equipment, fokus)
+            cardio     = _cardio(klient.hauptziel, fokus)
+            cool_down  = _cool_down(fokus)
+            fmt_notiz  = _format_notiz(session_typ, len(haupt_uebungen), woche_typ)
+            metcon_typ = session_template.get("metcon_typ")
+            metcon_blk = _build_metcon_block(metcon_typ, woche_typ, uebungen_gefiltert) if metcon_typ else None
 
-                    haupt_uebungen.append(
-                        HauptUebung(
-                            reihenfolge=u.reihenfolge,
-                            exercise_id=u.exercise_id,
-                            name=ex["name"],
-                            saetze=u_saetze,
-                            wdh=u_wdh,
-                            rpe=u_rpe,
-                            tempo=_tempo(pattern, session_typ),
-                            pausenzeit_sek=u_pausenzeit,
-                            coaching_cues=ex["coaching_cues"][:3],
-                            notiz=u.notiz,
-                        )
-                    )
-                    slot_tiers.append(slot_tier)
+            # PST Re-Test in letzter Kraft-Session der Deload-Woche
+            pst_tests = None
+            if ist_deload and session_idx == pst_session_idx:
+                pst_tests = _PST_TESTS
 
-                warm_up    = _warm_up(klient.equipment, fokus)
-                cardio     = _cardio(klient.hauptziel, fokus)
-                cool_down  = _cool_down(fokus)
-                fmt_notiz  = _format_notiz(session_typ, len(haupt_uebungen), woche_typ)
-                metcon_typ = session_template.get("metcon_typ")
-                metcon_blk = _build_metcon_block(metcon_typ, woche_typ, uebungen_gefiltert) if metcon_typ else None
-
-                # PST Re-Test in letzter Kraft-Session der Deload-Woche
-                pst_tests = None
-                if ist_deload and session_idx == pst_session_idx:
-                    pst_tests = _PST_TESTS
-
-                cardio_min = cardio.dauer_min if cardio else 0
-                zeit_pro_satz = ZEIT_PRO_SATZ_COND if is_metabolic else ZEIT_PRO_SATZ_KRAFT
-                if not is_metabolic and haupt_uebungen:   # Dauer gewinnt: Kraft-Sätze auf Wunschdauer trimmen
-                    _trim_auf_dauer(haupt_uebungen, slot_tiers, klient.session_dauer_min,
-                                    zeit_pro_satz, klient.hauptziel, cardio_min)
-                dauer = _schaetze_dauer(haupt_uebungen, zeit_pro_satz, klient.hauptziel, cardio_min)
+            cardio_min = cardio.dauer_min if cardio else 0
+            zeit_pro_satz = ZEIT_PRO_SATZ_COND if is_metabolic else ZEIT_PRO_SATZ_KRAFT
+            if not is_metabolic and haupt_uebungen:   # Dauer gewinnt: Kraft-Sätze auf Wunschdauer trimmen
+                _trim_auf_dauer(haupt_uebungen, slot_tiers, klient.session_dauer_min,
+                                zeit_pro_satz, klient.hauptziel, cardio_min)
+            dauer = _schaetze_dauer(haupt_uebungen, zeit_pro_satz, klient.hauptziel, cardio_min)
 
             sessions.append(
                 Session(

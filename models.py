@@ -260,7 +260,6 @@ class Session(BaseModel):
         "amrap", "emom", "zirkel", "intervalle",                  # Conditioning (bestehend)
         "tabata", "density", "for_time", "komplexe", "ladders",   # Conditioning (neu, Spec Thema 6)
         "zone2", "athletik",                                      # Longevity (neu, Spec Thema 4/6)
-        "mobility",  # TODO(mobility-removal): raus mit Split-/Assembler-Rewrite (MVP-4/8), Producer _mobility_session entfaellt
     ] = "kraft"
     fokus: str
     format_notiz: Optional[str] = None

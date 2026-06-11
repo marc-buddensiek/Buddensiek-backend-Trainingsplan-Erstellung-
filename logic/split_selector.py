@@ -7,8 +7,6 @@ Slot-Anzahl nach Session-Dauer:
   45 min → 5 Slots: [compound, compound, accessory, isolation, core]
   60 min → 6 Slots: [compound, compound, accessory, accessory, isolation, core]
 
-Special Case: session_dauer_min == 20 → immer Full Body, unabhängig von tage_pro_woche
-Mobility erst ab 5 Tagen als eigene Session (nur wenn dauer >= 30).
 """
 
 from __future__ import annotations
@@ -317,15 +315,6 @@ def _ganzkoerper_akzent_session(idx: int, dauer: int, level: int) -> dict:
     return _tag_session(f"w1_s{idx}", "Ganzkörper-Akzent", fb_c["slots"], "kraft")
 
 
-def _mobility_session(idx: int) -> dict:
-    return _tag_session(
-        f"w1_s{idx}",
-        "Mobility & Beweglichkeit",
-        [],
-        "mobility",
-    )
-
-
 def _renumber(sessions: list[dict]) -> list[dict]:
     for i, s in enumerate(sessions):
         s["session_id"] = f"w1_s{i+1}"
@@ -337,21 +326,11 @@ def _renumber(sessions: list[dict]) -> list[dict]:
 def waehle_split(klient: KlientenInput, level: int) -> dict:
     """
     Returns {"split_typ": str, "sessions": list[dict]}.
-    20-min → immer Full Body.
-    Mobility nur ab 5 Tagen (und nur wenn dauer >= 30).
+    Ziel × Tage × Dauer → Split (Spec Thema 4); Slot-Zahl je Dauer in den Templates.
     """
     ziel   = klient.hauptziel
     tage   = klient.tage_pro_woche
     dauer  = klient.session_dauer_min
-
-    # ── 20 Min: immer Full Body, egal wie viele Tage ──────────────────────────
-    if dauer == 20:
-        return {
-            "split_typ": f"Full Body {tage}×",
-            "sessions":  _full_body_sessions(min(tage, 3), level, dauer),
-        }
-
-    # ── Normale Split-Logik ───────────────────────────────────────────────────
 
     if ziel == Hauptziel.muskelaufbau:
         if tage <= 3:
