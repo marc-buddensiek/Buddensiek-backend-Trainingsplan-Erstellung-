@@ -108,8 +108,10 @@ Pattern-Automatismus.
 
 - **Schema-Spec abgenickt** → `SCHEMA.md` ist die verbindliche Referenz.
 - **Schema-Migration umgesetzt** (`4960c26`, `scripts/migrate_schema_mvp2.py`): alle 125 auf
-  neuem Schema; `joint_stress`/`impact_level` noch ungetaggt (`[]` / `null`). **Offen: Tagging
-  der 125 (SCHEMA.md-Vokabel!) + Ausbau auf 250–300.**
+  neuem Schema.
+- **Tagging der 125 fertig** (`8980bd7`, 9 Coach-reviewte Pattern-Batches, Ausschluss-Semantik
+  SCHEMA.md Abschn. 2, `validate_exercises.py` grün). **Offen nur noch: Ausbau auf 250–300**
+  (Coach-Daueraufgabe; neue Übungen direkt nach Semantik taggen, Validator als Gate).
 - **`update_exercises.py` schema-stale** (NEW_EXERCISES-Literale noch Alt-Schema) — nicht erneut
   laufen lassen ohne Anpassung. · _Marker:_ `TODO(mvp2-schema-stale)` (Kopf-Kommentar).
 - **Bestandsaufnahme offen:** wie viele der 125 sind schon conditioning-tauglich, nur in

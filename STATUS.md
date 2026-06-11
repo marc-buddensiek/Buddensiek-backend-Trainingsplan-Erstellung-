@@ -1,6 +1,6 @@
 # Projektstatus — Buddensiek Performance KI-Trainingsplan
 
-_Zuletzt aktualisiert: 2026-06-11 · git HEAD `4960c26` (MVP-2-Migration) · Branch `mvp-1-data-foundation`_
+_Zuletzt aktualisiert: 2026-06-11 · git HEAD `8980bd7` (MVP-2-Tagging komplett) · Branch `mvp-1-data-foundation`_
 
 ---
 
@@ -9,8 +9,8 @@ _Zuletzt aktualisiert: 2026-06-11 · git HEAD `4960c26` (MVP-2-Migration) · Bra
 Backend importiert sauber (`import main` ✅). Tests: **Logik 19/26 · Realism 7/7** — die 7 roten sind ausschließlich veraltete Testdaten + ein nicht-gebautes Feature (MVP-4), **keine Regression** (Belege: Abschnitt 5).
 
 Spec ist komplett (alle 8 Themen entschieden). Umsetzung läuft entlang der ROADMAP (MVP-1…12).
-**Fertig:** MVP-1 (Daten-Fundament) + MVP-3-Kern (Volumen „Modell A") + MVP-2-Schema-Migration (`4960c26`).
-**Offen / nächste große Brocken:** MVP-2-Rest (Tagging der 125 + Ausbau auf 250–300) und MVP-4 (Split-Logik).
+**Fertig:** MVP-1 (Daten-Fundament) + MVP-3-Kern (Volumen „Modell A") + MVP-2-Kern: Schema-Migration (`4960c26`) **und Tagging aller 125** (9 Batches, Coach-reviewt, `8980bd7`).
+**Offen / nächste große Brocken:** MVP-4 (Split-Logik) und **MVP-5 (3-Stufen-Filter — jetzt entsperrt)**; MVP-2-Ausbau auf 250–300 als Coach-Daueraufgabe.
 Pipeline (Typeform → … → PDF/Supabase) steht strukturell; Claude/Supabase nicht live.
 
 ## 2. Spec-Themen (COACHING_SPEC.md)
@@ -23,10 +23,10 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | # | Paket | Status | Beleg | Hängt ab von |
 |---|---|---|---|---|
 | 1 | Daten-Fundament | ✅ fertig | Hauptziel 4 Ziele, tage ge=3, nebenziel/schmerzen_akut raus, schwachstelle, PlanMetadata, rpe_hinweis (models.py) | — |
-| 2 | Bibliothek/Tagging | 🟡 Schema migriert, Tagging offen | Migration `4960c26` (`migrate_schema_mvp2.py`): skill_level ✓, substitution_pool ✓, joint_stress=`[]`/impact_level=`null` (= ungetaggt), equipment_requires=`[]`; substitutions_b bleibt bis MVP-5. **Offen: Tagging der 125 + Ausbau auf 250–300** | — |
+| 2 | Bibliothek/Tagging | 🟡 125 fertig getaggt, Ausbau offen | Migration `4960c26` + Tagging 125/125 (`8980bd7`, Ausschluss-Semantik SCHEMA.md Abschn. 2, `validate_exercises.py` grün); impact: 118 low · 6 medium (Ballistics) · 1 high (Jump Squat); 38 Reha-Keeper ohne Ausschluss. **Offen: Ausbau auf 250–300 (Coach-Daueraufgabe)** | — |
 | 3 | Volumen „Modell A" | 🟡 Kern fertig, Korridor-Deckel offen | _TIER_CAP/_tier_saetze ✓, TJ-Faktor + Tier-Multiplikator raus ✓, Recovery-RPE ✓; **Level-Korridor-Deckel nicht gebaut** (war Naht 3, zurückgerollt) | 1 |
 | 4 | Split-Logik | ❌ offen / nicht begonnen | split_selector:399 ausdauer-Crash, :411 else#gesundheit, :391 Fettabbau 100% Conditioning, **kein longevity-Zweig**, _mobility_session noch da | 1, 3 |
-| 5 | Equipment/Verletzungs-Filter | ❌ offen | liest jetzt `skill_level` (migriert); **kein** joint_stress/impact_level-Filter → 3-Stufen nicht gebaut | 2 |
+| 5 | Equipment/Verletzungs-Filter | ❌ offen, **entsperrt** | liest `skill_level`; joint_stress/impact_level jetzt vollständig getaggt → 3-Stufen-Filter baubar (Stufe-1-vs-Stufe-3-Spannung beachten, BACKLOG) | 2 ✓ |
 | 6 | Recovery-RPE + Periodisierung | 🟡 teilweise | Recovery-RPE ✓, 3:1-Welle ✓; **Deload 60% nicht** (noch 0.50, tot/TODO); **L1-RIR (rpe_hinweis) nicht befüllt** | 3 |
 | 7 | Conditioning-Formate + Recomp-Finisher | 🟡 teilweise | _METABOLIC_CONFIG nur amrap/emom/zirkel/intervalle; **tabata/density/for_time/komplexe/ladders + Athletik fehlen**; Recomp-Finisher ✓ | 4 |
 | 8 | Assembler/PDF + Coach-Flag | 🟡 Dauer-Kopplung ja, Flag/PDF nein | Modell-A-Satz/Dauer-Kopplung ✓; **Coach-Flag gebaut+verworfen** (plan_metadata=None); PDF rendert **noch** Klient-Realism-Warnung | 4, 6, 7 |
@@ -62,6 +62,18 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 
 ## 6. Session-Historie (neueste zuerst)
 
+**2026-06-11 (Fortsetzung) — MVP-2 Tagging komplett: 125/125 (`d662852`…`8980bd7`)**
+- Tagging-Semantik in SCHEMA.md festgezurrt (joint_stress = Ausschluss-Tag, impact = Stoßbelastung,
+  Fertig-Marker impact_level != null) + `scripts/validate_exercises.py` als Dauervalidierung (`d662852`).
+- 9 Pattern-Batches je als KI-Entwurf (Seed: substitutions_b-Keys + Ersatzziel-Analyse) mit
+  Coach-Review im Chat; 2 Coach-Korrekturen (Close Grip Bench shoulder bleibt, Seitheben shoulder rein).
+  Kern-Heuristiken: subs_b-**Ersatzziele** nicht für ihre Region taggen (Reha-Keeper, 38 Übungen leer),
+  relative Ersatz-Ketten ≠ sicher (Ballistics trotzdem getaggt), McGill/Reha-Übungen per Design leer.
+- Ergebnis: impact 118 low · 6 medium · 1 high; joint_stress shoulder 44 · wrist 34 · spine 31 ·
+  hip 24 · elbow 24 · knee 23 · neck 1 · ankle 1. Pool je Verletzung 81–124 von 125.
+- Beifang: BACKLOG-Tag-Bug Single-Leg-RDL widerlegt (`2395b10`); MVP-5-Befund Stufe-1-vs-Stufe-3
+  notiert (`04421a5`). Tests durchgehend unverändert 19/26 · 7/7.
+
 **2026-06-11 — MVP-2 Schema-Migration (`4960c26`)**
 - `scripts/migrate_schema_mvp2.py` (idempotent, Backup `.bak`, Verifikation vor dem Schreiben):
   `level_min`→`skill_level` · `substitution_pool` = dedup(subs_a + subs_b.values()) · `substitutions_a`
@@ -85,5 +97,5 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 
 ## 7. Nächster Schritt
 
-**MVP-2-Rest — Tagging + Ausbau** (Schema-Migration ✅ `4960c26`; jetzt: `joint_stress`/`impact_level` auf den 125 taggen nach SCHEMA.md-Vokabel + Ausbau auf 250–300). Begründung unverändert: längster Posten (Coach-Zeit), blockt MVP-5, und ist Voraussetzung, um Korridor-Deckel (MVP-3-Rest) + Coach-Flag (MVP-8) später sauber zu kalibrieren.
-**Parallel dev-seitig möglich:** MVP-4 (Split-Logik-Neubau — behebt longevity-Crash + Fettabbau-Struktur), hängt nur an MVP-1+3 (beide bereit).
+**MVP-4 (Split-Logik-Neubau)** — behebt longevity-Crash + Fettabbau-Struktur, macht 4 der 7 roten Tests grün; hängt nur an MVP-1+3 (beide bereit). **Oder MVP-5 (3-Stufen-Filter)** — durch das fertige Tagging jetzt entsperrt; vorher die Stufe-1-vs-Stufe-3-Spannung entscheiden (BACKLOG MVP-5). Empfehlung: MVP-4 zuerst (größerer Brocken, blockt MVP-7/8-Kette).
+**Coach-Daueraufgabe parallel:** MVP-2-Ausbau auf 250–300 Übungen (Mindestabdeckung je Pattern × Level, ROADMAP); neue Übungen direkt nach SCHEMA.md-Semantik taggen, `validate_exercises.py` als Gate.
