@@ -44,8 +44,12 @@
       "pattern_tags": [
         "deep_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "spine",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -93,8 +97,12 @@
         "deep_squat",
         "front_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "spine",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -138,8 +146,10 @@
         "gym_goblet_squat_db"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "spine"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -187,8 +197,11 @@
       "pattern_tags": [
         "deep_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -235,8 +248,11 @@
       "pattern_tags": [
         "deep_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -280,8 +296,10 @@
       "pattern_tags": [
         "deep_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -322,7 +340,7 @@
       "progressions_down": [],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -374,7 +392,7 @@
         "deep_squat"
       ],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -422,8 +440,11 @@
       "pattern_tags": [
         "deep_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -467,7 +488,7 @@
       "progressions_down": [],
       "pattern_tags": [],
       "joint_stress": [],
-      "impact_level": null,
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -515,8 +536,11 @@
         "deep_squat",
         "wide_lunge"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -567,8 +591,11 @@
         "deep_squat",
         "lunge"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -3694,8 +3721,12 @@
       "pattern_tags": [
         "deep_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "spine",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -3741,8 +3772,12 @@
       "pattern_tags": [
         "deep_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "spine",
+        "hip"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -3794,8 +3829,12 @@
         "plyo",
         "jumping"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "hip",
+        "ankle"
+      ],
+      "impact_level": "high",
       "equipment_requires": []
     },
     {
@@ -3840,8 +3879,12 @@
         "deep_squat",
         "front_squat"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "knee",
+        "spine",
+        "wrist"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     },
     {
@@ -5765,8 +5808,13 @@
         "deep_squat",
         "overhead_press"
       ],
-      "joint_stress": [],
-      "impact_level": null,
+      "joint_stress": [
+        "shoulder",
+        "wrist",
+        "spine",
+        "knee"
+      ],
+      "impact_level": "low",
       "equipment_requires": []
     }
   ]
