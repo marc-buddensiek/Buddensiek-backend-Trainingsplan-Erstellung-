@@ -386,6 +386,10 @@ Jede Recomp-Kraftsession endet mit einem **globalen Bodyweight-Conditioning-Fini
   - Bodyweight → AMRAP, Tabata, For Time, Zirkel
   - Gym / Home-Gym → alle Formate möglich
 
+> **V1-Stand (2026-06-11):** Conditioning-Tage nutzen die 4 bestehenden Formate
+> (Intervalle/AMRAP/Zirkel/EMOM), statisch je Session — Block-Rotation, neue Formate und
+> Equipment-Bevorzugung kommen mit MVP-7; Marker `TODO(mvp7-formate)` in `split_selector`.
+
 ### Longevity — Cardio/Athletik-Tage
 
 Rotieren zwischen zwei Typen:

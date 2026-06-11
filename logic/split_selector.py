@@ -284,10 +284,6 @@ _CONDITIONING_SLOTS = [
     _slot("Core / Carry",        "core",            "core",       2),
 ]
 
-# Reihenfolge der Conditioning-Typen für Fettabbau (rotierend je Session)
-_FETTABBAU_TYPEN = ["intervalle", "amrap", "zirkel", "emom"]
-
-
 def _conditioning_session(idx: int, session_typ: str = "zirkel") -> dict:
     return _tag_session(
         f"w1_s{idx}",
@@ -390,13 +386,30 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
             return {"split_typ": "Upper/Lower × 2 + Metcon + Mobility", "sessions": sessions[:tage]}
 
     elif ziel == Hauptziel.fettabbau:
-        # ALLE Sessions sind Conditioning — kein klassisches Kraft-Training
-        typen = (_FETTABBAU_TYPEN * (tage // 4 + 1))[:tage]
-        sessions = [_conditioning_session(i + 1, typen[i]) for i in range(tage)]
-        if mit_mobility:
-            sessions = _renumber(sessions[:-1] + [_mobility_session(tage)])
-        typ_labels = " + ".join(dict.fromkeys(typen))  # unique, ordered
-        return {"split_typ": f"Conditioning {tage}× ({typ_labels})", "sessions": _renumber(sessions)}
+        # Kraft + Conditioning (Spec Thema 4) — kein reines Conditioning mehr.
+        # TODO(mvp7-formate): V1 nutzt die 4 bestehenden Formate, statisch je Session;
+        # Block-Rotation ("jeder C-Tag im Block ein anderes Format") + neue Formate mit MVP-7.
+        if tage <= 3:
+            # Full Body mit metabolischen Akzenten: Kraft + Metcon-Finisher (wie Recomp)
+            metcon_typ = None if dauer <= 20 else "amrap" if dauer <= 45 else "emom"
+            sessions = [
+                _tag_session(s["session_id"], s["fokus"], s["slots"], "kraft", metcon_typ)
+                for s in _full_body_sessions(tage, level, dauer)
+            ]
+            return {"split_typ": f"Full Body {tage}× + Metcon-Akzente", "sessions": sessions}
+        elif tage == 4:
+            fb = _full_body_sessions(3, level, dauer)
+            sessions = _renumber(fb + [_conditioning_session(4, "intervalle")])
+            return {"split_typ": "3× Kraft + Conditioning", "sessions": sessions}
+        elif tage == 5:
+            ul = _upper_lower_sessions(level, dauer)
+            sessions = _renumber(ul + [_conditioning_session(5, "intervalle")])
+            return {"split_typ": "Upper/Lower 4× + Conditioning", "sessions": sessions}
+        else:  # 6: 4 Kraft + 2 Conditioning (zwei unterschiedliche Formate, Spec Thema 6)
+            ul = _upper_lower_sessions(level, dauer)
+            sessions = _renumber(ul + [_conditioning_session(5, "intervalle"),
+                                       _conditioning_session(6, "amrap")])
+            return {"split_typ": "Upper/Lower 4× + 2× Conditioning", "sessions": sessions}
 
     else:  # Hauptziel.longevity — Generalist: Kraft + Zone-2-Cardio (Spec Thema 4)
         if tage <= 3:
