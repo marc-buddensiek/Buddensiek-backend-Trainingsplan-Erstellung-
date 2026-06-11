@@ -92,7 +92,8 @@ class KlientenInput(BaseModel):
     trainingsjahre: Trainingsjahre
 
     # Typeform ref: schwachstelle
-    # Optional — Region-Fokus für den Schwachstellen-Tag (nur 5-Tage-Muskelaufbau/Recomp)
+    # TODO(v15-schwachstelle): dormant — Schwachstellen-Fokus-Tag gestrichen (2026-06-11),
+    # 5T = Ganzkörper-Akzent. Feld bleibt für die V1.5-Idee (BACKLOG), kein Konsument.
     # Typeform Choice-Labels: "arme" | "brust" | "ruecken" | "schultern" | "beine"
     schwachstelle: Optional[Literal["arme", "brust", "ruecken", "schultern", "beine"]] = None
 

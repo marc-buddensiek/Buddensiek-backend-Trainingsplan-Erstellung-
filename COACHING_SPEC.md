@@ -223,11 +223,11 @@ das Modell ehrlich und vorhersehbar — der Coach steuert via internem Kapazitä
   (Longevity ersetzt die bisherigen *Ausdauer* + *Gesundheit*).
   → ⚠️ betrifft `Hauptziel`-Enum, Typeform-Labels, `models.py`, Parser — **zu bestätigen**.
 - **Mobility raus aus dieser Spec** — wird als eigenes Modul später behandelt. Keine Mobility-Sessions
-  mehr in der Split-Logik; ersetzt durch Schwachstellen- / Conditioning- / Cardio-Tage je Ziel.
-- **Schwachstellen-Tag (5 Tage Muskelaufbau/Recomp):** Klient wählt Fokus in der Anamnese
-  (Arme / Brust / Rücken / Schultern / Beine). → **neues Anamnese-/Typeform-Feld nötig.**
-  > **V1-Stand (2026-06-11):** Ohne Fokus-Angabe (`schwachstelle=None` — Typeform-Feld folgt)
-  > wird der 5. Tag als **Ganzkörper-Akzent-Tag** gebaut (`split_selector._schwachstellen_session`).
+  mehr in der Split-Logik; ersetzt durch Akzent- / Conditioning- / Cardio-Tage je Ziel.
+- **5. Trainingstag (Muskelaufbau/Recomp) = Ganzkörper-Akzent-Tag.** Der ursprünglich geplante
+  **Schwachstellen-Fokus-Tag ist gestrichen** (Entscheidung 2026-06-11): Fokus-Wahl
+  (Arme/Brust/Rücken/Schultern/Beine) ggf. als **V1.5-Feature** (BACKLOG), inkl. Anamnese-Feld.
+  Das `schwachstelle`-Feld bleibt dormant in `models.py` (`TODO(v15-schwachstelle)`).
 
 ### Wochen-Struktur nach Trainingstagen
 
@@ -236,7 +236,7 @@ das Modell ehrlich und vorhersehbar — der Coach steuert via internem Kapazitä
 |---|---|
 | 3 | Full Body |
 | 4 | Upper / Lower (A/B) |
-| 5 | Upper/Lower + 1 Schwachstellen-Tag (Fokus aus Anamnese) |
+| 5 | Upper/Lower + 1 Ganzkörper-Akzent-Tag |
 | 6 | Upper/Lower 3× wiederholt → jeder Muskel 3×/Woche (PPL entfällt) |
 
 **Fettabbau** (Kraft + Conditioning — KEIN reines Conditioning mehr):
@@ -309,7 +309,7 @@ weil 2 Tage für keines der Ziele sinnvoll programmierbar ist. 4 Ziele statt 5: 
 Mobility) kommen als eigene Zusatz-Module statt als verwässerte Hauptziele. Pflicht-Patterns je Session
 sichern die Bewegungs-Balance über alle Ebenen; bei Konflikt gewinnt die Dauer (konsistent mit Thema 3 —
 Session läuft nie über). Push:Pull 1:1,2 leicht pull-lastig, weil Alltag/Haltung meist push-dominant ist.
-Schwachstellen-Tag statt Mobility-Tag bei 5 Tagen, weil Mobility ein eigenes Modul wird.
+Ganzkörper-Akzent-Tag statt Mobility-Tag bei 5 Tagen, weil Mobility ein eigenes Modul wird.
 
 ---
 

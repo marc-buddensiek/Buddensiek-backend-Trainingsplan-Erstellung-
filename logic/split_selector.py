@@ -309,61 +309,12 @@ def _zone2_session(idx: int) -> dict:
     )
 
 
-# ── Schwachstellen-Tag (5-Tage Muskelaufbau/Recomp, Spec Thema 4) ─────────────
-# Fokus → Slot-Liste (Priorität absteigend, Core kommt immer ans Ende).
-_SCHWACHSTELLEN_PATTERNS: dict[str, list[tuple[str, str, str]]] = {
-    "arme": [
-        ("Vertikalzug (Bizeps-Fokus)",      "pull_vertical",   "compound"),
-        ("Enges Drücken (Trizeps)",         "push_horizontal", "accessory"),
-        ("Ruderzug (Unterarm/Bizeps)",      "pull_horizontal", "accessory"),
-        ("Trizeps Isolation",               "push_vertical",   "isolation"),
-        ("Bizeps Isolation (Zug)",          "pull_vertical",   "isolation"),
-    ],
-    "brust": [
-        ("Haupt-Horizontaldruck",           "push_horizontal", "compound"),
-        ("Druck-Variation (Winkel)",        "push_horizontal", "accessory"),
-        ("Ruderzug (Balance)",              "pull_horizontal", "accessory"),
-        ("Schulterdrücken Support",         "push_vertical",   "accessory"),
-        ("Brust Isolation (Fly)",           "push_horizontal", "isolation"),
-    ],
-    "ruecken": [
-        ("Haupt-Vertikalzug",               "pull_vertical",   "compound"),
-        ("Haupt-Ruderzug",                  "pull_horizontal", "compound"),
-        ("Zug-Variation",                   "pull_vertical",   "accessory"),
-        ("Ruder-Variation",                 "pull_horizontal", "accessory"),
-        ("Hintere Schulter Isolation",      "pull_horizontal", "isolation"),
-    ],
-    "schultern": [
-        ("Haupt-Schulterdrücken",           "push_vertical",   "compound"),
-        ("Hintere Schulter (Zug)",          "pull_horizontal", "accessory"),
-        ("Druck-Variation",                 "push_vertical",   "accessory"),
-        ("Vertikalzug (Balance)",           "pull_vertical",   "accessory"),
-        ("Seitheben Isolation",             "push_vertical",   "isolation"),
-    ],
-    "beine": [
-        ("Haupt-Squat",                     "squat",           "compound"),
-        ("Haupt-Hinge",                     "hinge",           "compound"),
-        ("Unilateral (Lunge/Split)",        "single_leg",      "accessory"),
-        ("Posterior Chain",                 "hinge",           "accessory"),
-        ("Beine Isolation",                 "single_leg",      "isolation"),
-    ],
-}
-
-
-def _schwachstellen_session(idx: int, fokus: str | None, dauer: int, level: int) -> dict:
-    """5. Trainingstag: Fokus aus klient.schwachstelle; ohne Angabe Ganzkörper-Akzent (V1)."""
-    if fokus is None:
-        # V1-Fallback: Anamnese-/Typeform-Feld folgt — bis dahin Ganzkörper-Akzent (FB-C-Template)
-        fb_c = _full_body_sessions(3, level, dauer)[2]
-        return _tag_session(f"w1_s{idx}", "Ganzkörper-Akzent (kein Schwachstellen-Fokus)",
-                            fb_c["slots"], "kraft")
-    n_slots = 3 if dauer <= 20 else 4 if dauer <= 30 else 5 if dauer <= 45 else 6
-    slots = [
-        _slot(beschreibung, pattern, tier, min(level, 2) if tier == "isolation" else level)
-        for beschreibung, pattern, tier in _SCHWACHSTELLEN_PATTERNS[fokus][: n_slots - 1]
-    ]
-    slots.append(_slot("Core", "core", "core", level))
-    return _tag_session(f"w1_s{idx}", f"Schwachstellen-Tag — {fokus.capitalize()}", slots, "kraft")
+def _ganzkoerper_akzent_session(idx: int, dauer: int, level: int) -> dict:
+    """5. Trainingstag (Muskelaufbau/Recomp): Ganzkörper-Akzent (FB-C-Template).
+    Schwachstellen-Fokus gestrichen (2026-06-11) — V1.5-Idee, siehe BACKLOG +
+    TODO(v15-schwachstelle) in models.py."""
+    fb_c = _full_body_sessions(3, level, dauer)[2]
+    return _tag_session(f"w1_s{idx}", "Ganzkörper-Akzent", fb_c["slots"], "kraft")
 
 
 def _mobility_session(idx: int) -> dict:
@@ -409,8 +360,8 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
             return {"split_typ": "Upper/Lower 4×", "sessions": _upper_lower_sessions(level, dauer)}
         elif tage == 5:
             ul = _upper_lower_sessions(level, dauer)
-            sw = _schwachstellen_session(5, klient.schwachstelle, dauer, level)
-            return {"split_typ": "Upper/Lower 4× + Schwachstellen-Tag", "sessions": _renumber(ul + [sw])}
+            akzent = _ganzkoerper_akzent_session(5, dauer, level)
+            return {"split_typ": "Upper/Lower 4× + Ganzkörper-Akzent", "sessions": _renumber(ul + [akzent])}
         else:  # 6: Upper/Lower 3× — jeder Muskel 3×/Woche (PPL entfällt, Spec Thema 4)
             ul6 = _upper_lower_sessions(level, dauer) + _upper_lower_sessions(level, dauer)[:2]
             return {"split_typ": "Upper/Lower 3× (6 Tage)", "sessions": _renumber(ul6)}
@@ -434,9 +385,9 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
             return {"split_typ": "Upper/Lower 4× + Metcon", "sessions": sessions}
         elif tage == 5:
             ul = _upper_lower_sessions(level, dauer)
-            sw = _schwachstellen_session(5, klient.schwachstelle, dauer, level)
-            sessions = [_recomp_session(s["session_id"], s["fokus"], s["slots"]) for s in ul + [sw]]
-            return {"split_typ": "Upper/Lower 4× + Schwachstellen-Tag + Metcon",
+            akzent = _ganzkoerper_akzent_session(5, dauer, level)
+            sessions = [_recomp_session(s["session_id"], s["fokus"], s["slots"]) for s in ul + [akzent]]
+            return {"split_typ": "Upper/Lower 4× + Ganzkörper-Akzent + Metcon",
                     "sessions": _renumber(sessions)}
         else:  # 6: Upper/Lower 3× + Metcon (Struktur identisch Muskelaufbau, Spec Thema 4)
             ul6 = _upper_lower_sessions(level, dauer) + _upper_lower_sessions(level, dauer)[:2]

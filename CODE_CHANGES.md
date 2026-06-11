@@ -81,7 +81,8 @@ _Erstellt: 2026-06-06_
 - 🔧 **Fettabbau** = Kraft + Conditioning (3T FB+Akzente · 4T 3+1 · 5T 4+1 · 6T 4+2) — **nicht** mehr
   100 % Conditioning. `_FETTABBAU_TYPEN`/`_conditioning_session` umbauen.
 - ➕ **Longevity-Pfad** (Kraft + Cardio/Athletik-Tage, alternierend).
-- ➕ **Schwachstellen-Tag** (5-Tage-Muskel/Recomp, Fokus aus `klient.schwachstelle`).
+- ➕ **Ganzkörper-Akzent-Tag** (5-Tage-Muskel/Recomp). _Schwachstellen-Fokus gestrichen
+  (2026-06-11) → V1.5-Idee (BACKLOG), `schwachstelle`-Feld dormant._
 - 🔧 **6 Tage = Upper/Lower 3×** (jeder Muskel 3×); PPL-Logik raus.
 - 🔴 **Mobility-Sessions** raus (`_mobility_session`, `mit_mobility`) — eigenes Modul später.
 - 🔴 **20-Min-Sonderfall / 2-Tage** raus (min. 3 Tage).
