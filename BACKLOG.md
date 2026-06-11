@@ -1,6 +1,6 @@
 # Backlog — vertagte Arbeit (nach MVP-Paket)
 
-_Stand: 2026-06-11 · git HEAD `4960c26`_
+_Stand: 2026-06-11 · git HEAD `65306a8`_
 
 > Bewusst aufgeschobene Arbeit, gruppiert nach MVP-Paket. Jeder Eintrag:
 > Beschreibung · warum vertagt · Code-Marker (Datei:Zeile, Grep-verifiziert) · Abhängigkeit.
@@ -17,23 +17,21 @@ _Stand: 2026-06-11 · git HEAD `4960c26`_
 - **Deload-Faktor:** Code `0.50`, Spec Thema 1 will `0.60`. Unter Modell A nutzt Deload die
   Cap-Unterkante (kein Prozent-Faktor) → Eintrag ist tot. · _Marker:_ `logic/volume_calculator.py:31`
   `TODO(deload-faktor-tot)`. · _Hängt ab von:_ MVP-3-Tidy.
-- **Test-Altlast tage=2:** 3 Tests füttern 2-Tage-Werte, Spec-Minimum ist 3. · _Marker:_
-  `scripts/run_tests.py:123`, `:133`, `:168` `TODO(testdata-tage-min3)`. · _Hängt ab von:_ —.
+- **Test-Altlast tage=2 + tote Refs:** 3 run_tests-Fälle füttern 2-Tage-Werte
+  (`TODO(testdata-tage-min3)`, run_tests:122/132/167) **und** 4 generate_test_plans-Payloads
+  scheitern am Parse (05 tage=2 · 09 `ausdauer` · 10 `gesundheit` · 14 `gesundheit`+tage=2 —
+  vorbestehend, bei MVP-4-Naht-5 verifiziert). Ein Hygiene-Commit für beide. · _Hängt ab von:_ —.
 
-## MVP-4 — Split-Logik Neubau
+## MVP-4 — Split-Logik Neubau ✅ umgesetzt (2026-06-11, `4ab789c`…`65306a8`)
 
-- **longevity-Crash:** `logic/split_selector.py:399` `elif ziel == Hauptziel.ausdauer:` —
-  `Hauptziel.ausdauer` existiert nach MVP-1-Rename nicht mehr → `AttributeError`. **Bewusst
-  NICHT** als Mini-Rename gefixt — das lieferte den fachlich falschen alten ausdauer-Split
-  statt Kraft+Cardio+Athletik (Thema 4). · _Marker:_ `scripts/run_tests.py:120`
-  `TODO(ausdauer-rename)` (verweist auf split_selector.py:399). · _Hängt ab von:_ MVP-1, MVP-3.
-- **Fettabbau noch 100% Conditioning** (`split_selector.py:391`), Spec Thema 4 will
-  Kraft+Conditioning (3T FB+Akzente · 4T 3+1 · 5T 4+1 · 6T 4+2). · _Hängt ab von:_ MVP-1, MVP-3.
-- **longevity + fettabbau teilen Conditioning/Athletik-Infrastruktur** → zusammen bauen.
-- **Mobility-Sessions raus** (`_mobility_session`, `mit_mobility`) — eigenes Modul später. ·
-  _Marker:_ `models.py:262` `TODO(mobility-removal)`. · _Hängt ab von:_ Split-/Assembler-Rewrite.
-- **Pattern-Priorität bei kurzer Session** (welches Pflicht-Pattern zuerst fällt). · _Marker:_
-  `logic/plan_assembler.py:440` `TODO(short-session-pattern-drop)`. · _Hängt ab von:_ MVP-4.
+- longevity-Crash, Fettabbau-Struktur, Mobility-Entfernung, 20-Min-Sonderfall: **alle erledigt**
+  (5 Nähte, Details STATUS Abschnitt 6). Schwachstellen-Fokus-Tag gestrichen → V1.5-Sektion unten.
+- **Offen geblieben (→ MVP-7/8): Pattern-Priorität bei kurzer Session** (welches Pflicht-Pattern
+  zuerst fällt; V1: Kürzung implizit über die Slot-Templates fixiert, „Dauer gewinnt"). · _Marker:_
+  `logic/plan_assembler.py:366` `TODO(short-session-pattern-drop)`.
+- **Offen geblieben (→ MVP-7):** Longevity-Athletik-Rotation (`TODO(mvp7-athletik)`,
+  split_selector:295) + Conditioning-Block-Rotation/Format-Ausbau (`TODO(mvp7-formate)`,
+  split_selector:378) — V1-Stand in COACHING_SPEC Thema 4/6 vermerkt.
 
 ## MVP-5 — Verletzungs- & Equipment-Filter (aus Szenario-Analyse)
 

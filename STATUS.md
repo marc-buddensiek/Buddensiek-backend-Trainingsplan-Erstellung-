@@ -1,16 +1,16 @@
 # Projektstatus — Buddensiek Performance KI-Trainingsplan
 
-_Zuletzt aktualisiert: 2026-06-11 · git HEAD `8980bd7` (MVP-2-Tagging komplett) · Branch `mvp-1-data-foundation`_
+_Zuletzt aktualisiert: 2026-06-11 · git HEAD `65306a8` (MVP-4 fertig) · Branch `mvp-1-data-foundation`_
 
 ---
 
 ## 1. Aktueller Stand (kurz)
 
-Backend importiert sauber (`import main` ✅). Tests: **Logik 19/26 · Realism 7/7** — die 7 roten sind ausschließlich veraltete Testdaten + ein nicht-gebautes Feature (MVP-4), **keine Regression** (Belege: Abschnitt 5).
+Backend importiert sauber (`import main` ✅). Tests: **Logik 23/26 · Realism 7/7** — die 3 roten sind ausschließlich tage=2-Testdaten-Altlasten, **keine Regression** (Belege: Abschnitt 5).
 
 Spec ist komplett (alle 8 Themen entschieden). Umsetzung läuft entlang der ROADMAP (MVP-1…12).
-**Fertig:** MVP-1 (Daten-Fundament) + MVP-3-Kern (Volumen „Modell A") + MVP-2-Kern: Schema-Migration (`4960c26`) **und Tagging aller 125** (9 Batches, Coach-reviewt, `8980bd7`).
-**Offen / nächste große Brocken:** MVP-4 (Split-Logik) und **MVP-5 (3-Stufen-Filter — jetzt entsperrt)**; MVP-2-Ausbau auf 250–300 als Coach-Daueraufgabe.
+**Fertig:** MVP-1 (Daten-Fundament) + MVP-3-Kern (Volumen „Modell A") + MVP-2-Kern (Migration `4960c26` + Tagging 125/125 `8980bd7`) + **MVP-4 Split-Logik** (5 Nähte + Schwachstellen-Streichung, `4ab789c`…`65306a8`).
+**Offen / nächste große Brocken:** **MVP-5 (3-Stufen-Filter — entsperrt)**, MVP-7 (Conditioning-Formate — durch MVP-4 entsperrt); MVP-2-Ausbau auf 250–300 als Coach-Daueraufgabe.
 Pipeline (Typeform → … → PDF/Supabase) steht strukturell; Claude/Supabase nicht live.
 
 ## 2. Spec-Themen (COACHING_SPEC.md)
@@ -25,7 +25,7 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | 1 | Daten-Fundament | ✅ fertig | Hauptziel 4 Ziele, tage ge=3, nebenziel/schmerzen_akut raus, schwachstelle, PlanMetadata, rpe_hinweis (models.py) | — |
 | 2 | Bibliothek/Tagging | 🟡 125 fertig getaggt, Ausbau offen | Migration `4960c26` + Tagging 125/125 (`8980bd7`, Ausschluss-Semantik SCHEMA.md Abschn. 2, `validate_exercises.py` grün); impact: 118 low · 6 medium (Ballistics) · 1 high (Jump Squat); 38 Reha-Keeper ohne Ausschluss. **Offen: Ausbau auf 250–300 (Coach-Daueraufgabe)** | — |
 | 3 | Volumen „Modell A" | 🟡 Kern fertig, Korridor-Deckel offen | _TIER_CAP/_tier_saetze ✓, TJ-Faktor + Tier-Multiplikator raus ✓, Recovery-RPE ✓; **Level-Korridor-Deckel nicht gebaut** (war Naht 3, zurückgerollt) | 1 |
-| 4 | Split-Logik | ❌ offen / nicht begonnen | split_selector:399 ausdauer-Crash, :411 else#gesundheit, :391 Fettabbau 100% Conditioning, **kein longevity-Zweig**, _mobility_session noch da | 1, 3 |
+| 4 | Split-Logik | ✅ fertig (`65306a8`) | Longevity-Pfad (Kraft+Zone-2, V1 ohne Athletik → `TODO(mvp7-athletik)`), Fettabbau Kraft+Conditioning, 5T Ganzkörper-Akzent (Schwachstellen-Fokus gestrichen → V1.5), 6T UL3×, Mobility + 20-Min-Sonderfall raus | 1, 3 |
 | 5 | Equipment/Verletzungs-Filter | ❌ offen, **entsperrt** | liest `skill_level`; joint_stress/impact_level jetzt vollständig getaggt → 3-Stufen-Filter baubar (Stufe-1-vs-Stufe-3-Spannung beachten, BACKLOG) | 2 ✓ |
 | 6 | Recovery-RPE + Periodisierung | 🟡 teilweise | Recovery-RPE ✓, 3:1-Welle ✓; **Deload 60% nicht** (noch 0.50, tot/TODO); **L1-RIR (rpe_hinweis) nicht befüllt** | 3 |
 | 7 | Conditioning-Formate + Recomp-Finisher | 🟡 teilweise | _METABOLIC_CONFIG nur amrap/emom/zirkel/intervalle; **tabata/density/for_time/komplexe/ladders + Athletik fehlen**; Recomp-Finisher ✓ | 4 |
@@ -41,26 +41,42 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 
 | Marker | Stellen | → MVP |
 |---|---|---|
-| `TODO(ausdauer-rename)` | split_selector:399 (Prod-Crash), run_tests:120 | MVP-4 |
-| `TODO(mobility-removal)` | models:262 | MVP-4/8 |
-| `TODO(short-session-pattern-drop)` | plan_assembler:440 | MVP-3/4 |
-| `TODO(longevity-volume)` | realism_validator:17/33/53, plan_assembler:45 | MVP-3/4/6 |
+| `TODO(short-session-pattern-drop)` | plan_assembler:366 | MVP-7/8 |
+| `TODO(longevity-volume)` | realism_validator:17/33/53, plan_assembler:44 | MVP-3/6 |
 | `TODO(deload-faktor-tot)` | volume_calculator:31 | MVP-3-Tidy |
-| `TODO(testdata-tage-min3)` | run_tests:123/133/168 | MVP-11/Hygiene |
+| `TODO(testdata-tage-min3)` | run_tests:122/132/167 (+4 Parse-Altlasten generate_test_plans, s. BACKLOG) | MVP-11/Hygiene |
+| `TODO(mvp5-substitutions-b-removal)` | equipment_filter:102 | MVP-5 |
+| `TODO(mvp7-athletik)` | split_selector:295 | MVP-7 |
+| `TODO(mvp7-formate)` | split_selector:378 | MVP-7 |
+| `TODO(v15-schwachstelle)` | models:95, split_selector:313 | V1.5 |
+| `TODO(mvp2-schema-stale)` | update_exercises:2 | MVP-2-Tooling |
+
+_Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`._
 
 ## 5. Test-Stand (verifiziert)
 
-`python3 scripts/run_tests.py` → **Logik 19/26 · Realism 7/7**. Die 7 roten Logik-Tests, eindeutig zugeordnet. **Keine Regression durch den Flag-Rückbau** — Gegentest auf Pre-Rückbau-Stand `06b7aeb` ergab identische 7 (alle scheitern beim Parse oder in split_selector, nicht in volume_calculator):
+`python3 scripts/run_tests.py` → **Logik 23/26 · Realism 7/7**. Die 4 Ziel-Tests (longevity 3T/4T/5T/6T — alle 4 Spec-Strukturen) sind mit MVP-4 grün geworden; **keine neuen Failures** (jede Naht gegen die Baseline verifiziert).
 
 | Test(s) | Fehler | Ursache |
 |---|---|---|
-| Kettlebell/3T/Ausdauer · Gym/4T/Ausdauer | ValidationError: hauptziel | totes `ausdauer`-Enum in Testdaten → MVP-4 |
-| Bodyweight/5T/Longevity · Gym/4T/Longevity | AttributeError split_selector:399 | longevity-Split nicht gebaut → MVP-4 |
 | Travel/2T · Gym/2T · Tim 2×20 | ValidationError: tage_pro_woche | `tage=2 < 3` veraltete Testdaten → tage-min3 |
 
-→ **4× MVP-4, 3× tage-min3.** Keiner „etwas anderes".
+→ **3× tage-min3.** Keiner „etwas anderes". Zusätzlich bekannt: `generate_test_plans.py` baut 12/16 PDFs — 4 Parse-Altlasten in den Payloads (ausdauer/gesundheit/tage=2, vorbestehend, s. BACKLOG MVP-3/Hygiene).
 
 ## 6. Session-Historie (neueste zuerst)
+
+**2026-06-11 (Fortsetzung 2) — MVP-4 Split-Logik komplett (`4ab789c`…`65306a8`, 7 Commits)**
+- 5 Nähte aufsteigenden Risikos: (1) Testdaten ausdauer→longevity inkl. 6T-Abdeckung, (2) Longevity-Pfad
+  ersetzt tote ausdauer/gesundheit-Zweige (3T FB · 4T 3K+1Z2 · 5T 3K+2Z2 · 6T UL4×+2Z2; `session_typ=zone2`),
+  (3) Fettabbau Kraft+Conditioning (3T FB+Metcon-Akzente · 4T 3K+1C · 5T UL+1C · 6T UL+2C),
+  (4) 5T-Tag + 6T UL3× statt PPL, (5) Toter-Code-Abbau (Mobility komplett, 20-Min-Sonderfall,
+  `"mobility"`-Literal; assembler −130 Zeilen Hardcode).
+- **Coach-Entscheidung zwischen Naht 4 und 5:** Schwachstellen-Fokus-Tag **gestrichen** (`527e26d`) —
+  5T = Ganzkörper-Akzent (FB-C); Fokus-Templates liegen in `a88943c`, V1.5-Idee im BACKLOG,
+  `schwachstelle`-Feld dormant.
+- V1-Abweichungen per Konfliktregel in der Spec vermerkt: Zone-2-only (`TODO(mvp7-athletik)`),
+  Format-Statik (`TODO(mvp7-formate)`). Abnahme-Kriterium erfüllt: 4 Ziel-Tests grün, 3 tage=2 bleiben,
+  keine neuen Failures; generate_test_plans 12/16 wie vor MVP-4.
 
 **2026-06-11 (Fortsetzung) — MVP-2 Tagging komplett: 125/125 (`d662852`…`8980bd7`)**
 - Tagging-Semantik in SCHEMA.md festgezurrt (joint_stress = Ausschluss-Tag, impact = Stoßbelastung,
@@ -97,5 +113,5 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 
 ## 7. Nächster Schritt
 
-**MVP-4 (Split-Logik-Neubau)** — behebt longevity-Crash + Fettabbau-Struktur, macht 4 der 7 roten Tests grün; hängt nur an MVP-1+3 (beide bereit). **Oder MVP-5 (3-Stufen-Filter)** — durch das fertige Tagging jetzt entsperrt; vorher die Stufe-1-vs-Stufe-3-Spannung entscheiden (BACKLOG MVP-5). Empfehlung: MVP-4 zuerst (größerer Brocken, blockt MVP-7/8-Kette).
-**Coach-Daueraufgabe parallel:** MVP-2-Ausbau auf 250–300 Übungen (Mindestabdeckung je Pattern × Level, ROADMAP); neue Übungen direkt nach SCHEMA.md-Semantik taggen, `validate_exercises.py` als Gate.
+**MVP-5 (3-Stufen-Verletzungsfilter)** — vollständig entsperrt (Tagging ✓): joint_stress → impact_level:high → pattern-Blocker; **vorher die Stufe-1-vs-Stufe-3-Designfrage entscheiden** (BACKLOG MVP-5) und Mehrfach-Verletzungen + Leerer-Pool-Fallback mitbauen. Quick-Win davor: Hygiene-Commit Testdaten (3× tage-min3 in run_tests + 4 Parse-Altlasten in generate_test_plans).
+**Coach-Daueraufgabe parallel:** MVP-2-Ausbau auf 250–300 Übungen (`validate_exercises.py` als Gate); ab MVP-7 zusätzlich ~25 Athletik-/Conditioning-Übungen (entsperrt `TODO(mvp7-athletik/formate)`).
