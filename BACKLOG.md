@@ -88,9 +88,9 @@ Pattern-Automatismus.
   War out-of-order (hängt an ungebautem MVP-2/3-Deckel/4). Cleanup-Commits `408c079` + `19f8d5f`.
   `PlanMetadata` bleibt als `Optional=None`-Platzhalter im Modell (`models.py`). · _Hängt ab von:_
   MVP-2, MVP-3-Deckel, MVP-4.
-- **Tag-Bug:** „Single Leg RDL (Kurzhantel)" ist `quads,glutes` primary, sollte
-  `hamstrings,glutes` (wie die anderen Single-Leg-RDLs). Nur relevant, wenn die Aggregation
-  zurückkommt. · _Hängt ab von:_ MVP-8 (Aggregation).
+- ~~Tag-Bug Single Leg RDL~~ **widerlegt (2026-06-11, Git-verifiziert):** `gym_single_leg_rdl_db`
+  hat seit Initial-Commit `hamstrings,glutes` primary — identisch mit allen 5 RDL-Varianten.
+  Der Befund aus der Coach-Flag-Session war eine Fehlbeobachtung; kein Datenfix nötig.
 
 ## MVP-11 — Test-Harness
 
