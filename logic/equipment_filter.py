@@ -94,7 +94,14 @@ def filtere_uebungen(klient: KlientenInput, level: int) -> dict[str, list[dict]]
         required = ex.get("equipment_requires", [])
         if required and klient.equipment_items and not any(item in klient.equipment_items for item in required):
             continue
-        # Verletzungs-Blocking via pattern_tags (Python-seitig, vor Claude)
+        # Verletzungs-Filter Stufe 1: Übung belastet eine verletzte Region → raus
+        # (Vereinigung über alle Verletzungen — Mehrfach-Verletzungen automatisch abgedeckt)
+        if verletzungs_keys and any(r in ex.get("joint_stress", []) for r in verletzungs_keys):
+            continue
+        # Verletzungs-Filter Stufe 2: bei jeder Verletzung kein high-Impact (Spec Thema 8)
+        if verletzungs_keys and ex.get("impact_level") == "high":
+            continue
+        # Verletzungs-Blocking via pattern_tags (Stufe 3 — fällt mit MVP-5 Naht 2)
         if blocked_patterns and set(ex.get("pattern_tags", [])) & blocked_patterns:
             continue
 
