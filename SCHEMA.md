@@ -17,9 +17,9 @@ _Stand: 2026-06-10 · abgenickt · verbindliche Referenz für MVP-2 (Migration +
 | `equipment` | list[str] | gym · home_gym · kettlebell · bodyweight · travel · hybrid | equipment_filter:88 | behalten |
 | `skill_level` | int | 1–4 | Level-Gate (equipment_filter:91) | **migrieren** (`level_min`→`skill_level`) |
 | `muscle_groups` | obj `{primary:[], secondary:[]}` | bestehendes Muskel-Vokabular (nested belassen) | Volumen-Korridor (MVP-3, **geplant**) | behalten |
-| `joint_stress` | list[str] | die 8 unten (englisch) | Verletzungsfilter Stufe 1 (MVP-5, **geplant**) | **NEU** (auf allen taggen) |
-| `impact_level` | str | low · medium · high | Verletzungsfilter Stufe 2 (MVP-5, **geplant**) | **NEU** (auf allen taggen) |
-| `pattern_tags` | list[str] | offen (deep_squat, lunge, jump, overhead_press, bench_heavy, …) | Verletzungsfilter Stufe 3 (equipment_filter:98, **jetzt**) | behalten |
+| `joint_stress` | list[str] | die 8 unten (englisch) | Verletzungsfilter Stufe 1 (MVP-5) | ✅ getaggt (125/125 + ankle-Nachtrag) |
+| `impact_level` | str | low · medium · high | Verletzungsfilter Stufe 2 (MVP-5) | ✅ getaggt (125/125) |
+| `pattern_tags` | list[str] | offen (deep_squat, lunge, jump, overhead_press, bench_heavy, …) | ehem. Stufe 3 — **gestrichen 2026-06-12** (Leser `equipment_filter` fällt mit MVP-5-Bau, Feld dann leserlos → dort entfernen oder dormant) | behalten bis MVP-5-Bau |
 | `substitution_pool` | list[str] | exercise-IDs | Tausch (V2) + Verletzungs-Alternativen | **NEU** (= dedup(subs_a ∪ subs_b.values())) |
 | `substitutions_b` | obj | Verl-Region → ID | equipment_filter:102 (**jetzt**) | behalten bis MVP-5, dann raus |
 | `substitutions_a` | list[str] | exercise-IDs | 0 Leser | entfällt (geht in `substitution_pool` auf) |
@@ -42,6 +42,11 @@ _Stand: 2026-06-10 · abgenickt · verbindliche Referenz für MVP-2 (Migration +
   nach dem Tagging ein legitimer Endwert (bewusst kein Ausschluss); `impact_level: null`
   bleibt das einzige Ungetaggt-Signal. Halb getaggt (joint_stress gesetzt, impact null)
   ist ein Validator-Fehler.
+- **Validator-Gate (VERBINDLICH, 2026-06-12):** `python3 scripts/validate_exercises.py`
+  muss grün sein, bevor Änderungen an `exercises.json` committet werden — gilt für Tagging,
+  Korrekturen und den gesamten Bibliotheks-Ausbau auf 250–300 (und später fürs
+  Backoffice-„Neue Übung anlegen"). Seit Streichung der pattern_tags-Blocker (Stufe 3)
+  sind die Tags die **einzige** Sicherheitsquelle des Verletzungsfilters.
 
 **`joint_stress` — ENGLISCH, exakt diese 8:**
 ```

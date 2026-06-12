@@ -1,6 +1,6 @@
 # Projektstatus — Buddensiek Performance KI-Trainingsplan
 
-_Zuletzt aktualisiert: 2026-06-11 · git HEAD `65306a8` (MVP-4 fertig) · Branch `mvp-1-data-foundation`_
+_Zuletzt aktualisiert: 2026-06-12 · git HEAD `cc7310c`+ (Tests komplett grün, MVP-5-Design entschieden) · Branch `mvp-1-data-foundation`_
 
 ---
 
@@ -26,7 +26,7 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | 2 | Bibliothek/Tagging | 🟡 125 fertig getaggt, Ausbau offen | Migration `4960c26` + Tagging 125/125 (`8980bd7`, Ausschluss-Semantik SCHEMA.md Abschn. 2, `validate_exercises.py` grün); impact: 118 low · 6 medium (Ballistics) · 1 high (Jump Squat); 38 Reha-Keeper ohne Ausschluss. **Offen: Ausbau auf 250–300 (Coach-Daueraufgabe)** | — |
 | 3 | Volumen „Modell A" | 🟡 Kern fertig, Korridor-Deckel offen | _TIER_CAP/_tier_saetze ✓, TJ-Faktor + Tier-Multiplikator raus ✓, Recovery-RPE ✓; **Level-Korridor-Deckel nicht gebaut** (war Naht 3, zurückgerollt) | 1 |
 | 4 | Split-Logik | ✅ fertig (`65306a8`) | Longevity-Pfad (Kraft+Zone-2, V1 ohne Athletik → `TODO(mvp7-athletik)`), Fettabbau Kraft+Conditioning, 5T Ganzkörper-Akzent (Schwachstellen-Fokus gestrichen → V1.5), 6T UL3×, Mobility + 20-Min-Sonderfall raus | 1, 3 |
-| 5 | Equipment/Verletzungs-Filter | ❌ offen, **entsperrt** | liest `skill_level`; joint_stress/impact_level jetzt vollständig getaggt → 3-Stufen-Filter baubar (Stufe-1-vs-Stufe-3-Spannung beachten, BACKLOG) | 2 ✓ |
+| 5 | Equipment/Verletzungs-Filter | ❌ offen, **Design entschieden** | **2-Stufen-Filter** (joint_stress + impact_level:high; Stufe 3 gestrichen 2026-06-12, Spec Thema 8 ✓, ankle-Nachtrag ✓). Bau: 2 Stufen + Mehrfach-Verletzungen + Leerer-Pool-Fallback + substitutions_b-Ablösung + _VERLETZUNG_BLOCKED/pattern_tags-Aufräumen | 2 ✓ |
 | 6 | Recovery-RPE + Periodisierung | 🟡 teilweise | Recovery-RPE ✓, 3:1-Welle ✓; **Deload 60% nicht** (noch 0.50, tot/TODO); **L1-RIR (rpe_hinweis) nicht befüllt** | 3 |
 | 7 | Conditioning-Formate + Recomp-Finisher | 🟡 teilweise | _METABOLIC_CONFIG nur amrap/emom/zirkel/intervalle; **tabata/density/for_time/komplexe/ladders + Athletik fehlen**; Recomp-Finisher ✓ | 4 |
 | 8 | Assembler/PDF + Coach-Flag | 🟡 Dauer-Kopplung ja, Flag/PDF nein | Modell-A-Satz/Dauer-Kopplung ✓; **Coach-Flag gebaut+verworfen** (plan_metadata=None); PDF rendert **noch** Klient-Realism-Warnung | 4, 6, 7 |
@@ -57,6 +57,15 @@ _Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt
 `python3 scripts/run_tests.py` → **Logik 26/26 · Realism 7/7**, `generate_test_plans.py` → **16/16 PDFs**. Hygiene-Commit 2026-06-12: 3× tage=2 auf tage=3 (Gym-2T-Duplikat → neuer Fall **Gym/6T/Fettabbau**, deckt den 4K+2C-Pfad), 4 generate_test_plans-Payloads auf longevity/tage=3 umgestellt. Grün heißt weiterhin nur „läuft" — fachliche Korrektheit prüft erst der MVP-11-Harness.
 
 ## 6. Session-Historie (neueste zuerst)
+
+**2026-06-12 — Test-Hygiene + MVP-5-Designentscheidung (`3e2f69f`, `cc7310c`, Doku-Commit)**
+- Hygiene: alle Testdaten-Altlasten bereinigt → **erstmals komplett grün** (26/26 · 7/7 · 16/16);
+  Gym-2T-Duplikat zu Gym/6T/Fettabbau umgewidmet (4K+2C-Pfad abgedeckt).
+- **Coach-Entscheidung: Stufe 3 gestrichen** — Kollisions-Analyse zeigte 31 Konflikte mit
+  Reha-Keepern, Rest redundant/tot (5 tote Blocker-Tags). Filter wird 2-stufig; ankle-Lücke
+  (tiefe Dorsalflexion) per Tagging-Nachtrag geschlossen (12 Übungen, `cc7310c`).
+- Validator-Gate als verbindlich für jeden Bibliotheks-Commit in SCHEMA.md verankert;
+  Spec Thema 8 per Konfliktregel auf 2-Stufen umformuliert.
 
 **2026-06-11 (Fortsetzung 2) — MVP-4 Split-Logik komplett (`4ab789c`…`65306a8`, 7 Commits)**
 - 5 Nähte aufsteigenden Risikos: (1) Testdaten ausdauer→longevity inkl. 6T-Abdeckung, (2) Longevity-Pfad
@@ -106,5 +115,5 @@ _Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt
 
 ## 7. Nächster Schritt
 
-**MVP-5 (3-Stufen-Verletzungsfilter)** — vollständig entsperrt (Tagging ✓): joint_stress → impact_level:high → pattern-Blocker; **vorher die Stufe-1-vs-Stufe-3-Designfrage entscheiden** (BACKLOG MVP-5) und Mehrfach-Verletzungen + Leerer-Pool-Fallback mitbauen. Quick-Win davor: Hygiene-Commit Testdaten (3× tage-min3 in run_tests + 4 Parse-Altlasten in generate_test_plans).
+**MVP-5-Bau (2-Stufen-Verletzungsfilter)** — Design ✓ entschieden, alles entsperrt. Scope: joint_stress-Stufe (Liste statt Einzelwert — Mehrfach-Verletzungen!), impact-high-Stufe, Leerer-Pool-Fallback, substitutions_b-Ablösung durch substitution_pool (`TODO(mvp5-substitutions-b-removal)`), Aufräumen `_VERLETZUNG_BLOCKED`/Stufe-3-Check/pattern_tags. Danach Prompt-Anpassung (MVP-9-Anteil: verletzungs_flag-Logik ändert sich).
 **Coach-Daueraufgabe parallel:** MVP-2-Ausbau auf 250–300 Übungen (`validate_exercises.py` als Gate); ab MVP-7 zusätzlich ~25 Athletik-/Conditioning-Übungen (entsperrt `TODO(mvp7-athletik/formate)`).

@@ -538,12 +538,18 @@ kalibriert statt geraten.
 
 ## 8. Sonderfälle — ✅ entschieden (2026-06-06)
 
-### Verletzungs-Filterung (Generator-Seite) — kombiniert
+### Verletzungs-Filterung (Generator-Seite) — 2-Stufen
 
 Bei Verletzungs-Eingabe (z.B. „Knie") filtert der Generator in dieser Reihenfolge:
-1. Übungen mit `joint_stress: knee` ausschließen.
+1. Übungen mit `joint_stress: knee` ausschließen (Ausschluss-Semantik, SCHEMA.md Abschn. 2).
 2. Übungen mit `impact_level: high` ausschließen (bei Verletzung generell vorsichtiger).
-3. Pattern-spezifische Blocker bleiben **zusätzlich** (Knie → `deep_squat, lunge, jump, plyo`).
+
+> **Entschieden 2026-06-12 (ersetzt den früheren 3-Stufen-Ansatz):** Die pattern_tags-Blocker
+> (Stufe 3) sind **gestrichen** — nach vollständigem Tagging waren sie zu 90 % redundant oder tot
+> und blockten in 31 Fällen genau die bewusst nicht getaggten Reha-Keeper (z.B. Reverse Lunge bei
+> Knie, Trap Bar Deadlift bei Rücken). Ihre einzige echte Lücke (Knöchel ↔ tiefe Dorsalflexion)
+> ist durch den ankle-Tagging-Nachtrag geschlossen. `joint_stress` + `impact_level` sind die
+> **einzige Wahrheit**; Qualitätssicherung über das verbindliche Validator-Gate (SCHEMA.md).
 
 Ersatz immer aus gleichem Pattern. **Wichtige Klarstellung:** das System erkennt Gelenk-Belastung NICHT
 aus dem Übungsnamen — **jede Übung muss explizit getaggt sein.**
