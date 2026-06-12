@@ -119,8 +119,7 @@ TEST_CASES = [
     ("Home Gym / 3T / Fettabbau",        dict(equipment_ref="home_gym",   tage=3, hauptziel_ref="fettabbau")),
     ("Kettlebell / 3T / Longevity",      dict(equipment_ref="kettlebell", tage=3, hauptziel_ref="longevity")),
     ("Bodyweight / 5T / Longevity",      dict(equipment_ref="bodyweight", tage=5, hauptziel_ref="longevity")),
-    # TODO(testdata-tage-min3): tage=2 < Modell-Minimum (tage_pro_woche >= 3) — veraltete Testdaten, eigener Commit.
-    ("Travel / 2T / Muskelaufbau",       dict(equipment_ref="travel",     tage=2, hauptziel_ref="muskelaufbau")),
+    ("Travel / 3T / Muskelaufbau",       dict(equipment_ref="travel",     tage=3, hauptziel_ref="muskelaufbau")),
     ("Hybrid / 4T / Fettabbau",          dict(equipment_ref="hybrid",     tage=4, hauptziel_ref="fettabbau")),
 
     # Alle Ziele mit 4 Tagen Gym
@@ -129,8 +128,7 @@ TEST_CASES = [
     ("Gym / 4T / Longevity",             dict(equipment_ref="gym", tage=4, hauptziel_ref="longevity")),
 
     # Verschiedene Tage
-    # TODO(testdata-tage-min3): tage=2 < Modell-Minimum (tage_pro_woche >= 3) — veraltete Testdaten, eigener Commit.
-    ("Gym / 2T / Muskelaufbau",          dict(equipment_ref="gym", tage=2, hauptziel_ref="muskelaufbau")),
+    ("Gym / 6T / Fettabbau",             dict(equipment_ref="gym", tage=6, hauptziel_ref="fettabbau")),
     ("Gym / 3T / Muskelaufbau",          dict(equipment_ref="gym", tage=3, hauptziel_ref="muskelaufbau")),
     ("Gym / 5T / Muskelaufbau",          dict(equipment_ref="gym", tage=5, hauptziel_ref="muskelaufbau")),
     ("Gym / 6T / Muskelaufbau",          dict(equipment_ref="gym", tage=6, hauptziel_ref="muskelaufbau")),
@@ -164,9 +162,8 @@ TEST_CASES = [
      dict(hauptziel_ref="muskelaufbau", tage=4, session_min=60,
           kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80,
           trainingsjahre_ref="ein_bis_zwei")),
-    # TODO(testdata-tage-min3): tage=2 < Modell-Minimum (tage_pro_woche >= 3) — veraltete Testdaten, eigener Commit.
-    ("Tim — Muskelaufbau, 2×20, 3-Slot FB",
-     dict(hauptziel_ref="muskelaufbau", tage=2, session_min=20)),
+    ("Tim — Muskelaufbau, 3×20, 3-Slot FB",
+     dict(hauptziel_ref="muskelaufbau", tage=3, session_min=20)),
 ]
 
 # Subset für Claude-Tests (teuer + langsam)

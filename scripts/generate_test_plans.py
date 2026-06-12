@@ -97,8 +97,8 @@ TEST_CASES = [
           trainingsjahre_ref="ein_bis_zwei",
           kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80)),
 
-    ("05_gym_muskel_2x20_L1_warnung",  "Tim",
-     dict(hauptziel_ref="muskelaufbau", tage=2, session_min=20, equipment_ref="gym",
+    ("05_gym_muskel_3x20_L1_warnung",  "Tim",
+     dict(hauptziel_ref="muskelaufbau", tage=3, session_min=20, equipment_ref="gym",
           trainingsjahre_ref="keine",
           kniebeugen=12, pushups=8, situps=10, burpees=5, plank=35)),
 
@@ -118,13 +118,13 @@ TEST_CASES = [
           trainingsjahre_ref="ein_bis_zwei",
           kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80)),
 
-    ("09_gym_ausdauer_5x60_L2",  "Lukas",
-     dict(hauptziel_ref="ausdauer", tage=5, session_min=60, equipment_ref="gym",
+    ("09_gym_longevity_5x60_L2",  "Lukas",
+     dict(hauptziel_ref="longevity", tage=5, session_min=60, equipment_ref="gym",
           trainingsjahre_ref="ein_bis_zwei",
           kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80)),
 
-    ("10_gym_gesundheit_3x30_L1",  "Hans",
-     dict(hauptziel_ref="gesundheit", tage=3, session_min=30, equipment_ref="gym",
+    ("10_gym_longevity_3x30_L1",  "Hans",
+     dict(hauptziel_ref="longevity", tage=3, session_min=30, equipment_ref="gym",
           trainingsjahre_ref="keine",
           kniebeugen=12, pushups=8, situps=10, burpees=5, plank=35)),
 
@@ -144,8 +144,8 @@ TEST_CASES = [
           trainingsjahre_ref="keine",
           kniebeugen=12, pushups=8, situps=10, burpees=5, plank=35)),
 
-    ("14_travel_gesundheit_2x30_L1",  "Petra",
-     dict(hauptziel_ref="gesundheit", tage=2, session_min=30, equipment_ref="travel",
+    ("14_travel_longevity_3x30_L1",  "Petra",
+     dict(hauptziel_ref="longevity", tage=3, session_min=30, equipment_ref="travel",
           trainingsjahre_ref="keine",
           kniebeugen=12, pushups=8, situps=10, burpees=5, plank=35)),
 

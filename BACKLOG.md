@@ -17,10 +17,9 @@ _Stand: 2026-06-11 · git HEAD `65306a8`_
 - **Deload-Faktor:** Code `0.50`, Spec Thema 1 will `0.60`. Unter Modell A nutzt Deload die
   Cap-Unterkante (kein Prozent-Faktor) → Eintrag ist tot. · _Marker:_ `logic/volume_calculator.py:31`
   `TODO(deload-faktor-tot)`. · _Hängt ab von:_ MVP-3-Tidy.
-- **Test-Altlast tage=2 + tote Refs:** 3 run_tests-Fälle füttern 2-Tage-Werte
-  (`TODO(testdata-tage-min3)`, run_tests:122/132/167) **und** 4 generate_test_plans-Payloads
-  scheitern am Parse (05 tage=2 · 09 `ausdauer` · 10 `gesundheit` · 14 `gesundheit`+tage=2 —
-  vorbestehend, bei MVP-4-Naht-5 verifiziert). Ein Hygiene-Commit für beide. · _Hängt ab von:_ —.
+- ~~Test-Altlast tage=2 + tote Refs~~ **erledigt (2026-06-12, Hygiene-Commit):** run_tests +
+  generate_test_plans komplett grün (26/26 · 7/7 · 16/16); Gym-2T-Duplikat zu Gym/6T/Fettabbau
+  umgewidmet (deckt 4K+2C-Pfad).
 
 ## MVP-4 — Split-Logik Neubau ✅ umgesetzt (2026-06-11, `4ab789c`…`65306a8`)
 

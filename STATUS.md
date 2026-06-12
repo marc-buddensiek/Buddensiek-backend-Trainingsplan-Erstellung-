@@ -6,7 +6,7 @@ _Zuletzt aktualisiert: 2026-06-11 · git HEAD `65306a8` (MVP-4 fertig) · Branch
 
 ## 1. Aktueller Stand (kurz)
 
-Backend importiert sauber (`import main` ✅). Tests: **Logik 23/26 · Realism 7/7** — die 3 roten sind ausschließlich tage=2-Testdaten-Altlasten, **keine Regression** (Belege: Abschnitt 5).
+Backend importiert sauber (`import main` ✅). Tests: **Logik 26/26 · Realism 7/7 · generate_test_plans 16/16** — komplett grün seit dem Testdaten-Hygiene-Commit (2026-06-12). Achtung Aussagekraft: grün = „läuft/crasht nicht", nicht fachliche Korrektheit (Spec-Validator-Harness = MVP-11).
 
 Spec ist komplett (alle 8 Themen entschieden). Umsetzung läuft entlang der ROADMAP (MVP-1…12).
 **Fertig:** MVP-1 (Daten-Fundament) + MVP-3-Kern (Volumen „Modell A") + MVP-2-Kern (Migration `4960c26` + Tagging 125/125 `8980bd7`) + **MVP-4 Split-Logik** (5 Nähte + Schwachstellen-Streichung, `4ab789c`…`65306a8`).
@@ -44,24 +44,17 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | `TODO(short-session-pattern-drop)` | plan_assembler:366 | MVP-7/8 |
 | `TODO(longevity-volume)` | realism_validator:17/33/53, plan_assembler:44 | MVP-3/6 |
 | `TODO(deload-faktor-tot)` | volume_calculator:31 | MVP-3-Tidy |
-| `TODO(testdata-tage-min3)` | run_tests:122/132/167 (+4 Parse-Altlasten generate_test_plans, s. BACKLOG) | MVP-11/Hygiene |
 | `TODO(mvp5-substitutions-b-removal)` | equipment_filter:102 | MVP-5 |
 | `TODO(mvp7-athletik)` | split_selector:295 | MVP-7 |
 | `TODO(mvp7-formate)` | split_selector:378 | MVP-7 |
 | `TODO(v15-schwachstelle)` | models:95, split_selector:313 | V1.5 |
 | `TODO(mvp2-schema-stale)` | update_exercises:2 | MVP-2-Tooling |
 
-_Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`._
+_Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt 2026-06-12: `TODO(testdata-tage-min3)` (Hygiene-Commit, inkl. generate_test_plans-Payloads)._
 
 ## 5. Test-Stand (verifiziert)
 
-`python3 scripts/run_tests.py` → **Logik 23/26 · Realism 7/7**. Die 4 Ziel-Tests (longevity 3T/4T/5T/6T — alle 4 Spec-Strukturen) sind mit MVP-4 grün geworden; **keine neuen Failures** (jede Naht gegen die Baseline verifiziert).
-
-| Test(s) | Fehler | Ursache |
-|---|---|---|
-| Travel/2T · Gym/2T · Tim 2×20 | ValidationError: tage_pro_woche | `tage=2 < 3` veraltete Testdaten → tage-min3 |
-
-→ **3× tage-min3.** Keiner „etwas anderes". Zusätzlich bekannt: `generate_test_plans.py` baut 12/16 PDFs — 4 Parse-Altlasten in den Payloads (ausdauer/gesundheit/tage=2, vorbestehend, s. BACKLOG MVP-3/Hygiene).
+`python3 scripts/run_tests.py` → **Logik 26/26 · Realism 7/7**, `generate_test_plans.py` → **16/16 PDFs**. Hygiene-Commit 2026-06-12: 3× tage=2 auf tage=3 (Gym-2T-Duplikat → neuer Fall **Gym/6T/Fettabbau**, deckt den 4K+2C-Pfad), 4 generate_test_plans-Payloads auf longevity/tage=3 umgestellt. Grün heißt weiterhin nur „läuft" — fachliche Korrektheit prüft erst der MVP-11-Harness.
 
 ## 6. Session-Historie (neueste zuerst)
 
