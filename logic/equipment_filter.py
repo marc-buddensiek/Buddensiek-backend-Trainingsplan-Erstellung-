@@ -1,10 +1,12 @@
 """
-exercises.json filtern nach Equipment + Level + Verletzungs-Substitutionen
+exercises.json filtern nach Equipment + Level + 2-Stufen-Verletzungsfilter
+(Stufe 1: joint_stress ∩ Verletzungen · Stufe 2: impact_level high — Spec Thema 8,
+pattern_tags-Blocker gestrichen 2026-06-12, Tags sind dormant).
 
 Gibt ein Dict zurück: {"pattern_name": [übungs_dict, ...]}
 Verletzungs-Warnungen werden als "substitutions_b"-Flags übergeben (englisch).
 
-Mapping VerletzungsBereich (Deutsch) → exercises.json substitutions_b key (Englisch):
+Mapping VerletzungsBereich (Deutsch) → joint_stress-Vokabel (Englisch):
   knie        → knee
   schulter    → shoulder
   wirbelsäule → spine
@@ -45,19 +47,6 @@ _EQUIPMENT_INCLUDES: dict[str, list[str]] = {
     "hybrid":     ["hybrid", "kettlebell", "bodyweight"],
 }
 
-# Übungen werden Python-seitig gefiltert BEVOR Claude sie sieht
-_VERLETZUNG_BLOCKED: dict[str, set[str]] = {
-    "knie":         {"deep_squat", "lunge", "jump", "plyo"},
-    "schulter":     {"overhead_press", "bench_heavy", "dip"},
-    "wirbelsäule":  {"heavy_hinge", "loaded_flexion"},
-    "hüfte":        {"deep_squat", "wide_lunge"},
-    "ellenbogen":   {"curl_pronation", "skull_crusher"},
-    "handgelenk":   {"front_squat", "push_up_floor"},
-    "hals":         {"heavy_shrug", "behind_neck"},
-    "knöchel":      {"deep_squat", "jumping", "sprinting"},
-}
-
-
 def _lade_exercises() -> list[dict]:
     return json.loads(_EXERCISES_PATH.read_text())["exercises"]
 
@@ -75,11 +64,6 @@ def filtere_uebungen(klient: KlientenInput, level: int) -> dict[str, list[dict]]
         for v in klient.verletzungen
         if v.value in _VERLETZUNG_MAP
     }
-
-    # Geblockte pattern_tags aus allen Verletzungen zusammenstellen
-    blocked_patterns: set[str] = set()
-    for v in klient.verletzungen:
-        blocked_patterns |= _VERLETZUNG_BLOCKED.get(v.value, set())
 
     result: dict[str, list[dict]] = {}
 
@@ -100,9 +84,6 @@ def filtere_uebungen(klient: KlientenInput, level: int) -> dict[str, list[dict]]
             continue
         # Verletzungs-Filter Stufe 2: bei jeder Verletzung kein high-Impact (Spec Thema 8)
         if verletzungs_keys and ex.get("impact_level") == "high":
-            continue
-        # Verletzungs-Blocking via pattern_tags (Stufe 3 — fällt mit MVP-5 Naht 2)
-        if blocked_patterns and set(ex.get("pattern_tags", [])) & blocked_patterns:
             continue
 
         # Verletzungs-Flag für Substitutions-Hinweise aufbauen

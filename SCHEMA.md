@@ -19,7 +19,7 @@ _Stand: 2026-06-10 · abgenickt · verbindliche Referenz für MVP-2 (Migration +
 | `muscle_groups` | obj `{primary:[], secondary:[]}` | bestehendes Muskel-Vokabular (nested belassen) | Volumen-Korridor (MVP-3, **geplant**) | behalten |
 | `joint_stress` | list[str] | die 8 unten (englisch) | Verletzungsfilter Stufe 1 (MVP-5) | ✅ getaggt (125/125 + ankle-Nachtrag) |
 | `impact_level` | str | low · medium · high | Verletzungsfilter Stufe 2 (MVP-5) | ✅ getaggt (125/125) |
-| `pattern_tags` | list[str] | offen (deep_squat, lunge, jump, overhead_press, bench_heavy, …) | ehem. Stufe 3 — **gestrichen 2026-06-12** (Leser `equipment_filter` fällt mit MVP-5-Bau, Feld dann leserlos → dort entfernen oder dormant) | behalten bis MVP-5-Bau |
+| `pattern_tags` | list[str] | offen (deep_squat, lunge, jump, overhead_press, bench_heavy, …) | **0 Leser** — ehem. Stufe 3, Blocker entfernt (MVP-5 Naht 2) | **dormant behalten** (Coach-Wissen, entschieden 2026-06-12) |
 | `substitution_pool` | list[str] | exercise-IDs | Tausch (V2) + Verletzungs-Alternativen | **NEU** (= dedup(subs_a ∪ subs_b.values())) |
 | `substitutions_b` | obj | Verl-Region → ID | equipment_filter:102 (**jetzt**) | behalten bis MVP-5, dann raus |
 | `substitutions_a` | list[str] | exercise-IDs | 0 Leser | entfällt (geht in `substitution_pool` auf) |
