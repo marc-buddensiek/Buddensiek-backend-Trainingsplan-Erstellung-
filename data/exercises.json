@@ -47,7 +47,8 @@
       "joint_stress": [
         "knee",
         "spine",
-        "hip"
+        "hip",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
@@ -100,7 +101,8 @@
       "joint_stress": [
         "knee",
         "spine",
-        "wrist"
+        "wrist",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
@@ -442,7 +444,8 @@
       ],
       "joint_stress": [
         "knee",
-        "hip"
+        "hip",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
@@ -538,7 +541,8 @@
       ],
       "joint_stress": [
         "knee",
-        "hip"
+        "hip",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
@@ -593,7 +597,8 @@
       ],
       "joint_stress": [
         "knee",
-        "hip"
+        "hip",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
@@ -2889,7 +2894,8 @@
       ],
       "joint_stress": [
         "knee",
-        "hip"
+        "hip",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
@@ -3833,7 +3839,8 @@
       "joint_stress": [
         "knee",
         "spine",
-        "hip"
+        "hip",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
@@ -3884,7 +3891,8 @@
       "joint_stress": [
         "knee",
         "spine",
-        "hip"
+        "hip",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
@@ -3991,7 +3999,8 @@
       "joint_stress": [
         "knee",
         "spine",
-        "wrist"
+        "wrist",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
@@ -4045,7 +4054,8 @@
       ],
       "joint_stress": [
         "knee",
-        "hip"
+        "hip",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
@@ -5469,7 +5479,8 @@
       ],
       "joint_stress": [
         "knee",
-        "hip"
+        "hip",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
@@ -6013,7 +6024,8 @@
         "shoulder",
         "wrist",
         "spine",
-        "knee"
+        "knee",
+        "ankle"
       ],
       "impact_level": "low",
       "equipment_requires": []
