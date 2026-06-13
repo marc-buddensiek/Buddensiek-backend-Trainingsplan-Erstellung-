@@ -5,7 +5,8 @@ Prüft gegen SCHEMA.md:
   - Vokabular: pattern (9), joint_stress (8, englisch), impact_level (low/medium/high
     oder null = ungetaggt), equipment (6 Pfade), skill_level 1-4
   - Struktur: muscle_groups nested {primary, secondary}, Pflichtfelder, eindeutige IDs
-  - ID-Referenzen: substitution_pool, substitutions_b.values(), progressions_up/down
+  - ID-Referenzen: substitution_pool, progressions_up/down
+  - substitutions_b darf nicht mehr existieren (entfernt MVP-5 Naht 3)
   - Tagging-Konsistenz: joint_stress gesetzt aber impact_level null = halb getaggt → Fehler
   - Fortschritt: getaggt := impact_level != null (Fertig-Marker, siehe SCHEMA.md Abschn. 2)
 
@@ -29,7 +30,7 @@ IMPACT = {"low", "medium", "high"}
 EQUIPMENT = {"gym", "home_gym", "kettlebell", "bodyweight", "travel", "hybrid"}
 PFLICHTFELDER = [
     "id", "name", "equipment", "pattern", "muscle_groups", "skill_level",
-    "coaching_cues", "substitution_pool", "substitutions_b",
+    "coaching_cues", "substitution_pool",
     "progressions_up", "progressions_down", "pattern_tags",
     "joint_stress", "impact_level", "equipment_requires",
 ]
@@ -86,17 +87,13 @@ def main() -> int:
         if not isinstance(ex.get("equipment_requires"), list):
             fehler.append(f"{eid}: equipment_requires keine Liste")
 
-        bad_sub_keys = set(ex.get("substitutions_b", {})) - JOINTS
-        if bad_sub_keys:
-            fehler.append(f"{eid}: ungültige substitutions_b-Keys: {sorted(bad_sub_keys)}")
+        if "substitutions_b" in ex:
+            fehler.append(f"{eid}: substitutions_b sollte entfernt sein (MVP-5 Naht 3)")
 
         for feld in ("substitution_pool", "progressions_up", "progressions_down"):
             for ref in ex.get(feld, []):
                 if ref not in all_ids:
                     fehler.append(f"{eid}.{feld} → fehlende ID: {ref}")
-        for ref in ex.get("substitutions_b", {}).values():
-            if ref not in all_ids:
-                fehler.append(f"{eid}.substitutions_b → fehlende ID: {ref}")
 
     getaggt = sum(1 for ex in exs if ex.get("impact_level") is not None)
     print(f"{len(exs)} Übungen · Tagging-Fortschritt: {getaggt}/{len(exs)} "

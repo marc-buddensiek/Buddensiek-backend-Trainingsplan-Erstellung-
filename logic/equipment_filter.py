@@ -4,7 +4,6 @@ exercises.json filtern nach Equipment + Level + 2-Stufen-Verletzungsfilter
 pattern_tags-Blocker gestrichen 2026-06-12, Tags sind dormant).
 
 Gibt ein Dict zurück: {"pattern_name": [übungs_dict, ...]}
-Verletzungs-Warnungen werden als "substitutions_b"-Flags übergeben (englisch).
 
 Mapping VerletzungsBereich (Deutsch) → joint_stress-Vokabel (Englisch):
   knie        → knee
@@ -53,8 +52,7 @@ def _lade_exercises() -> list[dict]:
 
 def filtere_uebungen(klient: KlientenInput, level: int) -> dict[str, list[dict]]:
     """
-    Returns dict by pattern with filtered exercises.
-    Each exercise in list has an extra field 'verletzungs_flag' (list of affected body parts).
+    Returns dict by pattern with filtered exercises (verletzungssicher per Konstruktion).
     """
     alle = _lade_exercises()
     erlaubte_equipment = _EQUIPMENT_INCLUDES.get(klient.equipment.value, [klient.equipment.value])
@@ -86,16 +84,8 @@ def filtere_uebungen(klient: KlientenInput, level: int) -> dict[str, list[dict]]
         if verletzungs_keys and ex.get("impact_level") == "high":
             continue
 
-        # Verletzungs-Flag für Substitutions-Hinweise aufbauen
-        # TODO(mvp5-substitutions-b-removal): substitutions_b stirbt mit dem
-        # 3-Stufen-Filter (MVP-5); Ersatz kommt dann aus substitution_pool.
-        sub_b = ex.get("substitutions_b", {})
-        betroffene = [key for key in verletzungs_keys if key in sub_b]
-
-        ex_copy = dict(ex)
-        ex_copy["verletzungs_flag"] = betroffene
-
-        pattern = ex["pattern"]
-        result.setdefault(pattern, []).append(ex_copy)
+        # Kein verletzungs_flag mehr: nach dem 2-Stufen-Filter ist die Liste
+        # per Konstruktion verletzungssicher (substitutions_b abgelöst, MVP-5 Naht 3)
+        result.setdefault(ex["pattern"], []).append(ex)
 
     return result

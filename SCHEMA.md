@@ -21,7 +21,7 @@ _Stand: 2026-06-10 · abgenickt · verbindliche Referenz für MVP-2 (Migration +
 | `impact_level` | str | low · medium · high | Verletzungsfilter Stufe 2 (MVP-5) | ✅ getaggt (125/125) |
 | `pattern_tags` | list[str] | offen (deep_squat, lunge, jump, overhead_press, bench_heavy, …) | **0 Leser** — ehem. Stufe 3, Blocker entfernt (MVP-5 Naht 2) | **dormant behalten** (Coach-Wissen, entschieden 2026-06-12) |
 | `substitution_pool` | list[str] | exercise-IDs | Tausch (V2) + Verletzungs-Alternativen | **NEU** (= dedup(subs_a ∪ subs_b.values())) |
-| `substitutions_b` | obj | Verl-Region → ID | equipment_filter:102 (**jetzt**) | behalten bis MVP-5, dann raus |
+| ~~`substitutions_b`~~ | — | — | 0 Leser — verletzungs_flag durch 2-Stufen-Filter abgelöst | **entfernt (MVP-5 Naht 3)**, Werte im `substitution_pool` konserviert |
 | `substitutions_a` | list[str] | exercise-IDs | 0 Leser | entfällt (geht in `substitution_pool` auf) |
 | `coaching_cues` | list[str] | — | Claude, PDF | behalten |
 | `progressions_up` / `progressions_down` | list[str] | exercise-IDs | V1.5-Block-Übergang (noch kein aktiver Leser) | behalten |
@@ -55,8 +55,8 @@ knee · shoulder · spine · hip · elbow · wrist · neck · ankle
 NICHT „lower_back", NICHT deutsch. Begründung: Klient-Input kommt **deutsch mit Umlaut**
 vom Typeform (`VerletzungsBereich`: knie/schulter/wirbelsäule/hüfte/ellenbogen/handgelenk/
 hals/knöchel) und wird via `_VERLETZUNG_MAP` (equipment_filter.py) **ins Englische
-normalisiert, BEVOR** der Filter matcht. `substitutions_b` nutzt bereits exakt diese
-englischen Keys → englisch taggen, dann matcht Stufe 1 ohne weitere Übersetzung.
+normalisiert, BEVOR** der Filter matcht. (Das historische `substitutions_b` nutzte exakt
+diese Keys — Feld 2026-06-12 entfernt, Vokabel-Herkunft bleibt dieselbe.)
 Besonders: **`spine`** (nicht „lower_back", nicht „wirbelsäule").
 
 **`pattern` — Code-Schreibweise, exakt diese 9:**

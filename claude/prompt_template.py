@@ -250,10 +250,8 @@ def build_user_prompt(
             continue
         lines.append(f"\n{pattern.upper()}:")
         for u in uebungen:
-            # equipment_filter adds 'verletzungs_flag' (English keys) per exercise
-            flagged = u.get("verletzungs_flag", [])
-            verletzungs_hinweis = f" ⚠️ hat Substitution für: {', '.join(flagged)}" if flagged else ""
-            lines.append(f"  - {u['id']} (Level {u['skill_level']}){verletzungs_hinweis}")
+            # Liste ist nach dem 2-Stufen-Filter verletzungssicher — kein Flag nötig
+            lines.append(f"  - {u['id']} (Level {u['skill_level']})")
 
     # Output-Anweisung
     lines += [
