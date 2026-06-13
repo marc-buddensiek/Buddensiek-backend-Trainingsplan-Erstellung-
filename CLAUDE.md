@@ -87,20 +87,23 @@ Typeform-Webhook
 **Slot-Tiers:** compound > accessory > isolation > core
 - Pausenzeit: compound 180s, accessory 90s, isolation 60s, core 45s
 
-**Periodisierung (3:1-Wave):**
-| Woche | Typ | RPE-Multiplikator |
+**Periodisierung (3:1-Welle, intensitätsgeführt):** Sätze bleiben über W1–W3 ~flach auf der
+Tier-Cap-Unterkante (nur Intensivierung +1 Satz); die Progression läuft über die **RPE**, nicht
+das Volumen. Die RPE-Welle ankert in der Level-Spanne `rpe_low`–`rpe_high`:
+
+| Woche | Typ | RPE |
 |---|---|---|
-| 1 | akkumulation | 0.70 × s_high |
-| 2 | progression | 0.85 × s_high |
-| 3 | intensivierung | 1.00 × s_high |
-| 4 | deload | 0.50 × s_high |
+| 1 | akkumulation | `rpe_low` (Einstieg) |
+| 2 | progression | Mitte `(rpe_low+rpe_high)/2` |
+| 3 | intensivierung | `rpe_high` (Peak) |
+| 4 | deload | `rpe_low − 1` (Floor 4); Volumen = Cap-Unterkante (~67–75 % des Peaks) |
 
 **Ziel → Session-Format:**
 - `muskelaufbau` / `ausdauer` / `gesundheit` — klassisch Sätze × Wdh
 - `recomp` — Kraft-Block (Sätze × Wdh) + MetconBlock-Finisher (AMRAP/EMOM)
 - `fettabbau` — nur Conditioning: intervalle / amrap / zirkel / emom (rotierend)
 
-**Recovery-Modifier:** Stress ≥ 8 oder Schlaf ≤ 5h → RPE −1, Volumen −10%
+**Recovery-Modifier (nur RPE, NIE Volumen — schlechtester Fall gewinnt):** Stress ≥9 oder Schlaf ≤4h → RPE-Basis gedeckelt auf `rpe_low − 1` · Stress ≥8 oder Schlaf ≤5h → auf `rpe_low` · Stress <5 und Schlaf ≥7h → frei bis `rpe_high`. RPE-Boden 4. Deload ignoriert Recovery.
 
 **Verletzungen:** exercises.json `avoid_if_injury` und `substitutions_b` steuern Ausschluss und Ersatz.
 

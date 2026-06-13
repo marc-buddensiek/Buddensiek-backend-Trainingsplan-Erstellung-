@@ -35,12 +35,12 @@ Verliererseite im selben oder nächsten Commit angeglichen — kein Konflikt ble
 
 Drei Wochen ansteigende Belastung, dann eine Deload-Woche:
 
-| Woche | Typ | Belastung |
+| Woche | Typ | Belastung (intensitätsgeführt — Volumen ~flach, RPE trägt die Welle) |
 |---|---|---|
-| 1 | Akkumulation | niedrig (Einstieg, höheres Volumen / moderate Intensität) |
-| 2 | Progression | mittel |
-| 3 | Intensivierung | hoch (Peak des Blocks) |
-| 4 | **Deload** | reduziert auf **60 %** des Intensivierungs-Volumens, RPE abgesenkt |
+| 1 | Akkumulation | niedrig (Einstieg) — RPE am unteren Spannen-Ende (`rpe_low`); Volumen auf Cap-Unterkante |
+| 2 | Progression | mittel — RPE in der Spannen-Mitte; Volumen unverändert |
+| 3 | Intensivierung | hoch (Peak) — RPE am oberen Spannen-Ende (`rpe_high`); Volumen +1 Satz (Intensiv-Spike) |
+| 4 | **Deload** | RPE auf `rpe_low − 1` (Floor 4); Volumen = Cap-Unterkante (~67–75 % des Peak-Volumens) |
 
 **Entscheidungen im Detail:**
 
@@ -49,19 +49,26 @@ Drei Wochen ansteigende Belastung, dann eine Deload-Woche:
 - **Level-Differenzierung:** **Keine.** Das Periodisierungs-Modell ist für **alle Level (1–4)
   einheitlich**. (Level beeinflusst weiterhin Volumen/Intensität — das ist Thema 3 —, aber NICHT
   die Wellen-Struktur selbst.)
-- **Deload:** **Fix in Woche 4** (jeder Block endet mit Deload), Tiefe **60 %** des
-  Intensivierungs-Volumens.
-  → **Abweichung vom aktuellen Code:** dort sind es 50 % (`_PERIODISIERUNG_FAKTOR["deload"] = 0.50`).
-  Soll-Wert laut Spec ist **0.60**. Anpassung im Code = späterer Schritt, hier nur dokumentiert.
-- Gleiche Übungen über alle 4 Wochen, nur Sätze/RPE verändern sich (unverändert beibehalten).
+- **Deload:** **Fix in Woche 4** (jeder Block endet mit Deload). Realisierung unter Modell A:
+  Volumen = Tier-Cap-Unterkante (compound 3 von 4 = 75 %, accessory/iso/core 2 von 3 = 67 %
+  → **~67–75 % des Peak-Volumens**), RPE auf **`rpe_low − 1`** (Floor 4, eine Stufe unter der
+  leichtesten Ladewoche).
+  → **Konfliktregel-Anpassung (2026-06-13, Coach):** Die frühere Vorgabe „60 % des Volumens"
+  (alter Code-Faktor `_PERIODISIERUNG_FAKTOR["deload"] = 0.50`) ist unter Modell A gegenstandslos —
+  der Deload nutzt **keinen Prozent-Faktor**, sondern die Cap-Unterkante. Statt eines Volumen-Prozents
+  trägt jetzt das **Doppel aus Cap-Floor-Volumen + abgesenktem RPE** den Deload. Begründung: bewusst
+  leichter Deload für gemischte, verletzungsbelastete Population; kein %1RM verfügbar (PST ist
+  Bodyweight). **Ersetzt** die 0.60/0.50-Festlegung (toter Code-Faktor in MVP-6 Naht 2 entfernt).
+- Gleiche Übungen über alle 4 Wochen, nur Sätze (Intensiv-Spike) / RPE verändern sich.
 
 **Begründung:** 3:1-Welle gewählt, weil sie über alle Ziele/Level robust ist, im PDF leicht erklärbar und
 einen Erholungspuffer (Deload) fest eingebaut hat. Verworfen: *linear* (kein Deload → höheres
 Übertrainings-Risiko bei häufiger Block-Wiederholung), *undulierend/DUP* (für gemischte Population &
 Einsteiger zu komplex, schwer im statischen PDF zu kommunizieren), *Block-Periodisierung* (bräuchte
 gekettete Blöcke — zu viel Overhead für V1). Einheitlich statt level-abhängig: hält Logik und Tests
-einfach; das Level steuert ohnehin Volumen/Intensität, nicht die Wellen-Struktur. Deload bei 60 % statt
-50 %: 50 % war als zu starker Volumen-Einbruch empfunden.
+einfach; das Level steuert ohnehin Volumen/Intensität, nicht die Wellen-Struktur. Die früher als
+„60 % statt 50 %" diskutierte Deload-Tiefe ist unter Modell A in die Cap-Floor-Logik + RPE-Absenkung
+(`rpe_low − 1`) übergegangen — siehe Konfliktregel-Anpassung oben.
 
 **Noch offen / abhängig von späteren Themen:**
 - Exakte Volumen-/RPE-Faktoren der Wochen 1–3 → gehört zu **Thema 3 (Volumen & Intensität)**.

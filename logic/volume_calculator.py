@@ -28,12 +28,12 @@ from models import KlientenInput, Hauptziel
 
 WocheTyp = Literal["akkumulation", "progression", "intensivierung", "deload"]
 
+# Volumen-Ramp (nur _tier_saetze; die RPE-Welle ankert separat in _wave_rpe).
+# Deload nutzt die Cap-Unterkante direkt → kein deload-Eintrag (Prozent-Faktor war tot).
 _PERIODISIERUNG_FAKTOR: dict[str, float] = {
     "akkumulation":   0.70,
     "progression":    0.85,
     "intensivierung": 1.00,
-    # TODO(deload-faktor-tot): ungenutzt seit Naht 1 (Deload nutzt kein periodo) — im Tidy entfernen
-    "deload":         0.50,
 }
 
 _TIER_CAP: dict[str, tuple[int, int]] = {   # Satz-Cap je Tier, harte Obergrenze 4
