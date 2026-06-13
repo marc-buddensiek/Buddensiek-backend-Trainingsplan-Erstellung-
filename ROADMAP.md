@@ -64,7 +64,7 @@ gespeichert in Supabase. Noch kein Logging, keine Progression, keine App-Interak
 | 3 | **Volumen „Modell A"** (`volume_calculator.py` Neubau: Session-Kapazität × Tage, Satz-Caps, Level-Korridor; TJ-Faktor + Tier-Multiplikator raus) | 3–4 | 1 |
 | 4 | **Split-Logik je Ziel** (`split_selector.py` Neubau: FB/UL/UL-3×, Fettabbau Kraft+Conditioning, Longevity Kraft+Cardio/Athletik, Pflicht-Patterns, Pattern-Priorität bei Dauer-Konflikt, Push:Pull, Schwachstellen-Tag) | 5–7 | 1, 3 |
 | 5 | **Verletzungs- & Equipment-Filter** (3-Stufen: joint_stress + impact_level + pattern-Blocker) | 2 | 2 |
-| 6 | **Recovery-RPE + Periodisierung** (3:1-Welle, Deload 60 %, RPE-Deckel nach Stress/Schlaf, L1-RIR-Hilfe) | 1–2 | 3 |
+| 6 | **Recovery-RPE + Periodisierung** ✅ (3:1-Welle intensitätsgeführt: RPE ankert `rpe_low`→`rpe_high`; Deload = Cap-Unterkante + RPE `rpe_low−1`; RPE-Deckel nach Stress/Schlaf; L1-RIR-Hilfe) | 1–2 | 3 |
 | 7 | **Conditioning-Formate** (erweiterter Baukasten: Tabata/Density/For Time/Komplexe/Ladders + Athletik) + **Recomp-Finisher** | 3–4 | 4 |
 | 8 | **Plan-Assembler + PDF** an neue Formate/Ziele anpassen; **internes Coach-Kapazitäts-Flag** (`plan_metadata`) | 3–4 | 4, 6, 7 |
 | 9 | **Claude-Integration** finalisieren (Übungsauswahl + Cues, Prompt) | 2–3 | 5 |

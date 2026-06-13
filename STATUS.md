@@ -1,6 +1,6 @@
 # Projektstatus — Buddensiek Performance KI-Trainingsplan
 
-_Zuletzt aktualisiert: 2026-06-13 · git HEAD `db80429` (MVP-5 fertig) · Branch `mvp-1-data-foundation`_
+_Zuletzt aktualisiert: 2026-06-13 · git HEAD `798928d` (MVP-6 fertig) · Branch `mvp-1-data-foundation`_
 
 ---
 
@@ -9,8 +9,8 @@ _Zuletzt aktualisiert: 2026-06-13 · git HEAD `db80429` (MVP-5 fertig) · Branch
 Backend importiert sauber (`import main` ✅). Tests: **Logik 26/26 · Realism 7/7 · generate_test_plans 16/16** — komplett grün seit dem Testdaten-Hygiene-Commit (2026-06-12). Achtung Aussagekraft: grün = „läuft/crasht nicht", nicht fachliche Korrektheit (Spec-Validator-Harness = MVP-11).
 
 Spec ist komplett (alle 8 Themen entschieden). Umsetzung läuft entlang der ROADMAP (MVP-1…12).
-**Fertig:** MVP-1 + MVP-3-Kern + MVP-2-Kern (Migration `4960c26` + Tagging 125/125 `8980bd7`) + **MVP-4 Split-Logik** (`4ab789c`…`65306a8`) + **MVP-5 Verletzungsfilter** (2-Stufen, 4 Nähte, `d11ae4a`…`db80429`).
-**Offen / nächste große Brocken:** **MVP-9 Claude-Integration finalisieren** (Prompt auf neue Felder/Pflicht-Patterns), MVP-7 (Conditioning-Formate), MVP-6-Rest (Deload 60%, L1-RIR), MVP-3-Korridor-Deckel + MVP-8 Coach-Flag; MVP-2-Ausbau auf 250–300 als Coach-Daueraufgabe.
+**Fertig:** MVP-1 + MVP-3-Kern + MVP-2-Kern (Migration `4960c26` + Tagging 125/125 `8980bd7`) + **MVP-4 Split-Logik** (`4ab789c`…`65306a8`) + **MVP-5 Verletzungsfilter** (2-Stufen, 4 Nähte, `d11ae4a`…`db80429`) + **MVP-6 Recovery-RPE + Periodisierung** (3 Nähte, `82b3c1d`…`798928d`).
+**Offen / nächste große Brocken:** **MVP-7 (Conditioning-Formate)** als nächste Roadmap-Position (Vorbedingung: MVP-2-Conditioning-Übungen + `conditioning_geeignet`-Entscheid), danach MVP-8 Coach-Flag + MVP-3-Korridor-Deckel, dann **MVP-9 Claude-Integration finalisieren**; MVP-2-Ausbau auf 250–300 als Coach-Daueraufgabe.
 Pipeline (Typeform → … → PDF/Supabase) steht strukturell; Claude/Supabase nicht live.
 
 ## 2. Spec-Themen (COACHING_SPEC.md)
@@ -27,10 +27,10 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | 3 | Volumen „Modell A" | 🟡 Kern fertig, Korridor-Deckel offen | _TIER_CAP/_tier_saetze ✓, TJ-Faktor + Tier-Multiplikator raus ✓, Recovery-RPE ✓; **Level-Korridor-Deckel nicht gebaut** (war Naht 3, zurückgerollt) | 1 |
 | 4 | Split-Logik | ✅ fertig (`65306a8`) | Longevity-Pfad (Kraft+Zone-2, V1 ohne Athletik → `TODO(mvp7-athletik)`), Fettabbau Kraft+Conditioning, 5T Ganzkörper-Akzent (Schwachstellen-Fokus gestrichen → V1.5), 6T UL3×, Mobility + 20-Min-Sonderfall raus | 1, 3 |
 | 5 | Equipment/Verletzungs-Filter | ✅ fertig (`db80429`) | 2-Stufen-Filter (joint_stress + impact:high), Mehrfach-Verletzungen (Vereinigung), Leerer-Pool-Fallback (verwandtes Pattern, markiert), substitutions_b entfernt, _VERLETZUNG_BLOCKED/Stufe-3 raus (pattern_tags dormant). Systemische Kontraindikationen bewusst out-of-scope (→ Anamnese/V1.5) | 2 ✓ |
-| 6 | Recovery-RPE + Periodisierung | 🟡 teilweise | Recovery-RPE ✓, 3:1-Welle ✓; **Deload 60% nicht** (noch 0.50, tot/TODO); **L1-RIR (rpe_hinweis) nicht befüllt** | 3 |
+| 6 | Recovery-RPE + Periodisierung | ✅ fertig (`798928d`) | RPE-Welle ankert `rpe_low`→`rpe_high` (0.5-Raster, float; L1/L2 0.5er, L3/L4 1.0er), Deload `rpe_low−1` (Floor 4); toter 0.50-Faktor raus + Spec/CLAUDE.md-Reconcile (Cap-Floor ~67–75 %); L1-RIR `rpe_hinweis` befüllt (nur L1-Kraftsätze, additiv). Volumen bewusst flach (intensitätsgeführt) | 3 ✓ |
 | 7 | Conditioning-Formate + Recomp-Finisher | 🟡 teilweise | _METABOLIC_CONFIG nur amrap/emom/zirkel/intervalle; **tabata/density/for_time/komplexe/ladders + Athletik fehlen**; Recomp-Finisher ✓ | 4 |
 | 8 | Assembler/PDF + Coach-Flag | 🟡 Dauer-Kopplung ja, Flag/PDF nein | Modell-A-Satz/Dauer-Kopplung ✓; **Coach-Flag gebaut+verworfen** (plan_metadata=None); PDF rendert **noch** Klient-Realism-Warnung | 4, 6, 7 |
-| 9 | Claude-Integration | 🟡 läuft generisch, nicht finalisiert | prompt nutzt hauptziel.value generisch + Ersatz-Pattern-Marker (MVP-5); **nicht** auf neue Bibliotheks-Felder/Pflicht-Patterns aktualisiert | 5 ✓ |
+| 9 | Claude-Integration | 🟡 läuft generisch, nicht finalisiert | prompt nutzt hauptziel.value generisch + Ersatz-Pattern-Marker (MVP-5); **nicht** auf neue Bibliotheks-Felder/Pflicht-Patterns aktualisiert. Vorarbeit: Level-Gate als `<=` verifiziert (equipment_filter:73, vor Verletzungsfilter) | 5 ✓ |
 | 10 | Supabase | 🟡 Code da, nicht live | db.py: create_client + speichere_klient/_plan; nicht live | 1 |
 | 11 | Test-Harness | ❌ offen | run_tests Alt-Stil; neuer Spec-Validator-Harness nicht gebaut | 3–8 |
 | 12 | Deployment | ❌ offen | Railway/Typeform-live nicht erfolgt | alle |
@@ -42,20 +42,33 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | Marker | Stellen | → MVP |
 |---|---|---|
 | `TODO(short-session-pattern-drop)` | plan_assembler:366 | MVP-7/8 |
-| `TODO(longevity-volume)` | realism_validator:17/33/53, plan_assembler:44 | MVP-3/6 |
-| `TODO(deload-faktor-tot)` | volume_calculator:31 | MVP-3-Tidy |
+| `TODO(longevity-volume)` | realism_validator:17/33/53, plan_assembler:45 | MVP-3/6 |
 | `TODO(mvp7-athletik)` | split_selector:295 | MVP-7 |
 | `TODO(mvp7-formate)` | split_selector:378 | MVP-7 |
 | `TODO(v15-schwachstelle)` | models:95, split_selector:313 | V1.5 |
 | `TODO(mvp2-schema-stale)` | update_exercises:2 | MVP-2-Tooling |
 
-_Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt 2026-06-12: `TODO(testdata-tage-min3)`. Erledigt mit MVP-5: `TODO(mvp5-substitutions-b-removal)`._
+_Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt 2026-06-12: `TODO(testdata-tage-min3)`. Erledigt mit MVP-5: `TODO(mvp5-substitutions-b-removal)`. Erledigt mit MVP-6: `TODO(deload-faktor-tot)`._
 
 ## 5. Test-Stand (verifiziert)
 
-`python3 scripts/run_tests.py` → **Logik 26/26 · Realism 7/7**, `generate_test_plans.py` → **16/16 PDFs**. Hygiene-Commit 2026-06-12: 3× tage=2 auf tage=3 (Gym-2T-Duplikat → neuer Fall **Gym/6T/Fettabbau**, deckt den 4K+2C-Pfad), 4 generate_test_plans-Payloads auf longevity/tage=3 umgestellt. Grün heißt weiterhin nur „läuft" — fachliche Korrektheit prüft erst der MVP-11-Harness.
+`python3 scripts/run_tests.py` → **Logik 26/26 · Realism 7/7 · RPE-Wellen 5/5 · RIR-Hilfe 3/3**, `generate_test_plans.py` → **16/16 PDFs**. Hygiene-Commit 2026-06-12: 3× tage=2 auf tage=3 (Gym-2T-Duplikat → neuer Fall **Gym/6T/Fettabbau**, deckt den 4K+2C-Pfad), 4 generate_test_plans-Payloads auf longevity/tage=3 umgestellt. Grün heißt weiterhin nur „läuft" — fachliche Korrektheit prüft erst der MVP-11-Harness.
 
 ## 6. Session-Historie (neueste zuerst)
+
+**2026-06-13 — MVP-6 Recovery-RPE + Periodisierung komplett (`82b3c1d`…`798928d`, 3 Nähte)**
+- Vorbedingungs-Befund (gestoppt, Coach-Entscheid): Volumen-Welle war platt (W1==Floor==W4 je
+  Tier, nur Intensiv-Spike +1). Coach: **kein Bug** — Progression ist intensitätsgeführt, Volumen
+  bleibt flach, die Welle läuft über die RPE. Keine Cap-Range-Verbreiterung (out-of-scope/MVP-8).
+- Nähte aufsteigenden Risikos: (1) **RPE-Welle neu** — ankert `rpe_low`→`rpe_high`, 0.5-Raster,
+  Deload `rpe_low−1` (Floor 4). RPE `int→float` (Frontend-Vertrag; `:g`-Format **nur** im PDF,
+  JSON trägt rohen float). 5 neue Wellen-Asserts. (2) **toter 0.50-Deload-Faktor raus** +
+  COACHING_SPEC Thema 1/CLAUDE.md per Konfliktregel reconcilet (Cap-Floor ~67–75 % + RPE
+  `rpe_low−1` ersetzt die 60-%-Vorgabe, begründet). Kein Verhaltens-Change (Golden). (3)
+  **L1-RIR-Hilfe** `rpe_hinweis` — RIR-Klartext nur für Level-1-Kraftsätze, additiv (L1-Metcon +
+  Level ≥ 2 bleiben None). 3 neue Asserts.
+- Tests durchgehend 26/26 · 7/7 · 5/5 · 3/3 · 16/16. Doku-Nachzug: BACKLOG (MVP-6 fertig +
+  MVP-9-Vorarbeit inkl. verifizierter Level-Gate-`<=`-Diagnose), STATUS, ROADMAP-MVP-6-Zeile.
 
 **2026-06-13 — MVP-5 Verletzungsfilter komplett (`d11ae4a`…`db80429`, 4 Nähte)**
 - Nähte aufsteigenden Risikos: (1) 2-Stufen-Filter additiv (joint_stress-Vereinigung →
@@ -126,14 +139,15 @@ _Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt
 
 ## 7. Nächster Schritt
 
-Der gesamte Generator-Kernpfad (MVP-1→5) steht. Kandidaten für den nächsten Brocken:
-- **MVP-9 Claude-Integration finalisieren** — Prompt auf 4 Ziele, neue Bibliotheks-Felder und
-  Pflicht-Patterns je Session aktualisieren; Ersatz-Pattern-Marker steht schon. Macht die
-  Pipeline erstmals end-to-end „echt".
-- **MVP-7 Conditioning-Formate** — Format-Baukasten (Tabata/Density/…) + ~25 Athletik-/
-  Conditioning-Übungen; entsperrt `TODO(mvp7-athletik/formate)`.
-- **MVP-3-Korridor-Deckel + MVP-8 Coach-Flag** — jetzt baubar (Tagging ✓, Splits ✓), liefern
-  die Muskel-Aggregation/Kapazitäts-Karte.
-- **MVP-6-Rest** (Deload 60%, L1-RIR) als kleinerer Tidy-Block.
+Der Generator-Kernpfad MVP-1→6 steht. Reihenfolge bleibt strikt Roadmap (6→7→8→9):
+- **MVP-7 Conditioning-Formate** — nächste Roadmap-Position. **Vorbedingung (blockiert Start):**
+  MVP-2-Conditioning/Athletik-Übungen (~25 net-new, aktuell 0 echte conditioning-Staples) +
+  Design-Entscheid `conditioning_geeignet` (Tendenz Option B, BACKLOG MVP-7). Entsperrt
+  `TODO(mvp7-athletik/formate)`.
+- **MVP-8 Coach-Flag + MVP-3-Korridor-Deckel** — danach; jetzt baubar (Tagging ✓, Splits ✓),
+  liefern die Muskel-Aggregation/Kapazitäts-Karte.
+- **MVP-9 Claude-Integration finalisieren** — Prompt auf 4 Ziele / neue Bibliotheks-Felder /
+  Pflicht-Patterns; macht die Pipeline erstmals end-to-end „echt". Vorarbeit: Level-Gate als
+  `<=` verifiziert (BACKLOG MVP-9).
 **Coach-Daueraufgabe parallel:** MVP-2-Ausbau auf 250–300 (`validate_exercises.py` als Gate;
-Priorität: bodyweight push_vertical + carry, senkt MVP-5-Fallback-Häufigkeit).
+Priorität: bodyweight push_vertical + carry — senkt MVP-5-Fallback **und** ist MVP-7-Vorbedingung).
