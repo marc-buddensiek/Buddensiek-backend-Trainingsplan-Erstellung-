@@ -369,6 +369,74 @@ def main():
     print()
     print(f"  Ergebnis: {w_passed}/{w_passed+w_failed} bestanden")
 
+    # ── RIR-Hilfe-Tests (MVP-6 Naht 3, additiv) ───────────────────────────────
+    print()
+    print("=" * 65)
+    print("RIR-HILFE-TESTS (Level-1-rpe_hinweis, rein additiv)")
+    print("=" * 65)
+
+    from scripts.generate_test_plans import _auto_claude_output
+
+    _L1 = dict(kniebeugen=5, pushups=5, situps=5, burpees=3, plank=20, trainingsjahre_ref="keine")
+    _METABOLIC = {"zirkel", "amrap", "emom", "intervalle"}
+
+    def _plan(kwargs: dict):
+        klient   = parse_typeform_payload(make_payload(**kwargs))
+        level, _ = berechne_level(klient)
+        split    = waehle_split(klient, level)
+        ueb      = filtere_uebungen(klient, level)
+        plan     = assemble_plan(klient=klient, level=level, split=split,
+                                 claude_output=_auto_claude_output(split, ueb), block_nummer=1)
+        return level, plan.model_dump()
+
+    def _split_kind(plan: dict):
+        strength, metcon = [], []
+        for w in plan["wochen"]:
+            for s in w["sessions"]:
+                (metcon if s.get("session_typ") in _METABOLIC else strength).extend(s["haupt_uebungen"])
+        return strength, metcon
+
+    rir_passed = rir_failed = 0
+
+    def _rcheck(desc: str, fn):
+        nonlocal rir_passed, rir_failed
+        try:
+            fn()
+            print(f"  ✅ {desc}")
+            rir_passed += 1
+        except AssertionError as e:
+            print(f"  ❌ {desc}  →  {e}")
+            rir_failed += 1
+
+    def l1_kraft_hat_hinweis():
+        lvl, plan = _plan(dict(hauptziel_ref="muskelaufbau", tage=4, **_L1))
+        assert lvl == 1, f"Fixture nicht L1 (got L{lvl})"
+        st, _ = _split_kind(plan)
+        assert st, "keine Kraft-Übungen im Plan"
+        assert all(u["rpe_hinweis"] for u in st), "L1-Kraftsatz ohne rpe_hinweis"
+
+    def l1_metcon_bleibt_none():
+        lvl, plan = _plan(dict(hauptziel_ref="fettabbau", tage=4, **_L1))
+        assert lvl == 1, f"Fixture nicht L1 (got L{lvl})"
+        _, mc = _split_kind(plan)
+        assert mc, "kein Metcon-Anteil im Fettabbau-Plan"
+        assert all(u["rpe_hinweis"] is None for u in mc), "L1-Metcon-Satz trägt rpe_hinweis"
+
+    def l2_komplett_none():
+        lvl, plan = _plan(dict(hauptziel_ref="muskelaufbau", tage=4, session_min=60,
+                               kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80,
+                               trainingsjahre_ref="ein_bis_zwei"))
+        assert lvl == 2, f"Fixture nicht L2 (got L{lvl})"
+        st, mc = _split_kind(plan)
+        assert all(u["rpe_hinweis"] is None for u in st + mc), "L2 trägt rpe_hinweis"
+
+    _rcheck("L1-Kraftsätze tragen rpe_hinweis (RIR-Klartext)", l1_kraft_hat_hinweis)
+    _rcheck("L1-Metcon-Sätze bleiben None",                    l1_metcon_bleibt_none)
+    _rcheck("L2 komplett None (kein RIR-Hinweis)",             l2_komplett_none)
+
+    print()
+    print(f"  Ergebnis: {rir_passed}/{rir_passed+rir_failed} bestanden")
+
     if with_claude:
         import os
         if not os.environ.get("OPENROUTER_API_KEY"):

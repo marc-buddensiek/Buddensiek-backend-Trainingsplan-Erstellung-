@@ -19,6 +19,7 @@ from models import (
 )
 from logic.volume_calculator import (
     berechne_volumen, WARMUP_MIN, ZEIT_PRO_SATZ_KRAFT, ZEIT_PRO_SATZ_COND, finisher_min, tier_floor,
+    rir_hinweis,
 )
 
 
@@ -445,6 +446,9 @@ def assemble_plan(
                     u_rpe        = volumen.get(f"{slot_tier}_rpe", rpe)
                     u_pausenzeit = _pausenzeit(slot_tier, pattern)
 
+                # L1-RIR-Hilfe: nur Kraftsätze (nicht-metabolic); rir_hinweis liefert für Level ≥ 2 None
+                u_rpe_hinweis = None if is_metabolic else rir_hinweis(level, u_rpe)
+
                 haupt_uebungen.append(
                     HauptUebung(
                         reihenfolge=u.reihenfolge,
@@ -457,6 +461,7 @@ def assemble_plan(
                         pausenzeit_sek=u_pausenzeit,
                         coaching_cues=ex["coaching_cues"][:3],
                         notiz=u.notiz,
+                        rpe_hinweis=u_rpe_hinweis,
                     )
                 )
                 slot_tiers.append(slot_tier)

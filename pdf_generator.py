@@ -243,6 +243,13 @@ def build_pdf(plan_data: dict) -> FPDF:
                 pdf.set_text_color(*C_MID_GREY)
                 pdf.cell(0, 5, spec_str, new_x="LMARGIN", new_y="NEXT")
 
+                # L1-RIR-Hilfe (nur gesetzt für Level-1-Kraftsätze)
+                if u.get("rpe_hinweis"):
+                    pdf.set_font("Helvetica", "I", 6.5)
+                    pdf.set_text_color(*C_MID_GREY)
+                    pdf.set_x(20)
+                    pdf.multi_cell(176, 3.5, f"↳ RPE-Hilfe: {u['rpe_hinweis']}")
+
                 # Coaching Cues
                 cues = "  ·  ".join(u["coaching_cues"])
                 pdf.set_font("Helvetica", "I", 6.5)

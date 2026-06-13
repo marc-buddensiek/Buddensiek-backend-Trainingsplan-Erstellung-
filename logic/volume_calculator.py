@@ -90,6 +90,19 @@ def _recovery_rpe(lage: str, wave_rpe: float, rpe_low: int, rpe_high: int) -> fl
     return max(4, rpe)                       # RPE-Boden: nie < 4
 
 
+def rir_hinweis(level: int, rpe: float) -> str | None:
+    """RIR-Klartext für Level-1-Einsteiger (RPE ist für sie noch abstrakt).
+    RIR = 10 − RPE. Halb-RPE → Spanne (z.B. RPE 6.5 → '3-4'). Level ≥ 2: None."""
+    if level != 1:
+        return None
+    rir = 10 - rpe
+    if rir <= 0:
+        return "bis nahe ans Maximum (kaum Reserve)"
+    if rir == int(rir):
+        return f"noch ~{int(rir)} Wiederholungen in Reserve"
+    return f"noch ~{int(rir)}-{int(rir) + 1} Wiederholungen in Reserve"
+
+
 def _wave_rpe(woche_typ: WocheTyp, rpe_low: int, rpe_high: int) -> float:
     # Welle ankert unten, rampt über die volle Spanne (Intensität vor Volumen):
     #   Akku = rpe_low · Progression = Mitte · Intensivierung = rpe_high
