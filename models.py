@@ -208,7 +208,7 @@ class HauptUebung(BaseModel):
     name: str
     saetze: int = Field(..., ge=1, le=15)
     wdh: str = Field(..., description="z.B. '8-10' oder '45sec' oder '20m'")
-    rpe: int = Field(..., ge=1, le=10)
+    rpe: float = Field(..., ge=1, le=10, description="float für 0.5-RPE-Welle, z.B. 7.5 (Spec Thema 1)")
     tempo: str = Field(..., description="z.B. '2-1-1-0' oder 'halten'")
     pausenzeit_sek: int = Field(..., ge=0, le=300)
     coaching_cues: list[str] = Field(..., min_length=1, max_length=5)
@@ -277,7 +277,7 @@ class Woche(BaseModel):
     block_typ: Literal["akkumulation", "progression", "intensivierung", "deload"]
     volumen_stufe: Literal["sehr_niedrig", "niedrig", "mittel", "hoch"]
     ziel_saetze: int = Field(..., ge=1, le=20)
-    ziel_rpe: int = Field(..., ge=4, le=10)
+    ziel_rpe: float = Field(..., ge=4, le=10)
     sessions: list[Session]
 
 

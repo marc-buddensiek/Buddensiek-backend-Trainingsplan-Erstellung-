@@ -20,7 +20,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
 
 from parsers import parse_typeform_payload
 from logic.level_calculator import berechne_level
-from logic.volume_calculator import berechne_volumen
+from logic.volume_calculator import berechne_volumen, tier_floor, _RPE_RANGES
 from logic.split_selector import waehle_split
 from logic.equipment_filter import filtere_uebungen
 from logic.plan_assembler import assemble_plan
@@ -291,6 +291,83 @@ def main():
 
     print()
     print(f"  Ergebnis: {r_passed}/{r_passed+r_failed} bestanden")
+
+    # ── RPE-Wellen-Tests (MVP-6 Naht 1) ───────────────────────────────────────
+    print()
+    print("=" * 65)
+    print("RPE-WELLEN-TESTS (Periodisierung + Recovery-Deckel, Spec Thema 1/5)")
+    print("=" * 65)
+
+    def _klient(stress: int, schlaf: str):
+        return parse_typeform_payload(make_payload(stress=stress, schlaf=schlaf))
+
+    w_passed = w_failed = 0
+
+    def _check(desc: str, fn):
+        nonlocal w_passed, w_failed
+        try:
+            fn()
+            print(f"  ✅ {desc}")
+            w_passed += 1
+        except AssertionError as e:
+            print(f"  ❌ {desc}  →  {e}")
+            w_failed += 1
+
+    k_normal = _klient(5, "6")   # lage 'normal' → reine Wellen-Basis (kein Deckel)
+
+    def wave_per_level():
+        for lvl in (1, 2, 3, 4):
+            lo, hi = _RPE_RANGES[lvl]
+            akku   = berechne_volumen(k_normal, lvl, "akkumulation")["ziel_rpe"]
+            prog   = berechne_volumen(k_normal, lvl, "progression")["ziel_rpe"]
+            intens = berechne_volumen(k_normal, lvl, "intensivierung")["ziel_rpe"]
+            assert akku < prog < intens, f"L{lvl}: nicht streng monoton {akku}/{prog}/{intens}"
+            assert akku == float(lo) and intens == float(hi), f"L{lvl}: Anker {akku}/{intens} != {lo}/{hi}"
+            step = prog - akku
+            assert step in (0.5, 1.0), f"L{lvl}: Schritt {step} nicht in {{0.5,1.0}}"
+            assert (intens - prog) == step, f"L{lvl}: ungleiche Schritte"
+
+    def deload_rpe_und_saetze():
+        for lvl in (1, 2, 3, 4):
+            lo, _ = _RPE_RANGES[lvl]
+            d = berechne_volumen(k_normal, lvl, "deload")
+            assert d["ziel_rpe"] == max(4.0, lo - 1), f"L{lvl}: Deload-RPE {d['ziel_rpe']} != rpe_low-1"
+            for tier in ("compound", "accessory", "isolation", "core"):
+                assert d[f"{tier}_saetze"] == tier_floor(tier), f"L{lvl}/{tier}: Deload-Sätze != Cap-Floor"
+
+    def recovery_deckel():
+        # L2/Progression, Wellen-Basis 7.5; lo=7 hi=8
+        erwartet = {"sehr_hoch": 6.0, "hoch": 7.0, "gut": 8.0, "normal": 7.5}
+        lagen = {"sehr_hoch": (9, "5"), "hoch": (8, "6"), "gut": (3, "8"), "normal": (5, "6")}
+        for lage, (s, sl) in lagen.items():
+            got = berechne_volumen(_klient(s, sl), 2, "progression")["ziel_rpe"]
+            assert got == erwartet[lage], f"lage {lage}: {got} != {erwartet[lage]}"
+        # gute Recovery nie über rpe_high
+        assert berechne_volumen(_klient(3, "8"), 2, "progression")["ziel_rpe"] <= _RPE_RANGES[2][1]
+
+    def deload_ignoriert_recovery():
+        # sehr_hoch darf den Deload-RPE nicht weiter senken (Floor rpe_low-1 greift direkt)
+        for lvl in (1, 2, 3, 4):
+            lo, _ = _RPE_RANGES[lvl]
+            got = berechne_volumen(_klient(9, "4"), lvl, "deload")["ziel_rpe"]
+            assert got == max(4.0, lo - 1), f"L{lvl}: Deload+sehr_hoch {got} != {max(4.0, lo-1)}"
+
+    def kein_float_in_saetzen():
+        v = berechne_volumen(k_normal, 2, "progression")
+        for key, val in v.items():
+            if "saetze" in key:
+                assert isinstance(val, int), f"{key} ist {type(val).__name__}, erwartet int"
+            if "rpe" in key:
+                assert isinstance(val, float), f"{key} ist {type(val).__name__}, erwartet float"
+
+    _check("Welle streng monoton + Anker (rpe_low→rpe_high), Schritt 0.5/1.0", wave_per_level)
+    _check("Deload-RPE == rpe_low−1 (Floor 4) + Deload-Sätze == Cap-Floor",      deload_rpe_und_saetze)
+    _check("Recovery-Deckel über 4 Lagen, gute Recovery nie > rpe_high",         recovery_deckel)
+    _check("Deload ignoriert Recovery (Floor greift direkt)",                    deload_ignoriert_recovery)
+    _check("Kein Float in Sätzen, RPE ist float (Frontend-Vertrag)",            kein_float_in_saetzen)
+
+    print()
+    print(f"  Ergebnis: {w_passed}/{w_passed+w_failed} bestanden")
 
     if with_claude:
         import os

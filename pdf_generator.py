@@ -152,7 +152,7 @@ def build_pdf(plan_data: dict) -> FPDF:
         pdf.set_font("Helvetica", "B", 8)
         pdf.set_text_color(*C_DARK_GREY)
         pdf.set_fill_color(*C_LIGHT_GREY)
-        label = f"  Woche {woche['woche_nummer']} — {woche['block_typ'].upper()}  |  {woche['ziel_saetze']} Sätze × RPE {woche['ziel_rpe']}"
+        label = f"  Woche {woche['woche_nummer']} — {woche['block_typ'].upper()}  |  {woche['ziel_saetze']} Sätze × RPE {woche['ziel_rpe']:g}"
         pdf.cell(0, 6, label, fill=True, new_x="LMARGIN", new_y="NEXT")
         for s in woche["sessions"]:
             pdf.set_font("Helvetica", "", 8)
@@ -170,7 +170,7 @@ def build_pdf(plan_data: dict) -> FPDF:
 
         # Wochen-Header
         block_label = f"WOCHE {woche['woche_nummer']} — {woche['block_typ'].upper()}"
-        vol_label   = f"{woche['ziel_saetze']} Sätze  ·  RPE {woche['ziel_rpe']}  ·  {woche['volumen_stufe'].replace('_', ' ').title()}"
+        vol_label   = f"{woche['ziel_saetze']} Sätze  ·  RPE {woche['ziel_rpe']:g}  ·  {woche['volumen_stufe'].replace('_', ' ').title()}"
 
         pdf.ln(4)
         pdf.set_font("Helvetica", "B", 14)
@@ -224,13 +224,13 @@ def build_pdf(plan_data: dict) -> FPDF:
                         vol_str = f"{u['saetze']}× {u['wdh']}"
                     else:
                         vol_str = u["wdh"]
-                    spec_parts = [f"RPE {u['rpe']}"]
+                    spec_parts = [f"RPE {u['rpe']:g}"]
                     if u["pausenzeit_sek"] > 0:
                         spec_parts.append(f"Pause {u['pausenzeit_sek']}s")
                     spec_str = "  ·  ".join(spec_parts)
                 else:
                     vol_str  = f"{u['saetze']}×{u['wdh']}"
-                    spec_str = f"RPE {u['rpe']}  ·  Tempo {u['tempo']}  ·  Pause {u['pausenzeit_sek']}s"
+                    spec_str = f"RPE {u['rpe']:g}  ·  Tempo {u['tempo']}  ·  Pause {u['pausenzeit_sek']}s"
 
                 pdf.set_font("Helvetica", "B", 8)
                 pdf.set_text_color(*C_BLACK)
@@ -277,7 +277,7 @@ def build_pdf(plan_data: dict) -> FPDF:
                         vol_str = f"{u['saetze']}× {u['wdh']}"
                     else:
                         vol_str = u["wdh"]
-                    spec_parts = [f"RPE {u['rpe']}"]
+                    spec_parts = [f"RPE {u['rpe']:g}"]
                     if u["pausenzeit_sek"] > 0:
                         spec_parts.append(f"Pause {u['pausenzeit_sek']}s")
                     spec_str = "  ·  ".join(spec_parts)

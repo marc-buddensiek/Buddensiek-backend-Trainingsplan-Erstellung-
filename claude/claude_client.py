@@ -32,7 +32,7 @@ def generiere_uebungsauswahl(
     uebungen_gefiltert: dict[str, list[dict]],
     woche_typ: str,
     ziel_saetze: int,
-    ziel_rpe: int,
+    ziel_rpe: float,
 ) -> ClaudeOutput:
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 

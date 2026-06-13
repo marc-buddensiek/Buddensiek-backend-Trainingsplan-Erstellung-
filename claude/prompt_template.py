@@ -191,7 +191,7 @@ def build_user_prompt(
     uebungen_gefiltert: dict[str, list[dict]],  # {"squat": [...], "hinge": [...], ...}
     woche_typ: str,                 # "akkumulation" | "progression" | ...
     ziel_saetze: int,
-    ziel_rpe: int,
+    ziel_rpe: float,
 ) -> str:
 
     verletzungen_str = (
