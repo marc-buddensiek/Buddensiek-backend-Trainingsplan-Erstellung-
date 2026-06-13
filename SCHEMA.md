@@ -83,6 +83,10 @@ low · medium · high
   KB Swing, Thruster, Mountain Climber …): behalten ihr Kraft-Pattern + `conditioning_friendly: true`.
   Metcon-Selektor zieht „Pattern passt UND (pattern == conditioning ODER conditioning_friendly)".
 - **Dosierung kommt aus dem Slot** (Modell A), NICHT aus der Übung — kein eigenes Dosierungs-Feld.
+- **Komplexität/Sicherheit wie alle:** Conditioning-Übungen (A + B) tragen `skill_level` (1–4, Gating —
+  Klient bekommt bis zu seinem Level) und `impact_level` (Verletzungsfilter) wie jede andere Übung.
+  Progression läuft primär über Trainingsdichte (Format/Work:Rest/Dauer), nicht über Übungstausch
+  (COACHING_SPEC Thema 6).
 - **`athletik`** (Sprünge/Koordination, Longevity): Mechanismus **noch offen**, kommt mit MVP-7 Naht 5.
 - Die bestehenden 125 liegen alle in den 9 Kraft-Pattern; `conditioning_friendly` ist auf allen
   `false` migriert (dormant bis Naht 4).

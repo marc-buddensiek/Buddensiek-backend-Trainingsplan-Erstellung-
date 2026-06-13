@@ -358,41 +358,115 @@ Stress 8 / Schlaf 5 h. RPE-Floor 4, damit das Training ein Reiz bleibt.
 
 ### Format-Baukasten
 
-| Format | Definition |
-|---|---|
-| AMRAP | feste Zeit, so viele Runden wie möglich |
-| EMOM | jede Minute eine Aufgabe, Rest = Pause |
-| Zirkel | Übungen nacheinander ohne Pause, X Runden |
-| Intervalle | HIIT, Arbeit/Pause-Verhältnis (z.B. 30/20 s), Ziel 85–90 % HF-Max |
-| Tabata | 20 s on / 10 s off × 8 (4-Min-Format) |
-| Density Block | feste Wdh-Zahl in fester Zeit |
-| For Time | Liste von Übungen so schnell wie möglich |
-| Komplexe | mehrere Übungen mit einem Gerät am Stück ohne Absetzen (v.a. Kettlebell) |
-| Ladders | auf-/absteigende Wdh-Zahlen (v.a. Kettlebell) |
+| Format | Typ | Definition |
+|---|---|---|
+| AMRAP | Session-füllend | feste Zeit, so viele Runden wie möglich |
+| EMOM | Session-füllend | jede Minute eine Aufgabe, Rest = Pause (**festes Timing:** jede Minute) |
+| Zirkel (Circuit) | Session-füllend | Übungen nacheinander ohne Pause, X Runden |
+| Intervalle | Session-füllend | HIIT, Work:Rest aus dem **Level-Mapping** (s.u.), Ziel 85–90 % HF-Max |
+| Tabata | **Block** (4 Min) | 8 × 20 s on / 10 s off für **eine** Übung; Session = mehrere Blöcke (s.u.) |
+| Density Block | **Block** | feste Wdh-Zahl in fester Zeit (Blockdauer offen) |
+| Komplexe | offen¹ | mehrere Übungen mit **einer Last** am Stück ohne Absetzen — **nur KB/Hantel/LH, nie Bodyweight** (Lasthalten ist das definierende Merkmal) |
+| Ladders | **Block** | auf-/absteigende Wdh-Zahlen (v.a. Kettlebell; Schema offen) |
+| Mixed Intervals (nur L4) | Session-füllend | _Definition noch offen_ |
 
-→ ⚠️ Neu ggü. Code (heute nur amrap/emom/zirkel/intervalle): **Tabata, Density Block, For Time,
-Komplexe, Ladders** + **Athletik** (s.u.). Betrifft `MetconBlock.typ`-Enum + Format-Logik. Die genauen
-Zahlen je Format (Runden, Arbeit/Pause, RPE je Wochentyp) sind ein Umsetzungs-Detail (beim Coden setzen).
+¹ Komplexe: Session-füllend vs. Block noch offen → `TODO(mvp7-format-params)`.
+
+**For Time gestrichen (Konfliktregel, 2026-06-13):** offene Dauer („so schnell wie möglich") kollidiert
+mit der festen Session-Länge / Modell A (Dauer gewinnt). Ersetzt durch die gedeckelten Formate oben.
+Falls je reaktiviert: `max_time_cap` als **Pflichtparameter** nötig → Backlog (MVP-7), nicht V1.
+
+→ ⚠️ Neu ggü. Code (heute nur amrap/emom/zirkel/intervalle): **Tabata, Density Block, Komplexe, Ladders**
+(+ Mixed Intervals, offen) + **Athletik** (s.u.). Betrifft `MetconBlock.typ`-Enum + Format-Logik. **For Time
+gestrichen.** Die Format-Zahlen kommen aus dem **Level→Format-Mapping** (s.u.) bzw. sind offen markiert
+(`TODO(mvp7-format-params)`) — in Naht 2 vom Coach abfragen, **nicht raten**. Conditioning trägt **keine
+RPE** (s.u.).
+
+### Format-Dauer vs. Session-Dauer
+
+Die Formate teilen sich in zwei Bauarten — entscheidend, damit der Generator kein „Tabata 20 min" baut:
+
+- **Session-füllend** (ein Block = ganze Session): AMRAP, EMOM, Mixed Intervals, Intervalle, Zirkel/Circuit.
+  Dauer = **Level-Dauer** aus dem Mapping (z.B. 20-Min-AMRAP).
+- **Block-Formate** (mehrere Blöcke füllen die Session): Tabata, Density, Ladders. Der Generator **stapelt
+  Blöcke**, bis die Level-Ziel-Dauer erreicht ist.
+
+**Tabata — vollständig festgelegt:** Ein Tabata-**Block** = 8 Runden 20 s on / 10 s off = **4 Min für EINE
+Übung**. Eine Tabata-**Session** = mehrere Blöcke mit **je unterschiedlicher Übung**, dazwischen **60 s
+Pause**. Blockzahl richtet sich nach der Level-Dauer: **L1 ~2–3 · L3 ~4 · L4 ~5–6 Blöcke**. _Beispiel L1,
+3 Blöcke ≈ 12 min:_ Block 1 Squats · Block 2 Push-ups · Block 3 Mountain Climbers (je 8 × 20/10, 60 s Pause
+zwischen den Blöcken).
+
+**Density und Ladders** sind ebenfalls Block-Formate, aber **Blockdauer / Ladder-Schema noch offen**
+(`TODO(mvp7-format-params)`, in Naht 2 vom Coach abfragen). **Nur Tabata** ist aktuell vollständig
+spezifiziert.
+
+### Conditioning-Mechanismus (Schema — gebaut MVP-7 Naht 1)
+
+Wie „conditioning-tauglich" markiert ist (Hybrid, Details in SCHEMA.md):
+- **Gruppe A** — reine Conditioning-Geräte/Bewegungen ohne Kraft-Pattern (Air Bike, Battle Ropes, Row/Ski
+  Erg, Jump Rope, Sled): `pattern: "conditioning"`, **keine** muscle_groups. Laufen ausschließlich in
+  Metcon-Formaten; der Kraft-Selektor matcht nur die 9 Kraft-Pattern → ignoriert sie strukturell.
+- **Gruppe B** — Übungen mit echtem Kraft-Pattern, die auch metcon-tauglich sind (Burpee, KB Swing,
+  Thruster, Mountain Climber …): behalten ihr Kraft-Pattern + `conditioning_friendly: true`.
+- **Metcon-Selektor** zieht: „Pattern == `conditioning` **ODER** `conditioning_friendly` == true".
+- **Dosierung kommt aus dem Slot** (Modell A), nicht aus der Übung — dieselbe Übung im Kraft-Slot bekommt
+  Kraft-Dosierung, im Metcon-Block die Metcon-Parameter. Kein eigenes Dosierungs-Feld.
+
+### Komplexität, Progression & Level→Format-Mapping
+
+- **Komplexität läuft über `skill_level` (1–4)** — Conditioning-Übungen werden beim Anlegen wie alle
+  anderen mit `skill_level` getaggt (z.B. Mountain Climber 1 · KB Swing 2 · Burpee 3 · Barbell Thruster 4).
+  Gating unverändert: der Klient bekommt Übungen **bis zu seinem Level** (L4 inkl. aller einfacheren).
+  `impact_level` (low/med/high) bleibt für den Verletzungsfilter.
+- **Progression primär über Trainingsdichte, nicht über Übungstausch:** dieselbe Übung kommt über mehrere
+  Level vor; der Unterschied entsteht über **Format, Work:Rest und Dauer**.
+
+**Level → Format / Work:Rest / Dauer:**
+
+| Level | Formate | Work:Rest | Dauer |
+|---|---|---|---|
+| L1 | Intervall, einfacher Circuit | 20:40 oder 30:30 | 8–12 min |
+| L2 | Intervall, EMOM, AMRAP, Density, Ladders | 40:20 | 12–18 min |
+| L3 | EMOM, AMRAP, Circuit, Density, Ladders, Tabata | 40:20 oder 45:15 | 15–22 min |
+| L4 | EMOM, AMRAP, Mixed Intervals, Tabata, Density, Komplexe | 45:15, 50:10 oder 60:15 | 20–30 min |
+
+- **Format-eigenes Timing schlägt Level-Work:Rest.** Manche Formate bringen festes Timing mit: **Tabata =
+  20:10 × 8** (fix), **EMOM = jede Minute** (fix) — diese überschreiben die Level-Work:Rest. Nur die
+  Work:Rest-Formate (Intervall, Circuit) nehmen die Werte aus dem Mapping. **Der Generator darf kein Tabata
+  mit Level-Work:Rest bauen.**
+- **Komplexe nur mit Last** (KB/Hantel/LH), nie Bodyweight — Lasthalten ist das definierende Merkmal.
+- **Conditioning trägt KEINE RPE.** Die Intensität ergibt sich aus **Format + Work:Rest + Dauer**. Die
+  RPE-Welle und `rpe_hinweis` (Thema 1/3) gelten ausschließlich für **Kraftsätze**, nie für
+  Metcon/Conditioning-Blöcke (in MVP-6 bereits so gebaut: `rpe_hinweis` nur nicht-metabolic).
+
+**Noch offen — `TODO(mvp7-format-params)` (in Naht 2 vom Coach abfragen, NICHT raten):**
+- Definition von **Mixed Intervals** (L4).
+- **EMOM**: Wiederholungen pro Minute übungsabhängig oder fix?
+- **Density**: Blockdauer.
+- **Ladders**: Schema (auf-/absteigend).
+- **Komplexe**: Session-füllend oder Block-Format?
 
 ### Recomp-Finisher
 
 Jede Recomp-Kraftsession endet mit einem **globalen Bodyweight-Conditioning-Finisher**:
-- **Dauer:** 5–10 Min · **RPE:** 6–7
+- **Dauer:** 5–10 Min · **Intensität:** moderat (kein Maximaleinsatz) — über Format/Dauer, **keine RPE**
+  (Conditioning trägt keine RPE, Konfliktregel 2026-06-13; früher „RPE 6–7").
 - **Equipment:** ausschließlich Bodyweight (unabhängig vom Setup des Klienten)
 - **Übungsauswahl:** globale Bewegungen, **keine** isolierten Hauptmuskelgruppen der Session.
   Geeignet: Burpees, Mountain Climbers, Jumping Jacks, Squat Jumps, Push-Ups, High Knees, Bear Crawl,
   Plank Variations.
-- **Formate (KI wählt automatisch):** AMRAP, EMOM, Tabata, Density Block, For Time, Zirkel.
+- **Formate (KI wählt automatisch):** AMRAP, EMOM, Tabata, Density Block, Zirkel.
 - **Abwechslung:** nicht zweimal hintereinander dasselbe Format im 4-Wochen-Block.
 
 ### Fettabbau — Conditioning-Tage
 
-- **Rotierend** über die verfügbaren Formate (Intervalle, AMRAP, Zirkel, EMOM, Density Block, For Time,
-  Tabata) der Reihe nach — **jeder Conditioning-Tag im 4-Wochen-Block ein anderes Format.**
+- **Rotierend** über die verfügbaren Formate (Intervalle, AMRAP, Zirkel, EMOM, Density Block, Tabata,
+  Ladders) der Reihe nach — **jeder Conditioning-Tag im 4-Wochen-Block ein anderes Format.**
 - Bei **2 Conditioning-Tagen/Woche** (6-Tage-Pfad): in derselben Woche zwei unterschiedliche Formate.
 - **Equipment-spezifische Bevorzugung:**
   - Kettlebell → EMOM, Komplexe, Density, Ladders
-  - Bodyweight → AMRAP, Tabata, For Time, Zirkel
+  - Bodyweight → AMRAP, Tabata, Zirkel
   - Gym / Home-Gym → alle Formate möglich
 
 > **V1-Stand (2026-06-11):** Conditioning-Tage nutzen die 4 bestehenden Formate
@@ -417,8 +491,8 @@ Rotieren zwischen zwei Typen:
 **Begründung:** Breiter Format-Baukasten statt weniger Formate, weil Abwechslung den Reiz frisch hält und
 verschiedene Energiesysteme trifft. Rotation (jeder Conditioning-Tag ein anderes Format, nie 2× hintereinander
 dasselbe im Block) gegen Monotonie und Anpassung. Equipment-spezifische Bevorzugung, weil z.B. Komplexe/
-Ladders an die Kettlebell gehören, Tabata/For Time eher Bodyweight. Recomp-Finisher als globales Bodyweight-
-Conditioning (5–10 Min, RPE 6–7), bewusst NICHT die Hauptmuskeln der Session (sonst Ermüdung der Arbeitssätze)
+Ladders an die Kettlebell gehören, Tabata eher Bodyweight. Recomp-Finisher als globales Bodyweight-
+Conditioning (5–10 Min, moderate Intensität ohne RPE), bewusst NICHT die Hauptmuskeln der Session (sonst Ermüdung der Arbeitssätze)
 und equipment-unabhängig (immer machbar). Fettabbau jetzt Kraft + Conditioning statt 100 % Conditioning, weil
 reines Conditioning im Defizit Muskelmasse kostet — der Kraftreiz erhält Muskel. Longevity Zone-2 + Athletik
 alternierend, weil Generalist = Ausdauer UND Athletik (Sprünge/Koordination), nicht nur lockeres Cardio.

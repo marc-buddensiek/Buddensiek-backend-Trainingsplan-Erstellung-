@@ -45,6 +45,19 @@ _Stand: 2026-06-13 · git HEAD `798928d` (MVP-6 fertig)_
 
 ## MVP-7 — Conditioning-Formate
 
+**Stand 2026-06-13 — Mechanismus ENTSCHIEDEN + Schema gebaut (Naht 1, `9536905`):** Hybrid statt der
+unten offenen Designfrage — Gruppe A `pattern:"conditioning"`, Gruppe B `conditioning_friendly:true` (bool).
+Methodik in COACHING_SPEC Thema 6 reconcilet (2026-06-13). Die „Option A/B"-Notiz unten ist damit **erledigt**.
+
+**For Time gestrichen (Spec Thema 6):** offene Dauer („so schnell wie möglich") kollidiert mit der festen
+Session-Länge / Modell A. Falls je reaktiviert: `max_time_cap` als **Pflichtparameter** (Session-Dauer-Deckel)
+nötig — nicht V1.
+
+**Offene Format-Parameter `TODO(mvp7-format-params)` (in Naht 2 vom Coach abfragen, NICHT raten):** Mixed
+Intervals (L4) Definition · EMOM Wdh/Min fix oder übungsabhängig · Density Blockdauer · Ladders Schema
+(auf-/absteigend) · Komplexe Session-füllend oder Block-Format. **Nur Tabata** ist vollständig spezifiziert
+(4-Min-Block, Session = mehrere Blöcke verschiedener Übungen + 60 s Pause, Blockzahl nach Level-Dauer).
+
 - **Metcon-Selektor nutzt Kraft-Pattern** (`_METCON_PATTERNS = ["squat","hinge","push_horizontal","core"]`,
   `plan_assembler:365`) statt echter Conditioning-Bewegungen (Spec Thema 6: Burpees, Mountain
   Climbers, …). · _Hängt ab von:_ MVP-2 (conditioning/athletik-Übungen).
