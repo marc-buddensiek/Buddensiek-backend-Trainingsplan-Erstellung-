@@ -1,6 +1,6 @@
 # Backlog — vertagte Arbeit (nach MVP-Paket)
 
-_Stand: 2026-06-11 · git HEAD `65306a8`_
+_Stand: 2026-06-13 · git HEAD `798928d` (MVP-6 fertig)_
 
 > Bewusst aufgeschobene Arbeit, gruppiert nach MVP-Paket. Jeder Eintrag:
 > Beschreibung · warum vertagt · Code-Marker (Datei:Zeile, Grep-verifiziert) · Abhängigkeit.
@@ -14,9 +14,10 @@ _Stand: 2026-06-11 · git HEAD `65306a8`_
   (Commit `19f8d5f`, kein Konsument mehr). Obergrenze je Level/Ziel neu bauen
   (Sätze/Muskel/Woche deckeln). · _Vertagt:_ braucht echte Muskel-Aggregation (MVP-4-Splits
   + saubere Tags MVP-2). · _Marker:_ — (Tabelle entfernt). · _Hängt ab von:_ MVP-2, MVP-4.
-- **Deload-Faktor:** Code `0.50`, Spec Thema 1 will `0.60`. Unter Modell A nutzt Deload die
-  Cap-Unterkante (kein Prozent-Faktor) → Eintrag ist tot. · _Marker:_ `logic/volume_calculator.py:31`
-  `TODO(deload-faktor-tot)`. · _Hängt ab von:_ MVP-3-Tidy.
+- ~~**Deload-Faktor** `0.50` vs Spec `0.60`~~ **erledigt (MVP-6 Naht 2, `7031b42`):** toter
+  Faktor + `TODO(deload-faktor-tot)` aus `_PERIODISIERUNG_FAKTOR` entfernt; Spec Thema 1 +
+  CLAUDE.md per Konfliktregel auf den Modell-A-Deload reconcilet (Cap-Unterkante ~67–75 % des
+  Peaks + RPE `rpe_low−1`, Floor 4). Kein Verhaltens-Change (Golden bestätigt).
 - ~~Test-Altlast tage=2 + tote Refs~~ **erledigt (2026-06-12, Hygiene-Commit):** run_tests +
   generate_test_plans komplett grün (26/26 · 7/7 · 16/16); Gym-2T-Duplikat zu Gym/6T/Fettabbau
   umgewidmet (deckt 4K+2C-Pfad).
@@ -85,6 +86,30 @@ Pattern-Automatismus.
 - ~~Tag-Bug Single Leg RDL~~ **widerlegt (2026-06-11, Git-verifiziert):** `gym_single_leg_rdl_db`
   hat seit Initial-Commit `hamstrings,glutes` primary — identisch mit allen 5 RDL-Varianten.
   Der Befund aus der Coach-Flag-Session war eine Fehlbeobachtung; kein Datenfix nötig.
+
+## MVP-6 — Recovery-RPE + Periodisierung ✅ umgesetzt (2026-06-13, `82b3c1d`…`798928d`)
+
+- 3 Nähte aufsteigenden Risikos: (1) **RPE-Welle neu** — ankert `rpe_low`→`rpe_high`, 0.5-Raster,
+  Deload `rpe_low−1` (Floor 4); RPE int→float (Frontend-Vertrag, `:g` nur im PDF). (2) **toter
+  Deload-Faktor raus** + Spec/Doc-Reconcile (Konfliktregel). (3) **L1-RIR-Hilfe** (`rpe_hinweis`,
+  rein additiv, nur Level-1-Kraftsätze). Details STATUS Abschnitt 6.
+- **Coach-Befund verriegelt:** Volumen bleibt bewusst flach (intensitätsgeführt) — die Welle läuft
+  über die RPE, nicht über die Sätze. Keine Cap-Range-Verbreiterung (als out-of-scope/MVP-8 eingestuft).
+- Tests: Logik 26/26 · Realism 7/7 · **Wellen 5/5** · **RIR 3/3** · generate_test_plans 16/16.
+
+## MVP-9 — Claude-Integration (Vorarbeit / Review)
+
+- **Output-Review (NACH MVP-9, an echten PDFs):** Sind die Pläne in der Gesamt-Schwierigkeit zu
+  leicht / Klient unterfordert? Stellschrauben falls ja: RPE-Spannen-Höhe (Thema 3),
+  Volumen-Korridor/Caps (MVP-3), oder Skill-Level-Übungsauswahl (MVP-9). **Erst an der Matrix
+  Ziel × Level × 20–50 Min × 2–5 Tage beurteilen — kein Vorab-Raten.** · Nicht MVP-6-Scope.
+- **Level-Gate-Semantik (MVP-9-Vorarbeit) — Diagnose erledigt (2026-06-13, read-only):** Frage war
+  „Exakt-Match `==` oder Obergrenze `<=`?". **Befund:** Der Gate ist bereits `<=` —
+  `equipment_filter.py:73` `if ex["skill_level"] > level: continue` behält alle Übungen mit
+  `skill_level ≤ level`. (Die im Prompt genannte `:91` ist der Fallback-Aufruf, nicht der Gate.)
+  **Reihenfolge:** Level-Check (`:73`) läuft VOR dem Verletzungsfilter (Stufe 1 `:81`, Stufe 2 `:84`).
+  **Kein Fix nötig.** · _Offene Teilfrage für MVP-9:_ Soll es eine Unterkante geben (kein
+  L1-Trivialkram für L4-Athlet)? Aktuell **kein Floor** — L4 sieht L1–L4. Bei MVP-9 entscheiden.
 
 ## V1.5 — Ideen (aus MVP-4 vertagt)
 
