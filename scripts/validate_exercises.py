@@ -2,9 +2,11 @@
 Dauervalidierung für data/exercises.json (Schema + Tagging-Fortschritt, MVP-2+).
 
 Prüft gegen SCHEMA.md:
-  - Vokabular: pattern (9), joint_stress (8, englisch), impact_level (low/medium/high
-    oder null = ungetaggt), equipment (6 Pfade), skill_level 1-4
-  - Struktur: muscle_groups nested {primary, secondary}, Pflichtfelder, eindeutige IDs
+  - Vokabular: pattern (10, inkl. "conditioning" für reine Conditioning-Geräte/Gruppe A),
+    joint_stress (8, englisch), impact_level (low/medium/high oder null = ungetaggt),
+    equipment (6 Pfade), skill_level 1-4
+  - Struktur: muscle_groups nested {primary, secondary} (Gruppe A: leere Listen),
+    conditioning_friendly (bool), Pflichtfelder, eindeutige IDs
   - ID-Referenzen: substitution_pool, progressions_up/down
   - substitutions_b darf nicht mehr existieren (entfernt MVP-5 Naht 3)
   - Tagging-Konsistenz: joint_stress gesetzt aber impact_level null = halb getaggt → Fehler
@@ -24,6 +26,7 @@ DATA = pathlib.Path(__file__).parent.parent / "data" / "exercises.json"
 PATTERNS = {
     "squat", "hinge", "single_leg", "push_horizontal", "push_vertical",
     "pull_horizontal", "pull_vertical", "core", "carry",
+    "conditioning",   # Gruppe A: reine Conditioning-Geräte/Bewegungen, kein Kraft-Pattern (MVP-7)
 }
 JOINTS = {"knee", "shoulder", "spine", "hip", "elbow", "wrist", "neck", "ankle"}
 IMPACT = {"low", "medium", "high"}
@@ -32,7 +35,7 @@ PFLICHTFELDER = [
     "id", "name", "equipment", "pattern", "muscle_groups", "skill_level",
     "coaching_cues", "substitution_pool",
     "progressions_up", "progressions_down", "pattern_tags",
-    "joint_stress", "impact_level", "equipment_requires",
+    "joint_stress", "impact_level", "equipment_requires", "conditioning_friendly",
 ]
 
 
@@ -86,6 +89,14 @@ def main() -> int:
 
         if not isinstance(ex.get("equipment_requires"), list):
             fehler.append(f"{eid}: equipment_requires keine Liste")
+
+        if not isinstance(ex.get("conditioning_friendly"), bool):
+            fehler.append(f"{eid}: conditioning_friendly nicht bool: {ex.get('conditioning_friendly')!r}")
+        # Gruppe A: pattern "conditioning" → keine Kraft-muscle_groups (leere primary-Liste)
+        if ex.get("pattern") == "conditioning":
+            mg = ex.get("muscle_groups", {})
+            if isinstance(mg, dict) and mg.get("primary"):
+                fehler.append(f"{eid}: pattern conditioning, aber muscle_groups.primary nicht leer")
 
         if "substitutions_b" in ex:
             fehler.append(f"{eid}: substitutions_b sollte entfernt sein (MVP-5 Naht 3)")

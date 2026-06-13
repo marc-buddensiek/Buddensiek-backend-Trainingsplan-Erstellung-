@@ -46,7 +46,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_front_squat",
@@ -95,7 +96,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_box_squat",
@@ -137,7 +139,8 @@
         "spine"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_goblet_squat_db",
@@ -184,7 +187,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_goblet_squat",
@@ -230,7 +234,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_hack_squat_machine",
@@ -272,7 +277,8 @@
         "knee"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_leg_press_machine",
@@ -308,7 +314,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_squat",
@@ -355,7 +362,8 @@
       ],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_pause_squat",
@@ -404,7 +412,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_wall_sit",
@@ -444,7 +453,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_cossack_squat",
@@ -493,7 +503,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_atg_split_squat",
@@ -545,7 +556,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_conventional_deadlift",
@@ -595,7 +607,8 @@
         "knee"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_trap_bar_deadlift",
@@ -642,7 +655,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_rdl_barbell",
@@ -686,7 +700,8 @@
         "spine"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_rdl_db",
@@ -726,7 +741,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_hip_thrust_barbell",
@@ -764,7 +780,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_hip_thrust_machine",
@@ -801,7 +818,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_deadlift",
@@ -841,7 +859,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_swing_two_hand",
@@ -885,7 +904,8 @@
         "spine"
       ],
       "impact_level": "medium",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_swing_one_hand",
@@ -930,7 +950,8 @@
         "shoulder"
       ],
       "impact_level": "medium",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_snatch",
@@ -973,7 +994,8 @@
         "spine"
       ],
       "impact_level": "medium",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_clean",
@@ -1018,7 +1040,8 @@
         "spine"
       ],
       "impact_level": "medium",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_glute_bridge",
@@ -1060,7 +1083,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_single_leg_rdl",
@@ -1106,7 +1130,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_bench_press",
@@ -1152,7 +1177,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_db_bench_press",
@@ -1195,7 +1221,8 @@
         "elbow"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_incline_db_press",
@@ -1238,7 +1265,8 @@
         "elbow"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_db_floor_press",
@@ -1279,7 +1307,8 @@
         "elbow"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_machine_chest_press",
@@ -1318,7 +1347,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_cable_fly",
@@ -1355,7 +1385,8 @@
         "shoulder"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_pushup",
@@ -1405,7 +1436,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_archer_pushup",
@@ -1452,7 +1484,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_ohp_barbell",
@@ -1498,7 +1531,8 @@
         "spine"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_db_shoulder_press",
@@ -1543,7 +1577,8 @@
         "elbow"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_landmine_ohp",
@@ -1581,7 +1616,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_cable_lateral_raise",
@@ -1616,7 +1652,8 @@
         "shoulder"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_db_lateral_raise",
@@ -1652,7 +1689,8 @@
         "shoulder"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_face_pull",
@@ -1687,7 +1725,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_cuban_press",
@@ -1723,7 +1762,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_single_press",
@@ -1770,7 +1810,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_bottoms_up_press",
@@ -1814,7 +1855,8 @@
         "elbow"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_pullup",
@@ -1862,7 +1904,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_chinup",
@@ -1910,7 +1953,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_lat_pulldown",
@@ -1949,7 +1993,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_cable_pullover",
@@ -1983,7 +2028,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_ring_row",
@@ -2024,7 +2070,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_barbell_row",
@@ -2065,7 +2112,8 @@
         "elbow"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_db_row",
@@ -2106,7 +2154,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_seated_cable_row",
@@ -2146,7 +2195,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_band_pull_apart",
@@ -2183,7 +2233,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_row",
@@ -2223,7 +2274,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_renegade_row",
@@ -2267,7 +2319,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_bulgarian_split_squat_db",
@@ -2314,7 +2367,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_bulgarian_split_squat",
@@ -2365,7 +2419,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_reverse_lunge",
@@ -2412,7 +2467,8 @@
       ],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_reverse_lunge",
@@ -2454,7 +2510,8 @@
       ],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_bulgarian_split_squat",
@@ -2500,7 +2557,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_step_up_db",
@@ -2540,7 +2598,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_single_leg_rdl_db",
@@ -2580,7 +2639,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_pistol_squat",
@@ -2627,7 +2687,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_farmers_carry_db",
@@ -2671,7 +2732,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_suitcase_carry_db",
@@ -2715,7 +2777,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_overhead_carry_db",
@@ -2760,7 +2823,8 @@
         "elbow"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_farmers_carry",
@@ -2802,7 +2866,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_rack_walk",
@@ -2845,7 +2910,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_bottoms_up_carry",
@@ -2888,7 +2954,8 @@
         "elbow"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_plank",
@@ -2935,7 +3002,8 @@
       ],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_dead_bug",
@@ -2978,7 +3046,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_pallof_press",
@@ -3016,7 +3085,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_ab_wheel",
@@ -3063,7 +3133,8 @@
         "shoulder"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_cable_crunch",
@@ -3105,7 +3176,8 @@
         "neck"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_turkish_getup",
@@ -3150,7 +3222,8 @@
         "spine"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_windmill",
@@ -3194,7 +3267,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_hollow_body",
@@ -3240,7 +3314,8 @@
         "spine"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_copenhagen_plank",
@@ -3282,7 +3357,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_reverse_hyper",
@@ -3318,7 +3394,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_mcgill_bird_dog",
@@ -3360,7 +3437,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_mcgill_curl_up",
@@ -3398,7 +3476,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_tibialis_raise",
@@ -3436,7 +3515,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_paused_back_squat",
@@ -3485,7 +3565,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_tempo_squat",
@@ -3532,7 +3613,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_jump_squat",
@@ -3584,7 +3666,8 @@
         "ankle"
       ],
       "impact_level": "high",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_front_squat",
@@ -3630,7 +3713,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_assisted_pistol_squat",
@@ -3681,7 +3765,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_single_leg_glute_bridge",
@@ -3725,7 +3810,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_45_degree_back_extension",
@@ -3765,7 +3851,8 @@
         "spine"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_good_morning",
@@ -3811,7 +3898,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_glute_ham_raise",
@@ -3854,7 +3942,8 @@
         "knee"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_nordic_curl",
@@ -3895,7 +3984,8 @@
         "knee"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_single_leg_hip_thrust_db",
@@ -3935,7 +4025,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_incline_pushup",
@@ -3977,7 +4068,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_wide_pushup",
@@ -4028,7 +4120,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_diamond_pushup",
@@ -4078,7 +4171,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_decline_pushup",
@@ -4129,7 +4223,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_one_arm_pushup_negatives",
@@ -4179,7 +4274,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_one_arm_pushup",
@@ -4224,7 +4320,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_floor_press",
@@ -4267,7 +4364,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_weighted_dips",
@@ -4311,7 +4409,8 @@
         "elbow"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_close_grip_bench",
@@ -4355,7 +4454,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_pike_pushup",
@@ -4405,7 +4505,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_pike_pushup_elevated",
@@ -4454,7 +4555,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_wall_handstand_pushup",
@@ -4502,7 +4604,8 @@
         "elbow"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_push_press",
@@ -4546,7 +4649,8 @@
         "elbow"
       ],
       "impact_level": "medium",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_push_press_barbell",
@@ -4591,7 +4695,8 @@
         "spine"
       ],
       "impact_level": "medium",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_z_press",
@@ -4635,7 +4740,8 @@
         "spine"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_negative_pullup",
@@ -4682,7 +4788,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_close_grip_pulldown",
@@ -4721,7 +4828,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_weighted_pullup",
@@ -4762,7 +4870,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_inverted_row",
@@ -4807,7 +4916,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_towel_row",
@@ -4846,7 +4956,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_chest_supported_db_row",
@@ -4887,7 +4998,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_single_arm_cable_row",
@@ -4927,7 +5039,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_skater_squat",
@@ -4978,7 +5091,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_single_leg_press",
@@ -5016,7 +5130,8 @@
       "pattern_tags": [],
       "joint_stress": [],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "kb_single_leg_rdl",
@@ -5057,7 +5172,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_barbell_overhead_carry",
@@ -5101,7 +5217,8 @@
         "spine"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_side_plank",
@@ -5147,7 +5264,8 @@
         "shoulder"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_hanging_knee_raise",
@@ -5192,7 +5310,8 @@
         "elbow"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_hanging_leg_raise",
@@ -5238,7 +5357,8 @@
         "spine"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_v_up",
@@ -5283,7 +5403,8 @@
         "hip"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_l_sit",
@@ -5329,7 +5450,8 @@
         "wrist"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "bw_dragon_flag",
@@ -5375,7 +5497,8 @@
         "shoulder"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_ab_rollout_standing",
@@ -5423,7 +5546,8 @@
         "shoulder"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     },
     {
       "id": "gym_overhead_squat",
@@ -5471,7 +5595,8 @@
         "ankle"
       ],
       "impact_level": "low",
-      "equipment_requires": []
+      "equipment_requires": [],
+      "conditioning_friendly": false
     }
   ]
 }

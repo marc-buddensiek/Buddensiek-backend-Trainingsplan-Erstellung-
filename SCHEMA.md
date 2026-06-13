@@ -13,7 +13,7 @@ _Stand: 2026-06-10 · abgenickt · verbindliche Referenz für MVP-2 (Migration +
 |---|---|---|---|---|
 | `id` | str | unique | ex_by_id-Key, Claude-Matching | behalten |
 | `name` | str | — | PDF/Plan | behalten |
-| `pattern` | str | die 9 unten (+2 neu, MVP-2-Ausbau) | equipment_filter:108, plan_assembler:513, Split | behalten |
+| `pattern` | str | die 10 unten (`conditioning` neu MVP-7; `athletik` noch offen) | equipment_filter:108, plan_assembler:513, Split | behalten |
 | `equipment` | list[str] | gym · home_gym · kettlebell · bodyweight · travel · hybrid | equipment_filter:88 | behalten |
 | `skill_level` | int | 1–4 | Level-Gate (equipment_filter:91) | **migrieren** (`level_min`→`skill_level`) |
 | `muscle_groups` | obj `{primary:[], secondary:[]}` | bestehendes Muskel-Vokabular (nested belassen) | Volumen-Korridor (MVP-3, **geplant**) | behalten |
@@ -26,6 +26,7 @@ _Stand: 2026-06-10 · abgenickt · verbindliche Referenz für MVP-2 (Migration +
 | `coaching_cues` | list[str] | — | Claude, PDF | behalten |
 | `progressions_up` / `progressions_down` | list[str] | exercise-IDs | V1.5-Block-Übergang (noch kein aktiver Leser) | behalten |
 | `equipment_requires` | list[str] | Equipment-Items | equipment_filter:94 (**jetzt**, dormant — 0 Daten) | behalten (optional, default `[]`) |
+| `conditioning_friendly` | bool | `true` · `false` (default `false`) | Metcon-Selektor (MVP-7 Naht 4, **geplant**) | **NEU (MVP-7 Naht 1)** — alle 125 auf `false` migriert, dormant bis Selektor-Umbau |
 
 ---
 
@@ -59,9 +60,9 @@ normalisiert, BEVOR** der Filter matcht. (Das historische `substitutions_b` nutz
 diese Keys — Feld 2026-06-12 entfernt, Vokabel-Herkunft bleibt dieselbe.)
 Besonders: **`spine`** (nicht „lower_back", nicht „wirbelsäule").
 
-**`pattern` — Code-Schreibweise, exakt diese 9:**
+**`pattern` — Code-Schreibweise, exakt diese 10:**
 ```
-squat · hinge · single_leg · push_horizontal · push_vertical · pull_horizontal · pull_vertical · core · carry
+squat · hinge · single_leg · push_horizontal · push_vertical · pull_horizontal · pull_vertical · core · carry · conditioning
 ```
 NICHT „horizontal_push" — die frühere Spec-Tabelle (Thema 8, 2026-06-11 durch Verweis
 ersetzt) war falsch herum; equipment_filter / split_selector / plan_assembler matchen
@@ -73,9 +74,18 @@ low · medium · high
 ```
 `low` deckt „kein/minimaler Impact" mit ab — kein eigener `none`-Wert.
 
-**`conditioning` + `athletik` Pattern:** Schreibweise **noch NICHT festgelegt** (kommt mit
-MVP-7/4). Die bestehenden 125 Übungen brauchen sie **nicht** — alle liegen in den 9
-Kraft-Pattern oben.
+**Conditioning-Mechanismus (MVP-7, entschieden 2026-06-13) — Hybrid:**
+- **Gruppe A** (reine Conditioning-Geräte/Bewegungen ohne Kraft-Pattern/Zielmuskel: Air Bike,
+  Battle Ropes, Row/Ski Erg, Jump Rope, Sled): `pattern: "conditioning"`, `muscle_groups`
+  **leer** (`{primary:[], secondary:[]}`). Laufen nur in Metcon-Formaten; der Kraft-Selektor
+  matcht nur die 9 Kraft-Pattern → ignoriert sie strukturell (kein Ausschluss-Flag nötig).
+- **Gruppe B** (conditioning-tauglich, aber mit echtem Kraft-Pattern: Burpee, Jump Squat,
+  KB Swing, Thruster, Mountain Climber …): behalten ihr Kraft-Pattern + `conditioning_friendly: true`.
+  Metcon-Selektor zieht „Pattern passt UND (pattern == conditioning ODER conditioning_friendly)".
+- **Dosierung kommt aus dem Slot** (Modell A), NICHT aus der Übung — kein eigenes Dosierungs-Feld.
+- **`athletik`** (Sprünge/Koordination, Longevity): Mechanismus **noch offen**, kommt mit MVP-7 Naht 5.
+- Die bestehenden 125 liegen alle in den 9 Kraft-Pattern; `conditioning_friendly` ist auf allen
+  `false` migriert (dormant bis Naht 4).
 
 ---
 
