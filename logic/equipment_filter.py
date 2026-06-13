@@ -88,4 +88,30 @@ def filtere_uebungen(klient: KlientenInput, level: int) -> dict[str, list[dict]]
         # per Konstruktion verletzungssicher (substitutions_b abgelöst, MVP-5 Naht 3)
         result.setdefault(ex["pattern"], []).append(ex)
 
+    _apply_pattern_fallback(result)
     return result
+
+
+# Ersatz-Pattern bei leerem Pool (MVP-5 Naht 4): biomechanisch nächstes Pattern.
+# Sicherheitsstufen werden NIE gelockert — bei leerem Pool springt das verwandte
+# Pattern ein (markiert), greift auch das nicht, entfällt der Slot ersatzlos.
+_FALLBACK_PATTERN: dict[str, str] = {
+    "push_vertical":   "push_horizontal",  # beide Druck
+    "push_horizontal": "push_vertical",
+    "pull_vertical":   "pull_horizontal",  # beide Zug
+    "pull_horizontal": "pull_vertical",
+    "squat":           "single_leg",       # beide kniedominant
+    "single_leg":      "squat",
+    "hinge":           "single_leg",       # SL-RDL = hüftdominant, echter Hinge-Ersatz
+    "carry":           "core",             # beide Rumpf-Stabilität
+}
+
+
+def _apply_pattern_fallback(pools: dict[str, list[dict]]) -> None:
+    """Füllt leere Pattern-Pools aus dem verwandten Pattern (in-place, markiert
+    via 'ersatz_fuer'). Liest nur aus original befüllten Pools → kein Chaining."""
+    vorhanden = {p for p, exs in pools.items() if exs}
+    for pattern, ersatz in _FALLBACK_PATTERN.items():
+        if pattern in vorhanden or ersatz not in vorhanden:
+            continue  # Pool hat Übungen ODER Ersatz auch leer → Slot entfällt downstream
+        pools[pattern] = [{**ex, "ersatz_fuer": pattern} for ex in pools[ersatz]]

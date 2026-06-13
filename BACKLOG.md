@@ -117,6 +117,11 @@ Pattern-Automatismus.
 - **Tagging der 125 fertig** (`8980bd7`, 9 Coach-reviewte Pattern-Batches, Ausschluss-Semantik
   SCHEMA.md Abschn. 2, `validate_exercises.py` grün). **Offen nur noch: Ausbau auf 250–300**
   (Coach-Daueraufgabe; neue Übungen direkt nach Semantik taggen, Validator als Gate).
+- **Ausbau-Priorität aus MVP-5-Sim:** Beim Ausbau zuerst die Pattern abdecken, die den
+  Verletzungs-Fallback (MVP-5 Naht 4) am häufigsten auslösen — **Bodyweight-`push_vertical`**
+  (schulter-/handgelenk-schonende Vertikaldrück-Varianten, z.B. Landmine-artig/Band) und
+  **`carry`-Varianten** (griffschonend bei Handgelenk). Sim: 14 bzw. 17 Equipment×Level×
+  Verletzungs-Kombos greifen sonst auf das Ersatz-Pattern zurück. Senkt die Fallback-Häufigkeit.
 - **`update_exercises.py` schema-stale** (NEW_EXERCISES-Literale noch Alt-Schema) — nicht erneut
   laufen lassen ohne Anpassung. · _Marker:_ `TODO(mvp2-schema-stale)` (Kopf-Kommentar).
 - **Bestandsaufnahme offen:** wie viele der 125 sind schon conditioning-tauglich, nur in

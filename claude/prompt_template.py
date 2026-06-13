@@ -250,8 +250,10 @@ def build_user_prompt(
             continue
         lines.append(f"\n{pattern.upper()}:")
         for u in uebungen:
-            # Liste ist nach dem 2-Stufen-Filter verletzungssicher — kein Flag nötig
-            lines.append(f"  - {u['id']} (Level {u['skill_level']})")
+            # Liste ist nach dem 2-Stufen-Filter verletzungssicher — kein Flag nötig.
+            # Ersatz-Pattern (leerer Pool, MVP-5 Naht 4) wird sichtbar markiert.
+            ersatz = f" (Ersatz für {u['ersatz_fuer'].upper()})" if u.get("ersatz_fuer") else ""
+            lines.append(f"  - {u['id']} (Level {u['skill_level']}){ersatz}")
 
     # Output-Anweisung
     lines += [
