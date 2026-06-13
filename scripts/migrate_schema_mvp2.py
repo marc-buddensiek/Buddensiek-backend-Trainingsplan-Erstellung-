@@ -5,8 +5,8 @@ Transformation je Eintrag (siehe SCHEMA.md):
   - level_min            → skill_level (Rename in Position, Werte unverändert)
   - substitutions_a      → substitution_pool (in Position):
                            dedup(subs_a + subs_b.values()), Reihenfolge erhalten
-  - substitutions_b      bleibt unverändert (lebender Leser equipment_filter
-                           bis MVP-5, siehe TODO(mvp5-substitutions-b-removal))
+  - substitutions_b      blieb hier unverändert (lebender Leser bis MVP-5;
+                           inzwischen entfernt, s. migrate_remove_substitutions_b.py)
   - joint_stress: []     neu (leer = ungetaggt)
   - impact_level: null   neu (null = ungetaggt, bewusst NICHT "low")
   - equipment_requires: [] neu (dormant, Leser equipment_filter nutzt .get-Default)

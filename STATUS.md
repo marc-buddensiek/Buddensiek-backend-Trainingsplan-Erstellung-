@@ -1,6 +1,6 @@
 # Projektstatus — Buddensiek Performance KI-Trainingsplan
 
-_Zuletzt aktualisiert: 2026-06-12 · git HEAD `cc7310c`+ (Tests komplett grün, MVP-5-Design entschieden) · Branch `mvp-1-data-foundation`_
+_Zuletzt aktualisiert: 2026-06-13 · git HEAD `db80429` (MVP-5 fertig) · Branch `mvp-1-data-foundation`_
 
 ---
 
@@ -9,8 +9,8 @@ _Zuletzt aktualisiert: 2026-06-12 · git HEAD `cc7310c`+ (Tests komplett grün, 
 Backend importiert sauber (`import main` ✅). Tests: **Logik 26/26 · Realism 7/7 · generate_test_plans 16/16** — komplett grün seit dem Testdaten-Hygiene-Commit (2026-06-12). Achtung Aussagekraft: grün = „läuft/crasht nicht", nicht fachliche Korrektheit (Spec-Validator-Harness = MVP-11).
 
 Spec ist komplett (alle 8 Themen entschieden). Umsetzung läuft entlang der ROADMAP (MVP-1…12).
-**Fertig:** MVP-1 (Daten-Fundament) + MVP-3-Kern (Volumen „Modell A") + MVP-2-Kern (Migration `4960c26` + Tagging 125/125 `8980bd7`) + **MVP-4 Split-Logik** (5 Nähte + Schwachstellen-Streichung, `4ab789c`…`65306a8`).
-**Offen / nächste große Brocken:** **MVP-5 (3-Stufen-Filter — entsperrt)**, MVP-7 (Conditioning-Formate — durch MVP-4 entsperrt); MVP-2-Ausbau auf 250–300 als Coach-Daueraufgabe.
+**Fertig:** MVP-1 + MVP-3-Kern + MVP-2-Kern (Migration `4960c26` + Tagging 125/125 `8980bd7`) + **MVP-4 Split-Logik** (`4ab789c`…`65306a8`) + **MVP-5 Verletzungsfilter** (2-Stufen, 4 Nähte, `d11ae4a`…`db80429`).
+**Offen / nächste große Brocken:** **MVP-9 Claude-Integration finalisieren** (Prompt auf neue Felder/Pflicht-Patterns), MVP-7 (Conditioning-Formate), MVP-6-Rest (Deload 60%, L1-RIR), MVP-3-Korridor-Deckel + MVP-8 Coach-Flag; MVP-2-Ausbau auf 250–300 als Coach-Daueraufgabe.
 Pipeline (Typeform → … → PDF/Supabase) steht strukturell; Claude/Supabase nicht live.
 
 ## 2. Spec-Themen (COACHING_SPEC.md)
@@ -26,11 +26,11 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | 2 | Bibliothek/Tagging | 🟡 125 fertig getaggt, Ausbau offen | Migration `4960c26` + Tagging 125/125 (`8980bd7`, Ausschluss-Semantik SCHEMA.md Abschn. 2, `validate_exercises.py` grün); impact: 118 low · 6 medium (Ballistics) · 1 high (Jump Squat); 38 Reha-Keeper ohne Ausschluss. **Offen: Ausbau auf 250–300 (Coach-Daueraufgabe)** | — |
 | 3 | Volumen „Modell A" | 🟡 Kern fertig, Korridor-Deckel offen | _TIER_CAP/_tier_saetze ✓, TJ-Faktor + Tier-Multiplikator raus ✓, Recovery-RPE ✓; **Level-Korridor-Deckel nicht gebaut** (war Naht 3, zurückgerollt) | 1 |
 | 4 | Split-Logik | ✅ fertig (`65306a8`) | Longevity-Pfad (Kraft+Zone-2, V1 ohne Athletik → `TODO(mvp7-athletik)`), Fettabbau Kraft+Conditioning, 5T Ganzkörper-Akzent (Schwachstellen-Fokus gestrichen → V1.5), 6T UL3×, Mobility + 20-Min-Sonderfall raus | 1, 3 |
-| 5 | Equipment/Verletzungs-Filter | ❌ offen, **Design entschieden** | **2-Stufen-Filter** (joint_stress + impact_level:high; Stufe 3 gestrichen 2026-06-12, Spec Thema 8 ✓, ankle-Nachtrag ✓). Bau: 2 Stufen + Mehrfach-Verletzungen + Leerer-Pool-Fallback + substitutions_b-Ablösung + _VERLETZUNG_BLOCKED/pattern_tags-Aufräumen | 2 ✓ |
+| 5 | Equipment/Verletzungs-Filter | ✅ fertig (`db80429`) | 2-Stufen-Filter (joint_stress + impact:high), Mehrfach-Verletzungen (Vereinigung), Leerer-Pool-Fallback (verwandtes Pattern, markiert), substitutions_b entfernt, _VERLETZUNG_BLOCKED/Stufe-3 raus (pattern_tags dormant). Systemische Kontraindikationen bewusst out-of-scope (→ Anamnese/V1.5) | 2 ✓ |
 | 6 | Recovery-RPE + Periodisierung | 🟡 teilweise | Recovery-RPE ✓, 3:1-Welle ✓; **Deload 60% nicht** (noch 0.50, tot/TODO); **L1-RIR (rpe_hinweis) nicht befüllt** | 3 |
 | 7 | Conditioning-Formate + Recomp-Finisher | 🟡 teilweise | _METABOLIC_CONFIG nur amrap/emom/zirkel/intervalle; **tabata/density/for_time/komplexe/ladders + Athletik fehlen**; Recomp-Finisher ✓ | 4 |
 | 8 | Assembler/PDF + Coach-Flag | 🟡 Dauer-Kopplung ja, Flag/PDF nein | Modell-A-Satz/Dauer-Kopplung ✓; **Coach-Flag gebaut+verworfen** (plan_metadata=None); PDF rendert **noch** Klient-Realism-Warnung | 4, 6, 7 |
-| 9 | Claude-Integration | 🟡 läuft generisch, nicht finalisiert | prompt nutzt hauptziel.value generisch; **nicht** auf neue Bibliotheks-Felder/Pflicht-Patterns aktualisiert | 5 |
+| 9 | Claude-Integration | 🟡 läuft generisch, nicht finalisiert | prompt nutzt hauptziel.value generisch + Ersatz-Pattern-Marker (MVP-5); **nicht** auf neue Bibliotheks-Felder/Pflicht-Patterns aktualisiert | 5 ✓ |
 | 10 | Supabase | 🟡 Code da, nicht live | db.py: create_client + speichere_klient/_plan; nicht live | 1 |
 | 11 | Test-Harness | ❌ offen | run_tests Alt-Stil; neuer Spec-Validator-Harness nicht gebaut | 3–8 |
 | 12 | Deployment | ❌ offen | Railway/Typeform-live nicht erfolgt | alle |
@@ -44,19 +44,30 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | `TODO(short-session-pattern-drop)` | plan_assembler:366 | MVP-7/8 |
 | `TODO(longevity-volume)` | realism_validator:17/33/53, plan_assembler:44 | MVP-3/6 |
 | `TODO(deload-faktor-tot)` | volume_calculator:31 | MVP-3-Tidy |
-| `TODO(mvp5-substitutions-b-removal)` | equipment_filter:102 | MVP-5 |
 | `TODO(mvp7-athletik)` | split_selector:295 | MVP-7 |
 | `TODO(mvp7-formate)` | split_selector:378 | MVP-7 |
 | `TODO(v15-schwachstelle)` | models:95, split_selector:313 | V1.5 |
 | `TODO(mvp2-schema-stale)` | update_exercises:2 | MVP-2-Tooling |
 
-_Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt 2026-06-12: `TODO(testdata-tage-min3)` (Hygiene-Commit, inkl. generate_test_plans-Payloads)._
+_Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt 2026-06-12: `TODO(testdata-tage-min3)`. Erledigt mit MVP-5: `TODO(mvp5-substitutions-b-removal)`._
 
 ## 5. Test-Stand (verifiziert)
 
 `python3 scripts/run_tests.py` → **Logik 26/26 · Realism 7/7**, `generate_test_plans.py` → **16/16 PDFs**. Hygiene-Commit 2026-06-12: 3× tage=2 auf tage=3 (Gym-2T-Duplikat → neuer Fall **Gym/6T/Fettabbau**, deckt den 4K+2C-Pfad), 4 generate_test_plans-Payloads auf longevity/tage=3 umgestellt. Grün heißt weiterhin nur „läuft" — fachliche Korrektheit prüft erst der MVP-11-Harness.
 
 ## 6. Session-Historie (neueste zuerst)
+
+**2026-06-13 — MVP-5 Verletzungsfilter komplett (`d11ae4a`…`db80429`, 4 Nähte)**
+- Nähte aufsteigenden Risikos: (1) 2-Stufen-Filter additiv (joint_stress-Vereinigung →
+  Mehrfach-Verletzungen automatisch + impact:high), (2) Stufe 3 (`_VERLETZUNG_BLOCKED`)
+  gestrichen → Reha-Keeper zurück, (3) substitutions_b abgelöst (verletzungs_flag raus,
+  Feld via `migrate_remove_substitutions_b.py` migriert, Werte im substitution_pool
+  konserviert), (4) Leerer-Pool-Fallback (`_FALLBACK_PATTERN`, 8 Paare, verwandtes Pattern
+  markiert, Sicherheit nie gelockert).
+- Coach-reviewt: Fallback-Map (`hinge→single_leg`, kein `core`-Fallback). Sim-verifiziert:
+  push_vertical/carry-Leerfälle gefüllt, Safety-Check keine Leaks. `pattern_tags` dormant.
+- Tests durchgehend 26/26 · 7/7 · 16/16. Offen aus MVP-5 nur die bewusste Scope-Grenze
+  „systemische Kontraindikationen" (→ Anamnese/V1.5, BACKLOG).
 
 **2026-06-12 — Test-Hygiene + MVP-5-Designentscheidung (`3e2f69f`, `cc7310c`, Doku-Commit)**
 - Hygiene: alle Testdaten-Altlasten bereinigt → **erstmals komplett grün** (26/26 · 7/7 · 16/16);
@@ -115,5 +126,14 @@ _Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt
 
 ## 7. Nächster Schritt
 
-**MVP-5-Bau (2-Stufen-Verletzungsfilter)** — Design ✓ entschieden, alles entsperrt. Scope: joint_stress-Stufe (Liste statt Einzelwert — Mehrfach-Verletzungen!), impact-high-Stufe, Leerer-Pool-Fallback, substitutions_b-Ablösung durch substitution_pool (`TODO(mvp5-substitutions-b-removal)`), Aufräumen `_VERLETZUNG_BLOCKED`/Stufe-3-Check/pattern_tags. Danach Prompt-Anpassung (MVP-9-Anteil: verletzungs_flag-Logik ändert sich).
-**Coach-Daueraufgabe parallel:** MVP-2-Ausbau auf 250–300 Übungen (`validate_exercises.py` als Gate); ab MVP-7 zusätzlich ~25 Athletik-/Conditioning-Übungen (entsperrt `TODO(mvp7-athletik/formate)`).
+Der gesamte Generator-Kernpfad (MVP-1→5) steht. Kandidaten für den nächsten Brocken:
+- **MVP-9 Claude-Integration finalisieren** — Prompt auf 4 Ziele, neue Bibliotheks-Felder und
+  Pflicht-Patterns je Session aktualisieren; Ersatz-Pattern-Marker steht schon. Macht die
+  Pipeline erstmals end-to-end „echt".
+- **MVP-7 Conditioning-Formate** — Format-Baukasten (Tabata/Density/…) + ~25 Athletik-/
+  Conditioning-Übungen; entsperrt `TODO(mvp7-athletik/formate)`.
+- **MVP-3-Korridor-Deckel + MVP-8 Coach-Flag** — jetzt baubar (Tagging ✓, Splits ✓), liefern
+  die Muskel-Aggregation/Kapazitäts-Karte.
+- **MVP-6-Rest** (Deload 60%, L1-RIR) als kleinerer Tidy-Block.
+**Coach-Daueraufgabe parallel:** MVP-2-Ausbau auf 250–300 (`validate_exercises.py` als Gate;
+Priorität: bodyweight push_vertical + carry, senkt MVP-5-Fallback-Häufigkeit).

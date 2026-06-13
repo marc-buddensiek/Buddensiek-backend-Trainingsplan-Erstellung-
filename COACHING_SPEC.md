@@ -554,6 +554,12 @@ Bei Verletzungs-Eingabe (z.B. „Knie") filtert der Generator in dieser Reihenfo
 Ersatz immer aus gleichem Pattern. **Wichtige Klarstellung:** das System erkennt Gelenk-Belastung NICHT
 aus dem Übungsnamen — **jede Übung muss explizit getaggt sein.**
 
+> **Leerer-Pool-Fallback (MVP-5 Naht 4, `db80429`):** Bleibt ein Pattern-Pool nach dem Filter leer
+> (z.B. Bodyweight-`push_vertical` bei Schulter), springt das **biomechanisch verwandte Pattern**
+> ein (markiert, `_FALLBACK_PATTERN` in equipment_filter) — die Sicherheitsstufen werden dabei NIE
+> gelockert. Greift auch der Ersatz nicht, entfällt der Slot ersatzlos. Reduziert sich über den
+> Bibliotheks-Ausbau (BACKLOG MVP-2).
+
 ### Übungs-Bibliothek — Ziel-Schema (`exercises`)
 
 Verbindliches Schema inkl. Tagging-Vokabel: siehe **`SCHEMA.md`**. Diese Spec definiert

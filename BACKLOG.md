@@ -32,24 +32,15 @@ _Stand: 2026-06-11 · git HEAD `65306a8`_
   split_selector:295) + Conditioning-Block-Rotation/Format-Ausbau (`TODO(mvp7-formate)`,
   split_selector:378) — V1-Stand in COACHING_SPEC Thema 4/6 vermerkt.
 
-## MVP-5 — Verletzungs- & Equipment-Filter (aus Szenario-Analyse)
+## MVP-5 — Verletzungs- & Equipment-Filter ✅ umgesetzt (2026-06-13, `d11ae4a`…`db80429`)
 
-- ~~Stufe-1-vs-Stufe-3-Spannung~~ **entschieden (2026-06-12):** Stufe 3 (pattern_tags-Blocker)
-  **gestrichen** — 31 Kollisionen mit Reha-Keepern, Rest redundant/tot; ankle-Lücke per
-  Tagging-Nachtrag geschlossen (`cc7310c`). Filter wird **2-stufig** (joint_stress +
-  impact_level:high), Spec Thema 8 angepasst. **Beim MVP-5-Bau aufräumen:**
-  `_VERLETZUNG_BLOCKED` + Stufe-3-Check (equipment_filter:80-82/98) entfernen;
-  `pattern_tags`-Feld ist dann leserlos → entfernen oder dormant (dort entscheiden).
-- **Mehrere Verletzungen gleichzeitig:** Filter muss eine Liste verarbeiten, nicht einen
-  Einzelwert. · _Hängt ab von:_ MVP-2 (joint_stress/impact_level getaggt).
-- **Leerer `substitution_pool` nach Mehrfach-Filter** (z.B. Knie + nur Bodyweight + L1):
-  definierter Fallback nötig, kein Crash / kein leerer Plan. · _Hängt ab von:_ MVP-2.
-- **Systemische Kontraindikationen** (~10% Klientel, Herz/Schwangerschaft): Anamnese-Gate →
-  kein Auto-Plan, manuelle Coach-Betreuung. Bewusste Scope-Grenze, **KEIN** viertes
-  Sicherheits-Tag. · _Hängt ab von:_ Anamnese (MVP-1-Erweiterung).
-- **`substitutions_b` raus**, sobald der 3-Stufen-Filter den dynamischen Ersatz übernimmt
-  (lebender Leser `equipment_filter:104` — letzter Konsument zuerst). · _Marker:_
-  `TODO(mvp5-substitutions-b-removal)`. · _Hängt ab von:_ MVP-5.
+- 2-Stufen-Filter (joint_stress + impact:high), Stufe 3 gestrichen, Mehrfach-Verletzungen
+  (Vereinigung), `substitutions_b` abgelöst, Leerer-Pool-Fallback (verwandtes Pattern):
+  **alle erledigt** (4 Nähte, Details STATUS Abschnitt 6).
+- **Offen geblieben (bewusste Scope-Grenze): Systemische Kontraindikationen**
+  (~10% Klientel, Herz/Schwangerschaft): Anamnese-Gate → kein Auto-Plan, manuelle
+  Coach-Betreuung. **KEIN** viertes Sicherheits-Tag. · _Hängt ab von:_ Anamnese-Erweiterung
+  (V1.5-Check-in). · Nicht MVP-5-Filter-Logik.
 
 ## MVP-7 — Conditioning-Formate
 
