@@ -63,7 +63,7 @@ gespeichert in Supabase. Noch kein Logging, keine Progression, keine App-Interak
 | 2 | **Übungs-Bibliothek aufbauen & taggen:** bestehende ~150–200 taggen **+ ~75–125 neue Übungen anlegen**, bis **250–300 vollständig getaggte** Übungen mit Mindestabdeckung je Pattern × Skill-Level 1–4 (Felder: `joint_stress`, `impact_level`, `skill_level`, `substitution_pool`, muscle_groups). KI-Entwürfe + Coach-Review. **→ überwiegend Coach-Zeit, nicht Dev-Zeit** | 8–12 (Coach) | — |
 | 3 | **Volumen „Modell A"** (`volume_calculator.py` Neubau: Session-Kapazität × Tage, Satz-Caps, Level-Korridor; TJ-Faktor + Tier-Multiplikator raus) | 3–4 | 1 |
 | 4 | **Split-Logik je Ziel** (`split_selector.py` Neubau: FB/UL/UL-3×, Fettabbau Kraft+Conditioning, Longevity Kraft+Cardio/Athletik, Pflicht-Patterns, Pattern-Priorität bei Dauer-Konflikt, Push:Pull, Schwachstellen-Tag) | 5–7 | 1, 3 |
-| 5 | **Verletzungs- & Equipment-Filter** (3-Stufen: joint_stress + impact_level + pattern-Blocker) | 2 | 2 |
+| 5 | **Verletzungs- & Equipment-Filter** (2-Stufen: joint_stress + impact_level; Stufe 3 pattern-Blocker am 2026-06-12 gestrichen, siehe STATUS) | 2 | 2 |
 | 6 | **Recovery-RPE + Periodisierung** ✅ (3:1-Welle intensitätsgeführt: RPE ankert `rpe_low`→`rpe_high`; Deload = Cap-Unterkante + RPE `rpe_low−1`; RPE-Deckel nach Stress/Schlaf; L1-RIR-Hilfe) | 1–2 | 3 |
 | 7 | **Conditioning-Formate** (erweiterter Baukasten: Tabata/Density/For Time/Komplexe/Ladders + Athletik) + **Recomp-Finisher** | 3–4 | 4 |
 | 8 | **Plan-Assembler + PDF** an neue Formate/Ziele anpassen; **internes Coach-Kapazitäts-Flag** (`plan_metadata`) | 3–4 | 4, 6, 7 |
