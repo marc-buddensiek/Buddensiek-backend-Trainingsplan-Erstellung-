@@ -378,7 +378,7 @@ def main():
     from scripts.generate_test_plans import _auto_claude_output
 
     _L1 = dict(kniebeugen=5, pushups=5, situps=5, burpees=3, plank=20, trainingsjahre_ref="keine")
-    _METABOLIC = {"zirkel", "amrap", "emom", "intervalle"}
+    _METABOLIC = {"zirkel", "amrap", "intervalle"}
 
     def _plan(kwargs: dict):
         klient   = parse_typeform_payload(make_payload(**kwargs))

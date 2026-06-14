@@ -62,8 +62,6 @@ def _wdh(hauptziel: Hauptziel, pattern: str, tier: str, level: int) -> str:
 def _tempo(pattern: str, session_typ: str = "kraft") -> str:
     if session_typ in ("amrap", "zirkel"):
         return "zügig"
-    if session_typ == "emom":
-        return "kontrolliert"
     if session_typ == "intervalle":
         return "explosiv"
     if pattern in ("squat", "hinge", "push_horizontal", "push_vertical"):
@@ -100,12 +98,6 @@ _METABOLIC_CONFIG: dict[str, dict[str, dict]] = {
         "intensivierung": {"saetze": 1, "dauer_min": 15, "wdh": "10 Wdh", "pause": 0},
         "deload":         {"saetze": 1, "dauer_min":  8, "wdh": "10 Wdh", "pause": 0},
     },
-    "emom": {
-        "akkumulation":   {"saetze": 1, "dauer_min": 15, "wdh": "8 Wdh",  "pause": 0},
-        "progression":    {"saetze": 1, "dauer_min": 18, "wdh": "8 Wdh",  "pause": 0},
-        "intensivierung": {"saetze": 1, "dauer_min": 20, "wdh": "8 Wdh",  "pause": 0},
-        "deload":         {"saetze": 1, "dauer_min": 12, "wdh": "8 Wdh",  "pause": 0},
-    },
     "zirkel": {
         "akkumulation":   {"saetze": 3, "wdh": "12 Wdh", "pause": 0},
         "progression":    {"saetze": 3, "wdh": "12 Wdh", "pause": 0},
@@ -124,7 +116,7 @@ _METABOLIC_CONFIG: dict[str, dict[str, dict]] = {
 def _metabolic_wdh(session_typ: str, pattern: str, woche_typ: str) -> str:
     cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {})
     if pattern == "core":
-        return "45 Sek" if session_typ != "emom" else "30 Sek / Min"
+        return "45 Sek"
     return cfg.get("wdh", "10 Wdh")
 
 
@@ -140,10 +132,6 @@ def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str) -> str | No
         d = cfg.get("dauer_min", 12)
         return (f"{d} Min. AMRAP — so viele Runden wie möglich mit allen {n_uebungen} Übungen. "
                 f"Kein Stop zwischen Übungen. Runden am Ende notieren.")
-    if session_typ == "emom":
-        d = cfg.get("dauer_min", 20)
-        return (f"{d} Min. EMOM — jede Minute eine Übung, Übungen rotieren. "
-                f"Was in der Minute übrig ist = Pause. Technik vor Tempo.")
     if session_typ == "intervalle":
         r = cfg.get("saetze", 4)
         w = cfg.get("wdh", "30 Sek")
@@ -218,7 +206,7 @@ def _warm_up(equipment: Equipment, fokus: str) -> WarmUp:
 
 def _cool_down(fokus: str) -> CoolDown:
     ist_upper = any(w in fokus.lower() for w in ("upper", "push", "pull", "oberkörper"))
-    ist_conditioning = any(w in fokus.lower() for w in ("kondition", "conditioning", "hiit", "zone", "amrap", "emom", "intervalle"))
+    ist_conditioning = any(w in fokus.lower() for w in ("kondition", "conditioning", "hiit", "zone", "amrap", "intervalle"))
 
     if ist_upper:
         return CoolDown(
@@ -416,7 +404,7 @@ def assemble_plan(
             tag          = tage[session_idx] if session_idx < len(tage) else "samstag"
             metcon_blk   = None
 
-            is_metabolic = session_typ in ("zirkel", "amrap", "emom", "intervalle")
+            is_metabolic = session_typ in ("zirkel", "amrap", "intervalle")
             m_cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {}) if is_metabolic else {}
 
             uebungen_auswahl = claude_sessions.get(original_id, [])

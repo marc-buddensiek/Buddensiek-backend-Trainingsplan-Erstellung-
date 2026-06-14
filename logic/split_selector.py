@@ -271,7 +271,6 @@ def _full_body_sessions(tage: int, level: int, dauer: int) -> list[dict]:
 _FOKUS_MAP = {
     "zirkel":     "Zirkel — Ganzkörper Kondition",
     "amrap":      "AMRAP — Kraft-Ausdauer",
-    "emom":       "EMOM — Metabolic Training",
     "intervalle": "Intervalle — HIIT Kondition",
 }
 
@@ -347,7 +346,7 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
 
     elif ziel == Hauptziel.recomp:
         # Alle Sessions: Kraftteil + Metcon-Finisher (außer 20 min — zu kurz)
-        metcon_typ = None if dauer <= 20 else "amrap" if dauer <= 45 else "emom"
+        metcon_typ = None if dauer <= 20 else "amrap"   # Interim: nur Session-füllend; Block-Formate + Rotation = Naht 2c/4
 
         def _recomp_session(sid: str, fokus: str, slots: list[dict]) -> dict:
             return _tag_session(sid, fokus, slots, "kraft", metcon_typ)
@@ -379,7 +378,7 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
         # Block-Rotation ("jeder C-Tag im Block ein anderes Format") + neue Formate mit MVP-7.
         if tage <= 3:
             # Full Body mit metabolischen Akzenten: Kraft + Metcon-Finisher (wie Recomp)
-            metcon_typ = None if dauer <= 20 else "amrap" if dauer <= 45 else "emom"
+            metcon_typ = None if dauer <= 20 else "amrap"   # Interim: nur Session-füllend; Block-Formate + Rotation = Naht 2c/4
             sessions = [
                 _tag_session(s["session_id"], s["fokus"], s["slots"], "kraft", metcon_typ)
                 for s in _full_body_sessions(tage, level, dauer)

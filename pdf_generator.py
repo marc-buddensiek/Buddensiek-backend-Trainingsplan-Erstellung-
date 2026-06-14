@@ -193,7 +193,7 @@ def build_pdf(plan_data: dict) -> FPDF:
             pdf.cell(0, 6, header, fill=True, new_x="LMARGIN", new_y="NEXT")
             pdf.ln(1)
 
-            # Format-Notiz (AMRAP / EMOM / Zirkel / Intervalle)
+            # Format-Notiz (AMRAP / Zirkel / Intervalle)
             if s.get("format_notiz"):
                 pdf.set_fill_color(30, 30, 30)
                 pdf.set_text_color(*C_WHITE)
@@ -216,7 +216,7 @@ def build_pdf(plan_data: dict) -> FPDF:
             pdf.set_text_color(*C_ACCENT)
             pdf.cell(0, 4, "  HAUPTÜBUNGEN", new_x="LMARGIN", new_y="NEXT")
 
-            is_metabolic_session = s.get("session_typ") in ("zirkel", "amrap", "emom", "intervalle")
+            is_metabolic_session = s.get("session_typ") in ("zirkel", "amrap", "intervalle")
             for u in s["haupt_uebungen"]:
                 if is_metabolic_session:
                     # Metabolic: kein Tempo, Pause nur bei Intervallen

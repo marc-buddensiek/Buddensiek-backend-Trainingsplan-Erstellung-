@@ -245,8 +245,8 @@ class PSTTest(BaseModel):
 class MetconBlock(BaseModel):
     """Konditionierungs-Finisher innerhalb einer Recomp-Session (nach dem Kraftteil)."""
     typ: Literal[
-        "amrap", "emom", "intervalle", "zirkel",                  # bestehend
-        "tabata", "density", "for_time", "komplexe", "ladders",   # neu (Spec Thema 6)
+        "amrap", "intervalle", "zirkel",                          # Session-füllend
+        "tabata", "density", "komplexe", "ladders",               # Block-Formate (Spec Thema 6)
     ]
     format_notiz: str
     uebungen: list[HauptUebung]
@@ -257,9 +257,9 @@ class Session(BaseModel):
     tag: Literal["montag", "dienstag", "mittwoch", "donnerstag", "freitag", "samstag", "sonntag"]
     session_typ: Literal[
         "kraft",
-        "amrap", "emom", "zirkel", "intervalle",                  # Conditioning (bestehend)
-        "tabata", "density", "for_time", "komplexe", "ladders",   # Conditioning (neu, Spec Thema 6)
-        "zone2", "athletik",                                      # Longevity (neu, Spec Thema 4/6)
+        "amrap", "zirkel", "intervalle",                          # Conditioning Session-füllend
+        "tabata", "density", "komplexe", "ladders",               # Conditioning Block-Formate (Thema 6)
+        "zone2", "athletik",                                      # Longevity (Thema 4/6)
     ] = "kraft"
     fokus: str
     format_notiz: Optional[str] = None
