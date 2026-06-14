@@ -224,7 +224,9 @@ def build_pdf(plan_data: dict) -> FPDF:
                         vol_str = f"{u['saetze']}× {u['wdh']}"
                     else:
                         vol_str = u["wdh"]
-                    spec_parts = [f"RPE {u['rpe']:g}"]
+                    spec_parts = []
+                    if u.get("rpe") is not None:
+                        spec_parts.append(f"RPE {u['rpe']:g}")
                     if u["pausenzeit_sek"] > 0:
                         spec_parts.append(f"Pause {u['pausenzeit_sek']}s")
                     spec_str = "  ·  ".join(spec_parts)
@@ -284,7 +286,9 @@ def build_pdf(plan_data: dict) -> FPDF:
                         vol_str = f"{u['saetze']}× {u['wdh']}"
                     else:
                         vol_str = u["wdh"]
-                    spec_parts = [f"RPE {u['rpe']:g}"]
+                    spec_parts = []
+                    if u.get("rpe") is not None:
+                        spec_parts.append(f"RPE {u['rpe']:g}")
                     if u["pausenzeit_sek"] > 0:
                         spec_parts.append(f"Pause {u['pausenzeit_sek']}s")
                     spec_str = "  ·  ".join(spec_parts)

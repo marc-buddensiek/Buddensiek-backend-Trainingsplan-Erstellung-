@@ -437,6 +437,43 @@ def main():
     print()
     print(f"  Ergebnis: {rir_passed}/{rir_passed+rir_failed} bestanden")
 
+    # ── Conditioning ohne RPE (MVP-7 Naht 2a) ─────────────────────────────────
+    print()
+    print("=" * 65)
+    print("CONDITIONING OHNE RPE (MVP-7 Naht 2a)")
+    print("=" * 65)
+
+    cr_passed = cr_failed = 0
+
+    def _crcheck(desc: str, fn):
+        nonlocal cr_passed, cr_failed
+        try:
+            fn()
+            print(f"  ✅ {desc}")
+            cr_passed += 1
+        except AssertionError as e:
+            print(f"  ❌ {desc}  →  {e}")
+            cr_failed += 1
+
+    def metcon_ohne_rpe_kraft_mit():
+        _, plan = _plan(dict(hauptziel_ref="fettabbau", tage=4, **_L1))
+        st, mc = _split_kind(plan)
+        assert mc, "kein Metcon-Anteil im Fettabbau-Plan"
+        assert all(u["rpe"] is None for u in mc), "Conditioning-Satz trägt RPE"
+        assert st and all(u["rpe"] is not None for u in st), "Kraft-Satz ohne RPE"
+
+    def recomp_finisher_ohne_rpe():
+        _, plan = _plan(dict(hauptziel_ref="recomp", tage=4, session_min=45, **_L1))
+        blocks = [s["metcon_block"] for w in plan["wochen"] for s in w["sessions"] if s.get("metcon_block")]
+        assert blocks, "kein Recomp-Finisher (metcon_block) im Plan"
+        assert all(u["rpe"] is None for mb in blocks for u in mb["uebungen"]), "Finisher-Satz trägt RPE"
+
+    _crcheck("Conditioning-Sätze rpe None, Kraft-Sätze rpe gesetzt", metcon_ohne_rpe_kraft_mit)
+    _crcheck("Recomp-Finisher (metcon_block) rpe None",             recomp_finisher_ohne_rpe)
+
+    print()
+    print(f"  Ergebnis: {cr_passed}/{cr_passed+cr_failed} bestanden")
+
     if with_claude:
         import os
         if not os.environ.get("OPENROUTER_API_KEY"):

@@ -90,32 +90,33 @@ def _pausenzeit(tier: str, pattern: str) -> int:
     return _TIER_PAUSENZEIT.get(tier, 60)
 
 
-# ── Metabolic-Config: Sätze + WDH + RPE + Pause je Session-Typ × Woche ───────
+# ── Metabolic-Config: Sätze + WDH + Pause je Session-Typ × Woche (keine RPE, Thema 6) ───────
 
 _METABOLIC_CONFIG: dict[str, dict[str, dict]] = {
+    # Conditioning trägt KEINE RPE (Spec Thema 6) — kein rpe-Key mehr.
     "amrap": {
-        "akkumulation":   {"saetze": 1, "dauer_min": 10, "wdh": "10 Wdh", "rpe": 7, "pause": 0},
-        "progression":    {"saetze": 1, "dauer_min": 12, "wdh": "10 Wdh", "rpe": 7, "pause": 0},
-        "intensivierung": {"saetze": 1, "dauer_min": 15, "wdh": "10 Wdh", "rpe": 8, "pause": 0},
-        "deload":         {"saetze": 1, "dauer_min":  8, "wdh": "10 Wdh", "rpe": 6, "pause": 0},
+        "akkumulation":   {"saetze": 1, "dauer_min": 10, "wdh": "10 Wdh", "pause": 0},
+        "progression":    {"saetze": 1, "dauer_min": 12, "wdh": "10 Wdh", "pause": 0},
+        "intensivierung": {"saetze": 1, "dauer_min": 15, "wdh": "10 Wdh", "pause": 0},
+        "deload":         {"saetze": 1, "dauer_min":  8, "wdh": "10 Wdh", "pause": 0},
     },
     "emom": {
-        "akkumulation":   {"saetze": 1, "dauer_min": 15, "wdh": "8 Wdh",  "rpe": 6, "pause": 0},
-        "progression":    {"saetze": 1, "dauer_min": 18, "wdh": "8 Wdh",  "rpe": 7, "pause": 0},
-        "intensivierung": {"saetze": 1, "dauer_min": 20, "wdh": "8 Wdh",  "rpe": 7, "pause": 0},
-        "deload":         {"saetze": 1, "dauer_min": 12, "wdh": "8 Wdh",  "rpe": 5, "pause": 0},
+        "akkumulation":   {"saetze": 1, "dauer_min": 15, "wdh": "8 Wdh",  "pause": 0},
+        "progression":    {"saetze": 1, "dauer_min": 18, "wdh": "8 Wdh",  "pause": 0},
+        "intensivierung": {"saetze": 1, "dauer_min": 20, "wdh": "8 Wdh",  "pause": 0},
+        "deload":         {"saetze": 1, "dauer_min": 12, "wdh": "8 Wdh",  "pause": 0},
     },
     "zirkel": {
-        "akkumulation":   {"saetze": 3, "wdh": "12 Wdh", "rpe": 7, "pause": 0},
-        "progression":    {"saetze": 3, "wdh": "12 Wdh", "rpe": 8, "pause": 0},
-        "intensivierung": {"saetze": 4, "wdh": "12 Wdh", "rpe": 8, "pause": 0},
-        "deload":         {"saetze": 2, "wdh": "12 Wdh", "rpe": 6, "pause": 0},
+        "akkumulation":   {"saetze": 3, "wdh": "12 Wdh", "pause": 0},
+        "progression":    {"saetze": 3, "wdh": "12 Wdh", "pause": 0},
+        "intensivierung": {"saetze": 4, "wdh": "12 Wdh", "pause": 0},
+        "deload":         {"saetze": 2, "wdh": "12 Wdh", "pause": 0},
     },
     "intervalle": {
-        "akkumulation":   {"saetze": 4, "wdh": "30 Sek", "rpe": 8, "pause": 20},
-        "progression":    {"saetze": 5, "wdh": "35 Sek", "rpe": 9, "pause": 20},
-        "intensivierung": {"saetze": 6, "wdh": "40 Sek", "rpe": 9, "pause": 20},
-        "deload":         {"saetze": 3, "wdh": "30 Sek", "rpe": 7, "pause": 30},
+        "akkumulation":   {"saetze": 4, "wdh": "30 Sek", "pause": 20},
+        "progression":    {"saetze": 5, "wdh": "35 Sek", "pause": 20},
+        "intensivierung": {"saetze": 6, "wdh": "40 Sek", "pause": 20},
+        "deload":         {"saetze": 3, "wdh": "30 Sek", "pause": 30},
     },
 }
 
@@ -314,7 +315,7 @@ def _build_metcon_block(
             name=ex["name"],
             saetze=cfg.get("saetze", 1),
             wdh=_metabolic_wdh(metcon_typ, pattern, woche_typ),
-            rpe=cfg.get("rpe", 7),
+            rpe=None,   # Conditioning-Finisher trägt keine RPE (Spec Thema 6)
             tempo=_tempo(pattern, metcon_typ),
             pausenzeit_sek=cfg.get("pause", 0),
             coaching_cues=ex["coaching_cues"][:2],
@@ -438,7 +439,7 @@ def assemble_plan(
                 if is_metabolic:
                     u_saetze     = m_cfg.get("saetze", 3)
                     u_wdh        = _metabolic_wdh(session_typ, pattern, woche_typ)
-                    u_rpe        = m_cfg.get("rpe", 7)
+                    u_rpe        = None   # Conditioning trägt keine RPE (Spec Thema 6)
                     u_pausenzeit = m_cfg.get("pause", 0)
                 else:
                     u_saetze     = volumen.get(f"{slot_tier}_saetze", saetze)
