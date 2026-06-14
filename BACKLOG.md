@@ -53,10 +53,11 @@ Methodik in COACHING_SPEC Thema 6 reconcilet (2026-06-13). Die „Option A/B"-No
 Session-Länge / Modell A. Falls je reaktiviert: `max_time_cap` als **Pflichtparameter** (Session-Dauer-Deckel)
 nötig — nicht V1.
 
-**Offene Format-Parameter `TODO(mvp7-format-params)` (in Naht 2 vom Coach abfragen, NICHT raten):** Mixed
-Intervals (L4) Definition · EMOM Wdh/Min fix oder übungsabhängig · Density Blockdauer · Ladders Schema
-(auf-/absteigend) · Komplexe Session-füllend oder Block-Format. **Nur Tabata** ist vollständig spezifiziert
-(4-Min-Block, Session = mehrere Blöcke verschiedener Übungen + 60 s Pause, Blockzahl nach Level-Dauer).
+**Format-Parameter final (2026-06-14, `TODO(mvp7-format-params)` aufgelöst):** EMOM + Mixed Intervals
+**gestrichen** (EMOM = Intervall sobald Arbeitszeit fix vorgegeben; Mixed Intervals nie definiert). Density =
+5-Min-Block (feste Zeit, max. Wdh bei festem Gewicht), Ladders = aufsteigend (1-2-3-…-Cap), Komplexe =
+Block-Format (nur Last). Aktive Formate: **Intervall · AMRAP · Zirkel · Tabata · Density · Ladders ·
+Komplexe** (7). Finale Spec in COACHING_SPEC Thema 6.
 
 - **Metcon-Selektor nutzt Kraft-Pattern** (`_METCON_PATTERNS = ["squat","hinge","push_horizontal","core"]`,
   `plan_assembler:365`) statt echter Conditioning-Bewegungen (Spec Thema 6: Burpees, Mountain
