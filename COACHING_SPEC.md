@@ -463,17 +463,24 @@ Jede Recomp-Kraftsession endet mit einem **globalen Bodyweight-Conditioning-Fini
 
 ### Fettabbau — Conditioning-Tage
 
-- **Rotierend** über die verfügbaren Formate (Intervalle, AMRAP, Zirkel, Density Block, Tabata,
-  Ladders) der Reihe nach — **jeder Conditioning-Tag im 4-Wochen-Block ein anderes Format.**
-- Bei **2 Conditioning-Tagen/Woche** (6-Tage-Pfad): in derselben Woche zwei unterschiedliche Formate.
+- **Rotations-Regel (Konfliktregel, 2026-06-15):** Die **2 Conditioning-Tage einer Woche
+  unterscheiden sich** (zwei verschiedene Formate); **kein Format 2× direkt hintereinander**;
+  **Wiederholung über die Wochen ist erlaubt.** _(Ersetzt „jeder C-Tag im 4-Wochen-Block ein
+  anderes Format" — bei 7 Formaten und bis zu ~24 C-Einheiten/Block mathematisch unerfüllbar.)_
+  Verfügbare Formate je **Level** (Level→Format-Map) × **Equipment-Bevorzugung**.
 - **Equipment-spezifische Bevorzugung:**
   - Kettlebell → Komplexe, Density, Ladders
   - Bodyweight → AMRAP, Tabata, Zirkel
   - Gym / Home-Gym → alle Formate möglich
 
-> **V1-Stand (2026-06-11):** Conditioning-Tage nutzen die 4 im Code bestehenden Formate
-> (Intervalle/AMRAP/Zirkel/EMOM — **emom entfällt mit Naht 2**), statisch je Session — Block-Rotation, neue Formate und
-> Equipment-Bevorzugung kommen mit MVP-7; Marker `TODO(mvp7-formate)` in `split_selector`.
+> **V1-Stand (MVP-7 Naht 3, 2026-06-15):** Räumliche Rotation gebaut — die 2 reinen
+> Conditioning-Tage (Fettabbau 4/5/6) bekommen 2 verschiedene Formate je Level × Equipment
+> (`pick_conditioning_formats`, **weiche Bevorzugung**: Equipment-Formate zuerst, dann der
+> Level-Rest → 2 C-Tage differenzieren immer). Der Pool umfasst **nur implementierte Formate**
+> (amrap/zirkel/intervalle/tabata/density); **Ladders/Komplexe** (→ Naht 4) fehlen noch — bis
+> dahin füllt der Level-Rest die KB-Präferenz auf (KB nutzt z.B. Density + ein Level-Format statt
+> Density/Ladders/Komplexe). Die **Finisher-Rotation** (Recomp + Fettabbau-Mischtage, statisch
+> amrap) bleibt ebenfalls Naht 4.
 
 ### Longevity — Cardio/Athletik-Tage
 
@@ -491,8 +498,8 @@ Rotieren zwischen zwei Typen:
 > Marker `TODO(mvp7-athletik)` in `split_selector._zone2_session`.
 
 **Begründung:** Breiter Format-Baukasten statt weniger Formate, weil Abwechslung den Reiz frisch hält und
-verschiedene Energiesysteme trifft. Rotation (jeder Conditioning-Tag ein anderes Format, nie 2× hintereinander
-dasselbe im Block) gegen Monotonie und Anpassung. Equipment-spezifische Bevorzugung, weil z.B. Komplexe/
+verschiedene Energiesysteme trifft. Rotation (Conditioning-Tage einer Woche verschieden, nie 2× direkt
+hintereinander dasselbe) gegen Monotonie und Anpassung. Equipment-spezifische Bevorzugung, weil z.B. Komplexe/
 Ladders an die Kettlebell gehören, Tabata eher Bodyweight. Recomp-Finisher als globales Bodyweight-
 Conditioning (5–10 Min, moderate Intensität ohne RPE), bewusst NICHT die Hauptmuskeln der Session (sonst Ermüdung der Arbeitssätze)
 und equipment-unabhängig (immer machbar). Fettabbau jetzt Kraft + Conditioning statt 100 % Conditioning, weil

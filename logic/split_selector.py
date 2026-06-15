@@ -11,7 +11,7 @@ Slot-Anzahl nach Session-Dauer:
 
 from __future__ import annotations
 from models import KlientenInput, Hauptziel
-from logic.conditioning_formats import trivial_format_pick
+from logic.conditioning_formats import pick_conditioning_formats
 
 
 def _slot(beschreibung: str, pattern: str, tier: str = "compound", max_level: int = 4) -> dict:
@@ -377,8 +377,8 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
 
     elif ziel == Hauptziel.fettabbau:
         # Kraft + Conditioning (Spec Thema 4) — kein reines Conditioning mehr.
-        # TODO(mvp7-formate): V1 nutzt die 4 bestehenden Formate, statisch je Session;
-        # Block-Rotation ("jeder C-Tag im Block ein anderes Format") + neue Formate mit MVP-7.
+        # Naht 3: reine C-Tage rotieren (pick_conditioning_formats, s.u.).
+        # TODO(mvp7-formate) Rest → Naht 4: Finisher-Rotation der Mischtage (statisch amrap) + Ladders/Komplexe.
         if tage <= 3:
             # Full Body mit metabolischen Akzenten: Kraft + Metcon-Finisher (wie Recomp)
             metcon_typ = None if dauer <= 20 else "amrap"   # Interim: nur Session-füllend; Block-Formate + Rotation = Naht 2c/4
@@ -387,19 +387,19 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
                 for s in _full_body_sessions(tage, level, dauer)
             ]
             return {"split_typ": f"Full Body {tage}× + Metcon-Akzente", "sessions": sessions}
-        # TODO(mvp7-formate): trivialer Platzhalter-Pick (erstes Block-Format der Level-Map);
-        # Naht 4 ersetzt durch echte Rotation (nie 2× hintereinander, Equipment-Bevorzugung,
-        # zwei unterschiedliche Formate bei 2 Conditioning-Tagen).
-        cond_fmt = trivial_format_pick(level)
         # 4/5/6 Tage: (tage−2)× Kraft + Finisher (GEMISCHT, wie Recomp) + fix 2× reine Conditioning.
+        # Die 2 C-Tage bekommen 2 verschiedene Formate (räumliche Rotation + Equipment-Bevorzugung,
+        # nie 2× hintereinander). TODO(mvp7-formate) für reine C-Tage erledigt; Finisher-Rotation +
+        # Ladders/Komplexe-Pool bleiben Naht 4.
+        cond_fmts = pick_conditioning_formats(level, klient.equipment.value, 2)
         metcon_typ = None if dauer <= 20 else "amrap"
         n_kraft = tage - 2                              # 4→2 · 5→3 · 6→4
         kraft_base = (_full_body_sessions(n_kraft, level, dauer) if n_kraft <= 3
                       else _upper_lower_sessions(level, dauer))
         kraft = [_tag_session(s["session_id"], s["fokus"], s["slots"], "kraft", metcon_typ)
                  for s in kraft_base]
-        cond = [_conditioning_session(n_kraft + 1, cond_fmt),
-                _conditioning_session(n_kraft + 2, cond_fmt)]
+        cond = [_conditioning_session(n_kraft + 1, cond_fmts[0]),
+                _conditioning_session(n_kraft + 2, cond_fmts[1])]
         sessions = _renumber(kraft + cond)
         return {"split_typ": f"{n_kraft}× Kraft+Metcon + 2× Conditioning", "sessions": sessions}
 

@@ -35,6 +35,17 @@ _LEVEL_FORMATS: dict[int, list[str]] = {
     4: ["amrap", "tabata", "density", "komplexe"],
 }
 
+# Equipment → bevorzugte Formate (Spec Thema 6). Leeres Set = alle (kein Filter).
+# travel ≈ Bodyweight; hybrid ≈ Kettlebell ∪ Bodyweight. (Spec nennt nur KB/BW/Gym/Home.)
+_EQUIPMENT_FORMATS: dict[str, set[str]] = {
+    "kettlebell": {"komplexe", "density", "ladders"},
+    "bodyweight": {"amrap", "tabata", "zirkel"},
+    "travel":     {"amrap", "tabata", "zirkel"},
+    "hybrid":     {"komplexe", "density", "ladders", "amrap", "tabata", "zirkel"},
+    "gym":        set(),
+    "home_gym":   set(),
+}
+
 # Level → (Work, Rest) Sek — repräsentativ (erstes Spec-Paar). Gilt für Work:Rest-Formate
 # (Intervall/Circuit); Block-Formate mit festem Timing ignorieren das. Voll konsumiert ab
 # Naht 4 (Intervall-Dosierung + Rotation); in 2c Bestandteil der Map.
@@ -64,15 +75,29 @@ def is_block_format(session_typ: str) -> bool:
     return session_typ in BLOCK_IMPLEMENTED
 
 
-def trivial_format_pick(level: int) -> str:
-    """Platzhalter-Pick — TODO(mvp7-formate): Naht 4 ersetzt das durch echte Rotation
-    (Block-Rotation, nie 2× hintereinander, Equipment-Bevorzugung). Hier deterministisch:
-    erstes implementiertes Block-Format der Level-Map, sonst erstes (Session-füllendes)."""
-    formate = _LEVEL_FORMATS[level]
-    for f in formate:
-        if f in BLOCK_IMPLEMENTED:
-            return f
-    return formate[0]
+def _conditioning_pool(level: int, equipment: str) -> list[str]:
+    """Implementierte Formate für das Level, **equipment-bevorzugt zuerst** (weiche Bevorzugung):
+    erst die vom Equipment bevorzugten, dann der Rest des Levels — so bleibt der Pool ≥ 2 und die
+    2 C-Tage differenzieren immer. Leerer Equipment-Filter (gym/home) = alle Level-Formate.
+    (Ladders/Komplexe sind noch nicht dosierbar → Naht 4; bis dahin füllt der Level-Rest die
+    KB-Präferenz auf.)"""
+    impl = SESSION_FILLING | BLOCK_IMPLEMENTED          # nur dosierbare Formate (Ladders/Komplexe → Naht 4)
+    level_impl = [f for f in _LEVEL_FORMATS[level] if f in impl]
+    eq = _EQUIPMENT_FORMATS.get(equipment, set())
+    if not eq:
+        return level_impl
+    preferred = [f for f in level_impl if f in eq]
+    rest = [f for f in level_impl if f not in eq]
+    return preferred + rest
+
+
+def pick_conditioning_formats(level: int, equipment: str, n: int) -> list[str]:
+    """n Formate für die Conditioning-Tage einer Woche — aufeinanderfolgend verschieden
+    (zyklisch durch den Pool; nie 2× direkt hintereinander, solange Pool ≥ 2). Equipment-
+    Bevorzugung + Level + nur implementierte Formate. Durch die weiche Bevorzugung (Level-Rest
+    füllt auf) ist der Pool praktisch immer ≥ 2."""
+    pool = _conditioning_pool(level, equipment) or ["amrap"]
+    return [pool[i % len(pool)] for i in range(n)]
 
 
 def conditioning_target_min(session_min: int) -> int:

@@ -481,8 +481,8 @@ def main():
     print("=" * 65)
 
     from logic.conditioning_formats import (
-        trivial_format_pick, conditioning_target_min, block_count, block_session_dauer,
-        block_params, level_work_rest,
+        pick_conditioning_formats, conditioning_target_min, block_count, block_session_dauer,
+        block_params, level_work_rest, CONDITIONING,
     )
 
     cf_passed = cf_failed = 0
@@ -497,11 +497,18 @@ def main():
             print(f"  ❌ {desc}  →  {e}")
             cf_failed += 1
 
-    def trivial_pick_je_level():
-        assert trivial_format_pick(1) == "intervalle", trivial_format_pick(1)
-        assert trivial_format_pick(2) == "density"
-        assert trivial_format_pick(3) == "density"
-        assert trivial_format_pick(4) == "tabata"
+    def rotation_zwei_verschiedene():
+        # Naht 3: die 2 C-Tage einer Woche → 2 verschiedene Formate (weiche Bevorzugung, Pool ≥ 2)
+        for lvl in (1, 2, 3, 4):
+            for eq in ("gym", "bodyweight", "kettlebell", "home_gym", "travel", "hybrid"):
+                fmts = pick_conditioning_formats(lvl, eq, 2)
+                assert len(fmts) == 2 and fmts[0] != fmts[1], f"L{lvl}/{eq}: {fmts} nicht 2 verschieden"
+        # Equipment-Bevorzugung: bevorzugtes Format zuerst
+        assert pick_conditioning_formats(4, "kettlebell", 2)[0] == "density", "KB-Bevorzugung"
+        assert pick_conditioning_formats(4, "bodyweight", 2)[0] in {"amrap", "tabata"}, "BW-Bevorzugung"
+        # kein Format 2× direkt hintereinander, auch bei n=4 (zyklisch durch den Pool)
+        fmts = pick_conditioning_formats(3, "gym", 4)
+        assert all(fmts[i] != fmts[i + 1] for i in range(3)), f"2× hintereinander: {fmts}"
 
     def ziel_dauer_session_minus_warmup():
         # Dauer = Client-Session − Warmup, KEINE Level-Deckelung (level-unabhängig)
@@ -525,21 +532,23 @@ def main():
         assert level_work_rest(4) == (45, 15)
 
     def alle_level_fuellen_45():
-        # Kernregel: L1/L2/L4 reiner Conditioning-Tag @45min → alle ~45 min (Level deckelt NICHT;
-        # nur das Format unterscheidet sich: L1 intervalle · L2 density · L4 tabata).
+        # Dauer-Kernregel (format-agnostisch): ALLE reinen C-Tage @45min sind ~45 (Level deckelt NICHT),
+        # egal welches Format die Rotation wählt; je Woche 2 verschiedene Formate.
         fixtures = [
-            (dict(kniebeugen=5, pushups=5, situps=5, burpees=3, plank=20), "keine", "intervalle"),
-            (dict(kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80), "ein_bis_zwei", "density"),
-            (dict(kniebeugen=80, pushups=60, situps=75, burpees=40, plank=200), "fuenf_plus", "tabata"),
+            (dict(kniebeugen=5, pushups=5, situps=5, burpees=3, plank=20), "keine"),
+            (dict(kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80), "ein_bis_zwei"),
+            (dict(kniebeugen=80, pushups=60, situps=75, burpees=40, plank=200), "fuenf_plus"),
         ]
-        for pst, tj, exp_fmt in fixtures:
+        for pst, tj in fixtures:
             lvl, plan = _plan(dict(hauptziel_ref="fettabbau", tage=6, session_min=45,
                                    trainingsjahre_ref=tj, **pst))
-            cond = [s for w in plan["wochen"] for s in w["sessions"] if s["session_typ"] == exp_fmt]
-            assert cond, f"L{lvl}: keine {exp_fmt}-Session"
+            cond = [s for w in plan["wochen"] for s in w["sessions"] if s["session_typ"] in CONDITIONING]
+            assert cond, f"L{lvl}: keine Conditioning-Sessions"
+            wk1 = [s["session_typ"] for s in plan["wochen"][0]["sessions"] if s["session_typ"] in CONDITIONING]
+            assert len(wk1) == 2 and wk1[0] != wk1[1], f"L{lvl}: C-Tage je Woche nicht 2 verschieden: {wk1}"
             for s in cond:
                 d = s["dauer_min_geschaetzt"]
-                assert 40 <= d <= 50, f"L{lvl} {exp_fmt} {d}min != ~45 (Level deckelt die Dauer nicht)"
+                assert 40 <= d <= 50, f"L{lvl} {s['session_typ']} {d}min != ~45 (Level deckelt die Dauer nicht)"
                 assert all(u["rpe"] is None for u in s["haupt_uebungen"])
 
     def e2e_a_recomp_finisher_kurz():
@@ -558,7 +567,7 @@ def main():
             m = re.match(r"(\d+) Min\. AMRAP", mb["format_notiz"])
             assert m and int(m.group(1)) <= 10, f"Finisher-Notiz-Dauer falsch: {mb['format_notiz']!r}"
 
-    _cfcheck("Trivial-Pick je Level (L1 intervalle · L2/L3 density · L4 tabata)", trivial_pick_je_level)
+    _cfcheck("Naht 3 Rotation: 2 C-Tage/Woche verschieden + Equipment-Bevorzugung", rotation_zwei_verschiedene)
     _cfcheck("Ziel-Dauer = Session − Warmup (keine Level-Deckelung)",            ziel_dauer_session_minus_warmup)
     _cfcheck("Tabata-Block-Stapelung (Ziel 30→6 Blöcke, festes 20/10-Timing)",   tabata_block_stapelung)
     _cfcheck("Density 5-Min-Blöcke (Dauer-Formel n×5 + Pausen)",                 density_5min_bloecke)
