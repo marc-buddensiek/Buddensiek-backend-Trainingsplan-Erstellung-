@@ -1,16 +1,16 @@
 # Projektstatus — Buddensiek Performance KI-Trainingsplan
 
-_Zuletzt aktualisiert: 2026-06-15 · git HEAD `5171a67` (MVP-7 Naht 1 + 2 fertig) · Branch `mvp-1-data-foundation`_
+_Zuletzt aktualisiert: 2026-06-15 · git HEAD `de39977` (MVP-7 Naht 1–4 fertig) · Branch `mvp-1-data-foundation`_
 
 ---
 
 ## 1. Aktueller Stand (kurz)
 
-Backend importiert sauber (`import main` ✅). Tests: **Logik 26/26 · Realism 7/7 · RPE-Wellen 5/5 · RIR 3/3 · Conditioning-RPE 2/2 · Format-Baukasten 7/7 · generate_test_plans 17/17** — komplett grün. Achtung Aussagekraft: grün = „läuft/crasht nicht", nicht fachliche Korrektheit (Spec-Validator-Harness = MVP-11).
+Backend importiert sauber (`import main` ✅). Tests: **Logik 26/26 · Realism 7/7 · RPE-Wellen 5/5 · RIR 3/3 · Conditioning-RPE 2/2 · Format-Baukasten 9/9 · generate_test_plans 17/17** — komplett grün. Achtung Aussagekraft: grün = „läuft/crasht nicht", nicht fachliche Korrektheit (Spec-Validator-Harness = MVP-11).
 
 Spec ist komplett (alle 8 Themen entschieden). Umsetzung läuft entlang der ROADMAP (MVP-1…12).
-**Fertig:** MVP-1 + MVP-3-Kern + MVP-2-Kern (Migration `4960c26` + Tagging 125/125 `8980bd7`) + **MVP-4 Split-Logik** (`4ab789c`…`65306a8`) + **MVP-5 Verletzungsfilter** (4 Nähte, `d11ae4a`…`db80429`) + **MVP-6 Recovery-RPE + Periodisierung** (3 Nähte, `82b3c1d`…`798928d`) + **MVP-7 Naht 1 (Schema-Enabler) + Naht 2 (Conditioning-Format-Baukasten, 2a/2b/2c)** (`9536905`…`5171a67`, inkl. Spec-Reconcile Thema 6).
-**Offen / nächste große Brocken:** **MVP-7-Rest** — Naht 3 (echte Format-Rotation, ersetzt Trivial-Pick), Naht 4 (Selektor-Umbau auf Conditioning-Pool — braucht getaggte Übungen), Naht 5 (Athletik); dann MVP-8 Coach-Flag + MVP-3-Korridor-Deckel, dann **MVP-9 Claude-Integration finalisieren**; MVP-2-Ausbau auf 250–300 (inkl. ~25 Conditioning + ~10 Athletik) als Coach-Daueraufgabe.
+**Fertig:** MVP-1 + MVP-3-Kern + MVP-2-Kern (Migration `4960c26` + Tagging 125/125 `8980bd7`) + **MVP-4 Split-Logik** (`4ab789c`…`65306a8`) + **MVP-5 Verletzungsfilter** (4 Nähte, `d11ae4a`…`db80429`) + **MVP-6 Recovery-RPE + Periodisierung** (3 Nähte, `82b3c1d`…`798928d`) + **MVP-7 Naht 1–4** (Schema-Enabler + Format-Baukasten 2a/2b/2c + Naht 3 Format-Rotation + Naht 4 Pool-Selektor 4a/4b/4c) (`9536905`…`de39977`, inkl. Spec-Reconcile Thema 6 + 33 net-new Conditioning/Athletik-Übungen `bc14040`).
+**Offen / nächste große Brocken:** **MVP-7-Rest** — Naht 4d (Ladders/Komplexe dosierbar — braucht Coach-Block-Dauern), Naht 4e (Übungs-/Finisher-Format-Rotation über die C-Tage), Naht 5 (Athletik); dann MVP-8 Coach-Flag + MVP-3-Korridor-Deckel, dann **MVP-9 Claude-Integration finalisieren**; MVP-2-Ausbau auf 250–300 (inkl. ~25 Conditioning + ~10 Athletik) als Coach-Daueraufgabe.
 Pipeline (Typeform → … → PDF/Supabase) steht strukturell; Claude/Supabase nicht live.
 
 ## 2. Spec-Themen (COACHING_SPEC.md)
@@ -28,7 +28,7 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | 4 | Split-Logik | ✅ fertig (`65306a8`) | Longevity-Pfad (Kraft+Zone-2, V1 ohne Athletik → `TODO(mvp7-athletik)`), Fettabbau Kraft+Conditioning, 5T Ganzkörper-Akzent (Schwachstellen-Fokus gestrichen → V1.5), 6T UL3×, Mobility + 20-Min-Sonderfall raus | 1, 3 |
 | 5 | Equipment/Verletzungs-Filter | ✅ fertig (`db80429`) | 2-Stufen-Filter (joint_stress + impact:high), Mehrfach-Verletzungen (Vereinigung), Leerer-Pool-Fallback (verwandtes Pattern, markiert), substitutions_b entfernt, _VERLETZUNG_BLOCKED/Stufe-3 raus (pattern_tags dormant). Systemische Kontraindikationen bewusst out-of-scope (→ Anamnese/V1.5) | 2 ✓ |
 | 6 | Recovery-RPE + Periodisierung | ✅ fertig (`798928d`) | RPE-Welle ankert `rpe_low`→`rpe_high` (0.5-Raster, float; L1/L2 0.5er, L3/L4 1.0er), Deload `rpe_low−1` (Floor 4); toter 0.50-Faktor raus + Spec/CLAUDE.md-Reconcile (Cap-Floor ~67–75 %); L1-RIR `rpe_hinweis` befüllt (nur L1-Kraftsätze, additiv). Volumen bewusst flach (intensitätsgeführt) | 3 ✓ |
-| 7 | Conditioning-Formate + Recomp-Finisher | 🟡 Naht 1+2 fertig (`5171a67`), Naht 3/4/5 offen | **Schema-Enabler** (`pattern:"conditioning"` + `conditioning_friendly`, 125 migriert) + **Format-Baukasten** (`logic/conditioning_formats.py`: 7 Formate, emom/for_time raus, Conditioning ohne RPE, Block-Stapelung Tabata/Density, Dauer=session_dauer_min ohne Level-Cap, Fettabbau-Staffelung gemischt+2C, C3-Finisher-Estimate). **Offen:** Naht 3 echte Rotation (Trivial-Pick `TODO(mvp7-formate)`), Naht 4 Selektor-Umbau + Ladders/Komplexe-Dauern, Naht 5 Athletik; Conditioning/Athletik-Übungen net-new (Coach) | 4 ✓ |
+| 7 | Conditioning-Formate + Recomp-Finisher | 🟡 Naht 1–4 fertig (`de39977`), Naht 4d/4e/5 offen | **Schema-Enabler** (`pattern:"conditioning"` + `conditioning_friendly`, 125 migriert) + **Format-Baukasten** (`logic/conditioning_formats.py`: 7 Formate, emom/for_time raus, Conditioning ohne RPE, Block-Stapelung Tabata/Density, Dauer=session_dauer_min ohne Level-Cap, Fettabbau-Staffelung gemischt+2C, C3-Finisher-Estimate) + **Naht 3 Format-Rotation** (räumlich, `pick_conditioning_formats`, weiche Equipment-Bevorzugung) + **Naht 4 Pool-Selektor** (4a `conditioning_pool`-Helfer, 4b Finisher aus Pool BW-Mehrheit, 4c reine C-Tage A1-deterministisch aus Pool via `pool:"conditioning"`-Marker; +33 Conditioning/Athletik `bc14040`). **Offen:** Naht 4d Ladders/Komplexe dosierbar (Coach-Block-Dauern), Naht 4e Übungs-/Finisher-Rotation, Naht 5 Athletik; Conditioning-Pool-Ausbau (Coach) | 4 ✓ |
 | 8 | Assembler/PDF + Coach-Flag | 🟡 Dauer-Kopplung ja, Flag/PDF nein | Modell-A-Satz/Dauer-Kopplung ✓; **Coach-Flag gebaut+verworfen** (plan_metadata=None); PDF rendert **noch** Klient-Realism-Warnung | 4, 6, 7 |
 | 9 | Claude-Integration | 🟡 läuft generisch, nicht finalisiert | prompt nutzt hauptziel.value generisch + Ersatz-Pattern-Marker (MVP-5); **nicht** auf neue Bibliotheks-Felder/Pflicht-Patterns aktualisiert. Vorarbeit: Level-Gate als `<=` verifiziert (equipment_filter:73, vor Verletzungsfilter) | 5 ✓ |
 | 10 | Supabase | 🟡 Code da, nicht live | db.py: create_client + speichere_klient/_plan; nicht live | 1 |
@@ -43,9 +43,9 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 |---|---|---|
 | `TODO(short-session-pattern-drop)` | plan_assembler:371 | MVP-7/8 |
 | `TODO(longevity-volume)` | realism_validator:17/33/53, plan_assembler:49 | MVP-3/6 |
-| `TODO(mvp7-athletik)` | split_selector:297 | MVP-7 (Naht 5) |
-| `TODO(mvp7-formate)` | split_selector:380/390, conditioning_formats:68 | MVP-7 (Naht 3 Rotation, ersetzt Trivial-Pick) |
-| `TODO(mvp7-cleanup)` | plan_assembler:149/518, conditioning_formats:95/106 | MVP-7 geparkt (C1/C2/C4 — toter Code/Tests, kein Klienten-Plan) |
+| `TODO(mvp7-athletik)` | split_selector:304 | MVP-7 (Naht 5) |
+| `TODO(mvp7-formate)` | split_selector:388/399 | MVP-7 (Naht 4d Ladders/Komplexe + 4e Finisher-/Übungs-Rotation; Naht 3 Rotation ✓ erledigt) |
+| `TODO(mvp7-cleanup)` | plan_assembler:149/547, conditioning_formats:134/145 | MVP-7 geparkt (C1/C2/C4 — toter Code/Tests, kein Klienten-Plan) |
 | `TODO(v15-schwachstelle)` | models:95, split_selector:313 | V1.5 |
 | `TODO(mvp2-schema-stale)` | update_exercises:2 | MVP-2-Tooling |
 
@@ -53,9 +53,35 @@ _Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt
 
 ## 5. Test-Stand (verifiziert)
 
-`python3 scripts/run_tests.py` → **Logik 26/26 · Realism 7/7 · RPE-Wellen 5/5 · RIR-Hilfe 3/3 · Conditioning-RPE 2/2 · Format-Baukasten 7/7**, `generate_test_plans.py` → **17/17 PDFs** (Fixture 17 = L4-Fettabbau, zeigt Tabata-Block-Stapelung). Grün heißt weiterhin nur „läuft" — fachliche Korrektheit prüft erst der MVP-11-Harness.
+`python3 scripts/run_tests.py` → **Logik 26/26 · Realism 7/7 · RPE-Wellen 5/5 · RIR-Hilfe 3/3 · Conditioning-RPE 2/2 · Format-Baukasten 9/9**, `generate_test_plans.py` → **17/17 PDFs** (Fixture 17 = L4-Fettabbau, zeigt Tabata-Block-Stapelung). Grün heißt weiterhin nur „läuft" — fachliche Korrektheit prüft erst der MVP-11-Harness.
 
 ## 6. Session-Historie (neueste zuerst)
+
+**2026-06-15 — MVP-7 Naht 3 + 4 (Format-Rotation + Conditioning-Pool-Selektor, `221afb1`…`de39977`)**
+- **Naht 3 — räumliche Format-Rotation** (`221afb1`): trivialer Platzhalter-Pick ersetzt durch
+  `pick_conditioning_formats` (Level→Format-Map × **weiche Equipment-Bevorzugung**: Equipment-Formate
+  zuerst, dann Level-Rest → 2 C-Tage einer Woche differenzieren immer, nie 2× hintereinander;
+  Wiederholung über Wochen erlaubt). Konfliktregel in COACHING_SPEC verankert (die alte „jeder C-Tag
+  im Block anders" war bei 7 Formaten × ~24 Einheiten unerfüllbar).
+- **Conditioning/Athletik-Übungen angelegt** (`bc14040`, +33 net-new, 8 mis-filed gepatcht): Pool jetzt
+  41 (pattern==conditioning 11 + conditioning_friendly 30), Athletik 11. Coach-reviewt pro Übung
+  (skill_level/conditioning_friendly), idempotente Migration, Validator grün. Abdeckungs-Lücken als
+  Coach-Daueraufgabe in BACKLOG (`af1fd09`).
+- **Naht 4 — Selektor-Umbau auf den Pool, Entscheidung A1 (deterministisch im Assembler, kein
+  MVP-9-Touch):** (4a `fcd8580`) `conditioning_pool`-Helfer isoliert. (4b `fa7598f`) Recomp-/Mischtag-
+  **Finisher** zieht aus dem Pool statt Kraft-Pattern — **BW-Mehrheit zuerst**, Zusatz-Equipment nur
+  ergänzend (`_pick_finisher_uebungen`, Pattern-Vielfalt). (4c-1 `4327f8e`) C-Slots tragen
+  `pool:"conditioning"`-Marker (Kraft-Pattern raus). (4c-2 `de39977`) Assembler liest den Marker →
+  reine C-Tage ziehen ihre Übungen deterministisch aus dem Pool, equipment-korrekt; Block-Stapelung
+  über `n_blocks` unverändert.
+- **Verifiziert:** BW-Fettabbau-6T → reine BW inkl. Burpee/Mountain Climbers (kein Back Squat);
+  KB-Fettabbau-6T → BW-Mehrheit (4) + KB-Zusatz (Swing/Push Press, 2). Equipment-Filterung greift
+  automatisch (Pool aus `filtere_uebungen`).
+- **Offen (eigene Nähte):** 4d Ladders/Komplexe dosierbar (braucht Coach-Block-Dauern), 4e Übungs-/
+  Finisher-Format-Rotation über die C-Tage (aktuell C-Tage übungsgleich, nur Format differenziert;
+  Mischtag-Finisher statisch `amrap`), Naht 5 Athletik.
+- Tests durchgehend 26/26 · 7/7 · 5/5 · 3/3 · 2/2 · **9/9** (Format-Baukasten +pool-Helfer/Finisher) ·
+  17/17 PDFs.
 
 **2026-06-14/15 — MVP-7 Naht 1 + 2 (Schema-Enabler + Conditioning-Format-Baukasten, `9536905`…`5171a67`)**
 - **Coach-Entscheid Conditioning-Mechanismus (Hybrid):** Gruppe A reine Conditioning-Geräte →
@@ -162,16 +188,18 @@ _Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt
 
 ## 7. Nächster Schritt
 
-MVP-7 läuft (Naht 1 + 2 fertig). Reihenfolge innerhalb MVP-7 und danach:
-- **MVP-7 Naht 3 — echte Format-Rotation + Equipment-Bevorzugung** (`TODO(mvp7-formate)`): ersetzt
-  den trivialen Platzhalter-Pick (erstes Block-Format der Level-Map) durch Rotation (nie 2×
-  hintereinander, KB→Komplexe/Density…, BW→Tabata/AMRAP…, zwei verschiedene Formate bei 2 C-Tagen).
-- **MVP-7 Naht 4 — Selektor-Umbau** (`conditioning_friendly`/`pattern==conditioning`): Metcon zieht aus
-  dem Conditioning-Pool statt Kraft-Pattern; bringt die Ladders/Komplexe-Block-Dauern mit.
-  **Braucht getaggte Conditioning-Übungen** (Coach).
-- **MVP-7 Naht 5 — Athletik-Rotation** (Longevity, `TODO(mvp7-athletik)`).
+MVP-7 läuft (Naht 1–4 fertig). Reihenfolge innerhalb MVP-7 und danach:
+- **MVP-7 Naht 4d — Ladders/Komplexe dosierbar** (`TODO(mvp7-formate)`): Block-Dauern für Ladders
+  (aufsteigend 1-2-3-…-Cap) + Komplexe (nur Last) — **braucht Coach-Entscheidung zu den Block-Dauern**;
+  danach in Pool-Pick (`pick_conditioning_formats`) + Block-Stapelung verdrahten.
+- **MVP-7 Naht 4e — Übungs-/Finisher-Format-Rotation über die C-Tage** (`TODO(mvp7-formate)`): aktuell
+  sind die 2 reinen C-Tage übungsgleich (deterministischer Pool-Pick), nur das Format differenziert;
+  der Mischtag-Finisher ist statisch `amrap`. Rotation für Übungen + Finisher-Format ergänzen.
+- **MVP-7 Naht 5 — Athletik-Rotation** (Longevity, `TODO(mvp7-athletik)`; Athletik-Pool jetzt da, 11).
 - **`TODO(mvp7-cleanup)`** (geparkt): C1/C2/C4 — toter Code/Tests, kein Klienten-Plan.
 - **Danach:** MVP-8 Coach-Flag + MVP-3-Korridor-Deckel (baubar: Tagging ✓, Splits ✓), dann **MVP-9
   Claude-Integration finalisieren** (Vorarbeit: Level-Gate als `<=` verifiziert, BACKLOG MVP-9).
 **Coach-Daueraufgabe parallel:** MVP-2-Ausbau auf 250–300 — inkl. ~25 Conditioning + ~10 Athletik
-(net-new, Validator als Gate, seit Naht 1 bereit) sowie bodyweight push_vertical + carry (senkt MVP-5-Fallback).
+(net-new, Validator als Gate, seit Naht 1 bereit; **Conditioning-Pool-Ausbau-Lücken** in BACKLOG:
+Bodyweight-Conditioning L3/L4, Pull-Conditioning, KB-Conditioning L4) sowie bodyweight push_vertical +
+carry (senkt MVP-5-Fallback).

@@ -1,6 +1,6 @@
 # Backlog — vertagte Arbeit (nach MVP-Paket)
 
-_Stand: 2026-06-15 · git HEAD `5171a67` (MVP-7 Naht 1 + 2 fertig)_
+_Stand: 2026-06-15 · git HEAD `de39977` (MVP-7 Naht 1–4 fertig)_
 
 > Bewusst aufgeschobene Arbeit, gruppiert nach MVP-Paket. Jeder Eintrag:
 > Beschreibung · warum vertagt · Code-Marker (Datei:Zeile, Grep-verifiziert) · Abhängigkeit.
@@ -45,15 +45,22 @@ _Stand: 2026-06-15 · git HEAD `5171a67` (MVP-7 Naht 1 + 2 fertig)_
 
 ## MVP-7 — Conditioning-Formate
 
-**Stand 2026-06-15 — Naht 1 + 2 fertig (`9536905`…`5171a67`):**
+**Stand 2026-06-15 — Naht 1–4 fertig (`9536905`…`de39977`):**
 - **Mechanismus (Hybrid, entschieden):** Gruppe A `pattern:"conditioning"`, Gruppe B
   `conditioning_friendly:true` (bool). Die „Option A/B"-Designfrage unten ist damit **erledigt**.
 - **Gebaut:** Schema-Enabler (Validator + 125 migriert) · Format-Baukasten (`logic/conditioning_formats.py`):
   7 Formate, Conditioning ohne RPE, Block-Stapelung Tabata/Density, Dauer = `session_dauer_min` (kein
-  Level-Cap), Fettabbau-Staffelung gemischt + 2 reine Conditioning-Tage, C3-Finisher-Estimate.
-- **Offen (Naht 3/4/5):** echte Format-Rotation (`TODO(mvp7-formate)`, ersetzt Trivial-Pick) · **Selektor-
-  Umbau** auf den Conditioning-Pool (Naht 4, s. Bullet unten — braucht getaggte Übungen, bringt
-  Ladders/Komplexe-Block-Dauern mit) · Athletik (Naht 5) · `TODO(mvp7-cleanup)` C1/C2/C4 (geparkt).
+  Level-Cap), Fettabbau-Staffelung gemischt + 2 reine Conditioning-Tage, C3-Finisher-Estimate ·
+  **Naht 3** räumliche Format-Rotation (`pick_conditioning_formats`, weiche Equipment-Bevorzugung) ·
+  **+33 Conditioning/Athletik-Übungen** (`bc14040`, Pool 41) · **Naht 4** Pool-Selektor **A1
+  (deterministisch im Assembler, Claude für C-Sessions umgangen, kein MVP-9-Touch):** 4a Pool-Helfer,
+  4b Finisher aus Pool (BW-Mehrheit + Zusatz), 4c reine C-Tage via `pool:"conditioning"`-Marker
+  equipment-korrekt aus dem Pool (Naht-4-Bullet unten damit **erledigt**).
+- **Offen (eigene Nähte):** **Naht 4d** Ladders/Komplexe dosierbar (braucht Coach-Block-Dauern) ·
+  **Naht 4e** Übungs-/Finisher-Format-Rotation über die C-Tage (aktuell C-Tage übungsgleich, nur
+  Format differenziert; Mischtag-Finisher statisch `amrap`) (`TODO(mvp7-formate)`) · Athletik (Naht 5,
+  `TODO(mvp7-athletik)`) · `TODO(mvp7-cleanup)` C1/C2/C4 (geparkt) · Conditioning-Pool-Ausbau (Coach,
+  s. MVP-2-Abschnitt).
 
 **For Time gestrichen (Spec Thema 6):** offene Dauer („so schnell wie möglich") kollidiert mit der festen
 Session-Länge / Modell A. Falls je reaktiviert: `max_time_cap` als **Pflichtparameter** (Session-Dauer-Deckel)
@@ -65,16 +72,15 @@ nötig — nicht V1.
 Block-Format (nur Last). Aktive Formate: **Intervall · AMRAP · Zirkel · Tabata · Density · Ladders ·
 Komplexe** (7). Finale Spec in COACHING_SPEC Thema 6.
 
-- **Naht 4 — Metcon-Selektor nutzt noch Kraft-Pattern** (`_METCON_PATTERNS = ["squat","hinge","push_horizontal","core"]`,
-  `plan_assembler:294`) statt echter Conditioning-Bewegungen (Spec Thema 6: Burpees, Mountain
-  Climbers, …). Umbau auf `pattern=="conditioning" OR conditioning_friendly`. · _Hängt ab von:_
-  getaggte Conditioning-Übungen (Coach). Der **Schema-Mechanismus dafür steht** (Naht 1).
+- ~~**Naht 4 — Metcon-Selektor nutzt noch Kraft-Pattern**~~ **erledigt (2026-06-15, `fa7598f`/`de39977`):**
+  `_METCON_PATTERNS` entfernt; Finisher **und** reine C-Tage ziehen jetzt aus `conditioning_pool`
+  (`pattern=="conditioning" OR conditioning_friendly`), equipment-korrekt, A1-deterministisch.
+  Verifiziert: kein Back Squat mehr im Conditioning; BW-Kunde reine BW inkl. Burpee/Mountain Climbers.
 
-**Kernproblem, das Naht 4 löst:** Die aktuelle Logik (`_METCON_PATTERNS`,
-`plan_assembler:294`) kann „hat Kraft-Pattern" **nicht** von „ist conditioning-tauglich"
-unterscheiden — das differenzierende Merkmal fehlt. Folge: der Metcon zieht potenziell reine
-Kraftübungen (z.B. schwerer Back Squat, Kreuzheben) in eine Conditioning-Session, nur weil das
-Pattern passt — obwohl sie keinen Puls oben halten.
+**Kernproblem, das Naht 4 gelöst hat (historisch):** Die alte Logik (`_METCON_PATTERNS`) konnte
+„hat Kraft-Pattern" **nicht** von „ist conditioning-tauglich" unterscheiden — das differenzierende
+Merkmal fehlte, sodass der Metcon potenziell reine Kraftübungen (z.B. schwerer Back Squat) in eine
+Conditioning-Session zog. Mit `conditioning_friendly` (Naht 1) + Pool-Selektor (Naht 4) behoben.
 
 **Designfrage (NICHT jetzt entscheiden, nur festhalten): conditioning-tauglich vs. reine
 Kraftübung im selben Pattern differenzieren —**

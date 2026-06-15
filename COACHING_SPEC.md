@@ -477,10 +477,21 @@ Jede Recomp-Kraftsession endet mit einem **globalen Bodyweight-Conditioning-Fini
 > Conditioning-Tage (Fettabbau 4/5/6) bekommen 2 verschiedene Formate je Level × Equipment
 > (`pick_conditioning_formats`, **weiche Bevorzugung**: Equipment-Formate zuerst, dann der
 > Level-Rest → 2 C-Tage differenzieren immer). Der Pool umfasst **nur implementierte Formate**
-> (amrap/zirkel/intervalle/tabata/density); **Ladders/Komplexe** (→ Naht 4) fehlen noch — bis
+> (amrap/zirkel/intervalle/tabata/density); **Ladders/Komplexe** (→ Naht 4d) fehlen noch — bis
 > dahin füllt der Level-Rest die KB-Präferenz auf (KB nutzt z.B. Density + ein Level-Format statt
-> Density/Ladders/Komplexe). Die **Finisher-Rotation** (Recomp + Fettabbau-Mischtage, statisch
-> amrap) bleibt ebenfalls Naht 4.
+> Density/Ladders/Komplexe).
+>
+> **V1-Stand (MVP-7 Naht 4, 2026-06-15):** Der **Übungs-Selektor** zieht jetzt aus dem
+> Conditioning-Pool (`pattern == "conditioning"` **ODER** `conditioning_friendly`) —
+> **deterministisch im Assembler** (Entscheidung A1: Claude für reine C-Sessions umgangen, kein
+> MVP-9-Touch): (4a) Pool-Helfer `conditioning_pool`, (4b) **Recomp-/Mischtag-Finisher** zieht aus
+> dem Pool (BW-Mehrheit zuerst, Zusatz-Equipment nur ergänzend), (4c) reine C-Tage tragen einen
+> `pool:"conditioning"`-Slot-Marker und ziehen ihre Übungen equipment-korrekt aus dem Pool
+> (verifiziert: BW-Kunde reine BW inkl. Burpee/Mountain Climbers; KB-Kunde BW-Mehrheit + KB-Zusatz).
+> Block-Stapelung über `n_blocks` unverändert. **Offen:** Ladders/Komplexe dosierbar (Naht 4d,
+> braucht Coach-Block-Dauern) und die **Übungs-/Finisher-Format-Rotation über die C-Tage** (Naht 4e
+> — aktuell sind die 2 C-Tage übungsgleich, nur das Format unterscheidet; der Mischtag-Finisher
+> bleibt statisch `amrap`).
 
 ### Longevity — Cardio/Athletik-Tage
 
