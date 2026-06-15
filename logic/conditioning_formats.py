@@ -105,6 +105,48 @@ def pick_conditioning_formats(level: int, equipment: str, n: int) -> list[str]:
     return [pool[i % len(pool)] for i in range(n)]
 
 
+# ── Multi-Format-Aufteilung langer C-Tage (Naht 4d) ───────────────────────────
+# Maximaldauer pro Format am Stück (Min). Länger ⇒ auf 2 Segmente aufteilen.
+# Komplexe ausgelassen (TODO(mvp7-komplexe): nicht im Pool, braucht vordefinierte Ketten).
+_FORMAT_MAX_MIN: dict[str, int] = {
+    "amrap": 20, "density": 30, "tabata": 20, "intervalle": 25, "ladders": 20, "zirkel": 30,
+}
+
+_SEGMENT_MIN = 10   # jedes Format-Segment ≥ 10 Min
+
+
+def pick_second_format(level: int, equipment: str, exclude: str) -> str | None:
+    """Zweitformat für einen langen C-Tag (Naht 4d): **AMRAP bevorzugt**, wenn im Level-Pool —
+    sonst das nächste Pool-Format (weiche Equipment-Bevorzugung wie Naht 3), in jedem Fall
+    ≠ `exclude`. Kein anderes Format verfügbar → None (Aufrufer füllt dann 1 Segment voll)."""
+    pool = [f for f in _conditioning_pool(level, equipment) if f != exclude]
+    if not pool:
+        return None
+    return "amrap" if "amrap" in pool else pool[0]
+
+
+def split_conditioning_segments(target_min: int, first_format: str, level: int,
+                                equipment: str) -> list[tuple[str, int]]:
+    """Reine C-Tage: `target_min` (= session_dauer_min − Warmup) auf 1 oder 2 Format-Segmente.
+
+    ≤ Max[first] → 1 Segment über die volle Zeit. Sonst 2 Segmente: erstes bis zu seinem Maximum,
+    zweites kriegt den Rest — jedes ≥ 10 Min, 5-Min-Raster, **nie ein Rumpf < 10** (dann erstes
+    kürzen: 35/density → 25+10, nicht 30+5). Zweitformat ≠ erstes (AMRAP-bevorzugt). Kein
+    Zweitformat verfügbar → 1 Segment über die volle Zeit (graceful fill).
+
+    Tabata-Granularität (4-Min-Blöcke) realisiert `block_count` beim Füllen; die Segment-Dauer
+    bleibt auf dem 5-Min-Raster (Praxis-Targets 10/20/35/50 sind Vielfache von 5)."""
+    max1 = _FORMAT_MAX_MIN.get(first_format, target_min)
+    if target_min <= max1:
+        return [(first_format, target_min)]
+    second = pick_second_format(level, equipment, exclude=first_format)
+    if second is None:
+        return [(first_format, target_min)]            # kein Partner → volle Zeit, ein Format
+    seg1 = min(max1, target_min - _SEGMENT_MIN)         # dem zweiten Segment mind. 10 Min lassen
+    seg2 = target_min - seg1
+    return [(first_format, seg1), (second, seg2)]
+
+
 def conditioning_pool(uebungen_gefiltert: dict[str, list[dict]]) -> list[dict]:
     """ÜBUNGS-Pool für den Metcon-Selektor (MVP-7 Naht 4): alle conditioning-tauglichen
     Übungen aus den gefilterten Pattern-Buckets — `pattern == "conditioning"` ODER

@@ -483,6 +483,7 @@ def main():
     from logic.conditioning_formats import (
         pick_conditioning_formats, conditioning_target_min, block_count, block_session_dauer,
         block_params, level_work_rest, CONDITIONING, conditioning_pool,
+        split_conditioning_segments, pick_second_format, _FORMAT_MAX_MIN,
     )
 
     cf_passed = cf_failed = 0
@@ -618,6 +619,52 @@ def main():
             m = re.match(r"(\d+) Min\. AMRAP", mb["format_notiz"])
             assert m and int(m.group(1)) <= 10, f"Finisher-Notiz-Dauer falsch: {mb['format_notiz']!r}"
 
+    def multi_format_split():
+        # Naht 4d: lange C-Tage auf 1/2 Format-Segmente (reine Funktion, noch nicht verdrahtet).
+        split = split_conditioning_segments
+        # Maxima gepinnt (Komplexe ausgelassen)
+        assert _FORMAT_MAX_MIN == {"amrap":20,"density":30,"tabata":20,"intervalle":25,"ladders":20,"zirkel":30}
+        assert "komplexe" not in _FORMAT_MAX_MIN, "Komplexe darf nicht im Maxima-Pool sein"
+        # 1 Segment: target ≤ Max[first] (inkl. genau am Maximum)
+        assert split(20, "amrap",   2, "bodyweight") == [("amrap", 20)]      # genau am Max
+        assert split(30, "density", 2, "kettlebell") == [("density", 30)]    # genau am Max
+        assert split(30, "zirkel",  3, "gym") == [("zirkel", 30)]            # Zirkel max 30 → 1 Segment
+        assert split(20, "tabata",  4, "bodyweight") == [("tabata", 20)]     # genau am Max
+        # 2 Segmente: erstes bis Max, zweites Rest — Coach-Beispiele
+        s = split(35, "amrap", 2, "bodyweight")
+        assert s[0] == ("amrap", 20) and s[1][1] == 15, s                    # 35 → 20+15
+        s = split(35, "density", 3, "gym")
+        assert s[0] == ("density", 25) and s[1][1] == 10, s                  # 35 → 25+10 (NIE 30+5)
+        assert s[0][1] != 30, "Rumpf 30+5 verboten"
+        s = split(50, "density", 3, "gym")
+        assert s[0] == ("density", 30) and s[1][1] == 20, s                  # 50 → 30+20
+        # Invarianten über alle Formate: Summe = target, jedes ≥10 + 5-Min-Raster, ≤2 Segmente, ≠ erstes
+        for tgt in (35, 40, 50):
+            for ff in ("amrap", "density", "tabata", "intervalle", "ladders", "zirkel"):
+                segs = split(tgt, ff, 4, "hybrid")
+                assert sum(d for _, d in segs) == tgt,         (tgt, ff, segs)
+                assert all(d >= 10 and d % 5 == 0 for _, d in segs), (tgt, ff, segs)
+                assert len(segs) <= 2,                         (tgt, ff, segs)
+                if len(segs) == 2:
+                    assert segs[0][0] != segs[1][0],           (tgt, ff, segs)
+        # Dokumentierter Grenzfall (Coach-Entscheidung offen vor 4d-3): kleines Erstformat-Max (20) +
+        # target 50 → ZWEITES Segment 30 Min, überschreitet sein eigenes Maximum ("zweites kriegt den Rest").
+        edge = split(50, "tabata", 4, "hybrid")
+        assert edge[0] == ("tabata", 20) and edge[1][1] == 30, edge
+
+    def zweitformat_amrap_bevorzugt():
+        # Naht 4d: Zweitformat ≠ erstes, AMRAP bevorzugt wenn im Level-Pool, sonst nächstes Pool-Format.
+        assert pick_second_format(3, "gym", exclude="density") == "amrap"        # amrap im L3-Pool → bevorzugt
+        assert pick_second_format(1, "bodyweight", exclude="zirkel") == "intervalle"  # L1 ohne amrap → Rest
+        # immer ≠ exclude über alle realen Level/Equipment (Pool praktisch ≥ 2)
+        for lvl in (1, 2, 3, 4):
+            for eq in ("gym", "bodyweight", "kettlebell", "home_gym", "travel", "hybrid"):
+                first = pick_conditioning_formats(lvl, eq, 1)[0]
+                second = pick_second_format(lvl, eq, exclude=first)
+                assert second is not None and second != first, f"L{lvl}/{eq}: {first}->{second}"
+
+    _cfcheck("Naht 4d Multi-Format-Split (35→20+15/25+10, 50→30+20, ≤2 Segmente)", multi_format_split)
+    _cfcheck("Naht 4d Zweitformat AMRAP-bevorzugt, ≠ erstes",                     zweitformat_amrap_bevorzugt)
     _cfcheck("Naht 4a Conditioning-Pool-Helfer (cond/cf, dedup, kein Kraft-only)", pool_helfer)
     _cfcheck("Naht 4b Finisher aus Pool (BW equipment-korrekt, KB BW-mehrheitlich)", finisher_aus_pool)
     _cfcheck("Naht 3 Rotation: 2 C-Tage/Woche verschieden + Equipment-Bevorzugung", rotation_zwei_verschiedene)
