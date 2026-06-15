@@ -14,8 +14,12 @@ from models import KlientenInput, Hauptziel
 from logic.conditioning_formats import pick_conditioning_formats
 
 
-def _slot(beschreibung: str, pattern: str, tier: str = "compound", max_level: int = 4) -> dict:
-    return {"beschreibung": beschreibung, "pattern": pattern, "tier": tier, "max_level": max_level}
+def _slot(beschreibung: str, pattern: str, tier: str = "compound", max_level: int = 4,
+          pool: str | None = None) -> dict:
+    s = {"beschreibung": beschreibung, "pattern": pattern, "tier": tier, "max_level": max_level}
+    if pool:
+        s["pool"] = pool   # z.B. "conditioning" → Assembler zieht aus dem Conditioning-Pool (Naht 4c)
+    return s
 
 
 def _tag_session(session_id: str, fokus: str, slots: list[dict], session_typ: str = "kraft", metcon_typ: str | None = None) -> dict:
@@ -277,11 +281,14 @@ _FOKUS_MAP = {
     "density":    "Density — Volumen-Kondition",
 }
 
+# Naht 4c: reine Conditioning-Tage ziehen aus dem Conditioning-Pool (pool="conditioning"-Marker),
+# NICHT mehr aus Kraft-Pattern. 4 Slots = 4 Bewegungen (Zirkel/AMRAP üblich); Block-Formate
+# bestimmen ihre Übungszahl über n_blocks. Den Marker liest der Assembler in 4c-2 (A1, deterministisch).
 _CONDITIONING_SLOTS = [
-    _slot("Compound / Squat",    "squat",          "accessory", 2),
-    _slot("Hinge / Swing",       "hinge",          "accessory", 2),
-    _slot("Push-Variation",      "push_horizontal", "accessory", 2),
-    _slot("Core / Carry",        "core",            "core",       2),
+    _slot("Conditioning 1", "conditioning", "accessory", 4, pool="conditioning"),
+    _slot("Conditioning 2", "conditioning", "accessory", 4, pool="conditioning"),
+    _slot("Conditioning 3", "conditioning", "accessory", 4, pool="conditioning"),
+    _slot("Conditioning 4", "conditioning", "accessory", 4, pool="conditioning"),
 ]
 
 def _conditioning_session(idx: int, session_typ: str = "zirkel") -> dict:
