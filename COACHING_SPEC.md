@@ -477,9 +477,8 @@ Jede Recomp-Kraftsession endet mit einem **globalen Bodyweight-Conditioning-Fini
 > Conditioning-Tage (Fettabbau 4/5/6) bekommen 2 verschiedene Formate je Level × Equipment
 > (`pick_conditioning_formats`, **weiche Bevorzugung**: Equipment-Formate zuerst, dann der
 > Level-Rest → 2 C-Tage differenzieren immer). Der Pool umfasst **nur implementierte Formate**
-> (amrap/zirkel/intervalle/tabata/density); **Ladders/Komplexe** (→ Naht 4d) fehlen noch — bis
-> dahin füllt der Level-Rest die KB-Präferenz auf (KB nutzt z.B. Density + ein Level-Format statt
-> Density/Ladders/Komplexe).
+> (amrap/zirkel/intervalle/tabata/density + **Ladders** ab Naht 4d); **Komplexe** bleibt ausgelassen
+> (`TODO(mvp7-komplexe)`, s.u.) — bis dahin füllt der Level-Rest die KB-Präferenz auf, soweit nötig.
 >
 > **V1-Stand (MVP-7 Naht 4, 2026-06-15):** Der **Übungs-Selektor** zieht jetzt aus dem
 > Conditioning-Pool (`pattern == "conditioning"` **ODER** `conditioning_friendly`) —
@@ -488,10 +487,28 @@ Jede Recomp-Kraftsession endet mit einem **globalen Bodyweight-Conditioning-Fini
 > dem Pool (BW-Mehrheit zuerst, Zusatz-Equipment nur ergänzend), (4c) reine C-Tage tragen einen
 > `pool:"conditioning"`-Slot-Marker und ziehen ihre Übungen equipment-korrekt aus dem Pool
 > (verifiziert: BW-Kunde reine BW inkl. Burpee/Mountain Climbers; KB-Kunde BW-Mehrheit + KB-Zusatz).
-> Block-Stapelung über `n_blocks` unverändert. **Offen:** Ladders/Komplexe dosierbar (Naht 4d,
-> braucht Coach-Block-Dauern) und die **Übungs-/Finisher-Format-Rotation über die C-Tage** (Naht 4e
-> — aktuell sind die 2 C-Tage übungsgleich, nur das Format unterscheidet; der Mischtag-Finisher
-> bleibt statisch `amrap`).
+> Block-Stapelung über `n_blocks` unverändert.
+>
+> **V1-Stand (MVP-7 Naht 4d, 2026-06-15) — Ladders + Multi-Format:** **Ladders** ist jetzt
+> block-dosierbar (5-Min-Block wie Density, Stapelung identisch) und im Rotations-Pool. **Komplexe**
+> bleibt ausgelassen (`TODO(mvp7-komplexe)`: braucht vordefinierte Coach-Ketten — Flow ohne Ablegen,
+> nicht aus Einzelübungen stapelbar; gültiges Enum, aber aus dem Pool gefiltert).
+> **Format-Maxima** (Maximaldauer am Stück): AMRAP 20 · Density 30 · Tabata 20 · Intervall 25 ·
+> Ladders 20 · Zirkel 30 Min. **Multi-Format-Aufteilung reiner C-Tage:** Conditioning-Zeit =
+> `session_dauer_min − Warmup`. ≤ Max[Format] → 1 Format füllt die Zeit; größer → 2 Segmente (erstes
+> bis zu seinem Max, zweites den Rest; jedes ≥ 10 Min, 5-Min-Raster/Tabata 4er, **nie Rumpf < 10** →
+> erstes kürzen, z.B. 35 → 20+15 oder 25+10, nie 30+5). Zweitformat ≠ erstes, **AMRAP bevorzugt**.
+> **Kapazitätsbewusstes Erstformat NUR bei langen Sessions:** decken Rotations-Erst- + AMRAP-Zweit-
+> format die Zeit nicht innerhalb beider Maxima ab (z.B. 50 Min, nur Max-20-Formate), wird auf ein
+> großes Erstformat (Zirkel 30 bevorzugt, sonst Density 30) ausgewichen — sonst bleibt die Naht-3-
+> Rotation unangetastet. Nicht abdeckbar → Fehler (melden, nicht still strecken/kürzen). Das 2.
+> Segment steht im `conditioning_block_2` (eigenes Feld, nicht der Recomp-Finisher). **Caveat:** bei
+> sehr langen Sessions mit erzwungenem großem Erstformat können beide C-Tage identisch werden (die
+> räumliche Differenzierung aus Naht 3 verliert Vorrang) → Naht-4e-Gebiet.
+>
+> **Offen:** **Übungs-/Finisher-Format-Rotation über die C-Tage** (Naht 4e — aktuell sind die 2 C-Tage
+> übungsgleich, nur das Format unterscheidet; der Mischtag-Finisher bleibt statisch `amrap`) und
+> Komplexe (`TODO(mvp7-komplexe)`).
 
 ### Longevity — Cardio/Athletik-Tage
 

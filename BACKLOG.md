@@ -1,6 +1,6 @@
 # Backlog — vertagte Arbeit (nach MVP-Paket)
 
-_Stand: 2026-06-15 · git HEAD `de39977` (MVP-7 Naht 1–4 fertig)_
+_Stand: 2026-06-15 · git HEAD `b5d8190` (MVP-7 Naht 1–4d fertig)_
 
 > Bewusst aufgeschobene Arbeit, gruppiert nach MVP-Paket. Jeder Eintrag:
 > Beschreibung · warum vertagt · Code-Marker (Datei:Zeile, Grep-verifiziert) · Abhängigkeit.
@@ -45,7 +45,7 @@ _Stand: 2026-06-15 · git HEAD `de39977` (MVP-7 Naht 1–4 fertig)_
 
 ## MVP-7 — Conditioning-Formate
 
-**Stand 2026-06-15 — Naht 1–4 fertig (`9536905`…`de39977`):**
+**Stand 2026-06-15 — Naht 1–4d fertig (`9536905`…`b5d8190`):**
 - **Mechanismus (Hybrid, entschieden):** Gruppe A `pattern:"conditioning"`, Gruppe B
   `conditioning_friendly:true` (bool). Die „Option A/B"-Designfrage unten ist damit **erledigt**.
 - **Gebaut:** Schema-Enabler (Validator + 125 migriert) · Format-Baukasten (`logic/conditioning_formats.py`):
@@ -55,12 +55,23 @@ _Stand: 2026-06-15 · git HEAD `de39977` (MVP-7 Naht 1–4 fertig)_
   **+33 Conditioning/Athletik-Übungen** (`bc14040`, Pool 41) · **Naht 4** Pool-Selektor **A1
   (deterministisch im Assembler, Claude für C-Sessions umgangen, kein MVP-9-Touch):** 4a Pool-Helfer,
   4b Finisher aus Pool (BW-Mehrheit + Zusatz), 4c reine C-Tage via `pool:"conditioning"`-Marker
-  equipment-korrekt aus dem Pool (Naht-4-Bullet unten damit **erledigt**).
-- **Offen (eigene Nähte):** **Naht 4d** Ladders/Komplexe dosierbar (braucht Coach-Block-Dauern) ·
-  **Naht 4e** Übungs-/Finisher-Format-Rotation über die C-Tage (aktuell C-Tage übungsgleich, nur
-  Format differenziert; Mischtag-Finisher statisch `amrap`) (`TODO(mvp7-formate)`) · Athletik (Naht 5,
-  `TODO(mvp7-athletik)`) · `TODO(mvp7-cleanup)` C1/C2/C4 (geparkt) · Conditioning-Pool-Ausbau (Coach,
-  s. MVP-2-Abschnitt).
+  equipment-korrekt aus dem Pool (Naht-4-Bullet unten damit **erledigt**) · **Naht 4d** (`e6ce594`…
+  `b5d8190`): **Ladders** block-dosierbar (5-Min-Block), **Format-Maxima** `_FORMAT_MAX_MIN`,
+  **Multi-Format-Segmentierung** langer reiner C-Tage (`split_conditioning_segments` mit
+  kapazitätsbewusstem Erstformat + Maxima-Check; nicht abdeckbar → ValueError), **`conditioning_block_2`**-
+  Feld + PDF („FORMAT 2").
+- **Offen (eigene Nähte):**
+  - **Naht 4e** Übungs-/Finisher-Format-Rotation über die C-Tage (aktuell C-Tage übungsgleich, nur
+    Format differenziert; Mischtag-Finisher statisch `amrap`) (`TODO(mvp7-formate)`).
+  - **Komplexe** (`TODO(mvp7-komplexe)`, `conditioning_formats:29`): brauchen **vordefinierte Coach-
+    Ketten** (Flow ohne Ablegen, nur Last) — **nicht aus Einzelübungen generierbar**. Bleibt gültiges
+    Enum, aber aus dem Rotations-Pool gefiltert. Eigener Schritt nach 4e.
+  - **Lange-Session-Caveat (4d → 4e-Gebiet):** Bei sehr langen Sessions mit **erzwungenem großem
+    Erstformat** (kapazitätsbewusst) können **beide C-Tage identisch** werden (z.B. BW-L4-60min →
+    beide density+amrap, kein Zirkel im Pool) — die räumliche Differenzierung aus Naht 3 verliert
+    Vorrang. Bewusst akzeptiert für lange Sessions; Übungs-/Cross-Day-Rotation (Naht 4e) könnte abfedern.
+  - Athletik (Naht 5, `TODO(mvp7-athletik)`) · `TODO(mvp7-cleanup)` C1/C2/C4 (geparkt) ·
+    **Conditioning-Pool-Ausbau** (Coach, s. MVP-2-Abschnitt: Bodyweight-Conditioning L3/L4, Pull-Pattern).
 
 **For Time gestrichen (Spec Thema 6):** offene Dauer („so schnell wie möglich") kollidiert mit der festen
 Session-Länge / Modell A. Falls je reaktiviert: `max_time_cap` als **Pflichtparameter** (Session-Dauer-Deckel)
