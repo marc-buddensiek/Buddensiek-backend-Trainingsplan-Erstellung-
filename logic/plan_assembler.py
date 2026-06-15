@@ -13,7 +13,7 @@ import uuid
 from datetime import datetime, timezone
 
 from models import (
-    KlientenInput, ClaudeOutput, Hauptziel, Equipment,
+    KlientenInput, ClaudeOutput, Hauptziel, Equipment, UebungAuswahl,
     Plan, Woche, Session, KlientenSnapshot, MetconBlock,
     WarmUp, WarmUpUebung, HauptUebung, Cardio, CoolDown, CoolDownUebung, PSTTest,
 )
@@ -439,13 +439,26 @@ def assemble_plan(
             is_block     = is_block_format(session_typ)
             m_cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {}) if (is_metabolic and not is_block) else {}
 
-            uebungen_auswahl = claude_sessions.get(original_id, [])
             haupt_uebungen: list[HauptUebung] = []
             slot_tiers: list[str] = []            # Tier je HauptUebung (aligned) für den Trim
             slot_templates = session_template.get("slots", [])
-            valid_auswahl = [u for u in uebungen_auswahl if ex_by_id.get(u.exercise_id)]
             # Reine Conditioning-Tage: Ziel-Dauer = Client-Session (− Warmup), KEINE Level-Deckelung.
             cond_target = conditioning_target_min(klient.session_dauer_min) if is_block else 0
+
+            if any(s.get("pool") == "conditioning" for s in slot_templates):
+                # Naht 4c-2 (A1): pool="conditioning"-Slots ziehen die Übungen deterministisch aus dem
+                # Conditioning-Pool (Gruppe A + conditioning_friendly), NICHT aus claude_sessions.
+                # Equipment-korrekt (uebungen_gefiltert ist schon equipment-gefiltert, BW als Obergrenze
+                # immer dabei), BW-Mehrheit zuerst wie der 4b-Finisher; Zusatz-Equipment nur ergänzend.
+                # Block-Formate: n_blocks Übungen (je Block eine andere); session-füllend: Slot-Anzahl (4).
+                n_pool = block_count(session_typ, cond_target) if is_block else len(slot_templates)
+                pool_sorted = sorted(conditioning_pool(uebungen_gefiltert),
+                                     key=lambda e: 0 if "bodyweight" in e["equipment"] else 1)
+                valid_auswahl = [UebungAuswahl(reihenfolge=i + 1, exercise_id=ex["id"], notiz="")
+                                 for i, ex in enumerate(_pick_finisher_uebungen(pool_sorted, n_pool))]
+            else:
+                uebungen_auswahl = claude_sessions.get(original_id, [])
+                valid_auswahl = [u for u in uebungen_auswahl if ex_by_id.get(u.exercise_id)]
 
             if is_block and valid_auswahl:
                 # ── Block-Stapelung (Spec Thema 6): n Blöcke füllen die Ziel-Dauer, je Block
