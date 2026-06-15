@@ -18,8 +18,12 @@ from models import (
     WarmUp, WarmUpUebung, HauptUebung, Cardio, CoolDown, CoolDownUebung, PSTTest,
 )
 from logic.volume_calculator import (
-    berechne_volumen, WARMUP_MIN, ZEIT_PRO_SATZ_KRAFT, ZEIT_PRO_SATZ_COND, finisher_min, tier_floor,
-    rir_hinweis,
+    berechne_volumen, WARMUP_MIN, ZEIT_PRO_SATZ_KRAFT, ZEIT_PRO_SATZ_COND,
+    FINISHER_MIN_RECOMP, tier_floor, rir_hinweis,
+)
+from logic.conditioning_formats import (
+    is_conditioning, is_block_format, conditioning_target_min, block_count,
+    block_params, REST_BETWEEN_BLOCKS_SEK,
 )
 
 
@@ -92,11 +96,11 @@ def _pausenzeit(tier: str, pattern: str) -> int:
 
 _METABOLIC_CONFIG: dict[str, dict[str, dict]] = {
     # Conditioning trägt KEINE RPE (Spec Thema 6) — kein rpe-Key mehr.
-    "amrap": {
-        "akkumulation":   {"saetze": 1, "dauer_min": 10, "wdh": "10 Wdh", "pause": 0},
-        "progression":    {"saetze": 1, "dauer_min": 12, "wdh": "10 Wdh", "pause": 0},
-        "intensivierung": {"saetze": 1, "dauer_min": 15, "wdh": "10 Wdh", "pause": 0},
-        "deload":         {"saetze": 1, "dauer_min":  8, "wdh": "10 Wdh", "pause": 0},
+    "amrap": {   # dauer_min entfernt (war Festwert in der Notiz; echte Dauer kommt jetzt als Param)
+        "akkumulation":   {"saetze": 1, "wdh": "10 Wdh", "pause": 0},
+        "progression":    {"saetze": 1, "wdh": "10 Wdh", "pause": 0},
+        "intensivierung": {"saetze": 1, "wdh": "10 Wdh", "pause": 0},
+        "deload":         {"saetze": 1, "wdh": "10 Wdh", "pause": 0},
     },
     "zirkel": {
         "akkumulation":   {"saetze": 3, "wdh": "12 Wdh", "pause": 0},
@@ -122,19 +126,28 @@ def _metabolic_wdh(session_typ: str, pattern: str, woche_typ: str) -> str:
 
 # ── Format-Notiz je Session-Typ × Woche ───────────────────────────────────────
 
-def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str) -> str | None:
+def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str, dauer_min: int | None = None) -> str | None:
+    # dauer_min = echte/effektive Conditioning-Dauer (Finisher: ≤10 Min; reine Session: session_min−Warmup).
     cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {})
+    if session_typ == "tabata":
+        return (f"Tabata — {n_uebungen} Blöcke à 8 Runden 20 s Arbeit / 10 s Pause (4 Min/Block), "
+                f"je Block eine andere Übung, 60 Sek. Pause zwischen den Blöcken.")
+    if session_typ == "density":
+        return (f"Density — {n_uebungen} Blöcke à 5 Min: max. Wiederholungen bei festem Gewicht, "
+                f"60 Sek. Pause zwischen den Blöcken.")
     if session_typ == "zirkel":
         r = cfg.get("saetze", 3)
         return (f"{r} Runden Zirkel — alle {n_uebungen} Übungen nacheinander ohne Pause. "
                 f"60 Sek. Pause nach jeder Runde. Runden notieren.")
     if session_typ == "amrap":
-        d = cfg.get("dauer_min", 12)
+        d = dauer_min if dauer_min is not None else 10   # echte Dauer, kein _METABOLIC_CONFIG-Festwert mehr
         return (f"{d} Min. AMRAP — so viele Runden wie möglich mit allen {n_uebungen} Übungen. "
                 f"Kein Stop zwischen Übungen. Runden am Ende notieren.")
     if session_typ == "intervalle":
         r = cfg.get("saetze", 4)
         w = cfg.get("wdh", "30 Sek")
+        # TODO(mvp7-cleanup): Work:Rest hier hardcodiert ("20 Sek. Pause") statt aus
+        # conditioning_formats.level_work_rest — Spec sagt Level-Work:Rest. Naht-4-Gebiet.
         return (f"Intervalle: {r} Runden je Übung — {w} Arbeit / 20 Sek. Pause. "
                 f"2 Min. Pause zwischen Übungen. Ziel: 85-90% HF-Max.")
     return None
@@ -315,7 +328,7 @@ def _build_metcon_block(
 
     return MetconBlock(
         typ=metcon_typ,
-        format_notiz=_format_notiz(metcon_typ, len(selected), woche_typ) or "",
+        format_notiz=_format_notiz(metcon_typ, len(selected), woche_typ, dauer_min=FINISHER_MIN_RECOMP) or "",
         uebungen=selected,
     )
 
@@ -324,14 +337,16 @@ def _build_metcon_block(
 # Konstanten/Helper aus volume_calculator (Single Source of Truth: Modell-A-Zeitparameter).
 # Cooldown ist in die Warmup-Pauschale gefaltet; Cardio additiv (Block bleibt sichtbar).
 
-def _schaetze_dauer(haupt_uebungen: list, zeit_pro_satz: float, ziel: Hauptziel, cardio_min: int = 0) -> int:
+def _schaetze_dauer(haupt_uebungen: list, zeit_pro_satz: float, finisher_min_val: int = 0, cardio_min: int = 0) -> int:
+    # finisher_min_val = interne Finisher-Minuten gemischter Tage (C3) — fließt NUR in die
+    # Dauer-Rechnung; der Finisher hat KEINE eigene Tagesdauer (MetconBlock ohne dauer-Feld).
     sets_total = sum(u.saetze for u in haupt_uebungen)
-    total = WARMUP_MIN + sets_total * zeit_pro_satz + finisher_min(ziel) + cardio_min
+    total = WARMUP_MIN + sets_total * zeit_pro_satz + finisher_min_val + cardio_min
     return min(120, max(20, round(total / 5) * 5))
 
 
 def _trim_auf_dauer(uebungen: list, tiers: list, wunschdauer: int,
-                    zeit_pro_satz: float, ziel: Hauptziel, cardio_min: int) -> None:
+                    zeit_pro_satz: float, finisher_min_val: int, cardio_min: int) -> None:
     """Kürzt Sätze (nicht Übungen), bis die geschätzte Dauer in die Wunschdauer passt.
     Reihenfolge: core → isolation → accessory → Zweit-Compound → Haupt-Compound (zuletzt,
     nie unter Cap-Unterkante). Sind alle Slots auf ihrem Floor, bleibt die Session minimal
@@ -350,7 +365,7 @@ def _trim_auf_dauer(uebungen: list, tiers: list, wunschdauer: int,
             return haupt_comp                               # Haupt-Compound zuletzt
         return None
 
-    while _schaetze_dauer(uebungen, zeit_pro_satz, ziel, cardio_min) > wunschdauer:
+    while _schaetze_dauer(uebungen, zeit_pro_satz, finisher_min_val, cardio_min) > wunschdauer:
         i = _kandidat()
         if i is None:
             # TODO(short-session-pattern-drop): V1 entfernt kein Pflicht-Pattern. An der
@@ -404,61 +419,89 @@ def assemble_plan(
             tag          = tage[session_idx] if session_idx < len(tage) else "samstag"
             metcon_blk   = None
 
-            is_metabolic = session_typ in ("zirkel", "amrap", "intervalle")
-            m_cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {}) if is_metabolic else {}
+            is_metabolic = is_conditioning(session_typ)
+            is_block     = is_block_format(session_typ)
+            m_cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {}) if (is_metabolic and not is_block) else {}
 
             uebungen_auswahl = claude_sessions.get(original_id, [])
             haupt_uebungen: list[HauptUebung] = []
             slot_tiers: list[str] = []            # Tier je HauptUebung (aligned) für den Trim
-
             slot_templates = session_template.get("slots", [])
-            for u in uebungen_auswahl:
-                ex = ex_by_id.get(u.exercise_id)
-                if not ex:
-                    continue
-                pattern = ex["pattern"]
-                slot_idx = u.reihenfolge - 1
-                slot_tier = (
-                    slot_templates[slot_idx]["tier"]
-                    if slot_idx < len(slot_templates)
-                    else "compound"
-                )
+            valid_auswahl = [u for u in uebungen_auswahl if ex_by_id.get(u.exercise_id)]
+            # Reine Conditioning-Tage: Ziel-Dauer = Client-Session (− Warmup), KEINE Level-Deckelung.
+            cond_target = conditioning_target_min(klient.session_dauer_min) if is_block else 0
 
-                if is_metabolic:
-                    u_saetze     = m_cfg.get("saetze", 3)
-                    u_wdh        = _metabolic_wdh(session_typ, pattern, woche_typ)
-                    u_rpe        = None   # Conditioning trägt keine RPE (Spec Thema 6)
-                    u_pausenzeit = m_cfg.get("pause", 0)
-                else:
-                    u_saetze     = volumen.get(f"{slot_tier}_saetze", saetze)
-                    u_wdh        = _wdh(klient.hauptziel, pattern, slot_tier, level)
-                    u_rpe        = volumen.get(f"{slot_tier}_rpe", rpe)
-                    u_pausenzeit = _pausenzeit(slot_tier, pattern)
-
-                # L1-RIR-Hilfe: nur Kraftsätze (nicht-metabolic); rir_hinweis liefert für Level ≥ 2 None
-                u_rpe_hinweis = None if is_metabolic else rir_hinweis(level, u_rpe)
-
-                haupt_uebungen.append(
-                    HauptUebung(
-                        reihenfolge=u.reihenfolge,
-                        exercise_id=u.exercise_id,
-                        name=ex["name"],
-                        saetze=u_saetze,
-                        wdh=u_wdh,
-                        rpe=u_rpe,
-                        tempo=_tempo(pattern, session_typ),
-                        pausenzeit_sek=u_pausenzeit,
-                        coaching_cues=ex["coaching_cues"][:3],
-                        notiz=u.notiz,
-                        rpe_hinweis=u_rpe_hinweis,
+            if is_block and valid_auswahl:
+                # ── Block-Stapelung (Spec Thema 6): n Blöcke füllen die Ziel-Dauer, je Block
+                #    EINE Übung (zyklisch durch die gezogenen), festes Block-Timing (schlägt
+                #    Level-Work:Rest), 60 s Pause zwischen den Blöcken, keine RPE. ──
+                n  = block_count(session_typ, cond_target)
+                bp = block_params(session_typ)
+                for i in range(n):
+                    u  = valid_auswahl[i % len(valid_auswahl)]
+                    ex = ex_by_id[u.exercise_id]
+                    haupt_uebungen.append(
+                        HauptUebung(
+                            reihenfolge=i + 1,
+                            exercise_id=u.exercise_id,
+                            name=ex["name"],
+                            saetze=bp["saetze"],
+                            wdh=bp["wdh"],
+                            rpe=None,
+                            tempo=_tempo(ex["pattern"], session_typ),
+                            pausenzeit_sek=REST_BETWEEN_BLOCKS_SEK,
+                            coaching_cues=ex["coaching_cues"][:3],
+                            notiz=u.notiz,
+                        )
                     )
-                )
-                slot_tiers.append(slot_tier)
+                    slot_tiers.append("compound")
+            else:
+                for u in valid_auswahl:
+                    ex = ex_by_id[u.exercise_id]
+                    pattern = ex["pattern"]
+                    slot_idx = u.reihenfolge - 1
+                    slot_tier = (
+                        slot_templates[slot_idx]["tier"]
+                        if slot_idx < len(slot_templates)
+                        else "compound"
+                    )
+
+                    if is_metabolic:
+                        u_saetze     = m_cfg.get("saetze", 3)
+                        u_wdh        = _metabolic_wdh(session_typ, pattern, woche_typ)
+                        u_rpe        = None   # Conditioning trägt keine RPE (Spec Thema 6)
+                        u_pausenzeit = m_cfg.get("pause", 0)
+                    else:
+                        u_saetze     = volumen.get(f"{slot_tier}_saetze", saetze)
+                        u_wdh        = _wdh(klient.hauptziel, pattern, slot_tier, level)
+                        u_rpe        = volumen.get(f"{slot_tier}_rpe", rpe)
+                        u_pausenzeit = _pausenzeit(slot_tier, pattern)
+
+                    # L1-RIR-Hilfe: nur Kraftsätze (nicht-metabolic); rir_hinweis liefert für Level ≥ 2 None
+                    u_rpe_hinweis = None if is_metabolic else rir_hinweis(level, u_rpe)
+
+                    haupt_uebungen.append(
+                        HauptUebung(
+                            reihenfolge=u.reihenfolge,
+                            exercise_id=u.exercise_id,
+                            name=ex["name"],
+                            saetze=u_saetze,
+                            wdh=u_wdh,
+                            rpe=u_rpe,
+                            tempo=_tempo(pattern, session_typ),
+                            pausenzeit_sek=u_pausenzeit,
+                            coaching_cues=ex["coaching_cues"][:3],
+                            notiz=u.notiz,
+                            rpe_hinweis=u_rpe_hinweis,
+                        )
+                    )
+                    slot_tiers.append(slot_tier)
 
             warm_up    = _warm_up(klient.equipment, fokus)
             cardio     = _cardio(klient.hauptziel, fokus)
             cool_down  = _cool_down(fokus)
-            fmt_notiz  = _format_notiz(session_typ, len(haupt_uebungen), woche_typ)
+            fmt_notiz  = _format_notiz(session_typ, len(haupt_uebungen), woche_typ,
+                                       dauer_min=conditioning_target_min(klient.session_dauer_min) if is_metabolic else None)
             metcon_typ = session_template.get("metcon_typ")
             metcon_blk = _build_metcon_block(metcon_typ, woche_typ, uebungen_gefiltert) if metcon_typ else None
 
@@ -468,11 +511,20 @@ def assemble_plan(
                 pst_tests = _PST_TESTS
 
             cardio_min = cardio.dauer_min if cardio else 0
+            # C3: gemischte Tage (Kraft + Finisher) zählen die Finisher-Minuten in die interne
+            # Dauer-Rechnung — egal welches Ziel (vorher nur Recomp via finisher_min). Reine
+            # interne Rechnung: der Finisher hat keine eigene Tagesdauer (MetconBlock ohne dauer).
+            finisher_dauer = FINISHER_MIN_RECOMP if metcon_blk else 0
+            # TODO(mvp7-cleanup): ZEIT_PRO_SATZ_COND ist für is_metabolic toter Pfad — reine
+            # Conditioning-Tage nutzen die Dauer aus session_dauer_min (unten), nicht _schaetze_dauer.
             zeit_pro_satz = ZEIT_PRO_SATZ_COND if is_metabolic else ZEIT_PRO_SATZ_KRAFT
             if not is_metabolic and haupt_uebungen:   # Dauer gewinnt: Kraft-Sätze auf Wunschdauer trimmen
                 _trim_auf_dauer(haupt_uebungen, slot_tiers, klient.session_dauer_min,
-                                zeit_pro_satz, klient.hauptziel, cardio_min)
-            dauer = _schaetze_dauer(haupt_uebungen, zeit_pro_satz, klient.hauptziel, cardio_min)
+                                zeit_pro_satz, finisher_dauer, cardio_min)
+            if is_metabolic:   # reine Conditioning-Tage füllen die gewählte Session-Dauer — KEINE
+                dauer = min(120, max(20, klient.session_dauer_min))   # Level-Deckelung (Block stapelt dazu)
+            else:
+                dauer = _schaetze_dauer(haupt_uebungen, zeit_pro_satz, finisher_dauer, cardio_min)
 
             sessions.append(
                 Session(

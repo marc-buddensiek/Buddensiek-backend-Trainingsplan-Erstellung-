@@ -15,6 +15,7 @@ from fpdf import FPDF
 
 from models import Hauptziel
 from realism_validator import pruefe_realismus
+from logic.conditioning_formats import CONDITIONING as _CONDITIONING
 
 
 # ── Farben (Buddensiek-Stil) ──────────────────────────────────────────────────
@@ -216,7 +217,7 @@ def build_pdf(plan_data: dict) -> FPDF:
             pdf.set_text_color(*C_ACCENT)
             pdf.cell(0, 4, "  HAUPTÜBUNGEN", new_x="LMARGIN", new_y="NEXT")
 
-            is_metabolic_session = s.get("session_typ") in ("zirkel", "amrap", "intervalle")
+            is_metabolic_session = s.get("session_typ") in _CONDITIONING
             for u in s["haupt_uebungen"]:
                 if is_metabolic_session:
                     # Metabolic: kein Tempo, Pause nur bei Intervallen

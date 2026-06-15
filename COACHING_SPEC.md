@@ -386,17 +386,24 @@ RPE** (s.u.).
 Die Formate teilen sich in zwei Bauarten — entscheidend, damit der Generator kein „Tabata 20 min" baut:
 
 - **Session-füllend** (ein Block = ganze Session): AMRAP, Intervalle, Zirkel/Circuit.
-  Dauer = **Level-Dauer** aus dem Mapping (z.B. 20-Min-AMRAP).
+  Dauer = die gewählte **`session_dauer_min`** (level-unabhängig).
 - **Block-Formate** (mehrere Blöcke füllen die Session, ~60 s Pause dazwischen): Tabata, Density, Ladders,
-  Komplexe. Der Generator **stapelt Blöcke**, bis die Level-Ziel-Dauer erreicht ist.
+  Komplexe. Der Generator **stapelt Blöcke**, bis die gewählte **`session_dauer_min` (− Warmup)** gefüllt ist.
+
+> **Dauer-Regel (2026-06-15):** Die Conditioning-Dauer kommt **ausschließlich** aus der vom Klienten
+> gewählten `session_dauer_min`. Das **Level deckelt die Dauer NICHT** — es steuert nur Format-Verfügbarkeit,
+> Work:Rest und Übungskomplexität (`skill_level`). Ein L1-, L2- und L4-Klient mit 45 Min bekommt je ~45 Min
+> Conditioning, nur in unterschiedlichen Formaten. (Ausnahme: gemischte Tage — Recomp + Fettabbau ≤3 — der
+> amrap-Finisher bleibt fix ≤ 10 Min, bewusste Regel, keine Level-Deckelung.)
 
 **Tabata:** Ein **Block** = 8 Runden 20 s on / 10 s off = **4 Min für EINE Übung**. Eine **Session** =
-mehrere Blöcke mit **je unterschiedlicher Übung**, dazwischen **60 s Pause**. Blockzahl nach Level-Dauer:
-**L1 ~2–3 · L3 ~4 · L4 ~5–6 Blöcke**. _Beispiel L1, 3 Blöcke ≈ 12 min:_ Block 1 Squats · Block 2 Push-ups ·
-Block 3 Mountain Climbers (je 8 × 20/10, 60 s Pause dazwischen).
+mehrere Blöcke mit **je unterschiedlicher Übung**, dazwischen **60 s Pause**. Die **Blockzahl füllt die
+gewählte `session_dauer_min` (− Warmup)** — je länger die gewählte Session, desto mehr Blöcke (z.B. 45-Min-
+Session ≈ 7 Blöcke). _Beispiel:_ Block 1 Squats · Block 2 Push-ups · Block 3 Mountain Climbers (je 8 × 20/10,
+60 s Pause dazwischen).
 
 **Density:** ein **Block = 5 Min** feste Zeit, max. Wiederholungen bei festem Gewicht; mehrere Blöcke
-(~60 s Pause) bis zur Level-Dauer. **Ladders:** **aufsteigendes** Schema (z.B. 1-2-3-4-5 … bis Cap),
+(~60 s Pause) bis die gewählte **`session_dauer_min`** gefüllt ist. **Ladders:** **aufsteigendes** Schema (z.B. 1-2-3-4-5 … bis Cap),
 Block-Format. **Komplexe:** mehrere Übungen mit **einer Last** am Stück × mehrere Runden, Pause zwischen
 den Blöcken; nur KB/Hantel/LH.
 
@@ -419,16 +426,20 @@ Wie „conditioning-tauglich" markiert ist (Hybrid, Details in SCHEMA.md):
   Gating unverändert: der Klient bekommt Übungen **bis zu seinem Level** (L4 inkl. aller einfacheren).
   `impact_level` (low/med/high) bleibt für den Verletzungsfilter.
 - **Progression primär über Trainingsdichte, nicht über Übungstausch:** dieselbe Übung kommt über mehrere
-  Level vor; der Unterschied entsteht über **Format, Work:Rest und Dauer**.
+  Level vor; der Unterschied entsteht über **Format und Work:Rest** (NICHT über die Dauer — die kommt aus
+  `session_dauer_min`).
 
-**Level → Format / Work:Rest / Dauer:**
+**Level → Format / Work:Rest:**
 
-| Level | Formate | Work:Rest | Dauer |
+| Level | Formate | Work:Rest | _Dauer-Band (nur Referenz, KEIN Cap)_ |
 |---|---|---|---|
-| L1 | Intervall, einfacher Circuit | 20:40 oder 30:30 | 8–12 min |
-| L2 | Intervall, AMRAP, Density, Ladders | 40:20 | 12–18 min |
-| L3 | AMRAP, Circuit, Density, Ladders, Tabata | 40:20 oder 45:15 | 15–22 min |
-| L4 | AMRAP, Tabata, Density, Komplexe | 45:15, 50:10 oder 60:15 | 20–30 min |
+| L1 | Intervall, einfacher Circuit | 20:40 oder 30:30 | _8–12 min_ |
+| L2 | Intervall, AMRAP, Density, Ladders | 40:20 | _12–18 min_ |
+| L3 | AMRAP, Circuit, Density, Ladders, Tabata | 40:20 oder 45:15 | _15–22 min_ |
+| L4 | AMRAP, Tabata, Density, Komplexe | 45:15, 50:10 oder 60:15 | _20–30 min_ |
+
+> Die letzte Spalte ist eine **Referenz-Notiz** (typische Intensitäts-Bänder), **kein Dauer-Cap**: die reale
+> Conditioning-Dauer = `session_dauer_min` (s. Dauer-Regel oben). Das Level steuert Format + Work:Rest, nicht die Dauer.
 
 - **Format-eigenes Timing schlägt Level-Work:Rest.** **Tabata** bringt festes Timing mit (**20:10 × 8**,
   fix) und überschreibt die Level-Work:Rest. Nur die Work:Rest-Formate (Intervall, Circuit) nehmen die

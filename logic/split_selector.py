@@ -11,6 +11,7 @@ Slot-Anzahl nach Session-Dauer:
 
 from __future__ import annotations
 from models import KlientenInput, Hauptziel
+from logic.conditioning_formats import trivial_format_pick
 
 
 def _slot(beschreibung: str, pattern: str, tier: str = "compound", max_level: int = 4) -> dict:
@@ -272,6 +273,8 @@ _FOKUS_MAP = {
     "zirkel":     "Zirkel — Ganzkörper Kondition",
     "amrap":      "AMRAP — Kraft-Ausdauer",
     "intervalle": "Intervalle — HIIT Kondition",
+    "tabata":     "Tabata — Intervall-Kondition",
+    "density":    "Density — Volumen-Kondition",
 }
 
 _CONDITIONING_SLOTS = [
@@ -384,19 +387,21 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
                 for s in _full_body_sessions(tage, level, dauer)
             ]
             return {"split_typ": f"Full Body {tage}× + Metcon-Akzente", "sessions": sessions}
-        elif tage == 4:
-            fb = _full_body_sessions(3, level, dauer)
-            sessions = _renumber(fb + [_conditioning_session(4, "intervalle")])
-            return {"split_typ": "3× Kraft + Conditioning", "sessions": sessions}
-        elif tage == 5:
-            ul = _upper_lower_sessions(level, dauer)
-            sessions = _renumber(ul + [_conditioning_session(5, "intervalle")])
-            return {"split_typ": "Upper/Lower 4× + Conditioning", "sessions": sessions}
-        else:  # 6: 4 Kraft + 2 Conditioning (zwei unterschiedliche Formate, Spec Thema 6)
-            ul = _upper_lower_sessions(level, dauer)
-            sessions = _renumber(ul + [_conditioning_session(5, "intervalle"),
-                                       _conditioning_session(6, "amrap")])
-            return {"split_typ": "Upper/Lower 4× + 2× Conditioning", "sessions": sessions}
+        # TODO(mvp7-formate): trivialer Platzhalter-Pick (erstes Block-Format der Level-Map);
+        # Naht 4 ersetzt durch echte Rotation (nie 2× hintereinander, Equipment-Bevorzugung,
+        # zwei unterschiedliche Formate bei 2 Conditioning-Tagen).
+        cond_fmt = trivial_format_pick(level)
+        # 4/5/6 Tage: (tage−2)× Kraft + Finisher (GEMISCHT, wie Recomp) + fix 2× reine Conditioning.
+        metcon_typ = None if dauer <= 20 else "amrap"
+        n_kraft = tage - 2                              # 4→2 · 5→3 · 6→4
+        kraft_base = (_full_body_sessions(n_kraft, level, dauer) if n_kraft <= 3
+                      else _upper_lower_sessions(level, dauer))
+        kraft = [_tag_session(s["session_id"], s["fokus"], s["slots"], "kraft", metcon_typ)
+                 for s in kraft_base]
+        cond = [_conditioning_session(n_kraft + 1, cond_fmt),
+                _conditioning_session(n_kraft + 2, cond_fmt)]
+        sessions = _renumber(kraft + cond)
+        return {"split_typ": f"{n_kraft}× Kraft+Metcon + 2× Conditioning", "sessions": sessions}
 
     else:  # Hauptziel.longevity — Generalist: Kraft + Zone-2-Cardio (Spec Thema 4)
         if tage <= 3:

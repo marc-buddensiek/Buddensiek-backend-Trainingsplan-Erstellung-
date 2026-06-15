@@ -376,9 +376,9 @@ def main():
     print("=" * 65)
 
     from scripts.generate_test_plans import _auto_claude_output
+    from logic.conditioning_formats import CONDITIONING as _METABOLIC
 
     _L1 = dict(kniebeugen=5, pushups=5, situps=5, burpees=3, plank=20, trainingsjahre_ref="keine")
-    _METABOLIC = {"zirkel", "amrap", "intervalle"}
 
     def _plan(kwargs: dict):
         klient   = parse_typeform_payload(make_payload(**kwargs))
@@ -473,6 +473,101 @@ def main():
 
     print()
     print(f"  Ergebnis: {cr_passed}/{cr_passed+cr_failed} bestanden")
+
+    # ── Conditioning-Format-Baukasten (MVP-7 Naht 2c) ─────────────────────────
+    print()
+    print("=" * 65)
+    print("CONDITIONING-FORMAT-BAUKASTEN (MVP-7 Naht 2c)")
+    print("=" * 65)
+
+    from logic.conditioning_formats import (
+        trivial_format_pick, conditioning_target_min, block_count, block_session_dauer,
+        block_params, level_work_rest,
+    )
+
+    cf_passed = cf_failed = 0
+
+    def _cfcheck(desc: str, fn):
+        nonlocal cf_passed, cf_failed
+        try:
+            fn()
+            print(f"  ✅ {desc}")
+            cf_passed += 1
+        except AssertionError as e:
+            print(f"  ❌ {desc}  →  {e}")
+            cf_failed += 1
+
+    def trivial_pick_je_level():
+        assert trivial_format_pick(1) == "intervalle", trivial_format_pick(1)
+        assert trivial_format_pick(2) == "density"
+        assert trivial_format_pick(3) == "density"
+        assert trivial_format_pick(4) == "tabata"
+
+    def ziel_dauer_session_minus_warmup():
+        # Dauer = Client-Session − Warmup, KEINE Level-Deckelung (level-unabhängig)
+        assert conditioning_target_min(45) == 35, conditioning_target_min(45)
+        assert conditioning_target_min(60) == 50
+        assert conditioning_target_min(30) == 20
+
+    def tabata_block_stapelung():
+        # Ziel 30 min → 6 Blöcke à 4 Min + 5×60 s = 29 min; festes 20/10-Timing
+        assert block_count("tabata", 30) == 6 and block_session_dauer("tabata", 30) == 29
+        assert block_count("tabata", 10) == 2                                           # min. 2 Blöcke
+        assert block_params("tabata")["saetze"] == 8 and "20 s" in block_params("tabata")["wdh"]
+
+    def density_5min_bloecke():
+        assert block_count("density", 18) == 3 and block_session_dauer("density", 18) == 17
+        for t in (12, 18, 30):
+            n = block_count("density", t)
+            assert block_session_dauer("density", t) == n * 5 + (n - 1), f"Density-Dauer-Formel @ {t}"
+
+    def l4_work_rest():
+        assert level_work_rest(4) == (45, 15)
+
+    def alle_level_fuellen_45():
+        # Kernregel: L1/L2/L4 reiner Conditioning-Tag @45min → alle ~45 min (Level deckelt NICHT;
+        # nur das Format unterscheidet sich: L1 intervalle · L2 density · L4 tabata).
+        fixtures = [
+            (dict(kniebeugen=5, pushups=5, situps=5, burpees=3, plank=20), "keine", "intervalle"),
+            (dict(kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80), "ein_bis_zwei", "density"),
+            (dict(kniebeugen=80, pushups=60, situps=75, burpees=40, plank=200), "fuenf_plus", "tabata"),
+        ]
+        for pst, tj, exp_fmt in fixtures:
+            lvl, plan = _plan(dict(hauptziel_ref="fettabbau", tage=6, session_min=45,
+                                   trainingsjahre_ref=tj, **pst))
+            cond = [s for w in plan["wochen"] for s in w["sessions"] if s["session_typ"] == exp_fmt]
+            assert cond, f"L{lvl}: keine {exp_fmt}-Session"
+            for s in cond:
+                d = s["dauer_min_geschaetzt"]
+                assert 40 <= d <= 50, f"L{lvl} {exp_fmt} {d}min != ~45 (Level deckelt die Dauer nicht)"
+                assert all(u["rpe"] is None for u in s["haupt_uebungen"])
+
+    def e2e_a_recomp_finisher_kurz():
+        # (a) gemischter Tag: Kraft + amrap-Finisher (NICHT block-gestapelt, kurz)
+        lvl, plan = _plan(dict(hauptziel_ref="recomp", tage=4, session_min=45,
+                               kniebeugen=80, pushups=60, situps=75, burpees=40, plank=200,
+                               trainingsjahre_ref="fuenf_plus"))
+        sess = [s for w in plan["wochen"] for s in w["sessions"]]
+        blocks = [s["metcon_block"] for s in sess if s.get("metcon_block")]
+        assert blocks, "kein Recomp-Finisher"
+        assert all(mb["typ"] == "amrap" for mb in blocks), "Finisher nicht amrap (2c fasst ihn nicht an)"
+        assert not any(s["session_typ"] in ("tabata", "density") for s in sess), "Block-Stapelung leakt in gemischten Tag"
+        # Fix 2 (C5): Finisher-Notiz zeigt die echte Dauer (≤10 Min, alle Wochen gleich), kein 8–15-Festwert
+        import re
+        for mb in blocks:
+            m = re.match(r"(\d+) Min\. AMRAP", mb["format_notiz"])
+            assert m and int(m.group(1)) <= 10, f"Finisher-Notiz-Dauer falsch: {mb['format_notiz']!r}"
+
+    _cfcheck("Trivial-Pick je Level (L1 intervalle · L2/L3 density · L4 tabata)", trivial_pick_je_level)
+    _cfcheck("Ziel-Dauer = Session − Warmup (keine Level-Deckelung)",            ziel_dauer_session_minus_warmup)
+    _cfcheck("Tabata-Block-Stapelung (Ziel 30→6 Blöcke, festes 20/10-Timing)",   tabata_block_stapelung)
+    _cfcheck("Density 5-Min-Blöcke (Dauer-Formel n×5 + Pausen)",                 density_5min_bloecke)
+    _cfcheck("L4 Work:Rest == 45:15",                                           l4_work_rest)
+    _cfcheck("L1/L2/L4 @45min → alle ~45 min (Level deckelt Dauer NICHT)",       alle_level_fuellen_45)
+    _cfcheck("(a) Recomp = Kraft + amrap-Finisher (kurz, nicht block-gestapelt)", e2e_a_recomp_finisher_kurz)
+
+    print()
+    print(f"  Ergebnis: {cf_passed}/{cf_passed+cf_failed} bestanden")
 
     if with_claude:
         import os

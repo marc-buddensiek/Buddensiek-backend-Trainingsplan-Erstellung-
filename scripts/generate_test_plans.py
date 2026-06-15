@@ -161,6 +161,12 @@ TEST_CASES = [
           trainingsjahre_ref="ein_bis_zwei",
           kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80,
           stress=9, schlaf="5")),
+
+    # MVP-7 Naht 2c: L4-Fettabbau (6T) → Trivial-Pick = Tabata → Block-Stapelung im PDF sichtbar
+    ("17_gym_fettabbau_6x60_L4_tabata",  "Nina",
+     dict(hauptziel_ref="fettabbau", tage=6, session_min=60, equipment_ref="gym",
+          trainingsjahre_ref="fuenf_plus",
+          kniebeugen=80, pushups=60, situps=75, burpees=40, plank=200)),
 ]
 
 
