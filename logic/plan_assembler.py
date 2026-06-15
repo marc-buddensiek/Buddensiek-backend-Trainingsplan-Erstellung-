@@ -135,6 +135,9 @@ def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str, dauer_min: 
     if session_typ == "density":
         return (f"Density — {n_uebungen} Blöcke à 5 Min: max. Wiederholungen bei festem Gewicht, "
                 f"60 Sek. Pause zwischen den Blöcken.")
+    if session_typ == "ladders":
+        return (f"Ladders — {n_uebungen} Blöcke à 5 Min: Wiederholungen aufsteigend (1-2-3-…), "
+                f"je Block eine andere Übung, 60 Sek. Pause zwischen den Blöcken.")
     if session_typ == "zirkel":
         r = cfg.get("saetze", 3)
         return (f"{r} Runden Zirkel — alle {n_uebungen} Übungen nacheinander ohne Pause. "

@@ -6,8 +6,9 @@ Level→Format/Work:Rest/Dauer-Map + Block-Stapel-Logik. Geteilt von plan_assemb
 trivialen Platzhalter-Pick hier).
 
 Formate (7): Session-füllend (amrap/zirkel/intervalle) + Block-Formate
-(tabata/density/ladders/komplexe). In 2c sind nur **Tabata + Density** block-dosierbar;
-Ladders + Komplexe bleiben gültige Enum-Formate, ihre Block-Dauern kommen mit Naht 4.
+(tabata/density/ladders/komplexe). Block-dosierbar (4d): **Tabata + Density + Ladders** (5-Min-Block).
+Komplexe bleibt vorerst draußen (TODO(mvp7-komplexe): braucht vordefinierte Coach-Ketten — Flow ohne
+Ablegen, nicht aus Einzelübungen stapelbar) — gültiges Enum, aber NICHT im Rotations-Pool.
 
 Conditioning trägt KEINE RPE (Thema 6) — Intensität ergibt sich aus Format/Work:Rest/Dauer.
 
@@ -24,7 +25,10 @@ from __future__ import annotations
 from logic.volume_calculator import WARMUP_MIN
 
 SESSION_FILLING = {"amrap", "zirkel", "intervalle"}      # ein Block = ganze Session
-BLOCK_IMPLEMENTED = {"tabata", "density"}                # block-dosierbar in 2c (Naht 4: + ladders/komplexe)
+BLOCK_IMPLEMENTED = {"tabata", "density", "ladders"}     # block-dosierbar (4d: + ladders, 5-Min-Block)
+# TODO(mvp7-komplexe): Komplexe bewusst NICHT aufnehmen — braucht vordefinierte Coach-Ketten (Flow
+# ohne Ablegen), nicht aus Einzelübungen stapelbar. Bleibt gültiges Enum, aber aus dem Pool gefiltert
+# (steht in _LEVEL_FORMATS/_EQUIPMENT_FORMATS, wird aber von `impl` unten herausgefiltert).
 CONDITIONING = SESSION_FILLING | BLOCK_IMPLEMENTED       # was als metabolic/Conditioning gilt
 
 # Level → verfügbare Formate (Reihenfolge wie Spec-Tabelle Thema 6)
@@ -55,12 +59,13 @@ _LEVEL_WORK_REST: dict[int, tuple[int, int]] = {1: (20, 40), 2: (40, 20), 3: (40
 #  Verbleiben als reine Doku-Notiz in COACHING_SPEC Thema 6.)
 
 # Block-Formate: feste Block-Dauer (Min) — Format-eigenes Timing schlägt Level-Work:Rest.
-_BLOCK_DAUER_MIN: dict[str, int] = {"tabata": 4, "density": 5}
+_BLOCK_DAUER_MIN: dict[str, int] = {"tabata": 4, "density": 5, "ladders": 5}
 
 # Per-Block-Parameter (eine Übung je Block). saetze/wdh sind Anzeige; keine RPE (Thema 6).
 _BLOCK_PARAMS: dict[str, dict] = {
     "tabata":  {"saetze": 8, "wdh": "20 s an / 10 s aus"},                       # 8 Runden = 4 Min, fix
     "density": {"saetze": 1, "wdh": "5 Min — max. Wiederholungen bei festem Gewicht"},
+    "ladders": {"saetze": 1, "wdh": "5 Min — Leiter aufsteigend (1-2-3-…) bis Zeitablauf"},
 }
 
 REST_BETWEEN_BLOCKS_SEK = 60   # ~60 s Pause zwischen Blöcken
