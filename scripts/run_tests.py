@@ -483,7 +483,7 @@ def main():
     from logic.conditioning_formats import (
         pick_conditioning_formats, conditioning_target_min, block_count, block_session_dauer,
         block_params, level_work_rest, CONDITIONING, conditioning_pool,
-        split_conditioning_segments, pick_second_format, _FORMAT_MAX_MIN,
+        split_conditioning_segments, pick_second_format, _FORMAT_MAX_MIN, _BIG_FORMATS,
     )
 
     cf_passed = cf_failed = 0
@@ -647,10 +647,35 @@ def main():
                 assert len(segs) <= 2,                         (tgt, ff, segs)
                 if len(segs) == 2:
                     assert segs[0][0] != segs[1][0],           (tgt, ff, segs)
-        # Dokumentierter Grenzfall (Coach-Entscheidung offen vor 4d-3): kleines Erstformat-Max (20) +
-        # target 50 → ZWEITES Segment 30 Min, überschreitet sein eigenes Maximum ("zweites kriegt den Rest").
-        edge = split(50, "tabata", 4, "hybrid")
-        assert edge[0] == ("tabata", 20) and edge[1][1] == 30, edge
+        # KEIN Segment darf sein eigenes Maximum überschreiten (Kapazitäts-Regel, s.u.)
+        for tgt in (35, 40, 50):
+            for ff in ("amrap", "density", "tabata", "intervalle", "ladders", "zirkel"):
+                for fmt, d in split(tgt, ff, 4, "hybrid"):
+                    assert d <= _FORMAT_MAX_MIN[fmt], f"{fmt} {d} > Max {_FORMAT_MAX_MIN[fmt]} @ {tgt}/{ff}"
+
+    def kapazitaetsbewusstes_erstformat():
+        # Naht 4d: großes Erstformat NUR wenn die Zeit es erzwingt (sonst Naht-3-Rotation unangetastet).
+        split = split_conditioning_segments
+        # (1) BW-L4 60 Min (=50 Conditioning): Rotation-Erstformat amrap(20) deckt 50 nicht ab →
+        #     großes Erstformat. BW-L4-Pool hat kein Zirkel → Density 30 + AMRAP 20 = 50.
+        first_bw_l4 = pick_conditioning_formats(4, "bodyweight", 1)[0]
+        s = split(50, first_bw_l4, 4, "bodyweight")
+        assert s == [("density", 30), ("amrap", 20)], s
+        assert sum(d for _, d in s) == 50 and all(d <= _FORMAT_MAX_MIN[f] for f, d in s)
+        # (3) Level MIT Zirkel: Zirkel als großes Erstformat bevorzugt (vor Density).
+        s = split(50, "tabata", 3, "bodyweight")          # L3-BW-Pool enthält zirkel
+        assert s == [("zirkel", 30), ("amrap", 20)], s
+        # (2) Kurze Session (40 Min = 30 Conditioning): normale Rotation, KEIN erzwungenes großes
+        #     Erstformat — das kleine Rotations-Erstformat bleibt erhalten.
+        s = split(30, first_bw_l4, 4, "bodyweight")
+        assert s[0][0] == first_bw_l4 and s[0][0] not in _BIG_FORMATS, s   # amrap bleibt erstes
+        assert s == [("amrap", 20), ("tabata", 10)], s
+        # Randfall: nicht abdeckbar (auch großes Erstformat reicht nicht) → ValueError, nicht still
+        try:
+            split(100, "amrap", 4, "bodyweight")
+            assert False, "100 min sollte als nicht abdeckbar gemeldet werden (ValueError)"
+        except ValueError:
+            pass
 
     def zweitformat_amrap_bevorzugt():
         # Naht 4d: Zweitformat ≠ erstes, AMRAP bevorzugt wenn im Level-Pool, sonst nächstes Pool-Format.
@@ -664,6 +689,7 @@ def main():
                 assert second is not None and second != first, f"L{lvl}/{eq}: {first}->{second}"
 
     _cfcheck("Naht 4d Multi-Format-Split (35→20+15/25+10, 50→30+20, ≤2 Segmente)", multi_format_split)
+    _cfcheck("Naht 4d Kapazitäts-Erstformat (BW-L4-60→Density+AMRAP, kurz=Rotation)", kapazitaetsbewusstes_erstformat)
     _cfcheck("Naht 4d Zweitformat AMRAP-bevorzugt, ≠ erstes",                     zweitformat_amrap_bevorzugt)
     _cfcheck("Naht 4a Conditioning-Pool-Helfer (cond/cf, dedup, kein Kraft-only)", pool_helfer)
     _cfcheck("Naht 4b Finisher aus Pool (BW equipment-korrekt, KB BW-mehrheitlich)", finisher_aus_pool)

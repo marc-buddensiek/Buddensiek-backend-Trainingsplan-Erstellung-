@@ -125,26 +125,59 @@ def pick_second_format(level: int, equipment: str, exclude: str) -> str | None:
     return "amrap" if "amrap" in pool else pool[0]
 
 
+_BIG_FORMATS = ("zirkel", "density")   # Max 30 — Ausweich-Erstformat für lange Sessions (Zirkel bevorzugt)
+
+
+def _try_split(target_min: int, first: str, level: int, equipment: str) -> list[tuple[str, int]] | None:
+    """Split-Versuch mit gegebenem Erstformat + AMRAP-bevorzugtem Zweitformat. Gibt die Segmente
+    zurück, wenn alles innerhalb der Maxima liegt (Segment ≤ Max[first] bzw. ≤ Max[second]),
+    sonst None (Erstformat deckt die Zeit nicht regelkonform ab)."""
+    max1 = _FORMAT_MAX_MIN.get(first)
+    if max1 is None:
+        return None
+    if target_min <= max1:
+        return [(first, target_min)]
+    second = pick_second_format(level, equipment, exclude=first)
+    if second is None:
+        return None
+    seg1 = min(max1, target_min - _SEGMENT_MIN)         # dem zweiten Segment mind. 10 Min lassen
+    seg2 = target_min - seg1
+    if seg2 > _FORMAT_MAX_MIN.get(second, 0):
+        return None                                     # zweites Segment über seinem Maximum → ungültig
+    return [(first, seg1), (second, seg2)]
+
+
 def split_conditioning_segments(target_min: int, first_format: str, level: int,
                                 equipment: str) -> list[tuple[str, int]]:
     """Reine C-Tage: `target_min` (= session_dauer_min − Warmup) auf 1 oder 2 Format-Segmente.
 
-    ≤ Max[first] → 1 Segment über die volle Zeit. Sonst 2 Segmente: erstes bis zu seinem Maximum,
-    zweites kriegt den Rest — jedes ≥ 10 Min, 5-Min-Raster, **nie ein Rumpf < 10** (dann erstes
-    kürzen: 35/density → 25+10, nicht 30+5). Zweitformat ≠ erstes (AMRAP-bevorzugt). Kein
-    Zweitformat verfügbar → 1 Segment über die volle Zeit (graceful fill).
+    Normalfall — das Rotations-Erstformat (Naht 3) bleibt: ≤ Max[first] → 1 Segment über die volle
+    Zeit; sonst 2 Segmente (erstes bis zu seinem Maximum, zweites kriegt den Rest — jedes ≥ 10 Min,
+    5-Min-Raster, **nie ein Rumpf < 10**, z.B. 35/density → 25+10, nicht 30+5; Zweitformat ≠ erstes,
+    AMRAP-bevorzugt).
 
-    Tabata-Granularität (4-Min-Blöcke) realisiert `block_count` beim Füllen; die Segment-Dauer
-    bleibt auf dem 5-Min-Raster (Praxis-Targets 10/20/35/50 sind Vielfache von 5)."""
-    max1 = _FORMAT_MAX_MIN.get(first_format, target_min)
-    if target_min <= max1:
-        return [(first_format, target_min)]
-    second = pick_second_format(level, equipment, exclude=first_format)
-    if second is None:
-        return [(first_format, target_min)]            # kein Partner → volle Zeit, ein Format
-    seg1 = min(max1, target_min - _SEGMENT_MIN)         # dem zweiten Segment mind. 10 Min lassen
-    seg2 = target_min - seg1
-    return [(first_format, seg1), (second, seg2)]
+    **Kapazitätsbewusst NUR wenn nötig:** deckt das Rotations-Erstformat + das AMRAP-bevorzugte
+    Zweitformat die Zeit nicht innerhalb beider Maxima ab (lange Session, kleine Maxima), wird auf ein
+    großes Erstformat (Zirkel 30 bevorzugt, sonst Density 30) aus dem Level-Pool ausgewichen — z.B.
+    50 Min, Erstformat-Pool nur Max-20 → Zirkel/Density 30 + AMRAP 20. Bei kurzen/mittleren Sessions
+    greift das NICHT → Naht-3-Rotation und die Variation der 2 C-Tage bleiben unangetastet.
+
+    Deckt auch das große Erstformat die Zeit nicht ab → ValueError (melden, nicht still strecken/kürzen).
+
+    Tabata-Granularität (4-Min-Blöcke) realisiert `block_count` beim Füllen; die Segment-Dauer bleibt
+    auf dem 5-Min-Raster (Praxis-Targets 10/20/35/50 sind Vielfache von 5)."""
+    segs = _try_split(target_min, first_format, level, equipment)
+    if segs is not None:
+        return segs                                      # Rotations-Erstformat deckt ab → unverändert
+    pool = _conditioning_pool(level, equipment)
+    for big in _BIG_FORMATS:                             # Zirkel zuerst, dann Density (Max 30)
+        if big in pool and big != first_format:
+            segs = _try_split(target_min, big, level, equipment)
+            if segs is not None:
+                return segs
+    raise ValueError(
+        f"Conditioning-Zeit {target_min} min im Level-{level}/{equipment}-Pool nicht durch "
+        f"max. 2 Formate (je ≤ Maximum) abdeckbar — Pool={pool}")
 
 
 def conditioning_pool(uebungen_gefiltert: dict[str, list[dict]]) -> list[dict]:
