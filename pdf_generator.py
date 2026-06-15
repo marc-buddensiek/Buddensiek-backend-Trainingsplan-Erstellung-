@@ -310,6 +310,39 @@ def build_pdf(plan_data: dict) -> FPDF:
                     pdf.ln(0.5)
                 pdf.ln(1)
 
+            # Conditioning-Block 2 (Naht 4d: zweites Format-Segment langer reiner C-Tage)
+            if s.get("conditioning_block_2"):
+                mb = s["conditioning_block_2"]
+                pdf.ln(2)
+                pdf.set_fill_color(40, 40, 80)
+                pdf.set_text_color(*C_WHITE)
+                pdf.set_font("Helvetica", "B", 7.5)
+                pdf.cell(0, 6, f"  CONDITIONING — FORMAT 2: {mb['typ'].upper()}", fill=True, new_x="LMARGIN", new_y="NEXT")
+                pdf.set_fill_color(50, 50, 100)
+                pdf.set_text_color(*C_WHITE)
+                pdf.set_font("Helvetica", "I", 7)
+                pdf.multi_cell(0, 4.5, f"  {mb['format_notiz']}", fill=True)
+                pdf.ln(1)
+                for u in mb["uebungen"]:
+                    vol_str = f"{u['saetze']}× {u['wdh']}" if u["saetze"] > 1 else u["wdh"]
+                    spec_str = f"Pause {u['pausenzeit_sek']}s" if u["pausenzeit_sek"] > 0 else ""
+                    pdf.set_font("Helvetica", "B", 8)
+                    pdf.set_text_color(*C_BLACK)
+                    pdf.cell(6, 5, f"  {u['reihenfolge']}.")
+                    pdf.cell(78, 5, u["name"])
+                    pdf.set_text_color(40, 40, 180)
+                    pdf.cell(22, 5, vol_str)
+                    pdf.set_font("Helvetica", "", 7)
+                    pdf.set_text_color(*C_MID_GREY)
+                    pdf.cell(0, 5, spec_str, new_x="LMARGIN", new_y="NEXT")
+                    cues = "  ·  ".join(u["coaching_cues"])
+                    pdf.set_font("Helvetica", "I", 6.5)
+                    pdf.set_text_color(*C_MID_GREY)
+                    pdf.set_x(20)
+                    pdf.multi_cell(176, 3.5, f"-> {cues}")
+                    pdf.ln(0.5)
+                pdf.ln(1)
+
             # Cardio
             if s.get("cardio"):
                 c = s["cardio"]

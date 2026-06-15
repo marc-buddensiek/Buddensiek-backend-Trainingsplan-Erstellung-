@@ -688,7 +688,25 @@ def main():
                 second = pick_second_format(lvl, eq, exclude=first)
                 assert second is not None and second != first, f"L{lvl}/{eq}: {first}->{second}"
 
+    def e2e_multi_format_verdrahtet():
+        # Naht 4d-3: langer reiner C-Tag (60min=50 cond) → 2 Segmente (Segment 2 im conditioning_block_2,
+        # ≠ Erstformat, RPE None); kurzer C-Tag (30min=20 cond) → 1 Segment (kein block_2).
+        base = dict(hauptziel_ref="fettabbau", tage=6, kniebeugen=80, pushups=60, situps=75,
+                    burpees=40, plank=200, trainingsjahre_ref="fuenf_plus", equipment_ref="kettlebell")
+        _, lang = _plan(dict(base, session_min=60))
+        cdays = [s for s in lang["wochen"][0]["sessions"] if s["session_typ"] in CONDITIONING]
+        assert cdays and all(s.get("conditioning_block_2") for s in cdays), "60min-C-Tag ohne 2. Segment"
+        for s in cdays:
+            b2 = s["conditioning_block_2"]
+            assert b2["uebungen"], "Segment 2 leer"
+            assert all(u["rpe"] is None for u in b2["uebungen"]), "Segment 2 mit RPE (Conditioning!)"
+            assert b2["typ"] != s["session_typ"], f"Segment 2 == Segment 1 ({b2['typ']})"
+        _, kurz = _plan(dict(base, session_min=30))
+        cshort = [s for s in kurz["wochen"][0]["sessions"] if s["session_typ"] in CONDITIONING]
+        assert cshort and not any(s.get("conditioning_block_2") for s in cshort), "30min-C-Tag hat fälschlich 2. Segment"
+
     _cfcheck("Naht 4d Multi-Format-Split (35→20+15/25+10, 50→30+20, ≤2 Segmente)", multi_format_split)
+    _cfcheck("Naht 4d-3 verdrahtet (60min→2 Segmente/block_2, 30min→1 Segment)",   e2e_multi_format_verdrahtet)
     _cfcheck("Naht 4d Kapazitäts-Erstformat (BW-L4-60→Density+AMRAP, kurz=Rotation)", kapazitaetsbewusstes_erstformat)
     _cfcheck("Naht 4d Zweitformat AMRAP-bevorzugt, ≠ erstes",                     zweitformat_amrap_bevorzugt)
     _cfcheck("Naht 4a Conditioning-Pool-Helfer (cond/cf, dedup, kein Kraft-only)", pool_helfer)

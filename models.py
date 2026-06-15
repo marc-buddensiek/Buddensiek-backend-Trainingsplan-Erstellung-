@@ -267,6 +267,7 @@ class Session(BaseModel):
     warm_up: WarmUp
     haupt_uebungen: list[HauptUebung]
     metcon_block: Optional[MetconBlock] = None   # Recomp: Finisher nach Kraftteil
+    conditioning_block_2: Optional[MetconBlock] = None   # Naht 4d: 2. Format-Segment langer reiner C-Tage
     cardio: Optional[Cardio] = None
     cool_down: CoolDown
     pst_tests: Optional[list[PSTTest]] = None

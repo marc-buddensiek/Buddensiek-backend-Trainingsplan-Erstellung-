@@ -23,7 +23,7 @@ from logic.volume_calculator import (
 )
 from logic.conditioning_formats import (
     is_conditioning, is_block_format, conditioning_target_min, block_count,
-    block_params, REST_BETWEEN_BLOCKS_SEK, conditioning_pool,
+    block_params, REST_BETWEEN_BLOCKS_SEK, conditioning_pool, split_conditioning_segments,
 )
 
 
@@ -352,6 +352,44 @@ def _build_metcon_block(
     )
 
 
+_CONDITIONING_SLOTS_N = 4   # session-füllende C-Segmente: feste Übungszahl (Zirkel/AMRAP üblich 3–5)
+
+
+def _build_conditioning_segment(fmt: str, seg_dauer: int, pool_sorted: list[dict],
+                                woche_typ: str) -> list[HauptUebung]:
+    """HauptUebung-Liste für EIN Conditioning-Segment (Naht 4c/4d), deterministisch aus dem
+    (BW-first sortierten, equipment-gefilterten) Conditioning-Pool. Block-Format → Block-Stapelung
+    (n Blöcke je seg_dauer, je Block eine andere Übung, festes Timing, 60 s Pause, keine RPE);
+    session-füllend → feste Slot-Anzahl mit _METABOLIC_CONFIG-Dosierung. Single-Segment-Verhalten
+    ist identisch zu Naht 4c-2."""
+    is_blk = is_block_format(fmt)
+    n = block_count(fmt, seg_dauer) if is_blk else _CONDITIONING_SLOTS_N
+    picks = _pick_finisher_uebungen(pool_sorted, n)
+    if not picks:
+        return []
+    out: list[HauptUebung] = []
+    if is_blk:
+        bp = block_params(fmt)
+        for i in range(n):
+            ex = picks[i % len(picks)]
+            out.append(HauptUebung(
+                reihenfolge=i + 1, exercise_id=ex["id"], name=ex["name"],
+                saetze=bp["saetze"], wdh=bp["wdh"], rpe=None,
+                tempo=_tempo(ex["pattern"], fmt), pausenzeit_sek=REST_BETWEEN_BLOCKS_SEK,
+                coaching_cues=ex["coaching_cues"][:3], notiz="",
+            ))
+    else:
+        m_cfg = _METABOLIC_CONFIG.get(fmt, {}).get(woche_typ, {})
+        for i, ex in enumerate(picks):
+            out.append(HauptUebung(
+                reihenfolge=i + 1, exercise_id=ex["id"], name=ex["name"],
+                saetze=m_cfg.get("saetze", 3), wdh=_metabolic_wdh(fmt, ex["pattern"], woche_typ),
+                rpe=None, tempo=_tempo(ex["pattern"], fmt), pausenzeit_sek=m_cfg.get("pause", 0),
+                coaching_cues=ex["coaching_cues"][:3], notiz="",
+            ))
+    return out
+
+
 # ── Session-Dauer schätzen (flaches Modell, Spec Thema 3 Zeit-Parameter) ────────
 # Konstanten/Helper aus volume_calculator (Single Source of Truth: Modell-A-Zeitparameter).
 # Cooldown ist in die Warmup-Pauschale gefaltet; Cardio additiv (Block bleibt sichtbar).
@@ -445,95 +483,108 @@ def assemble_plan(
             haupt_uebungen: list[HauptUebung] = []
             slot_tiers: list[str] = []            # Tier je HauptUebung (aligned) für den Trim
             slot_templates = session_template.get("slots", [])
-            # Reine Conditioning-Tage: Ziel-Dauer = Client-Session (− Warmup), KEINE Level-Deckelung.
-            cond_target = conditioning_target_min(klient.session_dauer_min) if is_block else 0
+            is_pool = any(s.get("pool") == "conditioning" for s in slot_templates)
+            cond_block_2 = None                   # Naht 4d: zweites Format-Segment langer C-Tage
+            session_typ_eff = session_typ         # kann sich bei langer Session ändern (Kapazitäts-Erstformat)
+            dauer0 = 0
 
-            if any(s.get("pool") == "conditioning" for s in slot_templates):
-                # Naht 4c-2 (A1): pool="conditioning"-Slots ziehen die Übungen deterministisch aus dem
-                # Conditioning-Pool (Gruppe A + conditioning_friendly), NICHT aus claude_sessions.
-                # Equipment-korrekt (uebungen_gefiltert ist schon equipment-gefiltert, BW als Obergrenze
-                # immer dabei), BW-Mehrheit zuerst wie der 4b-Finisher; Zusatz-Equipment nur ergänzend.
-                # Block-Formate: n_blocks Übungen (je Block eine andere); session-füllend: Slot-Anzahl (4).
-                n_pool = block_count(session_typ, cond_target) if is_block else len(slot_templates)
+            if is_pool:
+                # Naht 4c/4d: reine C-Tage ziehen deterministisch aus dem Conditioning-Pool (BW-first,
+                # equipment-gefiltert) und werden bei langen Sessions auf 2 Format-Segmente aufgeteilt
+                # (split_conditioning_segments: Maxima + kapazitätsbewusstes Erstformat). Dauer ohne
+                # Level-Deckelung. Single-Segment = identisch zu Naht 4c-2.
                 pool_sorted = sorted(conditioning_pool(uebungen_gefiltert),
                                      key=lambda e: 0 if "bodyweight" in e["equipment"] else 1)
-                valid_auswahl = [UebungAuswahl(reihenfolge=i + 1, exercise_id=ex["id"], notiz="")
-                                 for i, ex in enumerate(_pick_finisher_uebungen(pool_sorted, n_pool))]
+                cond_target = conditioning_target_min(klient.session_dauer_min)
+                segments = split_conditioning_segments(cond_target, session_typ, level, klient.equipment.value)
+                session_typ_eff, dauer0 = segments[0]
+                haupt_uebungen = _build_conditioning_segment(session_typ_eff, dauer0, pool_sorted, woche_typ)
+                slot_tiers = ["compound"] * len(haupt_uebungen)
+                if len(segments) == 2:
+                    fmt1, dauer1 = segments[1]
+                    seg2 = _build_conditioning_segment(fmt1, dauer1, pool_sorted, woche_typ)
+                    cond_block_2 = MetconBlock(
+                        typ=fmt1,
+                        format_notiz=_format_notiz(fmt1, len(seg2), woche_typ, dauer_min=dauer1) or fmt1,
+                        uebungen=seg2,
+                    )
             else:
                 uebungen_auswahl = claude_sessions.get(original_id, [])
                 valid_auswahl = [u for u in uebungen_auswahl if ex_by_id.get(u.exercise_id)]
-
-            if is_block and valid_auswahl:
-                # ── Block-Stapelung (Spec Thema 6): n Blöcke füllen die Ziel-Dauer, je Block
-                #    EINE Übung (zyklisch durch die gezogenen), festes Block-Timing (schlägt
-                #    Level-Work:Rest), 60 s Pause zwischen den Blöcken, keine RPE. ──
-                n  = block_count(session_typ, cond_target)
-                bp = block_params(session_typ)
-                for i in range(n):
-                    u  = valid_auswahl[i % len(valid_auswahl)]
-                    ex = ex_by_id[u.exercise_id]
-                    haupt_uebungen.append(
-                        HauptUebung(
-                            reihenfolge=i + 1,
-                            exercise_id=u.exercise_id,
-                            name=ex["name"],
-                            saetze=bp["saetze"],
-                            wdh=bp["wdh"],
-                            rpe=None,
-                            tempo=_tempo(ex["pattern"], session_typ),
-                            pausenzeit_sek=REST_BETWEEN_BLOCKS_SEK,
-                            coaching_cues=ex["coaching_cues"][:3],
-                            notiz=u.notiz,
+                cond_target = conditioning_target_min(klient.session_dauer_min) if is_block else 0
+                if is_block and valid_auswahl:
+                    # ── Block-Stapelung (Spec Thema 6): n Blöcke füllen die Ziel-Dauer, je Block
+                    #    EINE Übung (zyklisch durch die gezogenen), festes Block-Timing (schlägt
+                    #    Level-Work:Rest), 60 s Pause zwischen den Blöcken, keine RPE. ──
+                    n  = block_count(session_typ, cond_target)
+                    bp = block_params(session_typ)
+                    for i in range(n):
+                        u  = valid_auswahl[i % len(valid_auswahl)]
+                        ex = ex_by_id[u.exercise_id]
+                        haupt_uebungen.append(
+                            HauptUebung(
+                                reihenfolge=i + 1,
+                                exercise_id=u.exercise_id,
+                                name=ex["name"],
+                                saetze=bp["saetze"],
+                                wdh=bp["wdh"],
+                                rpe=None,
+                                tempo=_tempo(ex["pattern"], session_typ),
+                                pausenzeit_sek=REST_BETWEEN_BLOCKS_SEK,
+                                coaching_cues=ex["coaching_cues"][:3],
+                                notiz=u.notiz,
+                            )
                         )
-                    )
-                    slot_tiers.append("compound")
-            else:
-                for u in valid_auswahl:
-                    ex = ex_by_id[u.exercise_id]
-                    pattern = ex["pattern"]
-                    slot_idx = u.reihenfolge - 1
-                    slot_tier = (
-                        slot_templates[slot_idx]["tier"]
-                        if slot_idx < len(slot_templates)
-                        else "compound"
-                    )
-
-                    if is_metabolic:
-                        u_saetze     = m_cfg.get("saetze", 3)
-                        u_wdh        = _metabolic_wdh(session_typ, pattern, woche_typ)
-                        u_rpe        = None   # Conditioning trägt keine RPE (Spec Thema 6)
-                        u_pausenzeit = m_cfg.get("pause", 0)
-                    else:
-                        u_saetze     = volumen.get(f"{slot_tier}_saetze", saetze)
-                        u_wdh        = _wdh(klient.hauptziel, pattern, slot_tier, level)
-                        u_rpe        = volumen.get(f"{slot_tier}_rpe", rpe)
-                        u_pausenzeit = _pausenzeit(slot_tier, pattern)
-
-                    # L1-RIR-Hilfe: nur Kraftsätze (nicht-metabolic); rir_hinweis liefert für Level ≥ 2 None
-                    u_rpe_hinweis = None if is_metabolic else rir_hinweis(level, u_rpe)
-
-                    haupt_uebungen.append(
-                        HauptUebung(
-                            reihenfolge=u.reihenfolge,
-                            exercise_id=u.exercise_id,
-                            name=ex["name"],
-                            saetze=u_saetze,
-                            wdh=u_wdh,
-                            rpe=u_rpe,
-                            tempo=_tempo(pattern, session_typ),
-                            pausenzeit_sek=u_pausenzeit,
-                            coaching_cues=ex["coaching_cues"][:3],
-                            notiz=u.notiz,
-                            rpe_hinweis=u_rpe_hinweis,
+                        slot_tiers.append("compound")
+                else:
+                    for u in valid_auswahl:
+                        ex = ex_by_id[u.exercise_id]
+                        pattern = ex["pattern"]
+                        slot_idx = u.reihenfolge - 1
+                        slot_tier = (
+                            slot_templates[slot_idx]["tier"]
+                            if slot_idx < len(slot_templates)
+                            else "compound"
                         )
-                    )
-                    slot_tiers.append(slot_tier)
+
+                        if is_metabolic:
+                            u_saetze     = m_cfg.get("saetze", 3)
+                            u_wdh        = _metabolic_wdh(session_typ, pattern, woche_typ)
+                            u_rpe        = None   # Conditioning trägt keine RPE (Spec Thema 6)
+                            u_pausenzeit = m_cfg.get("pause", 0)
+                        else:
+                            u_saetze     = volumen.get(f"{slot_tier}_saetze", saetze)
+                            u_wdh        = _wdh(klient.hauptziel, pattern, slot_tier, level)
+                            u_rpe        = volumen.get(f"{slot_tier}_rpe", rpe)
+                            u_pausenzeit = _pausenzeit(slot_tier, pattern)
+
+                        # L1-RIR-Hilfe: nur Kraftsätze (nicht-metabolic); rir_hinweis liefert für Level ≥ 2 None
+                        u_rpe_hinweis = None if is_metabolic else rir_hinweis(level, u_rpe)
+
+                        haupt_uebungen.append(
+                            HauptUebung(
+                                reihenfolge=u.reihenfolge,
+                                exercise_id=u.exercise_id,
+                                name=ex["name"],
+                                saetze=u_saetze,
+                                wdh=u_wdh,
+                                rpe=u_rpe,
+                                tempo=_tempo(pattern, session_typ),
+                                pausenzeit_sek=u_pausenzeit,
+                                coaching_cues=ex["coaching_cues"][:3],
+                                notiz=u.notiz,
+                                rpe_hinweis=u_rpe_hinweis,
+                            )
+                        )
+                        slot_tiers.append(slot_tier)
 
             warm_up    = _warm_up(klient.equipment, fokus)
             cardio     = _cardio(klient.hauptziel, fokus)
             cool_down  = _cool_down(fokus)
-            fmt_notiz  = _format_notiz(session_typ, len(haupt_uebungen), woche_typ,
-                                       dauer_min=conditioning_target_min(klient.session_dauer_min) if is_metabolic else None)
+            # Reine C-Tage: Notiz für das (ggf. kapazitäts-überschriebene) Erstformat-Segment mit dessen
+            # echter Segment-Dauer (4d); das 2. Segment trägt seine eigene Notiz im cond_block_2.
+            fmt_notiz  = _format_notiz(session_typ_eff, len(haupt_uebungen), woche_typ,
+                                       dauer_min=dauer0 if is_pool else None)
             metcon_typ = session_template.get("metcon_typ")
             metcon_blk = _build_metcon_block(metcon_typ, woche_typ, uebungen_gefiltert) if metcon_typ else None
 
@@ -562,13 +613,14 @@ def assemble_plan(
                 Session(
                     session_id=session_id,
                     tag=tag,
-                    session_typ=session_typ,
+                    session_typ=session_typ_eff,
                     fokus=fokus,
                     format_notiz=fmt_notiz,
                     dauer_min_geschaetzt=dauer,
                     warm_up=warm_up,
                     haupt_uebungen=haupt_uebungen,
                     metcon_block=metcon_blk,
+                    conditioning_block_2=cond_block_2,
                     cardio=cardio,
                     cool_down=cool_down,
                     pst_tests=pst_tests,
