@@ -100,6 +100,20 @@ def pick_conditioning_formats(level: int, equipment: str, n: int) -> list[str]:
     return [pool[i % len(pool)] for i in range(n)]
 
 
+def conditioning_pool(uebungen_gefiltert: dict[str, list[dict]]) -> list[dict]:
+    """ÜBUNGS-Pool für den Metcon-Selektor (MVP-7 Naht 4): alle conditioning-tauglichen
+    Übungen aus den gefilterten Pattern-Buckets — `pattern == "conditioning"` ODER
+    `conditioning_friendly == true`. Dedup nach id (eine Übung kann durch den
+    Pattern-Fallback in mehreren Buckets liegen), Reihenfolge des ersten Auftretens erhalten.
+    Naht 4a: Helfer existiert, ist aber noch NICHT verdrahtet (4b/4c)."""
+    pool: dict[str, dict] = {}
+    for exs in uebungen_gefiltert.values():
+        for ex in exs:
+            if ex.get("pattern") == "conditioning" or ex.get("conditioning_friendly"):
+                pool.setdefault(ex["id"], ex)
+    return list(pool.values())
+
+
 def conditioning_target_min(session_min: int) -> int:
     """Ziel-Arbeitsdauer (Min) für REINE Conditioning-Tage: die vom Klienten gewählte
     Session-Dauer minus Warmup. KEINE Level-Deckelung (Level steuert Format/Work:Rest/

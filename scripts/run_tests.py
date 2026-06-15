@@ -482,7 +482,7 @@ def main():
 
     from logic.conditioning_formats import (
         pick_conditioning_formats, conditioning_target_min, block_count, block_session_dauer,
-        block_params, level_work_rest, CONDITIONING,
+        block_params, level_work_rest, CONDITIONING, conditioning_pool,
     )
 
     cf_passed = cf_failed = 0
@@ -496,6 +496,25 @@ def main():
         except AssertionError as e:
             print(f"  ❌ {desc}  →  {e}")
             cf_failed += 1
+
+    def pool_helfer():
+        # Naht 4a: conditioning_pool sammelt pattern==conditioning + conditioning_friendly,
+        # dedup, kein Kraft-only. (Helfer existiert, noch nicht verdrahtet.)
+        k = parse_typeform_payload(make_payload(hauptziel_ref="fettabbau", tage=6,
+                                                equipment_ref="bodyweight", kniebeugen=35, pushups=20,
+                                                situps=35, burpees=20, plank=80, trainingsjahre_ref="ein_bis_zwei"))
+        lvl, _ = berechne_level(k)
+        f = filtere_uebungen(k, lvl)
+        pool = conditioning_pool(f)
+        ids = [e["id"] for e in pool]
+        assert pool, "leerer Conditioning-Pool"
+        assert len(ids) == len(set(ids)), "Dubletten im Pool"
+        assert all(e["pattern"] == "conditioning" or e.get("conditioning_friendly") for e in pool), "Kraft-only im Pool"
+        assert any(e["pattern"] == "conditioning" for e in pool), "kein pattern==conditioning im Pool"
+        assert any(e.get("conditioning_friendly") and e["pattern"] != "conditioning" for e in pool), "kein cf-true im Pool"
+        kraft_only = [e for e in f.get("squat", []) if not e.get("conditioning_friendly")]
+        if kraft_only:
+            assert kraft_only[0]["id"] not in set(ids), "Kraft-only-Squat im Pool"
 
     def rotation_zwei_verschiedene():
         # Naht 3: die 2 C-Tage einer Woche → 2 verschiedene Formate (weiche Bevorzugung, Pool ≥ 2)
@@ -567,6 +586,7 @@ def main():
             m = re.match(r"(\d+) Min\. AMRAP", mb["format_notiz"])
             assert m and int(m.group(1)) <= 10, f"Finisher-Notiz-Dauer falsch: {mb['format_notiz']!r}"
 
+    _cfcheck("Naht 4a Conditioning-Pool-Helfer (cond/cf, dedup, kein Kraft-only)", pool_helfer)
     _cfcheck("Naht 3 Rotation: 2 C-Tage/Woche verschieden + Equipment-Bevorzugung", rotation_zwei_verschiedene)
     _cfcheck("Ziel-Dauer = Session − Warmup (keine Level-Deckelung)",            ziel_dauer_session_minus_warmup)
     _cfcheck("Tabata-Block-Stapelung (Ziel 30→6 Blöcke, festes 20/10-Timing)",   tabata_block_stapelung)
