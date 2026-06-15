@@ -1,6 +1,6 @@
 # Backlog — vertagte Arbeit (nach MVP-Paket)
 
-_Stand: 2026-06-13 · git HEAD `798928d` (MVP-6 fertig)_
+_Stand: 2026-06-15 · git HEAD `5171a67` (MVP-7 Naht 1 + 2 fertig)_
 
 > Bewusst aufgeschobene Arbeit, gruppiert nach MVP-Paket. Jeder Eintrag:
 > Beschreibung · warum vertagt · Code-Marker (Datei:Zeile, Grep-verifiziert) · Abhängigkeit.
@@ -45,9 +45,15 @@ _Stand: 2026-06-13 · git HEAD `798928d` (MVP-6 fertig)_
 
 ## MVP-7 — Conditioning-Formate
 
-**Stand 2026-06-13 — Mechanismus ENTSCHIEDEN + Schema gebaut (Naht 1, `9536905`):** Hybrid statt der
-unten offenen Designfrage — Gruppe A `pattern:"conditioning"`, Gruppe B `conditioning_friendly:true` (bool).
-Methodik in COACHING_SPEC Thema 6 reconcilet (2026-06-13). Die „Option A/B"-Notiz unten ist damit **erledigt**.
+**Stand 2026-06-15 — Naht 1 + 2 fertig (`9536905`…`5171a67`):**
+- **Mechanismus (Hybrid, entschieden):** Gruppe A `pattern:"conditioning"`, Gruppe B
+  `conditioning_friendly:true` (bool). Die „Option A/B"-Designfrage unten ist damit **erledigt**.
+- **Gebaut:** Schema-Enabler (Validator + 125 migriert) · Format-Baukasten (`logic/conditioning_formats.py`):
+  7 Formate, Conditioning ohne RPE, Block-Stapelung Tabata/Density, Dauer = `session_dauer_min` (kein
+  Level-Cap), Fettabbau-Staffelung gemischt + 2 reine Conditioning-Tage, C3-Finisher-Estimate.
+- **Offen (Naht 3/4/5):** echte Format-Rotation (`TODO(mvp7-formate)`, ersetzt Trivial-Pick) · **Selektor-
+  Umbau** auf den Conditioning-Pool (Naht 4, s. Bullet unten — braucht getaggte Übungen, bringt
+  Ladders/Komplexe-Block-Dauern mit) · Athletik (Naht 5) · `TODO(mvp7-cleanup)` C1/C2/C4 (geparkt).
 
 **For Time gestrichen (Spec Thema 6):** offene Dauer („so schnell wie möglich") kollidiert mit der festen
 Session-Länge / Modell A. Falls je reaktiviert: `max_time_cap` als **Pflichtparameter** (Session-Dauer-Deckel)
@@ -59,14 +65,13 @@ nötig — nicht V1.
 Block-Format (nur Last). Aktive Formate: **Intervall · AMRAP · Zirkel · Tabata · Density · Ladders ·
 Komplexe** (7). Finale Spec in COACHING_SPEC Thema 6.
 
-- **Metcon-Selektor nutzt Kraft-Pattern** (`_METCON_PATTERNS = ["squat","hinge","push_horizontal","core"]`,
-  `plan_assembler:365`) statt echter Conditioning-Bewegungen (Spec Thema 6: Burpees, Mountain
-  Climbers, …). · _Hängt ab von:_ MVP-2 (conditioning/athletik-Übungen).
-- **Hier entscheidet sich, WIE conditioning-Übungen abgefragt werden** → bestimmt Schreibweise
-  + Tagging der neuen `conditioning`/`athletik`-Pattern (in SCHEMA.md noch offen).
+- **Naht 4 — Metcon-Selektor nutzt noch Kraft-Pattern** (`_METCON_PATTERNS = ["squat","hinge","push_horizontal","core"]`,
+  `plan_assembler:294`) statt echter Conditioning-Bewegungen (Spec Thema 6: Burpees, Mountain
+  Climbers, …). Umbau auf `pattern=="conditioning" OR conditioning_friendly`. · _Hängt ab von:_
+  getaggte Conditioning-Übungen (Coach). Der **Schema-Mechanismus dafür steht** (Naht 1).
 
-**Kernproblem, das MVP-7 lösen muss:** Die aktuelle Logik (`_METCON_PATTERNS`,
-`plan_assembler:365`) kann „hat Kraft-Pattern" **nicht** von „ist conditioning-tauglich"
+**Kernproblem, das Naht 4 löst:** Die aktuelle Logik (`_METCON_PATTERNS`,
+`plan_assembler:294`) kann „hat Kraft-Pattern" **nicht** von „ist conditioning-tauglich"
 unterscheiden — das differenzierende Merkmal fehlt. Folge: der Metcon zieht potenziell reine
 Kraftübungen (z.B. schwerer Back Squat, Kreuzheben) in eine Conditioning-Session, nur weil das
 Pattern passt — obwohl sie keinen Puls oben halten.
