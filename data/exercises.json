@@ -235,7 +235,7 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": true
     },
     {
       "id": "gym_hack_squat_machine",
@@ -905,7 +905,7 @@
       ],
       "impact_level": "medium",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": true
     },
     {
       "id": "kb_swing_one_hand",
@@ -951,7 +951,7 @@
       ],
       "impact_level": "medium",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": true
     },
     {
       "id": "kb_snatch",
@@ -995,7 +995,7 @@
       ],
       "impact_level": "medium",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": true
     },
     {
       "id": "kb_clean",
@@ -1041,7 +1041,7 @@
       ],
       "impact_level": "medium",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": true
     },
     {
       "id": "bw_glute_bridge",
@@ -3658,7 +3658,8 @@
         "deep_squat",
         "jump",
         "plyo",
-        "jumping"
+        "jumping",
+        "athletik"
       ],
       "joint_stress": [
         "knee",
@@ -3667,7 +3668,7 @@
       ],
       "impact_level": "high",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": true
     },
     {
       "id": "kb_front_squat",
@@ -4650,7 +4651,7 @@
       ],
       "impact_level": "medium",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": true
     },
     {
       "id": "gym_push_press_barbell",
@@ -5083,7 +5084,8 @@
       ],
       "pattern_tags": [
         "deep_squat",
-        "lunge"
+        "lunge",
+        "athletik"
       ],
       "joint_stress": [
         "knee",
@@ -5092,7 +5094,7 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": true
     },
     {
       "id": "gym_single_leg_press",
@@ -5597,6 +5599,1217 @@
       "impact_level": "low",
       "equipment_requires": [],
       "conditioning_friendly": false
+    },
+    {
+      "id": "cond_air_bike",
+      "name": "Assault/Air Bike",
+      "equipment": [
+        "gym",
+        "home_gym",
+        "hybrid"
+      ],
+      "pattern": "conditioning",
+      "muscle_groups": {
+        "primary": [],
+        "secondary": []
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Arme und Beine gleichmäßig im Rhythmus",
+        "Tempo über die volle Intervalldauer halten"
+      ],
+      "substitution_pool": [
+        "cond_row_erg",
+        "cond_ski_erg"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "cond_row_erg",
+      "name": "Rudergerät (Erg)",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "conditioning",
+      "muscle_groups": {
+        "primary": [],
+        "secondary": []
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Reihenfolge Beine–Hüfte–Arme",
+        "Rücken neutral, nicht rund ziehen"
+      ],
+      "substitution_pool": [
+        "cond_air_bike",
+        "cond_ski_erg"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "spine"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "cond_ski_erg",
+      "name": "Ski-Ergometer",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "conditioning",
+      "muscle_groups": {
+        "primary": [],
+        "secondary": []
+      },
+      "skill_level": 2,
+      "coaching_cues": [
+        "Aus der Hüfte arbeiten",
+        "Arme kräftig nach unten ziehen"
+      ],
+      "substitution_pool": [
+        "cond_air_bike",
+        "cond_row_erg"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "cond_battle_ropes",
+      "name": "Battle Ropes",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "conditioning",
+      "muscle_groups": {
+        "primary": [],
+        "secondary": []
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Wellen aus den Schultern",
+        "Leichte Kniebeuge halten"
+      ],
+      "substitution_pool": [
+        "cond_air_bike"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "cond_sled_push",
+      "name": "Sled Push (Prowler)",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "conditioning",
+      "muscle_groups": {
+        "primary": [],
+        "secondary": []
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Tiefer Körperwinkel, Arme gestreckt",
+        "Kurze, kräftige Schritte"
+      ],
+      "substitution_pool": [
+        "cond_sled_drag"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "cond_sled_drag",
+      "name": "Sled Drag/Pull",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "conditioning",
+      "muscle_groups": {
+        "primary": [],
+        "secondary": []
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Knie gebeugt, gleichmäßig ziehen",
+        "Rumpf stabil halten"
+      ],
+      "substitution_pool": [
+        "cond_sled_push"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "cond_jump_rope",
+      "name": "Springseil",
+      "equipment": [
+        "bodyweight",
+        "travel",
+        "home_gym",
+        "gym",
+        "hybrid"
+      ],
+      "pattern": "conditioning",
+      "muscle_groups": {
+        "primary": [],
+        "secondary": []
+      },
+      "skill_level": 2,
+      "coaching_cues": [
+        "Aus den Fußgelenken springen, flach",
+        "Handgelenke drehen, nicht die Arme"
+      ],
+      "substitution_pool": [
+        "cond_jumping_jacks",
+        "cond_high_knees"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "ankle"
+      ],
+      "impact_level": "medium",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "cond_jumping_jacks",
+      "name": "Jumping Jacks",
+      "equipment": [
+        "bodyweight",
+        "travel"
+      ],
+      "pattern": "conditioning",
+      "muscle_groups": {
+        "primary": [],
+        "secondary": []
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Arme über Kopf, Beine seitlich",
+        "Weich landen"
+      ],
+      "substitution_pool": [
+        "cond_high_knees",
+        "cond_jump_rope"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "cond_high_knees",
+      "name": "High Knees",
+      "equipment": [
+        "bodyweight",
+        "travel"
+      ],
+      "pattern": "conditioning",
+      "muscle_groups": {
+        "primary": [],
+        "secondary": []
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Knie auf Hüfthöhe",
+        "Schneller Vorfuß-Kontakt"
+      ],
+      "substitution_pool": [
+        "cond_jumping_jacks",
+        "cond_shuttle_run"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "cond_shuttle_run",
+      "name": "Shuttle Run / Pendellauf",
+      "equipment": [
+        "bodyweight",
+        "travel"
+      ],
+      "pattern": "conditioning",
+      "muscle_groups": {
+        "primary": [],
+        "secondary": []
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Tief abbremsen, Knie über dem Fuß",
+        "Explosiv aus der Wende"
+      ],
+      "substitution_pool": [
+        "cond_high_knees",
+        "cond_sprint_intervals"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "knee",
+        "ankle"
+      ],
+      "impact_level": "medium",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "cond_sprint_intervals",
+      "name": "Sprint-Intervalle",
+      "equipment": [
+        "bodyweight",
+        "travel"
+      ],
+      "pattern": "conditioning",
+      "muscle_groups": {
+        "primary": [],
+        "secondary": []
+      },
+      "skill_level": 2,
+      "coaching_cues": [
+        "Aufrechter Sprint, hohe Frequenz",
+        "Vollständige Pausen zwischen Sprints"
+      ],
+      "substitution_pool": [
+        "cond_shuttle_run",
+        "cond_high_knees"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "knee",
+        "ankle"
+      ],
+      "impact_level": "high",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "bw_burpee",
+      "name": "Burpee",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest",
+          "quads"
+        ],
+        "secondary": [
+          "shoulders",
+          "triceps",
+          "abs"
+        ]
+      },
+      "skill_level": 2,
+      "coaching_cues": [
+        "Brust zum Boden, dann explosiv hoch",
+        "Hüfte mitnehmen, nicht durchhängen"
+      ],
+      "substitution_pool": [
+        "bw_squat_thrust",
+        "bw_mountain_climber"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "high",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "bw_mountain_climber",
+      "name": "Mountain Climbers",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "hip_flexors",
+          "shoulders"
+        ]
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Hüfte tief, Rücken flach",
+        "Knie schnell zur Brust"
+      ],
+      "substitution_pool": [
+        "bw_bear_crawl",
+        "bw_crab_walk"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "bw_bear_crawl",
+      "name": "Bear Crawl",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "shoulders",
+          "quads"
+        ]
+      },
+      "skill_level": 2,
+      "coaching_cues": [
+        "Knie knapp über dem Boden",
+        "Gegengleich Arm und Bein"
+      ],
+      "substitution_pool": [
+        "bw_crab_walk",
+        "bw_mountain_climber"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "bw_crab_walk",
+      "name": "Crab Walk",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "glutes",
+          "triceps"
+        ]
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Hüfte hoch halten",
+        "Kontrolliert gegengleich gehen"
+      ],
+      "substitution_pool": [
+        "bw_bear_crawl"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "bw_inchworm",
+      "name": "Inchworm / Walkout",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs"
+        ],
+        "secondary": [
+          "chest",
+          "shoulders"
+        ]
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Beine gestreckt, mit den Händen vorlaufen",
+        "Rumpf fest, nicht durchhängen"
+      ],
+      "substitution_pool": [
+        "bw_mountain_climber"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "bw_pushup_conditioning",
+      "name": "Push-Up (Conditioning)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest"
+        ],
+        "secondary": [
+          "triceps",
+          "shoulders"
+        ]
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Körper in einer Linie",
+        "Ellbogen ~45° am Körper"
+      ],
+      "substitution_pool": [
+        "bw_squat_thrust"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "wrist",
+        "elbow"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "bw_squat_thrust",
+      "name": "Squat Thrust (Burpee ohne Sprung)",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "chest"
+        ],
+        "secondary": [
+          "shoulders"
+        ]
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Hände am Boden, Beine zurück und vor",
+        "Rumpf stabil"
+      ],
+      "substitution_pool": [
+        "bw_burpee",
+        "bw_mountain_climber"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "kb_thruster",
+      "name": "Kettlebell Thruster",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "shoulders"
+        ],
+        "secondary": [
+          "glutes",
+          "triceps"
+        ]
+      },
+      "skill_level": 3,
+      "coaching_cues": [
+        "Aus der Hocke explosiv über Kopf",
+        "Bizeps am Ohr oben"
+      ],
+      "substitution_pool": [
+        "db_thruster",
+        "kb_push_press"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "knee"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "db_thruster",
+      "name": "Dumbbell Thruster",
+      "equipment": [
+        "gym",
+        "home_gym",
+        "hybrid"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "shoulders"
+        ],
+        "secondary": [
+          "glutes",
+          "triceps"
+        ]
+      },
+      "skill_level": 3,
+      "coaching_cues": [
+        "Tiefe Hocke, dann drücken",
+        "Kurzhanteln über der Schulter ablegen"
+      ],
+      "substitution_pool": [
+        "kb_thruster",
+        "wall_ball"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "knee"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "bb_thruster",
+      "name": "Barbell Thruster",
+      "equipment": [
+        "gym"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "shoulders"
+        ],
+        "secondary": [
+          "glutes",
+          "triceps"
+        ]
+      },
+      "skill_level": 4,
+      "coaching_cues": [
+        "Front Squat in den Press übergehen",
+        "Stange dicht über Kopf"
+      ],
+      "substitution_pool": [
+        "db_thruster",
+        "kb_thruster"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "knee",
+        "wrist"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "kb_high_pull",
+      "name": "Kettlebell High Pull",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "hamstrings",
+          "glutes"
+        ],
+        "secondary": [
+          "shoulders",
+          "back_upper"
+        ]
+      },
+      "skill_level": 3,
+      "coaching_cues": [
+        "Aus der Hüfte beschleunigen",
+        "Ellbogen führt nach oben"
+      ],
+      "substitution_pool": [
+        "kb_swing_two_hand"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "spine"
+      ],
+      "impact_level": "medium",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "kb_clean_and_press",
+      "name": "KB Clean & Press",
+      "equipment": [
+        "kettlebell",
+        "hybrid"
+      ],
+      "pattern": "hinge",
+      "muscle_groups": {
+        "primary": [
+          "glutes",
+          "shoulders"
+        ],
+        "secondary": [
+          "hamstrings",
+          "triceps"
+        ]
+      },
+      "skill_level": 3,
+      "coaching_cues": [
+        "Sauber in Racking-Position",
+        "Dann kontrolliert drücken"
+      ],
+      "substitution_pool": [
+        "kb_clean",
+        "kb_push_press"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "spine"
+      ],
+      "impact_level": "medium",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "wall_ball",
+      "name": "Wall Ball Shot",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "shoulders"
+        ],
+        "secondary": [
+          "glutes"
+        ]
+      },
+      "skill_level": 2,
+      "coaching_cues": [
+        "Aus der Hocke an die Wand werfen",
+        "Ball weich fangen, direkt tief"
+      ],
+      "substitution_pool": [
+        "db_thruster",
+        "kb_goblet_squat"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [],
+      "joint_stress": [
+        "shoulder",
+        "knee"
+      ],
+      "impact_level": "medium",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "ath_box_jump",
+      "name": "Box Jump",
+      "equipment": [
+        "gym",
+        "home_gym",
+        "hybrid"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "calves"
+        ]
+      },
+      "skill_level": 2,
+      "coaching_cues": [
+        "Arme mitschwingen, weich landen",
+        "Volle Hüftstreckung oben"
+      ],
+      "substitution_pool": [
+        "ath_broad_jump",
+        "bw_jump_squat"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [
+        "athletik",
+        "jump"
+      ],
+      "joint_stress": [
+        "knee",
+        "ankle"
+      ],
+      "impact_level": "high",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "ath_broad_jump",
+      "name": "Broad Jump",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads",
+          "glutes"
+        ],
+        "secondary": [
+          "hamstrings"
+        ]
+      },
+      "skill_level": 2,
+      "coaching_cues": [
+        "Weit nach vorn, Arme führen",
+        "Weich auf beiden Füßen landen"
+      ],
+      "substitution_pool": [
+        "ath_box_jump",
+        "bw_jump_squat"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [
+        "athletik",
+        "jump"
+      ],
+      "joint_stress": [
+        "knee",
+        "ankle"
+      ],
+      "impact_level": "high",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "ath_tuck_jump",
+      "name": "Tuck Jump",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads"
+        ],
+        "secondary": [
+          "calves",
+          "abs"
+        ]
+      },
+      "skill_level": 3,
+      "coaching_cues": [
+        "Knie zur Brust ziehen",
+        "Sofort weich abfedern"
+      ],
+      "substitution_pool": [
+        "bw_jump_squat",
+        "ath_box_jump"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [
+        "athletik",
+        "jump"
+      ],
+      "joint_stress": [
+        "knee",
+        "ankle"
+      ],
+      "impact_level": "high",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "ath_depth_jump",
+      "name": "Depth Jump",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "quads"
+        ],
+        "secondary": [
+          "calves"
+        ]
+      },
+      "skill_level": 4,
+      "coaching_cues": [
+        "Von der Box abspringen, kurzer Bodenkontakt",
+        "Sofort maximal hoch"
+      ],
+      "substitution_pool": [
+        "ath_box_jump",
+        "ath_tuck_jump"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [
+        "athletik",
+        "jump"
+      ],
+      "joint_stress": [
+        "knee",
+        "ankle"
+      ],
+      "impact_level": "high",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "ath_lateral_bound",
+      "name": "Lateral Bound",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "single_leg",
+      "muscle_groups": {
+        "primary": [
+          "glutes",
+          "quads"
+        ],
+        "secondary": [
+          "hip_adductors"
+        ]
+      },
+      "skill_level": 3,
+      "coaching_cues": [
+        "Seitlich abdrücken, einbeinig landen",
+        "Landung kontrolliert abfangen"
+      ],
+      "substitution_pool": [
+        "bw_skater_squat"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [
+        "athletik",
+        "jump"
+      ],
+      "joint_stress": [
+        "knee",
+        "ankle"
+      ],
+      "impact_level": "high",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "ath_pogo_hops",
+      "name": "Pogo Hops",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "home_gym",
+        "travel",
+        "hybrid",
+        "kettlebell"
+      ],
+      "pattern": "squat",
+      "muscle_groups": {
+        "primary": [
+          "calves"
+        ],
+        "secondary": [
+          "quads"
+        ]
+      },
+      "skill_level": 2,
+      "coaching_cues": [
+        "Steife Knöchel, kurze Bodenkontakte",
+        "Aus den Waden federn"
+      ],
+      "substitution_pool": [
+        "cond_jump_rope",
+        "bw_jump_squat"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [
+        "athletik",
+        "jump"
+      ],
+      "joint_stress": [
+        "ankle"
+      ],
+      "impact_level": "high",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "ath_med_ball_slam",
+      "name": "Med Ball Slam",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "abs",
+          "shoulders"
+        ],
+        "secondary": [
+          "back_lat"
+        ]
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Über Kopf, dann mit ganzem Körper schmettern",
+        "Rumpf fest"
+      ],
+      "substitution_pool": [
+        "ath_med_ball_rotational_throw"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [
+        "athletik"
+      ],
+      "joint_stress": [
+        "shoulder",
+        "spine"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "ath_med_ball_rotational_throw",
+      "name": "Med Ball Rotational Throw",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "core",
+      "muscle_groups": {
+        "primary": [
+          "obliques"
+        ],
+        "secondary": [
+          "abs",
+          "shoulders"
+        ]
+      },
+      "skill_level": 2,
+      "coaching_cues": [
+        "Rotation aus der Hüfte",
+        "Explosiv gegen die Wand"
+      ],
+      "substitution_pool": [
+        "ath_med_ball_slam"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [
+        "athletik"
+      ],
+      "joint_stress": [
+        "spine",
+        "shoulder"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
+    },
+    {
+      "id": "ath_med_ball_chest_pass",
+      "name": "Med Ball Chest Pass",
+      "equipment": [
+        "gym",
+        "home_gym"
+      ],
+      "pattern": "push_horizontal",
+      "muscle_groups": {
+        "primary": [
+          "chest"
+        ],
+        "secondary": [
+          "triceps",
+          "shoulders"
+        ]
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Explosiv von der Brust wegdrücken",
+        "Stand stabil"
+      ],
+      "substitution_pool": [
+        "bw_pushup_conditioning"
+      ],
+      "progressions_up": [],
+      "progressions_down": [],
+      "pattern_tags": [
+        "athletik"
+      ],
+      "joint_stress": [
+        "shoulder",
+        "elbow"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": true
     }
   ]
 }
