@@ -23,7 +23,7 @@ from logic.volume_calculator import (
 )
 from logic.conditioning_formats import (
     is_conditioning, is_block_format, conditioning_target_min, block_count,
-    block_params, REST_BETWEEN_BLOCKS_SEK,
+    block_params, REST_BETWEEN_BLOCKS_SEK, conditioning_pool,
 )
 
 
@@ -290,8 +290,22 @@ _PST_TESTS = [
 
 # ── Metcon-Block Builder (Recomp-Finisher) ────────────────────────────────────
 
-# Muster-Sequenz für Metcon-Übungen: abwechseln damit nicht dieselbe wie Kraftteil
-_METCON_PATTERNS = ["squat", "hinge", "push_horizontal", "core"]
+def _pick_finisher_uebungen(pool: list[dict], n: int) -> list[dict]:
+    """Bis zu n Conditioning-Übungen mit Pattern-Vielfalt (nicht 3× dasselbe Pattern)."""
+    picked: list[dict] = []
+    seen: set[str] = set()
+    for ex in pool:                      # erst je Pattern eine
+        if ex["pattern"] not in seen:
+            picked.append(ex)
+            seen.add(ex["pattern"])
+            if len(picked) == n:
+                return picked
+    for ex in pool:                      # dann auffüllen, falls weniger Pattern als n
+        if ex["id"] not in {e["id"] for e in picked}:
+            picked.append(ex)
+            if len(picked) == n:
+                return picked
+    return picked
 
 
 def _build_metcon_block(
@@ -302,22 +316,24 @@ def _build_metcon_block(
     if not metcon_typ:
         return None
     cfg = _METABOLIC_CONFIG.get(metcon_typ, {}).get(woche_typ, {})
+    # Naht 4b: Finisher zieht aus dem Conditioning-Pool (pattern=="conditioning" ODER
+    # conditioning_friendly) statt aus Kraft-Pattern. Equipment-korrekt, weil uebungen_gefiltert
+    # schon equipment-gefiltert ist (Bodyweight als Obergrenze immer dabei). Pool ist global/
+    # Ganzkörper — cf-Übungen sind keine Isolationsübungen.
+    # Bodyweight bleibt der Hauptteil (stabil zuerst); equipment-spezifische Übungen (z.B. KB)
+    # kommen nur als Zusatz dazu — und nur dort, wo es keine Bodyweight-Variante gibt (z.B. Hinge/Swing).
+    pool = sorted(conditioning_pool(uebungen_gefiltert),
+                  key=lambda e: 0 if "bodyweight" in e["equipment"] else 1)
     selected: list[HauptUebung] = []
-
-    for i, pattern in enumerate(_METCON_PATTERNS[:3]):
-        candidates = uebungen_gefiltert.get(pattern, [])
-        if not candidates:
-            continue
-        # Nimm zweite Übung wenn verfügbar (erste gehört meist zum Kraftteil)
-        ex = candidates[min(1, len(candidates) - 1)]
+    for i, ex in enumerate(_pick_finisher_uebungen(pool, 3)):
         selected.append(HauptUebung(
             reihenfolge=i + 1,
             exercise_id=ex["id"],
             name=ex["name"],
             saetze=cfg.get("saetze", 1),
-            wdh=_metabolic_wdh(metcon_typ, pattern, woche_typ),
+            wdh=_metabolic_wdh(metcon_typ, ex["pattern"], woche_typ),
             rpe=None,   # Conditioning-Finisher trägt keine RPE (Spec Thema 6)
-            tempo=_tempo(pattern, metcon_typ),
+            tempo=_tempo(ex["pattern"], metcon_typ),
             pausenzeit_sek=cfg.get("pause", 0),
             coaching_cues=ex["coaching_cues"][:2],
             notiz="",

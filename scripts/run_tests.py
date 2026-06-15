@@ -516,6 +516,38 @@ def main():
         if kraft_only:
             assert kraft_only[0]["id"] not in set(ids), "Kraft-only-Squat im Pool"
 
+    def finisher_aus_pool():
+        # Naht 4b: Finisher zieht aus dem Conditioning-Pool (equipment-korrekt), nicht aus Kraft-Pattern.
+        def setup(eq):
+            kw = dict(hauptziel_ref="recomp", tage=4, session_min=45, equipment_ref=eq,
+                      kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80, trainingsjahre_ref="ein_bis_zwei")
+            k = parse_typeform_payload(make_payload(**kw))
+            lvl, _ = berechne_level(k)
+            sp = waehle_split(k, lvl); ub = filtere_uebungen(k, lvl)
+            plan = assemble_plan(klient=k, level=lvl, split=sp,
+                                 claude_output=_auto_claude_output(sp, ub), block_nummer=1).model_dump()
+            pool = conditioning_pool(ub)
+            fin = {u["exercise_id"] for w in plan["wochen"] for s in w["sessions"]
+                   if s.get("metcon_block") for u in s["metcon_block"]["uebungen"]}
+            return pool, fin
+        # Bodyweight-Kunde: Finisher-Übungen alle aus dem Pool, keine reine-KB-Übung
+        pool_bw, fin_bw = setup("bodyweight")
+        assert fin_bw, "kein Finisher (BW)"
+        assert fin_bw <= {e["id"] for e in pool_bw}, "Finisher nicht aus Conditioning-Pool (BW)"
+        kb_only_bw = {e["id"] for e in pool_bw if "kettlebell" in e["equipment"] and "bodyweight" not in e["equipment"]}
+        assert not (fin_bw & kb_only_bw), "reine-KB-Übung im BW-Finisher"
+        # Kettlebell-Kunde: Pool gemischt (BW + KB), BW ist Mehrheit
+        pool_kb, fin_kb = setup("kettlebell")
+        bw = [e for e in pool_kb if "bodyweight" in e["equipment"]]
+        kb_only = [e for e in pool_kb if "kettlebell" in e["equipment"] and "bodyweight" not in e["equipment"]]
+        assert bw and kb_only, "KB-Pool nicht gemischt (BW + KB)"
+        assert len(bw) > len(kb_only), f"Bodyweight nicht Mehrheit im KB-Pool (bw={len(bw)} kb={len(kb_only)})"
+        assert fin_kb <= {e["id"] for e in pool_kb}, "Finisher nicht aus Conditioning-Pool (KB)"
+        # BW-first-Pick: Bodyweight bleibt Hauptteil auch im gepickten KB-Finisher
+        pool_kb_by_id = {e["id"]: e for e in pool_kb}
+        bw_in_fin = sum(1 for fid in fin_kb if "bodyweight" in pool_kb_by_id[fid]["equipment"])
+        assert bw_in_fin * 2 >= len(fin_kb), f"Bodyweight nicht Mehrheit im KB-Finisher ({bw_in_fin}/{len(fin_kb)})"
+
     def rotation_zwei_verschiedene():
         # Naht 3: die 2 C-Tage einer Woche → 2 verschiedene Formate (weiche Bevorzugung, Pool ≥ 2)
         for lvl in (1, 2, 3, 4):
@@ -587,6 +619,7 @@ def main():
             assert m and int(m.group(1)) <= 10, f"Finisher-Notiz-Dauer falsch: {mb['format_notiz']!r}"
 
     _cfcheck("Naht 4a Conditioning-Pool-Helfer (cond/cf, dedup, kein Kraft-only)", pool_helfer)
+    _cfcheck("Naht 4b Finisher aus Pool (BW equipment-korrekt, KB BW-mehrheitlich)", finisher_aus_pool)
     _cfcheck("Naht 3 Rotation: 2 C-Tage/Woche verschieden + Equipment-Bevorzugung", rotation_zwei_verschiedene)
     _cfcheck("Ziel-Dauer = Session − Warmup (keine Level-Deckelung)",            ziel_dauer_session_minus_warmup)
     _cfcheck("Tabata-Block-Stapelung (Ziel 30→6 Blöcke, festes 20/10-Timing)",   tabata_block_stapelung)
