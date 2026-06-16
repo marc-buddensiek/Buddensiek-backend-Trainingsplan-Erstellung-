@@ -705,6 +705,28 @@ def main():
         cshort = [s for s in kurz["wochen"][0]["sessions"] if s["session_typ"] in CONDITIONING]
         assert cshort and not any(s.get("conditioning_block_2") for s in cshort), "30min-C-Tag hat fälschlich 2. Segment"
 
+    def c_tage_uebungs_rotation():
+        # Naht 4e-1: die 2 reinen C-Tage einer Woche ziehen VERSCHIEDENE Übungen (nicht nur Format),
+        # über die Wochen variiert die Auswahl, KB-Kunde behält BW-Mehrheit.
+        import json, pathlib
+        exb = {e["id"]: e for e in json.loads(
+            (pathlib.Path(__file__).parent.parent / "data" / "exercises.json").read_text())["exercises"]}
+        _, plan = _plan(dict(hauptziel_ref="fettabbau", tage=6, session_min=45,
+                             kniebeugen=80, pushups=60, situps=75, burpees=40, plank=200,
+                             trainingsjahre_ref="fuenf_plus", equipment_ref="kettlebell"))
+        def c_ids(wi):
+            cs = [s for s in plan["wochen"][wi]["sessions"] if s["session_typ"] in CONDITIONING]
+            return [tuple(u["exercise_id"] for u in s["haupt_uebungen"]) for s in cs]
+        w1 = c_ids(0)
+        assert len(w1) == 2 and w1[0] != w1[1], f"2 C-Tage Woche 1 übungsgleich: {w1}"   # räumlich
+        assert w1 != c_ids(1), "C-Tag-Übungen Woche 1 == Woche 2 (keine zeitliche Rotation)"  # zeitlich
+        # BW-Mehrheit im C-Tag erhalten (Equipment = Obergrenze, BW Hauptteil)
+        for s in [s for s in plan["wochen"][0]["sessions"] if s["session_typ"] in CONDITIONING]:
+            ids = [u["exercise_id"] for u in s["haupt_uebungen"]]
+            bw = sum(1 for i in ids if "bodyweight" in exb[i]["equipment"])
+            assert bw * 2 >= len(ids), f"BW nicht Mehrheit im C-Tag: {ids}"
+
+    _cfcheck("Naht 4e-1 C-Tag-Übungs-Rotation (2 C-Tage + Wochen verschieden, BW-Mehrheit)", c_tage_uebungs_rotation)
     _cfcheck("Naht 4d Multi-Format-Split (35→20+15/25+10, 50→30+20, ≤2 Segmente)", multi_format_split)
     _cfcheck("Naht 4d-3 verdrahtet (60min→2 Segmente/block_2, 30min→1 Segment)",   e2e_multi_format_verdrahtet)
     _cfcheck("Naht 4d Kapazitäts-Erstformat (BW-L4-60→Density+AMRAP, kurz=Rotation)", kapazitaetsbewusstes_erstformat)

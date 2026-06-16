@@ -293,21 +293,28 @@ _PST_TESTS = [
 
 # ── Metcon-Block Builder (Recomp-Finisher) ────────────────────────────────────
 
-def _pick_finisher_uebungen(pool: list[dict], n: int) -> list[dict]:
-    """Bis zu n Conditioning-Übungen mit Pattern-Vielfalt (nicht 3× dasselbe Pattern)."""
+def _pick_finisher_uebungen(pool: list[dict], n: int, offset: int = 0) -> list[dict]:
+    """Bis zu n Conditioning-Übungen mit Pattern-Vielfalt (nicht 3× dasselbe Pattern).
+    `offset` rotiert je Pattern, WELCHE Übung gewählt wird (Naht 4e: Übungs-Rotation über C-Tage/
+    Wochen) — die Pattern-Reihenfolge (BW-first) bleibt erhalten, nur die konkrete Übung je Pattern
+    variiert; `offset=0` reproduziert exakt das Verhalten vor 4e."""
+    by_pattern: dict[str, list[dict]] = {}
+    for ex in pool:
+        by_pattern.setdefault(ex["pattern"], []).append(ex)
     picked: list[dict] = []
-    seen: set[str] = set()
-    for ex in pool:                      # erst je Pattern eine
-        if ex["pattern"] not in seen:
-            picked.append(ex)
-            seen.add(ex["pattern"])
-            if len(picked) == n:
-                return picked
-    for ex in pool:                      # dann auffüllen, falls weniger Pattern als n
-        if ex["id"] not in {e["id"] for e in picked}:
-            picked.append(ex)
-            if len(picked) == n:
-                return picked
+    used: set[str] = set()
+    for pat in dict.fromkeys(ex["pattern"] for ex in pool):   # Pattern in Pool-Reihenfolge (BW-first)
+        cands = by_pattern[pat]
+        ex = cands[offset % len(cands)]                       # Übung je Pattern offset-rotiert
+        picked.append(ex)
+        used.add(ex["id"])
+        if len(picked) == n:
+            return picked
+    rest = [ex for ex in pool if ex["id"] not in used]        # auffüllen, falls mehr Slots als Pattern
+    for i in range(len(rest)):
+        if len(picked) == n:
+            break
+        picked.append(rest[(offset + i) % len(rest)])
     return picked
 
 
@@ -356,15 +363,15 @@ _CONDITIONING_SLOTS_N = 4   # session-füllende C-Segmente: feste Übungszahl (Z
 
 
 def _build_conditioning_segment(fmt: str, seg_dauer: int, pool_sorted: list[dict],
-                                woche_typ: str) -> list[HauptUebung]:
+                                woche_typ: str, offset: int = 0) -> list[HauptUebung]:
     """HauptUebung-Liste für EIN Conditioning-Segment (Naht 4c/4d), deterministisch aus dem
     (BW-first sortierten, equipment-gefilterten) Conditioning-Pool. Block-Format → Block-Stapelung
     (n Blöcke je seg_dauer, je Block eine andere Übung, festes Timing, 60 s Pause, keine RPE);
-    session-füllend → feste Slot-Anzahl mit _METABOLIC_CONFIG-Dosierung. Single-Segment-Verhalten
-    ist identisch zu Naht 4c-2."""
+    session-füllend → feste Slot-Anzahl mit _METABOLIC_CONFIG-Dosierung. `offset` rotiert die
+    Übungs-Auswahl (Naht 4e: pro Woche × C-Tag); `offset=0` = Verhalten vor 4e."""
     is_blk = is_block_format(fmt)
     n = block_count(fmt, seg_dauer) if is_blk else _CONDITIONING_SLOTS_N
-    picks = _pick_finisher_uebungen(pool_sorted, n)
+    picks = _pick_finisher_uebungen(pool_sorted, n, offset)
     if not picks:
         return []
     out: list[HauptUebung] = []
@@ -497,12 +504,15 @@ def assemble_plan(
                                      key=lambda e: 0 if "bodyweight" in e["equipment"] else 1)
                 cond_target = conditioning_target_min(klient.session_dauer_min)
                 segments = split_conditioning_segments(cond_target, session_typ, level, klient.equipment.value)
+                # Naht 4e: Übungs-Rotation pro Woche × C-Tag (räumlich session_idx, zeitlich woche_idx);
+                # Segment 2 versetzt (+1), damit die 2 Segmente eines Tages nicht dieselben Übungen ziehen.
+                rot = woche_idx * 3 + session_idx
                 session_typ_eff, dauer0 = segments[0]
-                haupt_uebungen = _build_conditioning_segment(session_typ_eff, dauer0, pool_sorted, woche_typ)
+                haupt_uebungen = _build_conditioning_segment(session_typ_eff, dauer0, pool_sorted, woche_typ, rot)
                 slot_tiers = ["compound"] * len(haupt_uebungen)
                 if len(segments) == 2:
                     fmt1, dauer1 = segments[1]
-                    seg2 = _build_conditioning_segment(fmt1, dauer1, pool_sorted, woche_typ)
+                    seg2 = _build_conditioning_segment(fmt1, dauer1, pool_sorted, woche_typ, rot + 1)
                     cond_block_2 = MetconBlock(
                         typ=fmt1,
                         format_notiz=_format_notiz(fmt1, len(seg2), woche_typ, dauer_min=dauer1) or fmt1,
