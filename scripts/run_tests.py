@@ -708,6 +708,32 @@ def main():
         cshort = [s for s in kurz["wochen"][0]["sessions"] if s["session_typ"] in CONDITIONING]
         assert cshort and not any(s.get("conditioning_block_2") for s in cshort), "30min-C-Tag hat fälschlich 2. Segment"
 
+    def athletik_pool_helfer():
+        # Naht 5-1: athletik_pool sammelt "athletik" in pattern_tags, dedup, equipment-/skill-gefiltert
+        # (automatisch via filtere_uebungen). Getrennter Longevity-Pfad, noch nicht verdrahtet.
+        from logic.athletik import athletik_pool
+        def pool_for(eq, tj="drei_bis_fuenf", **pst):
+            k = parse_typeform_payload(make_payload(hauptziel_ref="longevity", tage=4, equipment_ref=eq,
+                                                    trainingsjahre_ref=tj, **pst))
+            lvl, _ = berechne_level(k)
+            return lvl, athletik_pool(filtere_uebungen(k, lvl))
+        base = dict(kniebeugen=50, pushups=35, situps=50, burpees=25, plank=120)
+        _, pool = pool_for("gym", **base)
+        ids = [e["id"] for e in pool]
+        assert pool, "leerer Athletik-Pool (gym)"
+        assert len(ids) == len(set(ids)), "Dubletten im Athletik-Pool"
+        assert all("athletik" in e.get("pattern_tags", []) for e in pool), "Nicht-Athletik im Pool"
+        assert "ath_box_jump" in ids and "ath_med_ball_slam" in ids, "erwartete Athletik-Übung fehlt (gym)"
+        # Bodyweight: Med-Ball-Throws + Box Jump (Equipment) rausgefiltert, reine Sprünge bleiben (DQ6)
+        _, poolbw = pool_for("bodyweight", **base)
+        idsbw = {e["id"] for e in poolbw}
+        assert poolbw and "ath_med_ball_slam" not in idsbw and "ath_box_jump" not in idsbw, \
+            f"Bodyweight-Athletik-Pool falsch: {idsbw}"
+        assert all("athletik" in e.get("pattern_tags", []) for e in poolbw)
+        # DQ6-Lücke dokumentiert: L1-Bodyweight-Athletik-Pool ist leer (Builder braucht Zone-2-Fallback)
+        _, pool_l1 = pool_for("bodyweight", tj="keine", kniebeugen=5, pushups=5, situps=5, burpees=3, plank=20)
+        assert pool_l1 == [], f"L1-Bodyweight-Athletik-Pool unerwartet nicht leer: {pool_l1}"
+
     def c_tage_uebungs_rotation():
         # Naht 4e-1: die 2 reinen C-Tage einer Woche ziehen VERSCHIEDENE Übungen (nicht nur Format),
         # über die Wochen variiert die Auswahl, KB-Kunde behält BW-Mehrheit.
@@ -758,6 +784,7 @@ def main():
         sigs = [(mb["typ"], tuple(u["exercise_id"] for u in mb["uebungen"])) for mb in fins]
         assert len(set(sigs)) == len(sigs), f"Mischtag-Finisher nicht alle verschieden: {sigs}"
 
+    _cfcheck("Naht 5-1 Athletik-Pool-Helfer (pattern_tags, dedup, equipment-gefiltert)", athletik_pool_helfer)
     _cfcheck("Naht 4e-1 C-Tag-Übungs-Rotation (2 C-Tage + Wochen verschieden, BW-Mehrheit)", c_tage_uebungs_rotation)
     _cfcheck("Naht 4e-2 Finisher-Rotation (W1–W4 kein 2×, gleiches Format → andere Übungen, F4)", finisher_rotation)
     _cfcheck("Naht 4d Multi-Format-Split (35→20+15/25+10, 50→30+20, ≤2 Segmente)", multi_format_split)
