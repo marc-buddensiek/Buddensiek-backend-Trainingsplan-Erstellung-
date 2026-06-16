@@ -31,7 +31,7 @@ _Stand: 2026-06-16 · git HEAD `f8ab9d6` (MVP-7 Naht 1–5 fertig, Komplexe offe
   `logic/plan_assembler.py:366` `TODO(short-session-pattern-drop)`.
 - ~~**Offen geblieben (→ MVP-7):** Longevity-Athletik-Rotation + Conditioning-Block-Rotation/Format-Ausbau~~
   **erledigt mit MVP-7** (Athletik = Naht 5, Format-/Übungs-Rotation = Naht 3/4d/4e; `TODO(mvp7-athletik)`
-  entfernt, `TODO(mvp7-formate)`-Reste stale → kleiner Cleanup; s. MVP-7-Abschnitt).
+  entfernt, `TODO(mvp7-formate)`-Marker + stale Rest-Kommentare entfernt; s. MVP-7-Abschnitt).
 
 ## MVP-5 — Verletzungs- & Equipment-Filter ✅ umgesetzt (2026-06-13, `d11ae4a`…`db80429`)
 
@@ -69,8 +69,7 @@ _Stand: 2026-06-16 · git HEAD `f8ab9d6` (MVP-7 Naht 1–5 fertig, Komplexe offe
   - **Komplexe** (`TODO(mvp7-komplexe)`, `conditioning_formats:29`): brauchen **vordefinierte Coach-
     Ketten** (Flow ohne Ablegen, nur Last) — **nicht aus Einzelübungen generierbar**. Bleibt gültiges
     Enum, aber aus dem Rotations-Pool gefiltert. Eigener Schritt — **letzter offener MVP-7-Punkt**.
-  - **Kleiner Cleanup:** 2 stale `TODO(mvp7-formate)`-Kommentare in `split_selector:401/412`
-    (Finisher-Rotation ist mit 4e gebaut) entfernen; `TODO(mvp7-cleanup)` C1/C2/C4 (geparkt).
+  - **`TODO(mvp7-cleanup)`** C1/C2/C4 (geparkt): toter Code/Tests, kein Klienten-Plan.
   - ~~Lange-Session-Caveat (4d)~~ **durch Naht 4e abgefedert:** identische C-Tag-Formate werden über
     die rotierte Übungs-Auswahl differenziert (BW-L4-60 → beide density+amrap, aber verschiedene Übungen).
   - **Conditioning-/Athletik-Pool-Ausbau** (Coach, s. MVP-2-Abschnitt): Bodyweight-Conditioning L3/L4,

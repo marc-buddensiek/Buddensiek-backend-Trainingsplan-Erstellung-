@@ -48,7 +48,7 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | `TODO(v15-schwachstelle)` | models:95, split_selector:313 | V1.5 |
 | `TODO(mvp2-schema-stale)` | update_exercises:2 | MVP-2-Tooling |
 
-_Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt 2026-06-12: `TODO(testdata-tage-min3)`. Erledigt mit MVP-5: `TODO(mvp5-substitutions-b-removal)`. Erledigt mit MVP-6: `TODO(deload-faktor-tot)`. Erledigt mit MVP-7: `TODO(mvp7-athletik)` (Naht 5, Marker entfernt) · `TODO(mvp7-formate)` (Naht 3/4d/4e — Rotation + Ladders + Finisher-Rotation; **2 Rest-Kommentare in split_selector:401/412 sind stale, kleine Cleanup**)._
+_Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt 2026-06-12: `TODO(testdata-tage-min3)`. Erledigt mit MVP-5: `TODO(mvp5-substitutions-b-removal)`. Erledigt mit MVP-6: `TODO(deload-faktor-tot)`. Erledigt mit MVP-7: `TODO(mvp7-athletik)` (Naht 5, Marker entfernt) · `TODO(mvp7-formate)` (Naht 3/4d/4e — Rotation + Ladders + Finisher-Rotation, Marker + stale Rest-Kommentare entfernt)._
 
 ## 5. Test-Stand (verifiziert)
 
@@ -235,8 +235,7 @@ _Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt
 MVP-7 läuft (Naht 1–5 fertig, nur Komplexe offen). Reihenfolge innerhalb MVP-7 und danach:
 - **MVP-7 Komplexe** (`TODO(mvp7-komplexe)`): vordefinierte Coach-Ketten (Flow ohne Ablegen) — eigener
   Schritt, nicht aus Einzelübungen generierbar; bis dahin aus dem Rotations-Pool gefiltert.
-- **Kleine Cleanups:** 2 stale `TODO(mvp7-formate)`-Kommentare in split_selector:401/412 (Finisher-Rotation
-  ist gebaut) entfernen; `TODO(mvp7-cleanup)` (geparkt): C1/C2/C4 — toter Code/Tests, kein Klienten-Plan.
+- **`TODO(mvp7-cleanup)`** (geparkt): C1/C2/C4 — toter Code/Tests, kein Klienten-Plan.
 - **Danach:** MVP-8 Coach-Flag + MVP-3-Korridor-Deckel (baubar: Tagging ✓, Splits ✓), dann **MVP-9
   Claude-Integration finalisieren** (Vorarbeit: Level-Gate als `<=` verifiziert, BACKLOG MVP-9).
 **Coach-Daueraufgabe parallel:** MVP-2-Ausbau auf 250–300 — inkl. ~25 Conditioning + ~10 Athletik

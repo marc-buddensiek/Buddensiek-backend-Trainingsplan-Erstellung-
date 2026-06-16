@@ -369,7 +369,7 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
 
     elif ziel == Hauptziel.recomp:
         # Alle Sessions: Kraftteil + Metcon-Finisher (außer 20 min — zu kurz)
-        metcon_typ = None if dauer <= 20 else "amrap"   # Interim: nur Session-füllend; Block-Formate + Rotation = Naht 2c/4
+        metcon_typ = None if dauer <= 20 else "amrap"   # "amrap" = nur „hat Finisher"-Signal; echtes Format rotiert {amrap, zirkel} im Assembler (Naht 4e)
 
         def _recomp_session(sid: str, fokus: str, slots: list[dict]) -> dict:
             return _tag_session(sid, fokus, slots, "kraft", metcon_typ)
@@ -397,11 +397,11 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
 
     elif ziel == Hauptziel.fettabbau:
         # Kraft + Conditioning (Spec Thema 4) — kein reines Conditioning mehr.
-        # Naht 3: reine C-Tage rotieren (pick_conditioning_formats, s.u.).
-        # TODO(mvp7-formate) Rest → Naht 4: Finisher-Rotation der Mischtage (statisch amrap) + Ladders/Komplexe.
+        # Naht 3: reine C-Tage rotieren das Format (pick_conditioning_formats, s.u.); Übungs-Rotation +
+        # Mischtag-Finisher-Rotation {amrap, zirkel} laufen im Assembler (Naht 4e).
         if tage <= 3:
             # Full Body mit metabolischen Akzenten: Kraft + Metcon-Finisher (wie Recomp)
-            metcon_typ = None if dauer <= 20 else "amrap"   # Interim: nur Session-füllend; Block-Formate + Rotation = Naht 2c/4
+            metcon_typ = None if dauer <= 20 else "amrap"   # "amrap" = nur „hat Finisher"-Signal; echtes Format rotiert {amrap, zirkel} im Assembler (Naht 4e)
             sessions = [
                 _tag_session(s["session_id"], s["fokus"], s["slots"], "kraft", metcon_typ)
                 for s in _full_body_sessions(tage, level, dauer)
@@ -409,8 +409,8 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
             return {"split_typ": f"Full Body {tage}× + Metcon-Akzente", "sessions": sessions}
         # 4/5/6 Tage: (tage−2)× Kraft + Finisher (GEMISCHT, wie Recomp) + fix 2× reine Conditioning.
         # Die 2 C-Tage bekommen 2 verschiedene Formate (räumliche Rotation + Equipment-Bevorzugung,
-        # nie 2× hintereinander). TODO(mvp7-formate) für reine C-Tage erledigt; Finisher-Rotation +
-        # Ladders/Komplexe-Pool bleiben Naht 4.
+        # nie 2× hintereinander; Übungs- + Finisher-Rotation = Naht 4e). Ladders ist block-dosierbar
+        # (Naht 4d); nur Komplexe bleibt offen (TODO(mvp7-komplexe)).
         cond_fmts = pick_conditioning_formats(level, klient.equipment.value, 2)
         metcon_typ = None if dauer <= 20 else "amrap"
         n_kraft = tage - 2                              # 4→2 · 5→3 · 6→4
