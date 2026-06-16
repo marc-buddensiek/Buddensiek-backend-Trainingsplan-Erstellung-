@@ -502,6 +502,10 @@ def assemble_plan(
             slot_templates = session_template.get("slots", [])
             is_pool = any(s.get("pool") == "conditioning" for s in slot_templates)
             is_ath_pool = any(s.get("pool") == "athletik" for s in slot_templates)
+            # Naht 5-3: 1-Tage-Longevity-Cardio (rotate_cardio) alterniert Z2/Athletik über die Wochen —
+            # woche_idx-Parität, W1=Zone-2 → gerade Wochen (W2/W4) = Athletik (W4 = Athletik im Deload).
+            ist_athletik_woche = bool(session_template.get("rotate_cardio")) and woche_idx % 2 == 0
+            build_athletik = is_ath_pool or ist_athletik_woche
             cond_block_2 = None                   # Naht 4d: zweites Format-Segment langer C-Tage
             session_typ_eff = session_typ         # kann sich bei langer Session ändern (Kapazitäts-Erstformat)
             dauer0 = 0
@@ -530,16 +534,16 @@ def assemble_plan(
                         format_notiz=_format_notiz(fmt1, len(seg2), woche_typ, dauer_min=dauer1) or fmt1,
                         uebungen=seg2,
                     )
-            elif is_ath_pool:
-                # Naht 5-2: Longevity-Athletik — deterministisch aus dem Athletik-Pool (A1, pool:"athletik"),
-                # skill-gestaffelte Dosierung (DQ2), KEINE RPE (DQ3), KEIN Cardio (DQ4 — fokus ohne "zone").
-                # Übungs-Rotation mit demselben Offset wie die C-Tage (4e), Deload-Volumen runter (DQ5).
-                # Leerer Pool (z.B. L1-Bodyweight) → Zone-2-Cardio-Fallback (DQ6).
+            elif build_athletik:
+                # Naht 5-2/5-3: Longevity-Athletik — deterministisch aus dem Athletik-Pool (A1), skill-
+                # gestaffelte Dosierung (DQ2), KEINE RPE (DQ3), KEIN Cardio (DQ4), 4e-Übungs-Rotation,
+                # Deload-Volumen runter (DQ5). Leerer Pool (z.B. L1-Bodyweight) → Zone-2-Fallback (DQ6).
                 pool_ath = athletik_pool(uebungen_gefiltert)
                 if not pool_ath:
                     session_typ_eff = "zone2"
                     ath_fallback_zone2 = True
                 else:
+                    session_typ_eff = "athletik"   # 5-3: Rotations-Tag zeigt in Athletik-Wochen den Athletik-Typ
                     rot = woche_idx * 3 + session_idx
                     for i, ex in enumerate(_pick_finisher_uebungen(pool_ath, _ATHLETIK_N, rot)):
                         a_saetze, a_wdh, a_pause = athletik_dosierung(ex["skill_level"], deload=ist_deload)
@@ -620,9 +624,15 @@ def assemble_plan(
                         slot_tiers.append(slot_tier)
 
             warm_up    = _warm_up(klient.equipment, fokus)
-            # Naht 5-2: Athletik-Tag trägt kein Cardio (fokus „Athletik" → _cardio None); im Leer-Pool-
-            # Fallback wird der Tag zum Zone-2-Cardio-Tag (DQ6) — Zone-2-Block erzwingen.
-            cardio     = _cardio(klient.hauptziel, "Zone 2" if ath_fallback_zone2 else fokus)
+            is_athletik = build_athletik and not ath_fallback_zone2
+            # Naht 5-2/5-3: echter Athletik-Tag trägt KEIN Cardio (DQ4); im Leer-Pool-Fallback wird der
+            # Tag zum Zone-2-Cardio-Tag (DQ6); sonst Cardio je Fokus/Ziel (unverändert).
+            if is_athletik:
+                cardio = None
+            elif ath_fallback_zone2:
+                cardio = _cardio(klient.hauptziel, "Zone 2")
+            else:
+                cardio = _cardio(klient.hauptziel, fokus)
             cool_down  = _cool_down(fokus)
             # Reine C-Tage: Notiz für das (ggf. kapazitäts-überschriebene) Erstformat-Segment mit dessen
             # echter Segment-Dauer (4d); das 2. Segment trägt seine eigene Notiz im cond_block_2.
@@ -654,7 +664,6 @@ def assemble_plan(
             zeit_pro_satz = ZEIT_PRO_SATZ_COND if is_metabolic else ZEIT_PRO_SATZ_KRAFT
             # Naht 5-2: Athletik-Tage NICHT trimmen — die skill-gestaffelte Quality-Dosierung (inkl.
             # Deload) ist bewusst fix (wie Conditioning), „Dauer gewinnt" gilt nur für Kraft.
-            is_athletik = is_ath_pool and not ath_fallback_zone2
             if not is_metabolic and not is_athletik and haupt_uebungen:   # Dauer gewinnt: Kraft trimmen
                 _trim_auf_dauer(haupt_uebungen, slot_tiers, klient.session_dauer_min,
                                 zeit_pro_satz, finisher_dauer, cardio_min)

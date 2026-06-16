@@ -770,6 +770,33 @@ def main():
         assert not any(s["session_typ"] == "athletik" for s in wbw), "L1-BW: Athletik nicht auf Zone-2 zurückgefallen"
         assert all(s.get("cardio") for s in wbw if s["session_typ"] == "zone2"), "Fallback-Zone-2 ohne Cardio"
 
+    def athletik_zeitliche_rotation():
+        # Naht 5-3: Longevity 4 (1 Cardio-Tag) alterniert über die Wochen Z2/Athletik (W1=Z2):
+        # W1 Z2 → W2 Athletik → W3 Z2 → W4 Athletik(Deload). L1-Bodyweight bleibt immer Zone-2.
+        import json, pathlib
+        from logic.athletik import athletik_dosierung
+        exb = {e["id"]: e for e in json.loads(
+            (pathlib.Path(__file__).parent.parent / "data" / "exercises.json").read_text())["exercises"]}
+        _, plan = _plan(dict(hauptziel_ref="longevity", tage=4, session_min=45, equipment_ref="gym",
+                             kniebeugen=50, pushups=35, situps=50, burpees=25, plank=120,
+                             trainingsjahre_ref="drei_bis_fuenf"))
+        def cday(wi):
+            return next(s for s in plan["wochen"][wi]["sessions"] if s["session_typ"] in ("zone2", "athletik"))
+        typen = [cday(w)["session_typ"] for w in range(4)]
+        assert typen == ["zone2", "athletik", "zone2", "athletik"], f"Rotation falsch: {typen}"
+        assert not cday(1).get("cardio") and not cday(3).get("cardio"), "Athletik-Woche mit Cardio (DQ4)"
+        assert cday(0).get("cardio") and cday(2).get("cardio"), "Zone-2-Woche ohne Cardio"
+        assert cday(1)["haupt_uebungen"], "W2-Athletik leer"
+        for u in cday(3)["haupt_uebungen"]:   # Deload (W4) sichtbar — 5-2-Dosierung nicht überschrieben
+            sk = exb[u["exercise_id"]]["skill_level"]
+            assert u["saetze"] == athletik_dosierung(sk, deload=True)[0], f"W4-Deload {u['name']}: {u['saetze']}"
+        # L1-Bodyweight: alle 4 Wochen Zone-2 (Leer-Pool-Fallback in den Athletik-Wochen)
+        _, planbw = _plan(dict(hauptziel_ref="longevity", tage=4, session_min=45, equipment_ref="bodyweight",
+                               kniebeugen=5, pushups=5, situps=5, burpees=3, plank=20, trainingsjahre_ref="keine"))
+        bw = [next(s for s in planbw["wochen"][w]["sessions"] if s["session_typ"] in ("zone2", "athletik"))["session_typ"]
+              for w in range(4)]
+        assert bw == ["zone2"] * 4, f"L1-BW nicht immer Zone-2: {bw}"
+
     def c_tage_uebungs_rotation():
         # Naht 4e-1: die 2 reinen C-Tage einer Woche ziehen VERSCHIEDENE Übungen (nicht nur Format),
         # über die Wochen variiert die Auswahl, KB-Kunde behält BW-Mehrheit.
@@ -822,6 +849,7 @@ def main():
 
     _cfcheck("Naht 5-1 Athletik-Pool-Helfer (pattern_tags, dedup, equipment-gefiltert)", athletik_pool_helfer)
     _cfcheck("Naht 5-2 Athletik-Tag (Z2+Athletik, skill-Dosierung, Deload, Rotation, Fallback)", athletik_tag_verdrahtet)
+    _cfcheck("Naht 5-3 Athletik zeitliche Rotation (Longevity 4: Z2/Ath/Z2/Ath, L1-BW immer Z2)", athletik_zeitliche_rotation)
     _cfcheck("Naht 4e-1 C-Tag-Übungs-Rotation (2 C-Tage + Wochen verschieden, BW-Mehrheit)", c_tage_uebungs_rotation)
     _cfcheck("Naht 4e-2 Finisher-Rotation (W1–W4 kein 2×, gleiches Format → andere Übungen, F4)", finisher_rotation)
     _cfcheck("Naht 4d Multi-Format-Split (35→20+15/25+10, 50→30+20, ≤2 Segmente)", multi_format_split)

@@ -300,20 +300,22 @@ def _conditioning_session(idx: int, session_typ: str = "zirkel") -> dict:
     )
 
 
-def _zone2_session(idx: int) -> dict:
-    # TODO(mvp7-athletik): V1 nur Zone-2-Cardio-Tage; die Athletik-Rotation
-    # (Spec Thema 4/6) kommt mit den MVP-7-Athletik-Übungen (Bibliothek: 0 vorhanden).
-    return _tag_session(
-        f"w1_s{idx}",
-        "Zone 2 / Longevity",
-        [
-            _slot("Mobility / Squat-Variation", "squat",          "accessory", 2),
-            _slot("Hinge / Carries",            "hinge",          "accessory", 2),
-            _slot("Push / Pull leicht",         "push_horizontal", "accessory", 2),
-            _slot("Core / Cool-Down",           "core",            "core",       1),
-        ],
-        "zone2",
-    )
+_ZONE2_SLOTS = [
+    _slot("Mobility / Squat-Variation", "squat",          "accessory", 2),
+    _slot("Hinge / Carries",            "hinge",          "accessory", 2),
+    _slot("Push / Pull leicht",         "push_horizontal", "accessory", 2),
+    _slot("Core / Cool-Down",           "core",            "core",       1),
+]
+
+
+def _zone2_session(idx: int, rotate_cardio: bool = False) -> dict:
+    # Naht 5-3: rotate_cardio markiert den EINEN Longevity-Cardio-Tag (4-Tage-Fall) als
+    # Z2/Athletik-alternierend — der Assembler entscheidet je Woche (W1=Zone-2, gerade Wochen
+    # = Athletik). Bei 2 Cardio-Tagen (5/6) bleibt Zone-2 fix; der Athletik-Tag ist dort eigen (5-2).
+    s = _tag_session(f"w1_s{idx}", "Zone 2 / Longevity", _ZONE2_SLOTS, "zone2")
+    if rotate_cardio:
+        s["rotate_cardio"] = True
+    return s
 
 
 # Naht 5-2: Athletik-Tag (Longevity) — Übungen kommen aus dem Athletik-Pool (pool="athletik"-Marker),
@@ -426,9 +428,10 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
             return {"split_typ": "Full Body 3× (Longevity)",
                     "sessions": _full_body_sessions(tage, level, dauer)}
         elif tage == 4:
+            # Naht 5-3: 1 Cardio-Tag/Woche → über die 4 Wochen alternierend Zone-2/Athletik (W1=Z2).
             fb = _full_body_sessions(3, level, dauer)
-            return {"split_typ": "3× Kraft + Zone 2",
-                    "sessions": _renumber(fb + [_zone2_session(4)])}
+            return {"split_typ": "3× Kraft + Cardio (Zone 2 / Athletik alternierend)",
+                    "sessions": _renumber(fb + [_zone2_session(4, rotate_cardio=True)])}
         elif tage == 5:
             # Naht 5-2: 2 Cardio-Tage/Woche → 1× Zone-2 + 1× Athletik (Spec Thema 4, räumlich).
             fb = _full_body_sessions(3, level, dauer)
