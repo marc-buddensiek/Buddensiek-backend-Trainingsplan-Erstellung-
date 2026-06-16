@@ -506,9 +506,16 @@ Jede Recomp-Kraftsession endet mit einem **globalen Bodyweight-Conditioning-Fini
 > sehr langen Sessions mit erzwungenem großem Erstformat können beide C-Tage identisch werden (die
 > räumliche Differenzierung aus Naht 3 verliert Vorrang) → Naht-4e-Gebiet.
 >
-> **Offen:** **Übungs-/Finisher-Format-Rotation über die C-Tage** (Naht 4e — aktuell sind die 2 C-Tage
-> übungsgleich, nur das Format unterscheidet; der Mischtag-Finisher bleibt statisch `amrap`) und
-> Komplexe (`TODO(mvp7-komplexe)`).
+> **V1-Stand (MVP-7 Naht 4e, 2026-06-16) — Rotationen:** Die **Übungs-Auswahl** rotiert jetzt über
+> einen Per-Pattern-Offset (`_pick_finisher_uebungen(..., offset)`): Pattern-Reihenfolge + BW-first
+> bleiben, nur welche Übung je Pattern wird je `(woche_idx × C-Tag)` rotiert. → die 2 reinen C-Tage
+> einer Woche ziehen **verschiedene Übungen** (nicht nur Format), über die Wochen variiert die Auswahl;
+> federt den 4d-Lange-Session-Caveat ab. Der **Mischtag-Finisher** rotiert sein Format über die 4 Wochen
+> aus **{AMRAP, Zirkel}** (nie 2× hintereinander; **Tabata/Density-Finisher vertagt** — Block-Count
+> sprengt das ~8-Min-Budget) und seine Übungen mit demselben Offset (immer anderer AMRAP/Zirkel);
+> mehrere Mischtage/Woche (Fettabbau 5/6) unterscheiden sich untereinander.
+>
+> **Offen:** nur noch Komplexe (`TODO(mvp7-komplexe)`).
 
 ### Longevity — Cardio/Athletik-Tage
 
@@ -521,9 +528,16 @@ Rotieren zwischen zwei Typen:
 - 1 Tag/Woche → alternierend (Woche 1 Zone-2, Woche 2 Athletik, …).
 - 2 Tage/Woche → 1× Zone-2 + 1× Athletik.
 
-> **V1-Stand (2026-06-11):** Longevity-Cardio-Tage sind in V1 ausschließlich **Zone-2** —
-> die Athletik-Rotation kommt mit der MVP-7-Bibliothek (0 Athletik-Übungen vorhanden);
-> Marker `TODO(mvp7-athletik)` in `split_selector._zone2_session`.
+> **V1-Stand (MVP-7 Naht 5, 2026-06-16) — Athletik gebaut:** Longevity-Cardio-Tage rotieren jetzt
+> Zone-2 ↔ Athletik (getrennter Pfad `logic/athletik.py`). **2 Cardio-Tage/Woche** (Longevity 5/6) →
+> 1× Zone-2 + 1× Athletik (räumlich). **1 Cardio-Tag/Woche** (Longevity 4) → alternierend über die
+> Wochen (W1 Zone-2 → W2 Athletik → …, `rotate_cardio`-Flag, Assembler entscheidet je Woche).
+> Athletik-Tag: Übungen aus dem **Athletik-Pool** (`"athletik" ∈ pattern_tags`, A1-deterministisch),
+> **skill-gestaffelte Dosierung** (Wdh = 20 − skill·4, Sätze 4/4/3/2, Pause ~120 s, „Quality over
+> fatigue"), **keine RPE**, **kein Cardio-Block** (ersetzt den Zone-2-Tag), 3:1-Welle mit Deload-Volumen
+> ×0.67, Übungs-Rotation wie die C-Tage. **Leer-Pool-Fallback → Zone-2** (greift bei L1-Bodyweight:
+> Athletik-Pool leer, weil skill-1-Athletik Equipment braucht → der Tag wird ein Zone-2-Cardio-Tag).
+> **Coverage-Lücke** (Coach-Daueraufgabe): Bodyweight = nur Sprünge, **L1-Bodyweight-Athletik-Pool leer**.
 
 **Begründung:** Breiter Format-Baukasten statt weniger Formate, weil Abwechslung den Reiz frisch hält und
 verschiedene Energiesysteme trifft. Rotation (Conditioning-Tage einer Woche verschieden, nie 2× direkt
