@@ -12,6 +12,23 @@ Athletik trägt KEINE RPE (CNS/Qualität, wie Conditioning).
 """
 from __future__ import annotations
 
+# DQ2 (Naht 5-2): Sätze je skill_level — explosive Plyos (hoch) wenige Sätze, submaximale Athletik (niedrig) mehr.
+_ATHLETIK_SAETZE = {1: 4, 2: 4, 3: 3, 4: 2}
+# DQ5: Deload reduziert das Volumen pauschal (~⅔, im 60–70%-Band) — Kraft deloadet auf die Cap-Unterkante,
+# Athletik analog pauschal runter (keine spezielle Übungs-Streichung).
+_ATHLETIK_DELOAD_FAKTOR = 0.67
+
+
+def athletik_dosierung(skill_level: int, deload: bool = False) -> tuple[int, int, int]:
+    """Sätze, Wdh, Pause(Sek) für eine Athletik-Übung (Naht 5-2, DQ2) — skill-gestaffelt:
+    `Wdh = 20 − skill·4` (L1=16 · L2=12 · L3=8 · L4=4), Sätze 4/4/3/2, Pause ~120 s, KEINE RPE
+    (Quality over fatigue). Im Deload Volumen pauschal runter (~⅔, DQ5)."""
+    wdh = 20 - skill_level * 4
+    saetze = _ATHLETIK_SAETZE.get(skill_level, 3)
+    if deload:
+        saetze = max(1, round(saetze * _ATHLETIK_DELOAD_FAKTOR))
+    return saetze, wdh, 120
+
 
 def athletik_pool(uebungen_gefiltert: dict[str, list[dict]]) -> list[dict]:
     """ÜBUNGS-Pool für Longevity-Athletik-Tage (MVP-7 Naht 5): alle Übungen mit

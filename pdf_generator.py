@@ -233,7 +233,9 @@ def build_pdf(plan_data: dict) -> FPDF:
                     spec_str = "  ·  ".join(spec_parts)
                 else:
                     vol_str  = f"{u['saetze']}×{u['wdh']}"
-                    spec_str = f"RPE {u['rpe']:g}  ·  Tempo {u['tempo']}  ·  Pause {u['pausenzeit_sek']}s"
+                    # Athletik (Naht 5) trägt keine RPE — RPE-Teil nur bei Kraftsätzen (rpe != None)
+                    rpe_part = f"RPE {u['rpe']:g}  ·  " if u.get("rpe") is not None else ""
+                    spec_str = f"{rpe_part}Tempo {u['tempo']}  ·  Pause {u['pausenzeit_sek']}s"
 
                 pdf.set_font("Helvetica", "B", 8)
                 pdf.set_text_color(*C_BLACK)

@@ -734,6 +734,42 @@ def main():
         _, pool_l1 = pool_for("bodyweight", tj="keine", kniebeugen=5, pushups=5, situps=5, burpees=3, plank=20)
         assert pool_l1 == [], f"L1-Bodyweight-Athletik-Pool unerwartet nicht leer: {pool_l1}"
 
+    def athletik_tag_verdrahtet():
+        # Naht 5-2: Longevity 5 → 1× Zone-2 + 1× Athletik; Athletik = skill-Dosierung, keine RPE,
+        # kein Cardio, nicht getrimmt (dauer=session_dauer); Deload Volumen runter; Rotation;
+        # leerer Pool (L1-Bodyweight) → Zone-2-Cardio-Fallback.
+        import json, pathlib
+        from logic.athletik import athletik_dosierung
+        exb = {e["id"]: e for e in json.loads(
+            (pathlib.Path(__file__).parent.parent / "data" / "exercises.json").read_text())["exercises"]}
+        _, plan = _plan(dict(hauptziel_ref="longevity", tage=5, session_min=45, equipment_ref="gym",
+                             kniebeugen=50, pushups=35, situps=50, burpees=25, plank=120,
+                             trainingsjahre_ref="drei_bis_fuenf"))
+        w1 = plan["wochen"][0]["sessions"]
+        assert sum(s["session_typ"] == "zone2" for s in w1) == 1 and sum(s["session_typ"] == "athletik" for s in w1) == 1, \
+            f"Longevity 5 nicht 1× Z2 + 1× Athletik: {[s['session_typ'] for s in w1]}"
+        a = next(s for s in w1 if s["session_typ"] == "athletik")
+        assert not a.get("cardio"), "Athletik-Tag hat Cardio (DQ4)"
+        assert a["dauer_min_geschaetzt"] == 45, f"Athletik nicht auf Session-Dauer (getrimmt?): {a['dauer_min_geschaetzt']}"
+        assert a["haupt_uebungen"] and all(u["rpe"] is None for u in a["haupt_uebungen"]), "Athletik mit RPE (DQ3)"
+        for u in a["haupt_uebungen"]:                     # skill-Dosierung exakt (nicht getrimmt)
+            sk = exb[u["exercise_id"]]["skill_level"]
+            es, ew, _ = athletik_dosierung(sk, deload=False)
+            assert u["saetze"] == es and u["wdh"] == f"{ew} Wdh", f"Dosierung {u['name']} skill{sk}: {u['saetze']}×{u['wdh']}"
+        a4 = next(s for s in plan["wochen"][3]["sessions"] if s["session_typ"] == "athletik")
+        for u in a4["haupt_uebungen"]:                    # Deload: Volumen runter
+            sk = exb[u["exercise_id"]]["skill_level"]
+            assert u["saetze"] == athletik_dosierung(sk, deload=True)[0], f"Deload {u['name']} skill{sk}: {u['saetze']}"
+        a2 = next(s for s in plan["wochen"][1]["sessions"] if s["session_typ"] == "athletik")
+        assert tuple(u["exercise_id"] for u in a["haupt_uebungen"]) != tuple(u["exercise_id"] for u in a2["haupt_uebungen"]), \
+            "Athletik-Übungen W1 == W2 (keine Rotation)"
+        # Leer-Pool-Fallback (DQ6): L1-Bodyweight → kein Athletik-Tag, stattdessen Zone-2 mit Cardio
+        _, planbw = _plan(dict(hauptziel_ref="longevity", tage=5, session_min=45, equipment_ref="bodyweight",
+                               kniebeugen=5, pushups=5, situps=5, burpees=3, plank=20, trainingsjahre_ref="keine"))
+        wbw = planbw["wochen"][0]["sessions"]
+        assert not any(s["session_typ"] == "athletik" for s in wbw), "L1-BW: Athletik nicht auf Zone-2 zurückgefallen"
+        assert all(s.get("cardio") for s in wbw if s["session_typ"] == "zone2"), "Fallback-Zone-2 ohne Cardio"
+
     def c_tage_uebungs_rotation():
         # Naht 4e-1: die 2 reinen C-Tage einer Woche ziehen VERSCHIEDENE Übungen (nicht nur Format),
         # über die Wochen variiert die Auswahl, KB-Kunde behält BW-Mehrheit.
@@ -785,6 +821,7 @@ def main():
         assert len(set(sigs)) == len(sigs), f"Mischtag-Finisher nicht alle verschieden: {sigs}"
 
     _cfcheck("Naht 5-1 Athletik-Pool-Helfer (pattern_tags, dedup, equipment-gefiltert)", athletik_pool_helfer)
+    _cfcheck("Naht 5-2 Athletik-Tag (Z2+Athletik, skill-Dosierung, Deload, Rotation, Fallback)", athletik_tag_verdrahtet)
     _cfcheck("Naht 4e-1 C-Tag-Übungs-Rotation (2 C-Tage + Wochen verschieden, BW-Mehrheit)", c_tage_uebungs_rotation)
     _cfcheck("Naht 4e-2 Finisher-Rotation (W1–W4 kein 2×, gleiches Format → andere Übungen, F4)", finisher_rotation)
     _cfcheck("Naht 4d Multi-Format-Split (35→20+15/25+10, 50→30+20, ≤2 Segmente)", multi_format_split)

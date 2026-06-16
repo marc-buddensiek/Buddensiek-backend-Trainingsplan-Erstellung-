@@ -316,6 +316,17 @@ def _zone2_session(idx: int) -> dict:
     )
 
 
+# Naht 5-2: Athletik-Tag (Longevity) — Übungen kommen aus dem Athletik-Pool (pool="athletik"-Marker),
+# der Assembler dosiert skill-gestaffelt. Slot-Pattern ist Platzhalter (für pool-Tage ignoriert).
+_ATHLETIK_SLOTS = [
+    _slot(f"Athletik {i + 1}", "athletik", "compound", 4, pool="athletik") for i in range(5)
+]
+
+
+def _athletik_session(idx: int) -> dict:
+    return _tag_session(f"w1_s{idx}", "Athletik / Longevity", _ATHLETIK_SLOTS, "athletik")
+
+
 def _ganzkoerper_akzent_session(idx: int, dauer: int, level: int) -> dict:
     """5. Trainingstag (Muskelaufbau/Recomp): Ganzkörper-Akzent (FB-C-Template).
     Schwachstellen-Fokus gestrichen (2026-06-11) — V1.5-Idee, siehe BACKLOG +
@@ -419,10 +430,11 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
             return {"split_typ": "3× Kraft + Zone 2",
                     "sessions": _renumber(fb + [_zone2_session(4)])}
         elif tage == 5:
+            # Naht 5-2: 2 Cardio-Tage/Woche → 1× Zone-2 + 1× Athletik (Spec Thema 4, räumlich).
             fb = _full_body_sessions(3, level, dauer)
-            return {"split_typ": "3× Kraft + 2× Zone 2",
-                    "sessions": _renumber(fb + [_zone2_session(4), _zone2_session(5)])}
-        else:  # 6: jeder Muskel 2× Kraft + 2 Cardio-Tage
+            return {"split_typ": "3× Kraft + Zone 2 + Athletik",
+                    "sessions": _renumber(fb + [_zone2_session(4), _athletik_session(5)])}
+        else:  # 6: jeder Muskel 2× Kraft + 2 Cardio-Tage (1× Zone-2 + 1× Athletik)
             ul = _upper_lower_sessions(level, dauer)
-            return {"split_typ": "Upper/Lower 4× + 2× Zone 2",
-                    "sessions": _renumber(ul + [_zone2_session(5), _zone2_session(6)])}
+            return {"split_typ": "Upper/Lower 4× + Zone 2 + Athletik",
+                    "sessions": _renumber(ul + [_zone2_session(5), _athletik_session(6)])}
