@@ -318,10 +318,16 @@ def _pick_finisher_uebungen(pool: list[dict], n: int, offset: int = 0) -> list[d
     return picked
 
 
+# Naht 4e-2: kurz-kompatible Finisher-Formate (F3a) — Tabata/Density vertagt (Block-Count im
+# Finisher; sprengt das ~8-Min-Budget). Format rotiert über Wochen × Mischtag (nie 2× hintereinander).
+_FINISHER_FORMATS = ["amrap", "zirkel"]
+
+
 def _build_metcon_block(
     metcon_typ: str,
     woche_typ: str,
     uebungen_gefiltert: dict,
+    offset: int = 0,
 ) -> MetconBlock | None:
     if not metcon_typ:
         return None
@@ -332,10 +338,12 @@ def _build_metcon_block(
     # Ganzkörper — cf-Übungen sind keine Isolationsübungen.
     # Bodyweight bleibt der Hauptteil (stabil zuerst); equipment-spezifische Übungen (z.B. KB)
     # kommen nur als Zusatz dazu — und nur dort, wo es keine Bodyweight-Variante gibt (z.B. Hinge/Swing).
+    # Naht 4e-2: `offset` rotiert die Finisher-Übungen (immer anderer AMRAP/Zirkel, auch bei
+    # wiederkehrendem Format) — gleicher Mechanismus wie die C-Tage.
     pool = sorted(conditioning_pool(uebungen_gefiltert),
                   key=lambda e: 0 if "bodyweight" in e["equipment"] else 1)
     selected: list[HauptUebung] = []
-    for i, ex in enumerate(_pick_finisher_uebungen(pool, 3)):
+    for i, ex in enumerate(_pick_finisher_uebungen(pool, 3, offset)):
         selected.append(HauptUebung(
             reihenfolge=i + 1,
             exercise_id=ex["id"],
@@ -595,8 +603,16 @@ def assemble_plan(
             # echter Segment-Dauer (4d); das 2. Segment trägt seine eigene Notiz im cond_block_2.
             fmt_notiz  = _format_notiz(session_typ_eff, len(haupt_uebungen), woche_typ,
                                        dauer_min=dauer0 if is_pool else None)
-            metcon_typ = session_template.get("metcon_typ")
-            metcon_blk = _build_metcon_block(metcon_typ, woche_typ, uebungen_gefiltert) if metcon_typ else None
+            # Naht 4e-2 (F3a/F4): der Template-`metcon_typ` ist nur das „hat Finisher"-Signal; das echte
+            # Finisher-Format rotiert hier über Wochen × Mischtag aus {amrap, zirkel} (nie 2× hintereinander,
+            # weil (woche_idx+session_idx) je Schritt die Parität wechselt), und die Finisher-Übungen
+            # rotieren mit demselben Offset wie die C-Tage (immer anderer AMRAP/Zirkel).
+            if session_template.get("metcon_typ"):
+                fin_rot = woche_idx * 3 + session_idx
+                fin_typ = _FINISHER_FORMATS[fin_rot % len(_FINISHER_FORMATS)]
+                metcon_blk = _build_metcon_block(fin_typ, woche_typ, uebungen_gefiltert, fin_rot)
+            else:
+                metcon_blk = None
 
             # PST Re-Test in letzter Kraft-Session der Deload-Woche
             pst_tests = None

@@ -604,20 +604,23 @@ def main():
                 assert all(u["rpe"] is None for u in s["haupt_uebungen"])
 
     def e2e_a_recomp_finisher_kurz():
-        # (a) gemischter Tag: Kraft + amrap-Finisher (NICHT block-gestapelt, kurz)
+        # (a) gemischter Tag: Kraft + Finisher (NICHT block-gestapelt, kurz). 4e-2: Format rotiert {amrap, zirkel}.
         lvl, plan = _plan(dict(hauptziel_ref="recomp", tage=4, session_min=45,
                                kniebeugen=80, pushups=60, situps=75, burpees=40, plank=200,
                                trainingsjahre_ref="fuenf_plus"))
         sess = [s for w in plan["wochen"] for s in w["sessions"]]
         blocks = [s["metcon_block"] for s in sess if s.get("metcon_block")]
         assert blocks, "kein Recomp-Finisher"
-        assert all(mb["typ"] == "amrap" for mb in blocks), "Finisher nicht amrap (2c fasst ihn nicht an)"
+        assert all(mb["typ"] in ("amrap", "zirkel") for mb in blocks), "Finisher außerhalb {amrap, zirkel}"
         assert not any(s["session_typ"] in ("tabata", "density") for s in sess), "Block-Stapelung leakt in gemischten Tag"
-        # Fix 2 (C5): Finisher-Notiz zeigt die echte Dauer (≤10 Min, alle Wochen gleich), kein 8–15-Festwert
+        # Fix 2 (C5): AMRAP-Finisher zeigt echte Dauer (≤10 Min); Zirkel-Finisher rundenbasiert (kurz).
         import re
         for mb in blocks:
-            m = re.match(r"(\d+) Min\. AMRAP", mb["format_notiz"])
-            assert m and int(m.group(1)) <= 10, f"Finisher-Notiz-Dauer falsch: {mb['format_notiz']!r}"
+            if mb["typ"] == "amrap":
+                m = re.match(r"(\d+) Min\. AMRAP", mb["format_notiz"])
+                assert m and int(m.group(1)) <= 10, f"AMRAP-Finisher-Dauer falsch: {mb['format_notiz']!r}"
+            else:
+                assert "Zirkel" in mb["format_notiz"], f"Zirkel-Finisher-Notiz falsch: {mb['format_notiz']!r}"
 
     def multi_format_split():
         # Naht 4d: lange C-Tage auf 1/2 Format-Segmente (reine Funktion, noch nicht verdrahtet).
@@ -726,7 +729,37 @@ def main():
             bw = sum(1 for i in ids if "bodyweight" in exb[i]["equipment"])
             assert bw * 2 >= len(ids), f"BW nicht Mehrheit im C-Tag: {ids}"
 
+    def finisher_rotation():
+        # Naht 4e-2: Mischtag-Finisher rotiert Format über die 4 Wochen aus {amrap, zirkel} (nie 2×
+        # hintereinander); bei wiederkehrendem Format sind die Übungen verschieden. F4: mehrere
+        # Mischtage/Woche (Fettabbau 6) unterscheiden sich untereinander.
+        _, plan = _plan(dict(hauptziel_ref="recomp", tage=4, session_min=45,
+                             kniebeugen=80, pushups=60, situps=75, burpees=40, plank=200,
+                             trainingsjahre_ref="fuenf_plus"))
+        def first_fin(wi):
+            return next((s["metcon_block"] for s in plan["wochen"][wi]["sessions"] if s.get("metcon_block")), None)
+        seq = [first_fin(w) for w in range(4)]
+        assert all(seq), "nicht jede Woche ein Finisher"
+        typen = [mb["typ"] for mb in seq]
+        assert set(typen) <= {"amrap", "zirkel"}, f"Finisher-Format außerhalb {{amrap,zirkel}}: {typen}"
+        assert all(typen[i] != typen[i + 1] for i in range(3)), f"Finisher 2× hintereinander: {typen}"
+        for i in range(4):
+            for j in range(i + 1, 4):
+                if typen[i] == typen[j]:   # wiederkehrendes Format → verschiedene Übungen
+                    a = tuple(u["exercise_id"] for u in seq[i]["uebungen"])
+                    b = tuple(u["exercise_id"] for u in seq[j]["uebungen"])
+                    assert a != b, f"gleiches Format W{i+1}/W{j+1} mit gleichen Übungen: {a}"
+        # F4: Fettabbau 6 — mehrere Mischtag-Finisher/Woche, untereinander verschieden (Format ODER Übungen)
+        _, plan6 = _plan(dict(hauptziel_ref="fettabbau", tage=6, session_min=45,
+                              kniebeugen=80, pushups=60, situps=75, burpees=40, plank=200,
+                              trainingsjahre_ref="fuenf_plus"))
+        fins = [s["metcon_block"] for s in plan6["wochen"][0]["sessions"] if s.get("metcon_block")]
+        assert len(fins) >= 2, f"Fettabbau 6 sollte mehrere Mischtag-Finisher haben ({len(fins)})"
+        sigs = [(mb["typ"], tuple(u["exercise_id"] for u in mb["uebungen"])) for mb in fins]
+        assert len(set(sigs)) == len(sigs), f"Mischtag-Finisher nicht alle verschieden: {sigs}"
+
     _cfcheck("Naht 4e-1 C-Tag-Übungs-Rotation (2 C-Tage + Wochen verschieden, BW-Mehrheit)", c_tage_uebungs_rotation)
+    _cfcheck("Naht 4e-2 Finisher-Rotation (W1–W4 kein 2×, gleiches Format → andere Übungen, F4)", finisher_rotation)
     _cfcheck("Naht 4d Multi-Format-Split (35→20+15/25+10, 50→30+20, ≤2 Segmente)", multi_format_split)
     _cfcheck("Naht 4d-3 verdrahtet (60min→2 Segmente/block_2, 30min→1 Segment)",   e2e_multi_format_verdrahtet)
     _cfcheck("Naht 4d Kapazitäts-Erstformat (BW-L4-60→Density+AMRAP, kurz=Rotation)", kapazitaetsbewusstes_erstformat)
