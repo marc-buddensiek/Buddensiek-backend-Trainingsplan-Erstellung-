@@ -50,10 +50,10 @@ _EQUIPMENT_FORMATS: dict[str, set[str]] = {
     "home_gym":   set(),
 }
 
-# Level → (Work, Rest) Sek — repräsentativ (erstes Spec-Paar). Gilt für Work:Rest-Formate
-# (Intervall/Circuit); Block-Formate mit festem Timing ignorieren das. Voll konsumiert ab
-# Naht 4 (Intervall-Dosierung + Rotation); in 2c Bestandteil der Map.
-_LEVEL_WORK_REST: dict[int, tuple[int, int]] = {1: (20, 40), 2: (40, 20), 3: (40, 20), 4: (45, 15)}
+# Level → (Work, Rest) Sek. Gilt für Work:Rest-Formate (Intervall); Block-Formate mit festem
+# Timing ignorieren das. Konsumiert in plan_assembler._format_notiz (intervalle-Notiz). Höheres
+# Level = dichteres Verhältnis (mehr Arbeit, weniger Pause).
+_LEVEL_WORK_REST: dict[int, tuple[int, int]] = {1: (40, 20), 2: (45, 15), 3: (45, 15), 4: (50, 10)}
 
 # (Die früheren Level-Dauer-Bänder steuern die Dauer NICHT mehr — Dauer = session_dauer_min.
 #  Verbleiben als reine Doku-Notiz in COACHING_SPEC Thema 6.)
@@ -209,19 +209,11 @@ def block_count(format_name: str, target_min: int) -> int:
     return max(2, n)
 
 
-def block_session_dauer(format_name: str, target_min: int) -> int:
-    """Reale Conditioning-Arbeitsdauer (Min): n Blöcke à Block-Dauer + (n−1)×60 s Pause.
-    TODO(mvp7-cleanup): aktuell nur in Tests benutzt — die angezeigte Dauer kommt aus
-    session_dauer_min, nicht aus dieser Summe. Bei Naht 4 zusammenführen."""
-    n = block_count(format_name, target_min)
-    return n * _BLOCK_DAUER_MIN[format_name] + (n - 1) * _REST_MIN
-
-
 def block_params(format_name: str) -> dict:
     return _BLOCK_PARAMS[format_name]
 
 
 def level_work_rest(level: int) -> tuple[int, int]:
-    # TODO(mvp7-cleanup): _LEVEL_WORK_REST hat aktuell KEINEN Produktions-Leser (nur Tests).
-    # intervalle hardcodiert sein Work:Rest in plan_assembler._format_notiz — bei Naht 4 verdrahten.
+    """Level → (Arbeit s, Pause s) für Work:Rest-Formate (Intervall). Konsumiert in
+    plan_assembler._format_notiz (intervalle-Notiz)."""
     return _LEVEL_WORK_REST[level]

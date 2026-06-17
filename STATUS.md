@@ -44,11 +44,10 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 | `TODO(short-session-pattern-drop)` | plan_assembler:371 | MVP-7/8 |
 | `TODO(longevity-volume)` | realism_validator:17/33/53, plan_assembler:49 | MVP-3/6 |
 | `TODO(mvp7-komplexe)` | conditioning_formats:29 | MVP-7 (Komplexe brauchen vordefinierte Coach-Ketten — nicht aus Einzelübungen stapelbar, aus dem Pool gefiltert) |
-| `TODO(mvp7-cleanup)` | plan_assembler:153/662, conditioning_formats:214/225 | MVP-7 geparkt (C1/C2/C4 — toter Code/Tests, kein Klienten-Plan) |
 | `TODO(v15-schwachstelle)` | models:95, split_selector:313 | V1.5 |
 | `TODO(mvp2-schema-stale)` | update_exercises:2 | MVP-2-Tooling |
 
-_Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt 2026-06-12: `TODO(testdata-tage-min3)`. Erledigt mit MVP-5: `TODO(mvp5-substitutions-b-removal)`. Erledigt mit MVP-6: `TODO(deload-faktor-tot)`. Erledigt mit MVP-7: `TODO(mvp7-athletik)` (Naht 5, Marker entfernt) · `TODO(mvp7-formate)` (Naht 3/4d/4e — Rotation + Ladders + Finisher-Rotation, Marker + stale Rest-Kommentare entfernt)._
+_Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt 2026-06-12: `TODO(testdata-tage-min3)`. Erledigt mit MVP-5: `TODO(mvp5-substitutions-b-removal)`. Erledigt mit MVP-6: `TODO(deload-faktor-tot)`. Erledigt mit MVP-7: `TODO(mvp7-athletik)` (Naht 5, Marker entfernt) · `TODO(mvp7-formate)` (Naht 3/4d/4e — Rotation + Ladders + Finisher-Rotation, Marker + stale Rest-Kommentare entfernt) · `TODO(mvp7-cleanup)` (C1 `block_session_dauer` + C4 `ZEIT_PRO_SATZ_COND` entfernt; C2 Intervall-Notiz auf `level_work_rest` verdrahtet — Work:Rest level-basiert L1 40/20 · L2/L3 45/15 · L4 50/10)._
 
 ## 5. Test-Stand (verifiziert)
 
@@ -145,8 +144,8 @@ _Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt
   Conditioning fix 2 (4→2+2 · 5→3+2 · 6→4+2), keine reinen Kraft-Tage mehr. **C3:** gemischte Tage
   zählen die Finisher-Minuten intern (MetconBlock ohne eigene Tagesdauer).
 - **Abgegrenzt für später:** Übungs-Pull/Selektor-Umbau (Naht 4), echte Rotation (Naht 3,
-  `TODO(mvp7-formate)`), Athletik (Naht 5), Ladders/Komplexe-Block-Dauern (Naht 4), `TODO(mvp7-cleanup)`
-  (C1/C2/C4). Net-new Conditioning/Athletik-Übungen = Coach-Tagging (Validator bereit).
+  `TODO(mvp7-formate)`), Athletik (Naht 5), Ladders/Komplexe-Block-Dauern (Naht 4).
+  Net-new Conditioning/Athletik-Übungen = Coach-Tagging (Validator bereit).
 - Tests durchgehend 26/26 · 7/7 · 5/5 · 3/3 · 2/2 · 7/7 · 17/17 PDFs.
 
 **2026-06-13 — MVP-6 Recovery-RPE + Periodisierung komplett (`82b3c1d`…`798928d`, 3 Nähte)**
@@ -235,7 +234,6 @@ _Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt
 MVP-7 läuft (Naht 1–5 fertig, nur Komplexe offen). Reihenfolge innerhalb MVP-7 und danach:
 - **MVP-7 Komplexe** (`TODO(mvp7-komplexe)`): vordefinierte Coach-Ketten (Flow ohne Ablegen) — eigener
   Schritt, nicht aus Einzelübungen generierbar; bis dahin aus dem Rotations-Pool gefiltert.
-- **`TODO(mvp7-cleanup)`** (geparkt): C1/C2/C4 — toter Code/Tests, kein Klienten-Plan.
 - **Danach:** MVP-8 Coach-Flag + MVP-3-Korridor-Deckel (baubar: Tagging ✓, Splits ✓), dann **MVP-9
   Claude-Integration finalisieren** (Vorarbeit: Level-Gate als `<=` verifiziert, BACKLOG MVP-9).
 **Coach-Daueraufgabe parallel:** MVP-2-Ausbau auf 250–300 — inkl. ~25 Conditioning + ~10 Athletik

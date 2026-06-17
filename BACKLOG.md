@@ -69,7 +69,10 @@ _Stand: 2026-06-16 · git HEAD `f8ab9d6` (MVP-7 Naht 1–5 fertig, Komplexe offe
   - **Komplexe** (`TODO(mvp7-komplexe)`, `conditioning_formats:29`): brauchen **vordefinierte Coach-
     Ketten** (Flow ohne Ablegen, nur Last) — **nicht aus Einzelübungen generierbar**. Bleibt gültiges
     Enum, aber aus dem Rotations-Pool gefiltert. Eigener Schritt — **letzter offener MVP-7-Punkt**.
-  - **`TODO(mvp7-cleanup)`** C1/C2/C4 (geparkt): toter Code/Tests, kein Klienten-Plan.
+  - ~~**`TODO(mvp7-cleanup)`** C1/C2/C4~~ **erledigt:** C1 `block_session_dauer` + C4
+    `ZEIT_PRO_SATZ_COND` (toter is_metabolic-Zweig, verhaltensneutral) entfernt; C2
+    Intervall-Notiz liest `level_work_rest(level)` statt hardcodiert — Work:Rest jetzt
+    level-basiert (L1 40/20 · L2/L3 45/15 · L4 50/10), Wochen-Rampe läuft über die Rundenzahl.
   - ~~Lange-Session-Caveat (4d)~~ **durch Naht 4e abgefedert:** identische C-Tag-Formate werden über
     die rotierte Übungs-Auswahl differenziert (BW-L4-60 → beide density+amrap, aber verschiedene Übungen).
   - **Conditioning-/Athletik-Pool-Ausbau** (Coach, s. MVP-2-Abschnitt): Bodyweight-Conditioning L3/L4,

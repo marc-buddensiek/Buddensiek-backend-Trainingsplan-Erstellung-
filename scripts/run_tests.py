@@ -481,7 +481,7 @@ def main():
     print("=" * 65)
 
     from logic.conditioning_formats import (
-        pick_conditioning_formats, conditioning_target_min, block_count, block_session_dauer,
+        pick_conditioning_formats, conditioning_target_min, block_count,
         block_params, level_work_rest, CONDITIONING, conditioning_pool,
         split_conditioning_segments, pick_second_format, _FORMAT_MAX_MIN, _BIG_FORMATS,
     )
@@ -569,19 +569,16 @@ def main():
         assert conditioning_target_min(30) == 20
 
     def tabata_block_stapelung():
-        # Ziel 30 min → 6 Blöcke à 4 Min + 5×60 s = 29 min; festes 20/10-Timing
-        assert block_count("tabata", 30) == 6 and block_session_dauer("tabata", 30) == 29
+        # Ziel 30 min → 6 Blöcke (à 4 Min + 60 s Pause); festes 20/10-Timing
+        assert block_count("tabata", 30) == 6
         assert block_count("tabata", 10) == 2                                           # min. 2 Blöcke
         assert block_params("tabata")["saetze"] == 8 and "20 s" in block_params("tabata")["wdh"]
 
     def density_5min_bloecke():
-        assert block_count("density", 18) == 3 and block_session_dauer("density", 18) == 17
-        for t in (12, 18, 30):
-            n = block_count("density", t)
-            assert block_session_dauer("density", t) == n * 5 + (n - 1), f"Density-Dauer-Formel @ {t}"
+        assert block_count("density", 18) == 3
 
     def l4_work_rest():
-        assert level_work_rest(4) == (45, 15)
+        assert level_work_rest(4) == (50, 10)
 
     def alle_level_fuellen_45():
         # Dauer-Kernregel (format-agnostisch): ALLE reinen C-Tage @45min sind ~45 (Level deckelt NICHT),

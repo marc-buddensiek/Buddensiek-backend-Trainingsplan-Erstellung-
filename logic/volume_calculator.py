@@ -48,7 +48,6 @@ _TIER_CAP: dict[str, tuple[int, int]] = {   # Satz-Cap je Tier, harte Obergrenze
 WARMUP_MIN          = 10
 FINISHER_MIN_RECOMP = 8
 ZEIT_PRO_SATZ_KRAFT = 2.0
-ZEIT_PRO_SATZ_COND  = 1.5
 
 
 def finisher_min(ziel: Hauptziel) -> int:

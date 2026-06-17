@@ -18,11 +18,11 @@ from models import (
     WarmUp, WarmUpUebung, HauptUebung, Cardio, CoolDown, CoolDownUebung, PSTTest,
 )
 from logic.volume_calculator import (
-    berechne_volumen, WARMUP_MIN, ZEIT_PRO_SATZ_KRAFT, ZEIT_PRO_SATZ_COND,
+    berechne_volumen, WARMUP_MIN, ZEIT_PRO_SATZ_KRAFT,
     FINISHER_MIN_RECOMP, tier_floor, rir_hinweis,
 )
 from logic.conditioning_formats import (
-    is_conditioning, is_block_format, conditioning_target_min, block_count,
+    is_conditioning, is_block_format, conditioning_target_min, block_count, level_work_rest,
     block_params, REST_BETWEEN_BLOCKS_SEK, conditioning_pool, split_conditioning_segments,
 )
 from logic.athletik import athletik_pool, athletik_dosierung
@@ -127,7 +127,7 @@ def _metabolic_wdh(session_typ: str, pattern: str, woche_typ: str) -> str:
 
 # ── Format-Notiz je Session-Typ × Woche ───────────────────────────────────────
 
-def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str, dauer_min: int | None = None) -> str | None:
+def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str, level: int, dauer_min: int | None = None) -> str | None:
     # dauer_min = echte/effektive Conditioning-Dauer (Finisher: ≤10 Min; reine Session: session_min−Warmup).
     cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {})
     if session_typ == "tabata":
@@ -149,10 +149,8 @@ def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str, dauer_min: 
                 f"Kein Stop zwischen Übungen. Runden am Ende notieren.")
     if session_typ == "intervalle":
         r = cfg.get("saetze", 4)
-        w = cfg.get("wdh", "30 Sek")
-        # TODO(mvp7-cleanup): Work:Rest hier hardcodiert ("20 Sek. Pause") statt aus
-        # conditioning_formats.level_work_rest — Spec sagt Level-Work:Rest. Naht-4-Gebiet.
-        return (f"Intervalle: {r} Runden je Übung — {w} Arbeit / 20 Sek. Pause. "
+        work, rest = level_work_rest(level)   # Level-Work:Rest (Spec Thema 6), block-/wochen-unabhängig
+        return (f"Intervalle: {r} Runden je Übung — {work} Sek Arbeit / {rest} Sek. Pause. "
                 f"2 Min. Pause zwischen Übungen. Ziel: 85-90% HF-Max.")
     return None
 
@@ -328,6 +326,7 @@ def _build_metcon_block(
     metcon_typ: str,
     woche_typ: str,
     uebungen_gefiltert: dict,
+    level: int,
     offset: int = 0,
 ) -> MetconBlock | None:
     if not metcon_typ:
@@ -363,7 +362,7 @@ def _build_metcon_block(
 
     return MetconBlock(
         typ=metcon_typ,
-        format_notiz=_format_notiz(metcon_typ, len(selected), woche_typ, dauer_min=FINISHER_MIN_RECOMP) or "",
+        format_notiz=_format_notiz(metcon_typ, len(selected), woche_typ, level, dauer_min=FINISHER_MIN_RECOMP) or "",
         uebungen=selected,
     )
 
@@ -531,7 +530,7 @@ def assemble_plan(
                     seg2 = _build_conditioning_segment(fmt1, dauer1, pool_sorted, woche_typ, rot + 1)
                     cond_block_2 = MetconBlock(
                         typ=fmt1,
-                        format_notiz=_format_notiz(fmt1, len(seg2), woche_typ, dauer_min=dauer1) or fmt1,
+                        format_notiz=_format_notiz(fmt1, len(seg2), woche_typ, level, dauer_min=dauer1) or fmt1,
                         uebungen=seg2,
                     )
             elif build_athletik:
@@ -636,7 +635,7 @@ def assemble_plan(
             cool_down  = _cool_down(fokus)
             # Reine C-Tage: Notiz für das (ggf. kapazitäts-überschriebene) Erstformat-Segment mit dessen
             # echter Segment-Dauer (4d); das 2. Segment trägt seine eigene Notiz im cond_block_2.
-            fmt_notiz  = _format_notiz(session_typ_eff, len(haupt_uebungen), woche_typ,
+            fmt_notiz  = _format_notiz(session_typ_eff, len(haupt_uebungen), woche_typ, level,
                                        dauer_min=dauer0 if is_pool else None)
             # Naht 4e-2 (F3a/F4): der Template-`metcon_typ` ist nur das „hat Finisher"-Signal; das echte
             # Finisher-Format rotiert hier über Wochen × Mischtag aus {amrap, zirkel} (nie 2× hintereinander,
@@ -645,7 +644,7 @@ def assemble_plan(
             if session_template.get("metcon_typ"):
                 fin_rot = woche_idx * 3 + session_idx
                 fin_typ = _FINISHER_FORMATS[fin_rot % len(_FINISHER_FORMATS)]
-                metcon_blk = _build_metcon_block(fin_typ, woche_typ, uebungen_gefiltert, fin_rot)
+                metcon_blk = _build_metcon_block(fin_typ, woche_typ, uebungen_gefiltert, level, fin_rot)
             else:
                 metcon_blk = None
 
@@ -659,9 +658,9 @@ def assemble_plan(
             # Dauer-Rechnung — egal welches Ziel (vorher nur Recomp via finisher_min). Reine
             # interne Rechnung: der Finisher hat keine eigene Tagesdauer (MetconBlock ohne dauer).
             finisher_dauer = FINISHER_MIN_RECOMP if metcon_blk else 0
-            # TODO(mvp7-cleanup): ZEIT_PRO_SATZ_COND ist für is_metabolic toter Pfad — reine
-            # Conditioning-Tage nutzen die Dauer aus session_dauer_min (unten), nicht _schaetze_dauer.
-            zeit_pro_satz = ZEIT_PRO_SATZ_COND if is_metabolic else ZEIT_PRO_SATZ_KRAFT
+            # Conditioning-/Athletik-Tage nehmen die Dauer aus session_dauer_min (unten); nur Kraft
+            # wird auf die Dauer getrimmt → zeit_pro_satz ist immer der Kraft-Faktor.
+            zeit_pro_satz = ZEIT_PRO_SATZ_KRAFT
             # Naht 5-2: Athletik-Tage NICHT trimmen — die skill-gestaffelte Quality-Dosierung (inkl.
             # Deload) ist bewusst fix (wie Conditioning), „Dauer gewinnt" gilt nur für Kraft.
             if not is_metabolic and not is_athletik and haupt_uebungen:   # Dauer gewinnt: Kraft trimmen
