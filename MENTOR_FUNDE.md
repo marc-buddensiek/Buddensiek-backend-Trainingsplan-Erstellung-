@@ -79,6 +79,19 @@
 - Merkposten Deployment: `render.yaml` hat `sync:false` — etwaige `/docs`- oder
   Endpunkt-Änderungen müssten manuell nachgezogen werden.
 
+### Intake: Typeform → Fillout → MVP-12
+- Entscheidung steht: Fillout statt Typeform.
+- Webhook-fähig (native Integration, POST an `/api/new-plan` möglich) —
+  technisch kompatibel.
+- ABER: Code liest aktuell Typeform-Format (`event_type=='form_response'`,
+  `data/fake_typeform.json`). Fillout hat anderes Webhook-Format →
+  Intake-Parser muss für Fillout (um)gebaut werden.
+- WANN: bei MVP-12 (Intake-Pfad wird erst dann echt). NICHT vorziehen —
+  sonst Parser doppelt gebaut. Intake-Parser von vornherein für Fillout
+  bauen, nicht für Typeform.
+- Merkposten: `data/fake_typeform.json` bei MVP-12 durch Fillout-
+  Beispiel-Payload ersetzen/umbenennen.
+
 ### Korrektheits-Checker / Test-Matrix → IST MVP-11
 - Mentors „test matrix" (4.3) = dein geplantes MVP-11. Keine neue Arbeit,
   nur Bestätigung. Prüft alle Kombinationen (Ziel × Tage × Dauer × Level ×
@@ -123,6 +136,9 @@ Schritte in Reihenfolge:
 
 3. **Auftragsverarbeitungsvertrag (AVV)** mit Anthropic UND Supabase klären
    (stellen Anbieter i.d.R. bereit). Server-Standort Supabase = EU prüfen.
+   Intake-Tool: Wechsel von Typeform zu FILLOUT beschlossen. Fillout EU-Hosting
+   nur auf Team/Enterprise-Plan + muss nach Upgrade per Support angefragt werden
+   (Standard = USA). Für Gesundheitsdaten zwingend EU-Hosting aktivieren.
 
 4. **Pflicht-Dokumente:** Datenschutzerklärung (was/wofür/wie lange/an wen)
    + Verzeichnis der Verarbeitungstätigkeiten + Klientenrechte (Auskunft,
