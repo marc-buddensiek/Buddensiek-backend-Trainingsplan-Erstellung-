@@ -21,11 +21,13 @@ from logic.split_selector import waehle_split
 from logic.equipment_filter import filtere_uebungen
 from logic.plan_assembler import assemble_plan
 from claude.claude_client import generiere_uebungsauswahl
+from logging_config import setup_logging
 
 OUTPUT_DIR = pathlib.Path(__file__).parent.parent / "output"
 
 
 def main():
+    setup_logging()   # damit das claude_client-Logging (ohne main) sichtbar ist
     # ── Daten laden ───────────────────────────────────────────────────────────
     payload_path = pathlib.Path(__file__).parent.parent / "data" / "fake_typeform.json"
     payload = json.loads(payload_path.read_text())

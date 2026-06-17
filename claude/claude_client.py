@@ -7,13 +7,17 @@ JSON-Fences werden automatisch entfernt falls Claude sie trotzdem setzt.
 
 from __future__ import annotations
 import json
+import logging
 import os
 import re
+import time
 
 import anthropic
 
 from claude.prompt_template import SYSTEM_PROMPT, build_user_prompt
 from models import KlientenInput, ClaudeOutput
+
+log = logging.getLogger(__name__)
 
 
 # Aktueller Sonnet — richtige Wahl für den Auswahl-Task (gefilterter Pool, kein High-End-Reasoning
@@ -36,6 +40,7 @@ def generiere_uebungsauswahl(
     woche_typ: str,
     ziel_saetze: int,
     ziel_rpe: float,
+    vorgang_id: str = "-",
 ) -> ClaudeOutput:
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
@@ -51,15 +56,28 @@ def generiere_uebungsauswahl(
         ziel_rpe=ziel_rpe,
     )
 
-    response = client.messages.create(
-        model=_MODEL,
-        max_tokens=4096,
-        system=SYSTEM_PROMPT,
-        messages=[
-            {"role": "user", "content": user_prompt},
-        ],
-    )
+    log.info(f"[vorgang={vorgang_id}] Claude-Aufruf — Modell {_MODEL}, {len(sessions)} Sessions")
+    t0 = time.monotonic()
+    try:
+        response = client.messages.create(
+            model=_MODEL,
+            max_tokens=4096,
+            system=SYSTEM_PROMPT,
+            messages=[
+                {"role": "user", "content": user_prompt},
+            ],
+        )
+        raw = response.content[0].text
+        clean = _strip_fences(raw)
+        result = ClaudeOutput(**json.loads(clean))
+    except Exception as e:
+        # NUR Fehlertyp + Message — NIE Prompt-Inhalt/Klient-Daten ins Log (GDPR).
+        log.error(f"[vorgang={vorgang_id}] Claude-Fehler nach {time.monotonic() - t0:.1f}s: "
+                  f"{type(e).__name__}: {e}")
+        raise
 
-    raw = response.content[0].text
-    clean = _strip_fences(raw)
-    return ClaudeOutput(**json.loads(clean))
+    usage = getattr(response, "usage", None)
+    tok = f", Tokens in/out {usage.input_tokens}/{usage.output_tokens}" if usage else ""
+    log.info(f"[vorgang={vorgang_id}] Claude-Antwort — {time.monotonic() - t0:.1f}s, "
+             f"{len(result.sessions)} Sessions{tok}")
+    return result

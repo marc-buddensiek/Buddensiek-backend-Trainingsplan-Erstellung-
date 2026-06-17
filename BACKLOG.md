@@ -172,6 +172,14 @@ Pattern-Automatismus.
   Klienten-Satz mit **Opus** gegentesten (Sonnet vs. Opus direkt vergleichen) und den Aufpreis nur
   nehmen, wenn der Qualitätsunterschied es rechtfertigt. Entscheidung an Daten, nicht vorab.
 
+## Logging / Observability
+
+- **Fundament gebaut** (`logging_config.py`, zentral, dictConfig, Plaintext + Modulname,
+  `vorgang_id`-Correlation, PII-frei). Konvention im Modul-Docstring.
+- **Später auf JSON + gehosteten Log-Dienst umstellbar** (z.B. Better Stack): Das Fundament ist
+  zentral vorbereitet — der Wechsel ist ein **Formatter-Tausch an EINER Stelle** (`logging_config`).
+  _Auslöser:_ Aggregator/Alerting anschließen, oder Log-Volumen zu groß fürs bloße Auge. Nicht jetzt.
+
 ## V1.5 — Ideen (aus MVP-4 vertagt)
 
 - **Schwachstellen-Fokus-Tag** (5T Muskelaufbau/Recomp): Klient wählt Region

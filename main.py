@@ -27,13 +27,17 @@ from logic.equipment_filter import filtere_uebungen
 from logic.plan_assembler import assemble_plan
 from claude.claude_client import generiere_uebungsauswahl
 from db import speichere_plan, speichere_klient
+from logging_config import setup_logging
 
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(message)s",
-)
+setup_logging()
 log = logging.getLogger(__name__)
+
+
+def _log_prefix(vorgang_id: str, client_id: str = "-") -> str:
+    """Correlation-Präfix für jede Vorgangs-Logzeile (s. logging_config-Konvention)."""
+    return f"[vorgang={vorgang_id} client={client_id}]"
+
 
 app = FastAPI(title="Buddensiek Performance API", version="0.1.0")
 
@@ -63,29 +67,35 @@ async def new_plan(request: Request, background_tasks: BackgroundTasks):
     if payload.get("event_type") != "form_response":
         raise HTTPException(status_code=400, detail="Kein form_response Event")
 
-    background_tasks.add_task(_generiere_plan_task, payload)
+    # Correlation-ID für den ganzen Async-Vorgang (ein Submit = ein vorgang_id); macht
+    # Doppel-Submit sichtbar (gleiche client_id, zwei vorgang_id).
+    vorgang_id = uuid.uuid4().hex[:12]
+    log.info(f"{_log_prefix(vorgang_id)} Vorgang akzeptiert — Generierung startet im Hintergrund")
+    background_tasks.add_task(_generiere_plan_task, payload, vorgang_id)
     return {"status": "accepted", "message": "Plan-Generierung gestartet"}
 
 
-async def _generiere_plan_task(payload: dict):
+async def _generiere_plan_task(payload: dict, vorgang_id: str):
     """Läuft im Hintergrund — Typeform muss nicht warten."""
     try:
-        await _pipeline(payload)
+        await _pipeline(payload, vorgang_id)
     except Exception as e:
-        log.error(f"Pipeline-Fehler: {e}", exc_info=True)
+        log.error(f"{_log_prefix(vorgang_id)} Pipeline-Fehler: {type(e).__name__}: {e}", exc_info=True)
 
 
-async def _pipeline(payload: dict):
+async def _pipeline(payload: dict, vorgang_id: str):
     start = datetime.now(timezone.utc)
 
     # ── 1. Typeform parsen + validieren ───────────────────────────────────────
     try:
         klient = parse_typeform_payload(payload)
     except Exception as e:
-        log.error(f"Parser-Fehler für payload token={payload.get('form_response', {}).get('token')}: {e}")
+        token = payload.get("form_response", {}).get("token")
+        log.error(f"{_log_prefix(vorgang_id)} Parser-Fehler (token={token}): {type(e).__name__}: {e}")
         return
 
-    log.info(f"[{klient.client_id}] Start — {klient.vorname}, {klient.alter}J, {klient.hauptziel.value}")
+    pfx = _log_prefix(vorgang_id, klient.client_id)
+    log.info(f"{pfx} Start — Ziel={klient.hauptziel.value}")   # KEIN Name/Alter (PII/GDPR, Naht 9-1)
 
     # ── 2. Deterministische Berechnungen ─────────────────────────────────────
     level, punkte = berechne_level(klient)
@@ -95,7 +105,7 @@ async def _pipeline(payload: dict):
     uebungen = filtere_uebungen(klient, level)
 
     log.info(
-        f"[{klient.client_id}] Level={level} | Split={split['split_typ']} | "
+        f"{pfx} Level={level} | Split={split['split_typ']} | "
         f"{volumen['ziel_saetze']} Sätze RPE {volumen['ziel_rpe']} | "
         f"{sum(len(v) for v in uebungen.values())} Übungen verfügbar"
     )
@@ -112,9 +122,10 @@ async def _pipeline(payload: dict):
         woche_typ=woche_typ,
         ziel_saetze=volumen["ziel_saetze"],
         ziel_rpe=volumen["ziel_rpe"],
+        vorgang_id=vorgang_id,
     )
 
-    log.info(f"[{klient.client_id}] Claude: {len(claude_output.sessions)} Sessions erhalten")
+    log.info(f"{pfx} Claude: {len(claude_output.sessions)} Sessions erhalten")
 
     # ── 4. Vollständigen Plan zusammenbauen ───────────────────────────────────
     plan = assemble_plan(
@@ -126,13 +137,13 @@ async def _pipeline(payload: dict):
     )
 
     dauer_sek = (datetime.now(timezone.utc) - start).total_seconds()
-    log.info(f"[{klient.client_id}] Plan {plan.plan_id} fertig in {dauer_sek:.1f}s")
+    log.info(f"{pfx} Plan {plan.plan_id} fertig in {dauer_sek:.1f}s")
 
     # ── 5. Klient + Plan in Supabase speichern ────────────────────────────────
     await speichere_klient(klient, level, split["split_typ"])
     await speichere_plan(plan)
 
-    log.info(f"[{klient.client_id}] Plan {plan.plan_id} gespeichert ✓")
+    log.info(f"{pfx} Plan {plan.plan_id} gespeichert ✓")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -169,6 +180,7 @@ async def test_plan(request: Request):
         woche_typ="akkumulation",
         ziel_saetze=volumen["ziel_saetze"],
         ziel_rpe=volumen["ziel_rpe"],
+        vorgang_id="dev",
     )
 
     plan = assemble_plan(

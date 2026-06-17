@@ -18,9 +18,11 @@ from logic.level_calculator import berechne_level
 from logic.volume_calculator import berechne_volumen
 from logic.split_selector import waehle_split
 from logic.equipment_filter import filtere_uebungen
+from logging_config import setup_logging
 
 
 def main():
+    setup_logging()   # damit das claude_client-Logging (ohne main) sichtbar ist
     payload_path = pathlib.Path(__file__).parent.parent / "data" / "fake_typeform.json"
     payload = json.loads(payload_path.read_text())
 
