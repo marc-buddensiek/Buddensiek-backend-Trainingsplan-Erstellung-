@@ -6,16 +6,23 @@
 ## A) Code-Funde — zu verifizieren (Grep/Lesen)
 
 1. **Umlaut-Inkonsistenz:** interne Identifier mit Umlauten? (`ziel_sätze` vs
-   `ziel_saetze` und allgemein ä/ö/ü/ß in `.py`-Identifiern) — Status: offen
+   `ziel_saetze` und allgemein ä/ö/ü/ß in `.py`-Identifiern) — Status: VERALTET
+   (kein Umlaut-Identifier; durchgängig `ziel_saetze`, Umlaute nur in Enum-Werten/Strings)
 2. **Woche-4 Deload vs. Peak:** Mismatch Testdaten „deload" vs. Code „peak",
-   der crashen könnte? — Status: offen (Verdacht: veraltet, Tests grün)
+   der crashen könnte? — Status: VERALTET (kein `peak`-Literal im Code; `block_typ`
+   konsistent „deload" in Modell/Validator/Assembler/Fixture)
 3. **API-Key-Name:** `.env.example`-Name == vom Code gelesener Env-Var-Name?
-   — Status: offen
+   — Status: BESTÄTIGT → gefixt in diesem Commit (.env.example + Skripte auf
+   `ANTHROPIC_API_KEY`/`sk-ant-...` angeglichen; claude_client.py war schon korrekt)
 4. **Pipeline-Test „0/23":** deckt Test-Suite den vollen Plan-Bau end-to-end
-   (bis PDF) ab? — Status: offen (Verdacht: veraltet, läuft 26/26)
+   (bis PDF) ab? — Status: VERALTET (run_tests baut via `assemble_plan`,
+   generate_test_plans rendert PDFs; 26/26·7/7·5/5·3/3·2/2·18/18 grün)
 5. **Sicherheit Kraft-Pfad:** kontraindizierte Übungen deterministisch VOR
    Claude-Auswahl gefiltert (nicht nur „vermeiden"-Notiz)? — Conditioning
    ist via Pool-Selektor (Naht 4) erledigt; Kraft-Pfad = MVP-9, prüfen.
+   — Status: BESTÄTIGT (bereits sicher: `filtere_uebungen` entfernt kontraindizierte
+   Übungen deterministisch VOR Claude; übergebene Liste ist verletzungssicher, keine
+   bloße „vermeiden"-Notiz. Claude-Auswahl selbst = MVP-9, Filter sitzt upstream)
 
 ## B) Produkt-/Policy-Entscheidungen — Alen beantwortet (kein Code)
 

@@ -2,7 +2,7 @@
 End-to-End Test: fake_typeform.json → parse → logic → Claude API → validate output
 
 Verwendung:
-  OPENROUTER_API_KEY=sk-or-v1-... python3 scripts/test_pipeline.py
+  ANTHROPIC_API_KEY=sk-ant-... python3 scripts/test_pipeline.py
 """
 
 from __future__ import annotations
@@ -51,9 +51,9 @@ def main():
     total = sum(len(v) for v in uebungen.values())
     print(f"{total} Übungen verfügbar")
 
-    if not os.environ.get("OPENROUTER_API_KEY"):
-        print("\n⚠️  OPENROUTER_API_KEY nicht gesetzt — Claude-Aufruf übersprungen.")
-        print("   export OPENROUTER_API_KEY=sk-or-v1-...")
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        print("\n⚠️  ANTHROPIC_API_KEY nicht gesetzt — Claude-Aufruf übersprungen.")
+        print("   export ANTHROPIC_API_KEY=sk-ant-...")
         return
 
     print("\n=== 6. Claude API ===")

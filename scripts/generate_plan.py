@@ -2,7 +2,7 @@
 Generiert einen vollständigen 4-Wochen-Plan und speichert ihn als JSON.
 
 Verwendung:
-  OPENROUTER_API_KEY=sk-or-v1-... python3 scripts/generate_plan.py
+  ANTHROPIC_API_KEY=sk-ant-... python3 scripts/generate_plan.py
   → Speichert: output/plan_<client_id>.json
 """
 
@@ -42,9 +42,9 @@ def main():
     print(f"Volumen: {volumen['ziel_saetze']} Sätze, RPE {volumen['ziel_rpe']}")
 
     # ── Claude API ────────────────────────────────────────────────────────────
-    if not os.environ.get("OPENROUTER_API_KEY"):
-        print("\n⚠️  OPENROUTER_API_KEY fehlt.")
-        print("   export OPENROUTER_API_KEY=sk-or-v1-...")
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        print("\n⚠️  ANTHROPIC_API_KEY fehlt.")
+        print("   export ANTHROPIC_API_KEY=sk-ant-...")
         sys.exit(1)
 
     print("\nClaude wählt Übungen aus...")

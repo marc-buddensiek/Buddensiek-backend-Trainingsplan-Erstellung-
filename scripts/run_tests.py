@@ -871,8 +871,8 @@ def main():
 
     if with_claude:
         import os
-        if not os.environ.get("OPENROUTER_API_KEY"):
-            print("\n⚠️  OPENROUTER_API_KEY nicht gesetzt — Claude-Tests übersprungen.")
+        if not os.environ.get("ANTHROPIC_API_KEY"):
+            print("\n⚠️  ANTHROPIC_API_KEY nicht gesetzt — Claude-Tests übersprungen.")
             return
 
         print()
