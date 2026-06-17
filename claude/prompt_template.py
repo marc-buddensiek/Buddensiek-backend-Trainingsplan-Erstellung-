@@ -65,7 +65,6 @@ Schreibe nur dann eine Notiz wenn:
 - Der Klient eine Verletzung hat die diese Übung betrifft
 - Der Klient Anfänger ist und ein spezifischer Starthinweis hilfreich ist
 - Die Progression zum vorherigen Block relevant ist (ab Block 2)
-- Die Motivation des Klienten eine Verbindung zur Übung ermöglicht
 
 ═══════════════════════════════════════════════════════════════════
 AUSWAHLPRINZIPIEN
@@ -109,7 +108,7 @@ OUTPUT FORMAT — exakt dieses JSON, kein Text drumherum
 BEISPIEL — so soll dein Output aussehen
 ═══════════════════════════════════════════════════════════════════
 
-Klient: Thomas, 42 Jahre, Level 2, Gym, Muskelaufbau, 4 Tage/Woche
+Klient: 42 Jahre, Level 2, Gym, Muskelaufbau, 4 Tage/Woche
 Verletzungen: Schulter links (leicht)
 Block 1, Woche 1
 
@@ -199,20 +198,18 @@ def build_user_prompt(
         if klient.verletzungen else "keine"
     )
 
-    motivation_str = f'"{klient.motivation}"' if klient.motivation else "nicht angegeben"
-
+    # Naht 9-1 (Datenschutz): KEINE identifizierenden Daten an Claude — Name/Motivation raus;
+    # Stress/Schlaf steuern nur die (von Python gesetzte) RPE, nicht die Übungswahl → ebenfalls raus.
+    # Es bleibt, was die Übungs-AUSWAHL fachlich braucht: Alter, Level, Ziel, Equipment, Verletzungen.
     lines = [
         "═══════════════════════════════════════════════════════════════",
-        "KLIENT",
+        "KLIENT (pseudonymisiert — keine identifizierenden Daten)",
         "═══════════════════════════════════════════════════════════════",
-        f"Name:        {klient.vorname}",
         f"Alter:       {klient.alter} Jahre",
         f"Level:       {level}/4",
         f"Ziel:        {klient.hauptziel.value}",
         f"Equipment:   {klient.equipment.value}",
         f"Verletzungen: {verletzungen_str}",
-        f"Stress:      {klient.stress_level}/10 | Schlaf: {klient.schlaf_stunden}h",
-        f"Motivation:  {motivation_str}",
         "",
         "═══════════════════════════════════════════════════════════════",
         "TRAININGSPARAMETER (von Python berechnet — nicht ändern)",

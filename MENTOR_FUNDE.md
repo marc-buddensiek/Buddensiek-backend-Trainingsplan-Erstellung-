@@ -144,12 +144,12 @@ Schritte in Reihenfolge:
    (KI-Übungswahl) → Supabase (Speicher) → PDF. Jede Station = Ort mit
    Gesundheitsdaten.
 
-2. **KI-Weitergabe** (heikelster Punkt, Design-Entscheidung bei MVP-9):
-   Daten gehen an Anthropic = Weitergabe an Auftragsverarbeiter. Prüfen:
-   Muss ich identifizierende Daten überhaupt an die KI schicken, oder
-   reicht PSEUDONYMISIERT („Klient, Knieproblem, Level 2" ohne Name)?
-   Wenn KI nicht weiß WER, entschärft das viel. → beim Bau von MVP-9
-   bewusst entscheiden.
+2. **KI-Weitergabe** (heikelster Punkt) — **UMGESETZT (Naht 9-1, 2026-06-17):**
+   Der Claude-Prompt ist pseudonymisiert — **keine identifizierenden Daten** (Name/vorname,
+   Motivations-Freitext entfernt; Stress/Schlaf raus, da nur RPE-relevant und schon von Python
+   konsumiert). Es gehen nur die für die Übungs-AUSWAHL fachlich nötigen Felder: Alter, Level,
+   Ziel, Equipment, Verletzungen (Kategorie, kein Identifier). Kein Klient-Identifier/UUID im
+   Prompt. _Bleibt für die Live-Phase:_ AVV (Schritt 3) + Offenlegung (Schritt 4).
 
 3. **Auftragsverarbeitungsvertrag (AVV)** mit Anthropic UND Supabase klären
    (stellen Anbieter i.d.R. bereit). Server-Standort Supabase = EU prüfen.
