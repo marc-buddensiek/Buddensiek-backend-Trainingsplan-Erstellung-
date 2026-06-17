@@ -27,21 +27,114 @@
 ## B) Produkt-/Policy-Entscheidungen — Alen beantwortet (kein Code)
 
 - **Doppel-Submit** des Intake-Formulars: ein Plan oder zwei?
+  [AUFWAND: mittel — Entscheidung kurz, Umsetzung Standard-Muster (Duplikat
+  erkennen + blocken)] [WANN: MVP-10/12, wenn Intake live geht]
 - **KI-Antwort leer/ungültig:** Klient bekommt was? Wird Coach informiert?
+  [AUFWAND: mittel — Entscheidung kurz, Umsetzung = Retry + Fehler abfangen +
+  Coach-Benachrichtigung] [WANN: MVP-9]
 - **pending_review:** automatisch raus oder Human-in-the-Loop Coach-Review?
+  [AUFWAND: Entscheidung 1 Min; Umsetzung klein wenn simpel startet (Mail +
+  manuelle Freigabe), wächst bei Bedarf] [WANN: MVP-10, vor Live-Gang]
 - **schmerzen_akut:** was passiert konkret? (Eskalation/Restriktion/nur Prompt)
+  [AUFWAND: Entscheidung kurz (Coach-Eskalation oder Restriktion); Umsetzung
+  klein-mittel] [WANN: MVP-9, mit KI-Übungswahl]
 - **Datenschutz/GDPR:** Speicherort, Zugriff, Aufbewahrung, KI-Weitergabe +
   Offenlegung an Klient
+  [AUFWAND: GROSS — Recht + Produkt + Technik, kein Code-Prompt; ggf. fachliche
+  Beratung, Datenschutzerklärung, Speicher-/Lösch-Konzept, Offenlegung
+  KI-Weitergabe] [WANN: zwingend vor Live-Gang, Vorarbeit früh beginnen]
 - **Externe Services down** (Typeform/KI/Supabase): Klient-Verhalten je Service
+  [AUFWAND: mittel — pro Service eine Verhaltens-Entscheidung + Ausfall-
+  Behandlung im Code] [WANN: verteilt MVP-9/10/12]
 - **Plan-Generierungs-Geschwindigkeit:** Zielwert
+  [AUFWAND: klein — fast nur Zielwert-Entscheidung, beeinflusst wie anderes
+  gebaut wird] [WANN: MVP-8/9 als Zielvorgabe]
 - **4-Wochen-Block-Ende:** wer triggert, was wenn kein Re-Test
+  [AUFWAND: GROSS — eigener Funktionsbereich (Re-Test, Folge-Plan,
+  Nicht-Antwort-Fall)] [WANN: V1.5, nach erstem Live-Gang]
 - **Methodik-Versions-Stempel:** jeder Plan trägt Methoden-Version (billig jetzt)
+  [AUFWAND: klein — ein Feld, bei Generierung setzen; JETZT billig, später teuer
+  nachzurüsten] [WANN: früh, spätestens MVP-8/9]
 
 ## C) Top-Hebel & Größeres
 
 - **API-Vertrag mit Manu schriftlich** (OpenAPI/FastAPI): rpe-float +
   `conditioning_block_2` betreffen ihn direkt — höchste Priorität
 - **Korrektheits-Checker / Test-Matrix** = MVP-11 (geplant)
+
+## D) Zeitlich eingeordnet — an MVP gebunden
+
+### API-Vertrag mit Manu → MVP-10/12 (NICHT jetzt)
+- Mentors „höchster Hebel", aber Timing ist später: setzt voraus, dass
+  (a) ein Auslieferungs-Endpunkt existiert (`GET /api/plan/{id}` o.ä.) und
+  (b) das Backend deployed läuft.
+- Stand heute (verifiziert): 3 Endpunkte existieren — `GET /health`,
+  `POST /api/new-plan` (fire-and-forget, liefert KEINEN Plan zurück),
+  `POST /api/dev/test-plan` (dev-only, 403 in Prod). KEIN Klienten-
+  Auslieferungs-Endpunkt. Auslieferung läuft downstream (Supabase/PDF).
+- FastAPI erzeugt `/docs` (OpenAPI) automatisch — lokal erreichbar, deployed
+  noch nicht (STATUS: Deployment offen). Sobald MVP-10 (Endpunkt) + MVP-12
+  (deployed) durch sind: Manu bekommt die öffentliche `/docs`-URL als
+  selbst-aktualisierenden Live-Vertrag. Kein handgeschriebener Vertrag nötig.
+- Merkposten Deployment: `render.yaml` hat `sync:false` — etwaige `/docs`- oder
+  Endpunkt-Änderungen müssten manuell nachgezogen werden.
+
+### Korrektheits-Checker / Test-Matrix → IST MVP-11
+- Mentors „test matrix" (4.3) = dein geplantes MVP-11. Keine neue Arbeit,
+  nur Bestätigung. Prüft alle Kombinationen (Ziel × Tage × Dauer × Level ×
+  Verletzungen), meldet nur Regel-Verstöße. Du definierst die Regeln aus
+  Kategorie B + den Methodik-Invarianten.
+
+### Approach (a) „Generate, don't duplicate" → Prinzip ab jetzt, praktisch bei MVP-8/10
+- Single Source of Truth, Rest daraus erzeugen. Lebst du schon (COACHING_SPEC,
+  SCHEMA). Wird konkret beim API-Vertrag: Plan-Form/Datentypen aus der
+  OpenAPI-Spec erzeugen, nicht von Hand doppeln.
+
+### Approach (b) „Automated checks as a gate" (CI) → MVP-11/12
+- Korrektheits-Checker + API-Vertrag-Prüfung laufen automatisch bei jeder
+  Änderung und blockieren, was sie bricht. Baut auf MVP-11 auf, scharf bei
+  MVP-12 (Deployment). Verallgemeinerung deiner „kein Library-Commit ohne
+  grünen Validator"-Regel.
+
+## E) GDPR-Aktionsplan — vor Live-Gang
+
+WANN: Startpunkt sobald MVP-9 läuft und Richtung Supabase (MVP-10) geht.
+Begründung: Ab echten Klientendaten in echter DB greift die Pflicht;
+bei Fake-Daten/lokal noch nicht. Rechtlicher Teil kann Wochen dauern →
+Vorarbeit (Denken) früh, Umsetzung an MVP-10/12.
+
+HINWEIS: Gesundheitsdaten (Verletzungen, Diagnosen, Stress, Schlaf) =
+besondere Kategorie (DSGVO Art. 9), strenger geschützt. Kein „Häkchen".
+
+Schritte in Reihenfolge:
+
+1. **Datenfluss-Landkarte** (selbst, kann jetzt): Welche Daten erhebe ich, wo
+   fließen sie hin, wer/was sieht sie?
+   Heutiger Fluss: Typeform (Erhebung) → Backend → Claude/Anthropic
+   (KI-Übungswahl) → Supabase (Speicher) → PDF. Jede Station = Ort mit
+   Gesundheitsdaten.
+
+2. **KI-Weitergabe** (heikelster Punkt, Design-Entscheidung bei MVP-9):
+   Daten gehen an Anthropic = Weitergabe an Auftragsverarbeiter. Prüfen:
+   Muss ich identifizierende Daten überhaupt an die KI schicken, oder
+   reicht PSEUDONYMISIERT („Klient, Knieproblem, Level 2" ohne Name)?
+   Wenn KI nicht weiß WER, entschärft das viel. → beim Bau von MVP-9
+   bewusst entscheiden.
+
+3. **Auftragsverarbeitungsvertrag (AVV)** mit Anthropic UND Supabase klären
+   (stellen Anbieter i.d.R. bereit). Server-Standort Supabase = EU prüfen.
+
+4. **Pflicht-Dokumente:** Datenschutzerklärung (was/wofür/wie lange/an wen)
+   + Verzeichnis der Verarbeitungstätigkeiten + Klientenrechte (Auskunft,
+   Löschung). → HIER einmal Datenschutz-Anwalt/Berater hinzuziehen
+   (1 Stunde „prüf das"): Gesundheitsdaten + KI-Weitergabe ist die
+   Risiko-Kombination, Laienfehler teuer.
+
+5. **Technisch** (Code, NACH Policy-Entscheidung): Verschlüsselung, Lösch-
+   Konzept (Aufbewahrungsdauer, wie löscht Klient seine Daten).
+
+Offenlegung an Klient: dass Daten an KI-Anbieter gehen, muss transparent
+gemacht werden (Teil von Schritt 4).
 
 ## Bestätigt richtig (kein Handlungsbedarf)
 
