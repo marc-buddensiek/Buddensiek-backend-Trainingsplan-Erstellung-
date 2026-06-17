@@ -167,6 +167,10 @@ Pattern-Automatismus.
   **Reihenfolge:** Level-Check (`:73`) läuft VOR dem Verletzungsfilter (Stufe 1 `:81`, Stufe 2 `:84`).
   **Kein Fix nötig.** · _Offene Teilfrage für MVP-9:_ Soll es eine Unterkante geben (kein
   L1-Trivialkram für L4-Athlet)? Aktuell **kein Floor** — L4 sieht L1–L4. Bei MVP-9 entscheiden.
+- **Modellwahl (Naht 9-4) — OFFEN bei Output-Review:** Modellwahl an echtem Output verifizieren.
+  Default **Sonnet 4-6**. Falls Übungs-Auswahl oder Cues/Notizen nicht überzeugen, denselben
+  Klienten-Satz mit **Opus** gegentesten (Sonnet vs. Opus direkt vergleichen) und den Aufpreis nur
+  nehmen, wenn der Qualitätsunterschied es rechtfertigt. Entscheidung an Daten, nicht vorab.
 
 ## V1.5 — Ideen (aus MVP-4 vertagt)
 

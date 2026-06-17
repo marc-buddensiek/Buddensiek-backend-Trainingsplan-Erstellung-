@@ -16,7 +16,10 @@ from claude.prompt_template import SYSTEM_PROMPT, build_user_prompt
 from models import KlientenInput, ClaudeOutput
 
 
-_MODEL = "claude-sonnet-4-5"
+# Aktueller Sonnet — richtige Wahl für den Auswahl-Task (gefilterter Pool, kein High-End-Reasoning
+# nötig), kosteneffizient pro Aufruf. Versionierter String bewusst (kein Alias) → keine stille
+# Modell-Drift. Einzige Wahrheit (nur hier konsumiert, :model unten).
+_MODEL = "claude-sonnet-4-6"
 
 
 def _strip_fences(text: str) -> str:
