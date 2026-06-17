@@ -366,7 +366,7 @@ Stress 8 / Schlaf 5 h. RPE-Floor 4, damit das Training ein Reiz bleibt.
 | Tabata | **Block** (4 Min) | 8 × 20 s on / 10 s off für **eine** Übung; Session = mehrere Blöcke (s.u.) |
 | Density Block | **Block** (5 Min) | feste Zeit, max. Wiederholungen bei **festem Gewicht**; mehrere Blöcke füllen die Session |
 | Ladders | **Block** | **aufsteigendes** Schema (z.B. 1-2-3-4-5 … bis Cap), v.a. Kettlebell |
-| Komplexe | **Session-füllend** | vordefinierte Kette mehrerer Übungen mit **einer Last ohne Ablegen**, 6–8 Runden (~10–20 Min) — **nur KB/Hantel/LH, nie Bodyweight** (Lasthalten = definierendes Merkmal); die 7 Ketten s. Komplexe-Abschnitt unten |
+| Komplexe | **Session-füllend** | vordefinierte Kette mehrerer Übungen mit **einer Last ohne Ablegen**, 6–8 Runden (~10–20 Min) — **ab `skill` 2**, **nur KB/Hantel/LH, nie Bodyweight** (Lasthalten = definierendes Merkmal); die Ketten s. Komplexe-Abschnitt unten |
 
 **Gestrichen (Konfliktregel):**
 - **EMOM (2026-06-14):** sobald die Arbeitszeit fix vorgegeben ist (z.B. 45 s/15 s), ist es
@@ -405,38 +405,55 @@ Session ≈ 7 Blöcke). _Beispiel:_ Block 1 Squats · Block 2 Push-ups · Block 
 **Density:** ein **Block = 5 Min** feste Zeit, max. Wiederholungen bei festem Gewicht; mehrere Blöcke
 (~60 s Pause) bis die gewählte **`session_dauer_min`** gefüllt ist. **Ladders:** **aufsteigendes** Schema (z.B. 1-2-3-4-5 … bis Cap),
 Block-Format. **Komplexe:** vordefinierte Kette mehrerer Übungen mit **einer Last ohne Ablegen**,
-6–8 Runden — **session-füllend** (NICHT block-gestapelt), nur KB/Hantel/LH; die 7 Ketten s. Abschnitt unten.
+6–8 Runden — **session-füllend** (NICHT block-gestapelt), **ab `skill` 2**, nur KB/Hantel/LH;
+die Ketten s. Abschnitt unten.
 
 ### Komplexe — vordefinierte Ketten (Coach-Entscheidung, `TODO(mvp7-komplexe)`)
 
-**Rahmen-Entscheidung (2026-06-16):** Komplexe ist **kein Block-Format** mehr (kein 5-Min-Block),
-sondern ein **session-füllendes** Format wie Intervall/AMRAP/Zirkel: **6–8 Runden** einer fixen Kette,
-**~10–20 Min**, **eine Last ohne Ablegen** durch die ganze Kette. (In Format-Tabelle + Format-Dauer oben
-entsprechend von „Block" zu „session-füllend" verschoben.)
+**Rahmen:**
+- Komplexe ist ein **session-füllendes Conditioning-Format** (wie Intervall/AMRAP/Zirkel),
+  **6–8 Runden, ~10–20 Min**. **Kein Block-Format.**
+- **Pfad-Abgrenzung:** Komplexe lebt **ausschließlich im Conditioning-Pfad**. Tritt in den
+  session-füllenden Conditioning-Selektor ein (zusammen mit Intervall/AMRAP/Zirkel), wird mit
+  diesen rotiert, kann Teil einer Multi-Format-Aufteilung (`conditioning_block_2`) sein. Kommt
+  **nie** im Kraft-Übungs-Selektor und **nie** im Finisher-Mechanismus vor.
+- **Format-Gate: ab `skill` 2.** skill-1-Klienten bekommen **nie** Komplexe (Bewegungs-Lernphase —
+  Verkettung unter Ermüdung fachlich kontraproduktiv), sie fallen auf andere session-füllende
+  Formate zurück.
+- **Auswahl:** Welche Kette gezogen wird, hängt von **`skill` UND Equipment** ab.
+- **Equipment:** Gym → alle Ketten (LH/KH/KB). Kettlebell → nur KB-Ketten. Bodyweight → keine
+  Komplexe (Leer-Pool-Fallback auf anderes Format).
+- Jede Kette = **eine Last ohne Ablegen**, Flow biomechanisch durchgängig.
 
-**Nicht aus Einzelübungen generierbar:** ein Komplex ist eine **vordefinierte Kette** (Reihenfolge + Wdh
-fest), damit der Flow ohne Ablegen funktioniert. Daher als Coach-Ketten festgehalten — Umsetzung mit
-`TODO(mvp7-komplexe)` (heute aus dem Rotations-Pool gefiltert, gültiges Enum).
+**Ketten (`skill` 2–4):**
 
-**Equipment-Regel:** Jede Kette gehört **genau einem Gerät** (Implement). **Bodyweight-only-Klienten
-bekommen nie einen Komplex.** Hybrid KB+DB wurde bewusst **als Zirkel verworfen** (Ablegen = kein Komplex)
-— **nicht** als Kette aufgenommen. _(Implement → Equipment-Verfügbarkeit mappt die Umsetzung: LH/KH → Gym
-bzw. Home-Gym mit Hanteln, KB×2 → Kettlebell.)_
+_Langhantel (LH):_
+- **L2 Barbell:** 5 RDL · 5 Bent Row · 5 Hang High Pull · 5 Front Squat · 5 Push Press
+- **L3 Barbell Athletic:** 5 RDL · 5 Hang Clean · 5 Front Squat · 5 Push Press · 5 Back Squat · 5 Good Morning
+- **L3 Full Body:** 5 Deadlift · 5 Hang Clean · 5 Front Squat · 5 Push Press · 5 Bent Row · 5 RDL
+- **L4 Barbell Power:** 5 Bent Row · 5 Hang High Pull · 5 Power Clean · 5 Front Squat · 5 Push Jerk · 5 Overhead Reverse Lunge
 
-| # | Kette | Implement | skill | Runden | Sequenz (eine Last, ohne Ablegen) |
-|---|---|---|---|---|---|
-| 1 | Barbell Athletic | LH | 3 | 6–8 | 5 RDL · 5 Hang Clean · 5 Front Squat · 5 Push Press · 5 Back Squat · 5 Good Morning |
-| 2 | Barbell Power | LH | 4 | 6–8 | 5 Bent Row · 5 Hang High Pull · 5 Power Clean · 5 Front Squat · 5 Push Jerk · 5 Overhead Reverse Lunge |
-| 3 | Double KB Flow | KB ×2 | 3 | 6–8 | 6 Double KB Swing · 6 Double KB Clean · 6 Front Squat · 6 Push Press · 6 Reverse Lunge · 6 Bent Row |
-| 4 | Double KB Athletic | KB ×2 | 4 | 6–8 | 5 Double KB Deadlift · 5 Double KB High Pull · 5 Double KB Clean · 5 Front Squat · 5 Thruster · 5 Overhead Walk Steps |
-| 5 | Dumbbell Strength | KH | 2–3 | 6–8 | 6 DB RDL · 6 DB Hang Clean · 6 DB Front Squat · 6 DB Push Press · 6 DB Reverse Lunge · 6 DB Bent Row |
-| 6 | Dumbbell Athletic (einarmig) | KH | 4 | 4–6 | 5 DB Snatch · 5 DB Overhead Squat · 5 DB Push Press · 5 DB Front Rack Lunge · 5 DB Bent Row — **alles pro Seite**, eine Hantel durch die ganze Kette |
-| 7 | Full Body | LH | 3 | 6–10 | 5 Deadlift · 5 Hang Clean · 5 Front Squat · 5 Push Press · 5 Bent Row · 5 RDL |
+_Kurzhantel (KH):_
+- **L2 DB Allrounder:** 6 RDL · 6 Row · 6 Front Squat · 6 Push Press · 6 Reverse Lunge
+- **L2 DB Metabolisch:** 8 Front Squat · 8 Push Press · 8 Reverse Lunge · 20 March Steps
+- **L3 DB Strength:** 6 DB RDL · 6 DB Hang Clean · 6 DB Front Squat · 6 DB Push Press · 6 DB Reverse Lunge · 6 DB Bent Row
+- **L4 DB Athletic** (einarmig, eine Hantel durch die ganze Kette, alles pro Seite, **4–6 Runden**):
+  5 DB Snatch · 5 DB Overhead Squat · 5 DB Push Press · 5 DB Front Rack Lunge · 5 DB Bent Row
 
-**Offene Umsetzungs-Frage (für `TODO(mvp7-komplexe)`):** Die Level→Format-Map listet Komplexe heute unter
-**L4**; die Ketten tragen aber `skill` 2–4. Bei der Umsetzung klären, ob die Komplex-**Verfügbarkeit** am
-Format-Level (L4) hängt oder die **Ketten-Auswahl** pro Klient am `skill_level` (analog Übungs-Gating) — und
-ob die Ketten als eigene Datenstruktur (Sequenz + Wdh + Implement) oder als getaggte Übungen abgelegt werden.
+_Kettlebell (Double KB sofern nicht anders genannt):_
+- **L2 KB Thruster:** 6 Front Squat · 6 Push Press · 6 Thruster
+- **L2 KB Swing-Basis A:** 10 Double KB Swing · 6 Front Squat · 6 Push Press
+- **L2 KB Swing-Basis B:** 10 Double KB Swing · 6 Front Squat · 6 Reverse Lunge · 6 Push Press
+- **L2 KB Swing-Thruster:** 10 Double KB Swing · 8 Thruster
+- **L3 Double KB Flow:** 6 Double KB Swing · 6 Double KB Clean · 6 Front Squat · 6 Push Press · 6 Reverse Lunge · 6 Bent Row
+- **L4 Double KB Athletic:** 5 Double KB Deadlift · 5 Double KB High Pull · 5 Double KB Clean · 5 Front Squat · 5 Thruster · 5 Overhead Walk Steps
+
+**Verworfen (nicht implementieren):** alle skill-1-Ketten (L1 ist kein Komplexe-Format);
+Double-KB- und Double-DB-Varianten mit (Hang) Clean auf L2 (Clean gehört ab `skill` 3).
+Hybrid KB+DB = Zirkel, kein Komplex.
+
+**Offene Coach-Daueraufgabe:** Ketten-Bibliothek bei Bedarf erweitern (mehr Abwechslung pro
+`skill`/Equipment für die Rotation).
 
 ### Conditioning-Mechanismus (Schema — gebaut MVP-7 Naht 1)
 
@@ -464,10 +481,10 @@ Wie „conditioning-tauglich" markiert ist (Hybrid, Details in SCHEMA.md):
 
 | Level | Formate | Work:Rest | _Dauer-Band (nur Referenz, KEIN Cap)_ |
 |---|---|---|---|
-| L1 | Intervall, einfacher Circuit | 20:40 oder 30:30 | _8–12 min_ |
-| L2 | Intervall, AMRAP, Density, Ladders | 40:20 | _12–18 min_ |
-| L3 | AMRAP, Circuit, Density, Ladders, Tabata | 40:20 oder 45:15 | _15–22 min_ |
-| L4 | AMRAP, Tabata, Density, Komplexe | 45:15, 50:10 oder 60:15 | _20–30 min_ |
+| L1 | Intervall, einfacher Circuit | 40:20 | _8–12 min_ |
+| L2 | Intervall, AMRAP, Density, Ladders, Komplexe | 45:15 | _12–18 min_ |
+| L3 | AMRAP, Circuit, Density, Ladders, Tabata, Komplexe | 45:15 | _15–22 min_ |
+| L4 | AMRAP, Tabata, Density, Komplexe | 50:10 | _20–30 min_ |
 
 > Die letzte Spalte ist eine **Referenz-Notiz** (typische Intensitäts-Bänder), **kein Dauer-Cap**: die reale
 > Conditioning-Dauer = `session_dauer_min` (s. Dauer-Regel oben). Das Level steuert Format + Work:Rest, nicht die Dauer.
@@ -475,7 +492,10 @@ Wie „conditioning-tauglich" markiert ist (Hybrid, Details in SCHEMA.md):
 - **Format-eigenes Timing schlägt Level-Work:Rest.** **Tabata** bringt festes Timing mit (**20:10 × 8**,
   fix) und überschreibt die Level-Work:Rest. Nur die Work:Rest-Formate (Intervall, Circuit) nehmen die
   Werte aus dem Mapping. **Der Generator darf kein Tabata mit Level-Work:Rest bauen.**
-- **Komplexe nur mit Last** (KB/Hantel/LH), nie Bodyweight — Lasthalten ist das definierende Merkmal.
+- **Komplexe ab `skill` 2** (nie skill 1) und **nur mit Last** (KB/Hantel/LH), nie Bodyweight —
+  Lasthalten ist das definierende Merkmal; skill-1-Klienten fallen auf andere session-füllende
+  Formate zurück. Verfügbarkeit ist **skill-gegated, nicht L4-exklusiv** (Tabelle: L2–L4). Details +
+  Ketten s. **Komplexe**-Abschnitt oben.
 - **Conditioning trägt KEINE RPE.** Die Intensität ergibt sich aus **Format + Work:Rest + Dauer**. Die
   RPE-Welle und `rpe_hinweis` (Thema 1/3) gelten ausschließlich für **Kraftsätze**, nie für
   Metcon/Conditioning-Blöcke (in MVP-6 bereits so gebaut: `rpe_hinweis` nur nicht-metabolic).
