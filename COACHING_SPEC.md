@@ -540,6 +540,24 @@ Jede Recomp-Kraftsession endet mit einem **globalen Bodyweight-Conditioning-Fini
 > (verifiziert: BW-Kunde reine BW inkl. Burpee/Mountain Climbers; KB-Kunde BW-Mehrheit + KB-Zusatz).
 > Block-Stapelung über `n_blocks` unverändert.
 >
+> **Fachliche Begründung der Trennung (nachgetragen 2026-06-17)** — vorher nur pragmatisch/historisch
+> dokumentiert („Claude für C-Sessions umgangen, kein MVP-9-Touch"):
+> - **Kraft → Claude:** Die Übungswahl trägt mehrdimensionale Urteils-Kriterien, die sich nicht sauber
+>   als deterministische Regel fassen lassen — Push:Pull-Balance über die Woche, Symmetrie, energie-
+>   intensivster Compound zuerst, Block-Variation, gelenkschonende Wahl bei Verletzung aus mehreren
+>   passenden Optionen, plus klient-spezifische Cues/Notizen.
+> - **Conditioning/Athletik → deterministisch:** Die analogen Auswahl-Aspekte (Format-Abwechslung,
+>   Übungs-Rotation, BW-Mehrheit) sind mechanisch klar regularisierbar und als Code-Regeln kodiert;
+>   ein KI-Urteil brächte hier keinen Mehrwert.
+> - **Der Auswahlraum (Pool-Größe) ist NICHT der Unterscheidungsgrund** — beide Pools sind ähnlich
+>   groß (Kraft ~6–20/Pattern gym, Conditioning roh 15–32). Der Unterschied ist die **Regulierbarkeit
+>   der Auswahl-Logik**.
+>
+> **STATUS: Arbeitshypothese, am echten Output zu verifizieren (Output-Review).** Offen zu prüfen:
+> (1) Greift die deterministische Conditioning-Logik fachlich gut, oder wirkt sie schematisch?
+> (2) Überzeugt Claudes KI-Auswahl bei Kraft (Balance/Symmetrie/Variation tatsächlich erfüllt)?
+> Erst nach Output-Review endgültig: Trennung so lassen (a) oder anpassen.
+>
 > **V1-Stand (MVP-7 Naht 4d, 2026-06-15) — Ladders + Multi-Format:** **Ladders** ist jetzt
 > block-dosierbar (5-Min-Block wie Density, Stapelung identisch) und im Rotations-Pool. **Komplexe**
 > bleibt ausgelassen (`TODO(mvp7-komplexe)`: braucht vordefinierte Coach-Ketten — Flow ohne Ablegen,

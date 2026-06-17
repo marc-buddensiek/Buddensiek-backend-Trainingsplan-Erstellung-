@@ -171,6 +171,12 @@ Pattern-Automatismus.
   Default **Sonnet 4-6**. Falls Übungs-Auswahl oder Cues/Notizen nicht überzeugen, denselben
   Klienten-Satz mit **Opus** gegentesten (Sonnet vs. Opus direkt vergleichen) und den Aufpreis nur
   nehmen, wenn der Qualitätsunterschied es rechtfertigt. Entscheidung an Daten, nicht vorab.
+- **Kraft↔Conditioning-Trennung (Output-Review) — OFFEN:** Die fachliche Begründung (Kraft → Claude
+  wegen mehrdimensionaler Urteils-Kriterien; Conditioning/Athletik → deterministisch, weil mechanisch
+  regularisierbar; Pool-Größe ist NICHT der Grund) ist **Arbeitshypothese** (COACHING_SPEC, Naht-4/A1).
+  Am echten Output prüfen: (1) wirkt die deterministische Conditioning-Auswahl fachlich gut oder
+  schematisch? (2) erfüllt Claudes Kraft-Auswahl Balance/Symmetrie/Variation tatsächlich? Erst danach
+  endgültig: Trennung so lassen oder anpassen.
 
 ## Logging / Observability
 
