@@ -131,8 +131,14 @@ Pattern-Automatismus.
   manuell (human-in-the-loop), die Kennzahl bringt keinen Mehrwert.
 - **`plan_metadata` bleibt als `Optional=None`-Platzhalter** im Modell (`models.py`) — **bewusst
   ungenutzt**, kein Konsument, schadet nicht; wird nicht befüllt und nicht entfernt.
-- **MVP-8 = nur noch Assembler/PDF** (der Assembler baut alle Ziele fertig; offen ist PDF-Feinschliff,
-  z.B. ob die Realism-Warnung klientseitig bleibt — ein Coach-Kanal dafür existiert bewusst nicht mehr).
+- **MVP-8 = nur noch Assembler/PDF** (der Assembler baut alle Ziele fertig).
+- **Realism-/Kapazitäts-Warnung aus dem Klienten-PDF entfernt (2026-06-17):** `pdf_generator`
+  rendert keine „Volumen suboptimal"-Warnung mehr (Methode + Aufruf + Imports raus). Konsistent mit
+  der Kapazitäts-Streichung — gehört nicht ins Premium-PDF. `pruefe_realismus` (`realism_validator.py`)
+  **bleibt** (Funktion + Unit-Tests), hat aber **keinen Produktions-Konsumenten** mehr (als ungenutzt
+  markiert). · _Folge-Thema (Intake/Frontend, Fillout/Manu — MVP-12):_ Die Info „Klient hat zu wenig
+  Zeit fürs Ziel gewählt" gehört **beim Ausfüllen** ins Intake-Formular/Frontend, nicht ins fertige
+  PDF. Dort `pruefe_realismus` (oder dieselben Schwellen) wiederverwenden.
 - ~~Tag-Bug Single Leg RDL~~ **widerlegt (2026-06-11, Git-verifiziert):** `gym_single_leg_rdl_db`
   hat seit Initial-Commit `hamstrings,glutes` primary — identisch mit allen 5 RDL-Varianten.
   Der Befund aus der Coach-Flag-Session war eine Fehlbeobachtung; kein Datenfix nötig.

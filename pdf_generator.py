@@ -13,8 +13,6 @@ import pathlib
 import sys
 from fpdf import FPDF
 
-from models import Hauptziel
-from realism_validator import pruefe_realismus
 from logic.conditioning_formats import CONDITIONING as _CONDITIONING
 
 
@@ -78,20 +76,6 @@ class PlanPDF(FPDF):
         self.set_text_color(*C_BLACK)
         self.cell(0, 5, value, new_x="LMARGIN", new_y="NEXT")
 
-    def realismus_block(self, typ: str, nachricht: str):
-        self.ln(3)
-        if typ == "warnung":
-            self.set_fill_color(*C_ACCENT)
-            self.set_text_color(*C_WHITE)
-            prefix = "!  WARNUNG: "
-        else:
-            self.set_fill_color(*C_LIGHT_GREY)
-            self.set_text_color(*C_DARK_GREY)
-            prefix = "HINWEIS: "
-        self.set_font("Helvetica", "B", 7.5)
-        self.multi_cell(0, 5, f"  {prefix}{nachricht}", fill=True)
-        self.ln(2)
-
 
 def build_pdf(plan_data: dict) -> FPDF:
     snap = plan_data["klient_snapshot"]
@@ -141,11 +125,8 @@ def build_pdf(plan_data: dict) -> FPDF:
     pdf.kv("Erstellt:", plan_data["erstellt_am"][:10])
     pdf.ln(2)
 
-    realismus = pruefe_realismus(Hauptziel(snap["ziel"]), tage, session_dauer)
-    if realismus:
-        pdf.realismus_block(realismus["typ"], realismus["nachricht"])
-    else:
-        pdf.ln(2)
+    # Realism-/Kapazitäts-Warnung bewusst NICHT im Klienten-PDF (2026-06-17): „zu wenig Zeit fürs
+    # Ziel gewählt" gehört ins Intake/Frontend (Fillout), nicht ins fertige Premium-PDF (s. BACKLOG).
 
     # Wochen-Übersicht
     pdf.section_title("4-Wochen-Übersicht")

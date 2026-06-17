@@ -3,6 +3,12 @@ Realismus-Prüfung: Wöchentliche Trainingszeit vs. Ziel-Mindestanforderungen.
 
 pruefe_realismus() gibt None zurück wenn alles passt,
 oder ein dict {"typ": "warnung"|"hinweis", "nachricht": str}.
+
+HINWEIS (2026-06-17): KEIN Produktions-Konsument mehr — der PDF-Konsument wurde entfernt
+(Kapazitäts-/Realism-Warnung gehört nicht ins Klienten-PDF, sondern ins Intake/Frontend bei
+der Eingabe, s. BACKLOG). Funktion + Unit-Tests bleiben bewusst erhalten für die geplante
+Intake-/Frontend-Wiederverwendung (Fillout). Prüft NUR das Zeitbudget (tage × dauer), keine
+strukturellen Plan-Defekte.
 """
 
 from __future__ import annotations

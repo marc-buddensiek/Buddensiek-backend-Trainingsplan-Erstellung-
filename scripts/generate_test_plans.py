@@ -97,7 +97,7 @@ TEST_CASES = [
           trainingsjahre_ref="ein_bis_zwei",
           kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80)),
 
-    ("05_gym_muskel_3x20_L1_warnung",  "Tim",
+    ("05_gym_muskel_3x20_L1_lowvol",  "Tim",
      dict(hauptziel_ref="muskelaufbau", tage=3, session_min=20, equipment_ref="gym",
           trainingsjahre_ref="keine",
           kniebeugen=12, pushups=8, situps=10, burpees=5, plank=35)),

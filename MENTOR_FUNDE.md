@@ -120,6 +120,11 @@
   Muskel-Korridor? Annahme **nicht verifiziert** — bei der Test-Output-Review (Ziel × Tage × Dauer ×
   Level) als Coach prüfen, ob das Volumen pro Muskel/Woche plausibel ist. Falls nicht: **gezielte**
   Lösung statt Generaldeckel. Ziel: Pläne ohne manuelles Drüberschauen fachlich korrekt.
+- **Realism-/Kapazitäts-Warnung aus dem Klienten-PDF entfernt (2026-06-17):** „zu wenig Zeit fürs
+  Ziel gewählt" gehört **beim Ausfüllen** ins Intake/Frontend (Fillout/Manu), nicht ins fertige
+  Premium-PDF — konsistent mit der Kapazitäts-Streichung. `pruefe_realismus` bleibt als Funktion +
+  Tests erhalten (kein Produktions-Konsument mehr) für die Intake-Wiederverwendung. Prüft nur das
+  Zeitbudget (tage × dauer), **keine** strukturellen Plan-Defekte.
 
 ## E) GDPR-Aktionsplan — vor Live-Gang
 
