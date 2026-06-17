@@ -10,7 +10,7 @@ Backend importiert sauber (`import main` ✅). Tests: **Logik 26/26 · Realism 7
 
 Spec ist komplett (alle 8 Themen entschieden). Umsetzung läuft entlang der ROADMAP (MVP-1…12).
 **Fertig:** MVP-1 + MVP-3-Kern + MVP-2-Kern (Migration `4960c26` + Tagging 125/125 `8980bd7`) + **MVP-4 Split-Logik** (`4ab789c`…`65306a8`) + **MVP-5 Verletzungsfilter** (4 Nähte, `d11ae4a`…`db80429`) + **MVP-6 Recovery-RPE + Periodisierung** (3 Nähte, `82b3c1d`…`798928d`) + **MVP-7 Naht 1–5** (Schema-Enabler + Format-Baukasten 2a/2b/2c + Naht 3 Format-Rotation + Naht 4 Pool-Selektor 4a/4b/4c + **Naht 4d Ladders/Multi-Format** 4d-1…4d-3 + **Naht 4e Übungs-/Finisher-Rotation** 4e-1/4e-2 + **Naht 5 Athletik** 5-1/5-2/5-3) (`9536905`…`f8ab9d6`, inkl. Spec-Reconcile Thema 6 + 33 net-new Conditioning/Athletik-Übungen `bc14040`).
-**Offen / nächste große Brocken:** **MVP-7-Rest** — nur noch **Komplexe** (vordefinierte Coach-Ketten, `TODO(mvp7-komplexe)`); dann MVP-8 Coach-Flag + MVP-3-Korridor-Deckel, dann **MVP-9 Claude-Integration finalisieren**; MVP-2-Ausbau auf 250–300 (inkl. ~25 Conditioning + ~10 Athletik) als Coach-Daueraufgabe.
+**Offen / nächste große Brocken:** **MVP-7-Rest** — nur noch **Komplexe** (vordefinierte Coach-Ketten, `TODO(mvp7-komplexe)`); dann **MVP-8 Assembler/PDF** (Coach-Flag + MVP-3-Korridor-Deckel **bewusst verworfen** 2026-06-17, s. BACKLOG), dann **MVP-9 Claude-Integration finalisieren**; MVP-2-Ausbau auf 250–300 (inkl. ~25 Conditioning + ~10 Athletik) als Coach-Daueraufgabe.
 Pipeline (Typeform → … → PDF/Supabase) steht strukturell; Claude/Supabase nicht live.
 
 ## 2. Spec-Themen (COACHING_SPEC.md)
@@ -24,18 +24,18 @@ Alle **8 Themen ✅ entschieden** — Regelseite vollständig, Rückstand rein i
 |---|---|---|---|---|
 | 1 | Daten-Fundament | ✅ fertig | Hauptziel 4 Ziele, tage ge=3, nebenziel/schmerzen_akut raus, schwachstelle, PlanMetadata, rpe_hinweis (models.py) | — |
 | 2 | Bibliothek/Tagging | 🟡 125 fertig getaggt, Ausbau offen | Migration `4960c26` + Tagging 125/125 (`8980bd7`, Ausschluss-Semantik SCHEMA.md Abschn. 2, `validate_exercises.py` grün); impact: 118 low · 6 medium (Ballistics) · 1 high (Jump Squat); 38 Reha-Keeper ohne Ausschluss. **Offen: Ausbau auf 250–300 (Coach-Daueraufgabe)** | — |
-| 3 | Volumen „Modell A" | 🟡 Kern fertig, Korridor-Deckel offen | _TIER_CAP/_tier_saetze ✓, TJ-Faktor + Tier-Multiplikator raus ✓, Recovery-RPE ✓; **Level-Korridor-Deckel nicht gebaut** (war Naht 3, zurückgerollt) | 1 |
+| 3 | Volumen „Modell A" | ✅ fertig (Korridor-Deckel verworfen) | _TIER_CAP/_tier_saetze ✓, TJ-Faktor + Tier-Multiplikator raus ✓, Recovery-RPE ✓; **Level-Korridor-Deckel bewusst & endgültig verworfen** (2026-06-17, konkurrierende Steuerung zu Modell A — s. BACKLOG MVP-3) | 1 |
 | 4 | Split-Logik | ✅ fertig (`65306a8`; Longevity-Athletik nachgezogen MVP-7 Naht 5) | Longevity-Pfad (Kraft+Zone-2/Athletik), Fettabbau Kraft+Conditioning, 5T Ganzkörper-Akzent (Schwachstellen-Fokus gestrichen → V1.5), 6T UL3×, Mobility + 20-Min-Sonderfall raus | 1, 3 |
 | 5 | Equipment/Verletzungs-Filter | ✅ fertig (`db80429`) | 2-Stufen-Filter (joint_stress + impact:high), Mehrfach-Verletzungen (Vereinigung), Leerer-Pool-Fallback (verwandtes Pattern, markiert), substitutions_b entfernt, _VERLETZUNG_BLOCKED/Stufe-3 raus (pattern_tags dormant). Systemische Kontraindikationen bewusst out-of-scope (→ Anamnese/V1.5) | 2 ✓ |
 | 6 | Recovery-RPE + Periodisierung | ✅ fertig (`798928d`) | RPE-Welle ankert `rpe_low`→`rpe_high` (0.5-Raster, float; L1/L2 0.5er, L3/L4 1.0er), Deload `rpe_low−1` (Floor 4); toter 0.50-Faktor raus + Spec/CLAUDE.md-Reconcile (Cap-Floor ~67–75 %); L1-RIR `rpe_hinweis` befüllt (nur L1-Kraftsätze, additiv). Volumen bewusst flach (intensitätsgeführt) | 3 ✓ |
 | 7 | Conditioning-Formate + Recomp-Finisher | 🟡 Naht 1–5 fertig (`f8ab9d6`), nur Komplexe offen | **Schema-Enabler** + **Format-Baukasten** + **Naht 3 Format-Rotation** + **Naht 4** Pool-Selektor (4a–4c A1-deterministisch) + **Naht 4d** (Ladders block-dosierbar; `_FORMAT_MAX_MIN`; Multi-Format-Segmentierung mit kapazitätsbewusstem Erstformat; `conditioning_block_2`) + **Naht 4e** (Übungs-Rotation reiner C-Tage via Per-Pattern-Offset + Finisher-Format-/Übungs-Rotation {amrap,zirkel}) + **Naht 5 Athletik** (`logic/athletik.py`: pool:"athletik"-Marker, skill-Dosierung Wdh=20−skill·4, keine RPE, kein Cardio, Deload ×0.67, 2-Tage Z2+Ath + zeitliche Rotation Longevity 4, L1-BW-Zone-2-Fallback). **Offen:** Komplexe (`TODO(mvp7-komplexe)`); Conditioning/Athletik-Pool-Ausbau (Coach) | 4 ✓ |
-| 8 | Assembler/PDF + Coach-Flag | 🟡 Dauer-Kopplung ja, Flag/PDF nein | Modell-A-Satz/Dauer-Kopplung ✓; **Coach-Flag gebaut+verworfen** (plan_metadata=None); PDF rendert **noch** Klient-Realism-Warnung | 4, 6, 7 |
+| 8 | Assembler/PDF | 🟡 Assembler ✓, PDF-Feinschliff offen | Modell-A-Satz/Dauer-Kopplung ✓; **Coach-Flag + jegliche Kapazitäts-Infos bewusst & endgültig verworfen** (2026-06-17; `plan_metadata` bleibt ungenutzter `=None`-Platzhalter); PDF rendert **noch** Klient-Realism-Warnung (klientseitig — Coach-Kanal bewusst entfallen) | 4, 6, 7 |
 | 9 | Claude-Integration | 🟡 läuft generisch, nicht finalisiert | prompt nutzt hauptziel.value generisch + Ersatz-Pattern-Marker (MVP-5); **nicht** auf neue Bibliotheks-Felder/Pflicht-Patterns aktualisiert. Vorarbeit: Level-Gate als `<=` verifiziert (equipment_filter:73, vor Verletzungsfilter) | 5 ✓ |
 | 10 | Supabase | 🟡 Code da, nicht live | db.py: create_client + speichere_klient/_plan; nicht live | 1 |
 | 11 | Test-Harness | ❌ offen | run_tests Alt-Stil; neuer Spec-Validator-Harness nicht gebaut | 3–8 |
 | 12 | Deployment | ❌ offen | Railway/Typeform-live nicht erfolgt | alle |
 
-**Abhängigkeit (Grep-verifiziert):** 4→1,3 **einseitig** (kein Rückkanal — MVP-1/3-Code zieht nichts aus split_selector; MVP-1/3 bleiben korrekt ohne MVP-4). Korridor-Deckel (MVP-3-Rest) + Coach-Flag (MVP-8) sind **downstream** von MVP-2 **und** MVP-4.
+**Abhängigkeit (Grep-verifiziert):** 4→1,3 **einseitig** (kein Rückkanal — MVP-1/3-Code zieht nichts aus split_selector; MVP-1/3 bleiben korrekt ohne MVP-4). Korridor-Deckel (MVP-3-Rest) + Coach-Flag (MVP-8) wären downstream von MVP-2 **und** MVP-4 gewesen — beide **2026-06-17 bewusst & endgültig verworfen** (konkurrierende Steuerung zu Modell A, s. BACKLOG).
 
 ## 4. Offene TODO-Marker (gruppiert nach MVP)
 
@@ -234,8 +234,9 @@ _Erledigt mit MVP-4: `TODO(ausdauer-rename)`, `TODO(mobility-removal)`. Erledigt
 MVP-7 läuft (Naht 1–5 fertig, nur Komplexe offen). Reihenfolge innerhalb MVP-7 und danach:
 - **MVP-7 Komplexe** (`TODO(mvp7-komplexe)`): vordefinierte Coach-Ketten (Flow ohne Ablegen) — eigener
   Schritt, nicht aus Einzelübungen generierbar; bis dahin aus dem Rotations-Pool gefiltert.
-- **Danach:** MVP-8 Coach-Flag + MVP-3-Korridor-Deckel (baubar: Tagging ✓, Splits ✓), dann **MVP-9
-  Claude-Integration finalisieren** (Vorarbeit: Level-Gate als `<=` verifiziert, BACKLOG MVP-9).
+- **Danach:** **MVP-8 Assembler/PDF** — Coach-Flag + MVP-3-Korridor-Deckel **bewusst & endgültig
+  verworfen** (2026-06-17, s. BACKLOG); verbleibt PDF-Feinschliff (z.B. Realism-Warnung klientseitig).
+  Dann **MVP-9 Claude-Integration finalisieren** (Vorarbeit: Level-Gate als `<=` verifiziert, BACKLOG MVP-9).
 **Coach-Daueraufgabe parallel:** MVP-2-Ausbau auf 250–300 — inkl. ~25 Conditioning + ~10 Athletik
 (net-new, Validator als Gate, seit Naht 1 bereit; **Conditioning-/Athletik-Pool-Ausbau-Lücken** in BACKLOG:
 Bodyweight-Conditioning L3/L4, Pull-Conditioning, KB-Conditioning L4 sowie **Athletik L1/Bodyweight**

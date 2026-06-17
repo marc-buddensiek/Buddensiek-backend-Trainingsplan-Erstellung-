@@ -10,10 +10,13 @@ _Stand: 2026-06-16 · git HEAD `f8ab9d6` (MVP-7 Naht 1–5 fertig, Komplexe offe
 
 ## MVP-3 — Volumen „Modell A" fertigstellen (Status: Kern fertig, Deckel offen)
 
-- **Level-Korridor-Deckel fehlt.** War `_WOCHEN_VOLUMEN`, in dieser Session entfernt
-  (Commit `19f8d5f`, kein Konsument mehr). Obergrenze je Level/Ziel neu bauen
-  (Sätze/Muskel/Woche deckeln). · _Vertagt:_ braucht echte Muskel-Aggregation (MVP-4-Splits
-  + saubere Tags MVP-2). · _Marker:_ — (Tabelle entfernt). · _Hängt ab von:_ MVP-2, MVP-4.
+- ~~**Level-Korridor-Deckel**~~ **VERWORFEN (bewusst, endgültig — 2026-06-17). Nicht aufgeschoben,
+  gestrichen.** War `_WOCHEN_VOLUMEN` (entfernt `19f8d5f`). _Begründung:_ Volumen wird bereits durch
+  **Modell A** dosiert (Tier-Sätze + Slot-Limit + Dauer-Deckel). Ein Muskel-Korridor-Deckel wäre eine
+  **konkurrierende Steuerung auf anderer Achse** (Muskel-Sätze vs. Tier-Sätze) → Steuerungs-Konflikte,
+  und bräuchte eine Muskel-Aggregation, die es nicht gibt. Schon einmal aus genau diesem Grund verworfen
+  (Tagging-Wurzel: glutes/quads-Übertagging). Coach reviewt Pläne ohnehin manuell (human-in-the-loop) —
+  automatische Kapazitäts-Kennzahl bringt keinen Mehrwert. _Offene Annahme dazu s. MVP-11 (Output-Review)._
 - ~~**Deload-Faktor** `0.50` vs Spec `0.60`~~ **erledigt (MVP-6 Naht 2, `7031b42`):** toter
   Faktor + `TODO(deload-faktor-tot)` aus `_PERIODISIERUNG_FAKTOR` entfernt; Spec Thema 1 +
   CLAUDE.md per Konfliktregel auf den Modell-A-Deload reconcilet (Cap-Unterkante ~67–75 % des
@@ -118,12 +121,18 @@ Jump, Bear Crawl, Throw …): **0 vorhanden → net-new** (~25, ROADMAP-Mindesta
 entscheiden, ob conditioning-tauglich ja/nein. Coach-Fachwissen pro Übung, **kein**
 Pattern-Automatismus.
 
-## MVP-8 — Assembler + Coach-Flag (zurückgerollt, kommt zurück wenn MVP-2/3/4 stehen)
+## MVP-8 — Assembler/PDF (Coach-Flag + Kapazitäts-Infos VERWORFEN)
 
-- **Coach-Flag komplett entfernt** (volume_below_optimal, recommended_extras, Muskel-Aggregation).
-  War out-of-order (hängt an ungebautem MVP-2/3-Deckel/4). Cleanup-Commits `408c079` + `19f8d5f`.
-  `PlanMetadata` bleibt als `Optional=None`-Platzhalter im Modell (`models.py`). · _Hängt ab von:_
-  MVP-2, MVP-3-Deckel, MVP-4.
+- **Coach-Kapazitäts-Flag + jegliche Kapazitäts-Infos VERWORFEN (bewusst, endgültig — 2026-06-17),
+  nicht aufgeschoben.** (`volume_below_optimal`, `recommended_extras`, Muskel-Aggregation; Code schon
+  entfernt `408c079`+`19f8d5f`.) _Begründung:_ Modell A dosiert das Volumen bereits (Tier-Sätze +
+  Slot-Limit + Dauer-Deckel); ein Kapazitäts-Flag setzt einen Muskel-Korridor voraus, der seinerseits
+  verworfen ist (s. MVP-3) — **konkurrierende Steuerung**, keine Aggregation vorhanden. Coach reviewt
+  manuell (human-in-the-loop), die Kennzahl bringt keinen Mehrwert.
+- **`plan_metadata` bleibt als `Optional=None`-Platzhalter** im Modell (`models.py`) — **bewusst
+  ungenutzt**, kein Konsument, schadet nicht; wird nicht befüllt und nicht entfernt.
+- **MVP-8 = nur noch Assembler/PDF** (der Assembler baut alle Ziele fertig; offen ist PDF-Feinschliff,
+  z.B. ob die Realism-Warnung klientseitig bleibt — ein Coach-Kanal dafür existiert bewusst nicht mehr).
 - ~~Tag-Bug Single Leg RDL~~ **widerlegt (2026-06-11, Git-verifiziert):** `gym_single_leg_rdl_db`
   hat seit Initial-Commit `hamstrings,glutes` primary — identisch mit allen 5 RDL-Varianten.
   Der Befund aus der Coach-Flag-Session war eine Fehlbeobachtung; kein Datenfix nötig.
@@ -142,7 +151,8 @@ Pattern-Automatismus.
 
 - **Output-Review (NACH MVP-9, an echten PDFs):** Sind die Pläne in der Gesamt-Schwierigkeit zu
   leicht / Klient unterfordert? Stellschrauben falls ja: RPE-Spannen-Höhe (Thema 3),
-  Volumen-Korridor/Caps (MVP-3), oder Skill-Level-Übungsauswahl (MVP-9). **Erst an der Matrix
+  Tier-Satz-Caps/Slot-Dosierung (Modell A; Muskel-Korridor verworfen, s. MVP-3/11), oder
+  Skill-Level-Übungsauswahl (MVP-9). **Erst an der Matrix
   Ziel × Level × 20–50 Min × 2–5 Tage beurteilen — kein Vorab-Raten.** · Nicht MVP-6-Scope.
 - **Level-Gate-Semantik (MVP-9-Vorarbeit) — Diagnose erledigt (2026-06-13, read-only):** Frage war
   „Exakt-Match `==` oder Obergrenze `<=`?". **Befund:** Der Gate ist bereits `<=` —
@@ -165,6 +175,13 @@ Pattern-Automatismus.
 - **Aktuelle Tests prüfen nur „läuft / crasht nicht", NICHT fachliche Korrektheit** der Pläne.
   Spec-Validator-Harness muss diese Lücke schließen (grün = läuft, nicht = richtig). · _Hängt
   ab von:_ MVP-3…8.
+- **OFFEN — bei Output-Review prüfen: Dosiert Modell A das Volumen fachlich ausreichend, OHNE
+  Muskel-Korridor-Deckel?** Der Korridor wurde bewusst gestrichen (s. MVP-3 / MVP-8) unter der
+  Annahme, dass Modell A (Tier-Sätze + Slot-Limit + Dauer-Deckel) genügt. **Diese Annahme ist
+  NICHT verifiziert.** Bei der Test-Output-Review über alle Konstellationen (Ziel × Tage × Dauer ×
+  Level) muss als Coach geprüft werden, ob das Volumen pro Muskel/Woche fachlich plausibel
+  rauskommt. Falls nicht: **neue, gezielte Lösung statt des verworfenen Generaldeckels.** Ziel:
+  Pläne sind ohne manuelles Drüberschauen fachlich korrekt.
 
 ## MVP-2 — laufend
 

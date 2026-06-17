@@ -109,6 +109,18 @@
   MVP-12 (Deployment). Verallgemeinerung deiner „kein Library-Commit ohne
   grünen Validator"-Regel.
 
+### Level-Korridor-Deckel + Coach-Kapazitäts-Flag → VERWORFEN (nicht mehr MVP-8)
+- **Bewusst & endgültig gestrichen (2026-06-17), nicht aufgeschoben.** Modell A dosiert das Volumen
+  bereits (Tier-Sätze + Slot-Limit + Dauer-Deckel); ein Muskel-Korridor-Deckel + das darauf aufbauende
+  `plan_metadata`-Flag wären eine **konkurrierende Steuerung auf anderer Achse** (Muskel-Sätze vs.
+  Tier-Sätze), bräuchten eine nicht vorhandene Muskel-Aggregation und wurden schon einmal aus diesem
+  Grund verworfen (Tagging-Wurzel glutes/quads). Coach reviewt manuell (human-in-the-loop). MVP-8 =
+  nur noch Assembler/PDF; `plan_metadata` bleibt ungenutzter `=None`-Platzhalter.
+- **OFFEN (→ MVP-11 Output-Review):** Dosiert Modell A das Volumen fachlich ausreichend OHNE
+  Muskel-Korridor? Annahme **nicht verifiziert** — bei der Test-Output-Review (Ziel × Tage × Dauer ×
+  Level) als Coach prüfen, ob das Volumen pro Muskel/Woche plausibel ist. Falls nicht: **gezielte**
+  Lösung statt Generaldeckel. Ziel: Pläne ohne manuelles Drüberschauen fachlich korrekt.
+
 ## E) GDPR-Aktionsplan — vor Live-Gang
 
 WANN: Startpunkt sobald MVP-9 läuft und Richtung Supabase (MVP-10) geht.
