@@ -80,6 +80,8 @@ async def _generiere_plan_task(payload: dict, vorgang_id: str):
     try:
         await _pipeline(payload, vorgang_id)
     except Exception as e:
+        # TODO(9-3b-status-persist): Vorgang-Status (failed) persistieren + vorgang_id
+        #   an Klienten ausliefern (Abruf-Endpunkt). Schema-Arbeit, MVP-10.
         log.error(f"{_log_prefix(vorgang_id)} Pipeline-Fehler: {type(e).__name__}: {e}", exc_info=True)
 
 
