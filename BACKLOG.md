@@ -214,6 +214,30 @@ Pattern-Automatismus.
   (RPE-Welle) — eine komplexere Variante ggf. über den **nächsten Plan/Block**, separat zu
   durchdenken. Bewusst vorerst raus.
 
+## Isometrie-/Zeit-basierte Übungen (Fundament-Naht, geparkt, nach Output-Review)
+
+- **Problem:** Zeit-/Hold-Vorgaben funktionieren heute **NUR über `pattern=="core"`** (`_CORE_WDH`
+  liefert feste `"20sec"`..`"60sec"`, `_tempo` gibt `"halten"`). Es gibt **kein** per-Übung-
+  Isometrie-Signal. Eine Hold-Übung mit anderem Pattern (z.B. push_vertical „Pike Hold") bekäme im
+  Kraft-Slot Wdh-/Tempo-/RPE-Vorgaben (`"3×8-12 @ RPE 7, Tempo 2-0-1-0"`) = **Unsinn**.
+- **Betrifft NICHT nur push_vertical:** ganze Hold-Familie über alle Patterns — Pike/Downward-Dog/
+  Wall-Handstand Holds (push_vertical), Superman, Hollow Hold, Plank-Varianten, Wall Sit, L-Sit,
+  isometrische Squat-/Hinge-Holds etc.
+- **Lösung (Fundament, eine Naht):** (1) **Schema-Signal** am Eintrag — Marker „ist_isometrisch"
+  (eigenes bool-Feld ODER `pattern_tags`-Wert), Entscheidung offen. (2) **Assembler `_wdh`/`_tempo`:**
+  Isometrie-Zweig, der **Zeit statt Wdh** und `"halten"` statt Tempo ausgibt — gesteuert durch das
+  **Übungs-Signal**, NICHT durch `pattern=="core"`. (3) **Periodisierung/RPE-Welle (MVP-6):** Zeit
+  über die 4 Wochen progressieren (z.B. 30→40→50s) statt Wdh — heute ist auch core-Zeit statisch,
+  nicht progressiv.
+- **Überschneidet:** MVP-6 (Welle), Assembler-Vorschreibung, Schema.
+- **Konsequenz für die Bibliothek:** alle geplanten **HOLD-Übungen sind bis dahin geparkt.** Konkret
+  zurückgestellt (push_vertical, Coach-Liste): Downward Dog Hold, Pike Hold, Elevated Pike Hold,
+  Wall Handstand Hold. Diese erst anlegen, wenn die Naht steht.
+- **Blockiert NICHTS Aktuelles:** rep-basierte Einträge schließen die Lücken; Output-Review (9-4)
+  läuft ohne Holds. Reichert die Bibliothek an, kein Plan scheitert ohne.
+- **Timing:** eigener Brocken, NICHT jetzt. Nach Output-Review einplanen (Bezug zur geparkten
+  „Progression V2", da beide die Zeitachse/Vorschreibung betreffen).
+
 ## MVP-11 — Test-Harness
 
 - **Aktuelle Tests prüfen nur „läuft / crasht nicht", NICHT fachliche Korrektheit** der Pläne.
