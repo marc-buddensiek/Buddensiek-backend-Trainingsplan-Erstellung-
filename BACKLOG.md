@@ -238,6 +238,26 @@ Pattern-Automatismus.
 - **Timing:** eigener Brocken, NICHT jetzt. Nach Output-Review einplanen (Bezug zur geparkten
   „Progression V2", da beide die Zeitachse/Vorschreibung betreffen).
 
+## Klimmzugstangen-Annahme + Alternativ-Übungs-Anzeige (Produkt-Entscheidung, geparkt)
+
+- **INTERIM-ANNAHME (aktiv):** bodyweight/travel-Klienten haben eine **Klimmzugstange/Ringe**. Die
+  4 BW/travel-tauglichen pull_vertical-Übungen (`bw_ring_row`, `bw_negative_pullup`, `gym_chinup`,
+  `gym_pullup`) tragen `equipment_requires=[]` und werden **ungated** zugewiesen. Ein wirklich
+  ausrüstungsloser Klient könnte sie nicht ausführen — heute **bewusst in Kauf genommen** (kein
+  Loch, kein Fehlschlag; Pool ≥ 1).
+- **Hintergrund:** `KlientenInput.equipment` ist EIN Wert; es gibt **kein „hat Stange"-Signal** im
+  Intake. Daher kann das System „bodyweight mit Stange" nicht von „ohne" trennen.
+- **Gewünschte Lösung (später, Coach-Idee):** Der Plan zeigt zu stangen-abhängigen Übungen eine
+  **Alternative** an („Pull-up — falls keine Stange: Inverted Row"), Kunde wählt selbst → **kein
+  Intake-Signal nötig**. `substitution_pool` (100 % befüllt) liefert die Rohdaten; offen ist, ob das
+  Feld bis ins **Klienten-PDF** durchgereicht wird (separate CC-Inspektion noch offen). Mögliche
+  Schichten: Plan-Modell, Assembler, PDF, Prompt.
+- **Alternative Lösung:** „Klimmzugstange vorhanden?" als Frage in den **Fillout-Intake** (beim
+  Typeform→Fillout-Wechsel ohnehin Neubau) → dann `equipment_requires`-Gating + der bestehende
+  `_FALLBACK_PATTERN["pull_vertical"]="pull_horizontal"` greift sauber.
+- **Timing:** Produkt-Entscheidung, NICHT jetzt. An Fillout-Intake-Neubau und/oder Output-Review
+  koppeln. Blockiert nichts Aktuelles.
+
 ## MVP-11 — Test-Harness
 
 - **Aktuelle Tests prüfen nur „läuft / crasht nicht", NICHT fachliche Korrektheit** der Pläne.
