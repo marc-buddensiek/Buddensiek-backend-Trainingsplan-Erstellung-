@@ -5,9 +5,14 @@ Baut aus kompakten Case-Dicts vollständige Typeform-Webhook-Payloads (Format wi
 data/fake_typeform.json) und prüft NUR, dass jedes Profil sauber parst und das
 intendierte Level/Equipment erzeugt. Erzeugt KEINEN Plan und ruft KEINE API.
 
-  python3 scripts/run_test_matrix.py
+  python3 scripts/run_test_matrix.py                  # nur Trockenvalidierung (kein API-Call)
+  python3 scripts/run_test_matrix.py --run "01,06"    # echte Plan-Generierung für diese Cases
+  python3 scripts/run_test_matrix.py --run-all        # echte Plan-Generierung für alle 12
 
-Output: data/test_profiles/caseNN_<kurzname>.json (gitignored) + Validierungs-Tabelle.
+Output (Trocken): data/test_profiles/caseNN_<kurzname>.json (gitignored) + Validierungs-Tabelle.
+Output (--run):   test_runs/<YYYY-MM-DD>_runN/ — JSON + PDF je Case + REVIEW.md (gitignored).
+                  Echter Lauf nutzt den normalen Pipeline-Pfad (echter Claude-Client, kein Stub)
+                  und braucht ANTHROPIC_API_KEY in der Umgebung.
 """
 from __future__ import annotations
 
@@ -15,6 +20,7 @@ import json
 import pathlib
 import sys
 import uuid
+from datetime import date
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
 
@@ -91,7 +97,24 @@ CASES = [
 ]
 
 
-def main() -> None:
+# Kurz-Zweck je Case (nur für REVIEW.md; die Review-Spalten Auffälligkeiten/Wiederholung bleiben leer)
+_ZWECK = {
+    "01": "Bodyweight L2 Basis",
+    "02": "Travel L2, Fettabbau",
+    "03": "Kettlebell L3 + Knie-Filter",
+    "04": "Home-Gym L2",
+    "05": "Hybrid L3, Recomp",
+    "06": "Gym L4 — Anspruch/Compounds (Prinzip 6)",
+    "07": "Wirbelsäulen-Verletzungsfilter",
+    "08": "Mehrfach-Verletzung (WS + Knie)",
+    "09": "6-Tage-Split (U/L 3×)",
+    "10": "L1 + Kurz-Session 30min",
+    "11": "Longevity-Pfad (Zone 2 / Athletik)",
+    "12": "L1 + 20min Short-Session",
+}
+
+
+def _trockenvalidierung() -> None:
     _OUT_DIR.mkdir(parents=True, exist_ok=True)
     print(f"Test-Matrix Trockenvalidierung — {len(CASES)} Cases (kein Claude-Call)\n")
     header = f"{'Case':<22} {'erw':>3} {'ber':>3} {'equipment':<11} {'ziel':<12} {'tg':>2} {'dau':>3} {'verletzungen':<22} {'Status'}"
@@ -124,6 +147,121 @@ def main() -> None:
 
     print("-" * len(header))
     print(f"\n{'Alle 12 Profile OK ✓' if fehler == 0 else f'{fehler} FEHLER'}  ·  Payloads: {_OUT_DIR}")
+
+
+# ── Echter Lauf (--run / --run-all): normaler Pipeline-Pfad, echter Claude-Client ──
+
+def _next_run_dir() -> pathlib.Path:
+    base = pathlib.Path(__file__).parent.parent / "test_runs"
+    heute = date.today().isoformat()
+    n = 1
+    while (base / f"{heute}_run{n}").exists():
+        n += 1
+    d = base / f"{heute}_run{n}"
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+def _schreibe_review(run_dir: pathlib.Path, ergebnisse: list[tuple]) -> None:
+    ok = sum(1 for r in ergebnisse if r[2] == "OK")
+    lines = [
+        "# Output-Review — Test-Matrix-Lauf",
+        "",
+        f"_Lauf: {run_dir.name} · {ok}/{len(ergebnisse)} OK · Auffälligkeiten/Wiederholung von Hand füllen_",
+        "",
+        "| Case | Profil (equip/level/ziel/tage/dauer/verletzung) | Zweck | Status | Übungen vollständig? | Auffälligkeiten | wiederholt sich? |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for c, level, status, vollst in ergebnisse:
+        lvl = level if level is not None else "—"
+        verl = ", ".join(c["verletzungen"]) or "—"
+        profil = f"{c['equipment']} / L{lvl} / {c['hauptziel']} / {c['tage_pro_woche']}T / {c['session_dauer_min']}min / {verl}"
+        lines.append(f"| {c['nr']}_{c['kurzname']} | {profil} | {_ZWECK.get(c['nr'], '')} | {status} | {vollst} |  |  |")
+    (run_dir / "REVIEW.md").write_text("\n".join(lines) + "\n")
+
+
+def _run_real(case_ids: list[str]) -> None:
+    import os
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        print("⚠️  ANTHROPIC_API_KEY fehlt — echter Lauf nicht möglich.")
+        print("   export ANTHROPIC_API_KEY=sk-ant-...")
+        sys.exit(1)
+
+    # Lazy-Imports: nur für den echten Lauf nötig (hält die Trockenvalidierung leichtgewichtig)
+    from logging_config import setup_logging
+    from logic.volume_calculator import berechne_volumen
+    from logic.split_selector import waehle_split
+    from logic.equipment_filter import filtere_uebungen
+    from logic.plan_assembler import assemble_plan
+    from claude.claude_client import generiere_uebungsauswahl
+    from pdf_generator import build_pdf
+
+    setup_logging()
+
+    cases = {c["nr"]: c for c in CASES}
+    unbekannt = [cid for cid in case_ids if cid not in cases]
+    if unbekannt:
+        print(f"Unbekannte Case-IDs: {unbekannt} — verfügbar: {sorted(cases)}")
+        sys.exit(2)
+
+    run_dir = _next_run_dir()
+    print(f"Echter Lauf — {len(case_ids)} Cases → {run_dir}\n")
+
+    ergebnisse: list[tuple] = []
+    for cid in case_ids:
+        c = cases[cid]
+        name = f"case{c['nr']}_{c['kurzname']}"
+        vorgang_id = uuid.uuid4().hex[:12]
+        payload = baue_payload(c)
+        try:
+            klient = parse_typeform_payload(payload)
+            level, _ = berechne_level(klient)
+            volumen = berechne_volumen(klient, level, "akkumulation")
+            split = waehle_split(klient, level)
+            uebungen = filtere_uebungen(klient, level)
+            print(f"[{c['nr']}] {c['kurzname']} — Level {level}, {split['split_typ']} · vorgang={vorgang_id}")
+            claude_output = generiere_uebungsauswahl(
+                klient=klient, level=level, split_typ=split["split_typ"], block_nummer=1,
+                sessions=split["sessions"], uebungen_gefiltert=uebungen, woche_typ="akkumulation",
+                ziel_saetze=volumen["ziel_saetze"], ziel_rpe=volumen["ziel_rpe"], vorgang_id=vorgang_id,
+            )
+            plan = assemble_plan(klient=klient, level=level, split=split,
+                                 claude_output=claude_output, block_nummer=1)
+            data = plan.model_dump()
+            (run_dir / f"{name}.json").write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+            build_pdf(data).output(str(run_dir / f"{name}.pdf"))
+            vollstaendig = all(s.haupt_uebungen for w in plan.wochen for s in w.sessions)
+            ergebnisse.append((c, level, "OK", "ja" if vollstaendig else "nein"))
+            print(f"     → OK · JSON + PDF gespeichert{'' if vollstaendig else ' · WARN: leere Session'}")
+        except Exception as e:
+            ergebnisse.append((c, None, f"FAILED: {type(e).__name__}: {e}", "—"))
+            print(f"     → FAILED: {type(e).__name__}: {e}")
+
+    _schreibe_review(run_dir, ergebnisse)
+
+    print("\n" + "=" * 60)
+    ok = [r for r in ergebnisse if r[2] == "OK"]
+    fail = [r for r in ergebnisse if r[2] != "OK"]
+    print(f"OK: {len(ok)}  ·  FAILED: {len(fail)}")
+    for c, _lvl, status, _v in ergebnisse:
+        print(f"  {c['nr']}_{c['kurzname']:<20} {status}")
+    print(f"\nDateien:  {run_dir}")
+    print(f"Review:   {run_dir / 'REVIEW.md'}")
+
+
+def main() -> None:
+    args = sys.argv[1:]
+    if not args:
+        _trockenvalidierung()
+        return
+    if args[0] == "--run-all":
+        _run_real([c["nr"] for c in CASES])
+    elif args[0] == "--run" and len(args) >= 2:
+        _run_real([x.strip().zfill(2) for x in args[1].split(",") if x.strip()])
+    else:
+        print('Usage: python3 scripts/run_test_matrix.py [--run "01,06,08,11" | --run-all]')
+        print("       (ohne Argument: nur Trockenvalidierung, kein Claude-Call)")
+        sys.exit(2)
 
 
 if __name__ == "__main__":
