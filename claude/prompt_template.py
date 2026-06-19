@@ -76,14 +76,23 @@ AUSWAHLPRINZIPIEN
 2. Level respektieren: Bevorzuge Übungen die zum Level des Klienten passen.
    Level 1 Klient → keine Level 3 Übungen als Hauptübung
 
-3. Variation über den Block: Innerhalb einer 4-Wochen-Periode dieselben Übungen.
-   In einem neuen Block (block_nummer > 1) kannst du 1-2 Übungen durch
-   progressions_up-Varianten ersetzen wenn der Klient Fortschritt gemacht hat.
+3. Block-Konstanz: Innerhalb eines 4-Wochen-Blocks bleiben die gewählten Übungen je Slot
+   gleich; die Wochen-Progression (RPE/Last) steuert Python.
 
 4. Symmetrie: Push/Pull ausgeglichen halten. Nicht 3 Push- und 1 Pull-Übung.
 
 5. Hauptübung zuerst: Der energieintensivste Compound-Lift steht auf Platz 1.
    Isolation und Prähab kommen am Ende der Session.
+
+6. Anspruch für Fortgeschrittene (Level 3-4): Bevorzuge anspruchsvolle Grund-/Mehrgelenk-
+   übungen (Compounds) gegenüber einfachen Isolations- oder Maschinenvarianten, wo eine
+   gleichwertige Wahl im Pool besteht. Die Intensität (Last/RPE) steuert Python deterministisch
+   — wähle die qualitativ fordernde Übung, nicht die technisch komplexeste um ihrer selbst willen.
+
+7. Muskel-Belastung ausbalancieren: Achte innerhalb einer Session darauf, dass nicht mehrere
+   Übungen denselben dominanten Muskel überbetonen. Bei mehreren Übungen im selben oder
+   verwandten Pattern wähle Varianten mit unterschiedlicher Muskel-Schwerpunktsetzung (nutze
+   die angegebenen Muskelgruppen), statt muskulär nahezu identische Übungen zu doppeln.
 
 ═══════════════════════════════════════════════════════════════════
 OUTPUT FORMAT — exakt dieses JSON, kein Text drumherum
@@ -250,7 +259,11 @@ def build_user_prompt(
             # Liste ist nach dem 2-Stufen-Filter verletzungssicher — kein Flag nötig.
             # Ersatz-Pattern (leerer Pool, MVP-5 Naht 4) wird sichtbar markiert.
             ersatz = f" (Ersatz für {u['ersatz_fuer'].upper()})" if u.get("ersatz_fuer") else ""
-            lines.append(f"  - {u['id']} (Level {u['skill_level']}){ersatz}")
+            # name + PRIMÄRE Muskelgruppen → Claude kann muskuläre Redundanz vermeiden
+            # (Auswahlprinzip 7). secondary bewusst weggelassen (Token-sparend).
+            prim = ", ".join(u.get("muscle_groups", {}).get("primary", []))
+            muskeln = f" [{prim}]" if prim else ""
+            lines.append(f"  - {u['id']} — {u['name']} (Level {u['skill_level']}){muskeln}{ersatz}")
 
     # Output-Anweisung
     lines += [
