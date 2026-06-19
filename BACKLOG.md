@@ -200,6 +200,20 @@ Pattern-Automatismus.
   Fokus-Slot-Templates (lagen als `_SCHWACHSTELLEN_PATTERNS` vor, siehe Commit a88943c). ·
   _Marker:_ `TODO(v15-schwachstelle)` (models.py). · _Hängt ab von:_ V1.5-Check-in/Anamnese.
 
+## Progression V2 — Übungs-Progression (geparkt, nach Output-Review)
+
+- **Zeitgesteuerte Übungs-Progression (nicht-belastbare Übungen):** deterministischer Übungswechsel
+  entlang der Block-Zeitachse statt nur über die RPE-Welle — sind die Reps bei **nicht-belastbaren**
+  Übungen ausgereizt, Wechsel zur nächsten `progressions_up`-Sprosse (z.B. 3×12 Push-up →
+  3×8–10 Archer). **NUR nicht-belastbare Übungen.** _Architektur-Implikation:_ der Slot trägt dann
+  eine **Sequenz über die Wochen** statt einer einzelnen Übung. _Offene Entscheidungen:_
+  Trigger-Zeitpunkt; Claude wählt Einstiegs-Sprosse vs. deterministisches Hochklettern; Verhalten
+  bei zu kurzer Kette. **Eigener MVP-Brocken NACH dem Output-Review**; verknüpft mit dem geparkten
+  Thema „4-Wochen-Block-Ende".
+- **Progression über komplexere Varianten bei belastbaren Übungen:** dort primär über **Last**
+  (RPE-Welle) — eine komplexere Variante ggf. über den **nächsten Plan/Block**, separat zu
+  durchdenken. Bewusst vorerst raus.
+
 ## MVP-11 — Test-Harness
 
 - **Aktuelle Tests prüfen nur „läuft / crasht nicht", NICHT fachliche Korrektheit** der Pläne.
