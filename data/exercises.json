@@ -4490,7 +4490,8 @@
         "bw_pike_pushup_elevated"
       ],
       "progressions_down": [
-        "bw_decline_pushup"
+        "bw_decline_pushup",
+        "bw_downward_dog_pushup"
       ],
       "substitution_pool": [
         "bw_decline_pushup",
@@ -4538,7 +4539,8 @@
         "Vorstufe zum Handstand-Push-Up"
       ],
       "progressions_up": [
-        "bw_wall_handstand_pushup"
+        "bw_wall_handstand_pushup",
+        "bw_handstand_pushup_negative"
       ],
       "progressions_down": [
         "bw_pike_pushup"
@@ -4586,7 +4588,9 @@
         "Körper so gerade wie möglich",
         "Nur so tief wie kontrolliert ausführbar"
       ],
-      "progressions_up": [],
+      "progressions_up": [
+        "bw_chest_to_wall_handstand_pushup"
+      ],
       "progressions_down": [
         "bw_pike_pushup_elevated"
       ],
@@ -6810,6 +6814,151 @@
       "impact_level": "low",
       "equipment_requires": [],
       "conditioning_friendly": true
+    },
+    {
+      "id": "bw_downward_dog_pushup",
+      "name": "Downward Dog Push-Up",
+      "equipment": [
+        "bodyweight",
+        "travel",
+        "home_gym",
+        "hybrid",
+        "gym",
+        "kettlebell"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps",
+          "abs"
+        ]
+      },
+      "skill_level": 1,
+      "coaching_cues": [
+        "Umgekehrtes V — Hüfte hoch, Fersen Richtung Boden",
+        "Kopf kontrolliert Richtung Boden senken, Ellenbogen leicht nach außen",
+        "Leichter als der Pike Push-Up — weniger Last über den Schultern"
+      ],
+      "substitution_pool": [
+        "bw_pike_pushup",
+        "gym_landmine_ohp"
+      ],
+      "progressions_up": [
+        "bw_pike_pushup"
+      ],
+      "progressions_down": [],
+      "pattern_tags": [
+        "overhead_press"
+      ],
+      "joint_stress": [
+        "shoulder",
+        "wrist"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "bw_handstand_pushup_negative",
+      "name": "Handstand Push-Up (Negative)",
+      "equipment": [
+        "bodyweight",
+        "travel",
+        "home_gym",
+        "hybrid",
+        "gym",
+        "kettlebell"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps",
+          "abs",
+          "spinal_erectors"
+        ]
+      },
+      "skill_level": 3,
+      "coaching_cues": [
+        "Nur die Absenkphase — langsam in 3-5 Sek. zum Boden",
+        "Mit den Beinen hochkommen/abfälschen, dann nächste Negative",
+        "Körper gerade, Rippen unten — kein Hohlkreuz"
+      ],
+      "substitution_pool": [
+        "bw_pike_pushup_elevated",
+        "bw_wall_handstand_pushup"
+      ],
+      "progressions_up": [
+        "bw_wall_handstand_pushup"
+      ],
+      "progressions_down": [
+        "bw_pike_pushup_elevated"
+      ],
+      "pattern_tags": [
+        "overhead_press"
+      ],
+      "joint_stress": [
+        "shoulder",
+        "wrist",
+        "elbow"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": false
+    },
+    {
+      "id": "bw_chest_to_wall_handstand_pushup",
+      "name": "Chest-to-Wall Handstand Push-Up",
+      "equipment": [
+        "bodyweight",
+        "gym",
+        "travel",
+        "kettlebell"
+      ],
+      "pattern": "push_vertical",
+      "muscle_groups": {
+        "primary": [
+          "shoulders_front",
+          "shoulders_lateral"
+        ],
+        "secondary": [
+          "triceps",
+          "abs",
+          "spinal_erectors"
+        ]
+      },
+      "skill_level": 4,
+      "coaching_cues": [
+        "Bauch und Brust zur Wand — geradere, strengere Position",
+        "Hände nah an der Wand, kontrolliert bis knapp über den Boden",
+        "Nur so tief absenken, wie sauber kontrollierbar"
+      ],
+      "substitution_pool": [
+        "bw_wall_handstand_pushup",
+        "gym_ohp_barbell"
+      ],
+      "progressions_up": [],
+      "progressions_down": [
+        "bw_wall_handstand_pushup"
+      ],
+      "pattern_tags": [
+        "overhead_press"
+      ],
+      "joint_stress": [
+        "shoulder",
+        "wrist",
+        "elbow"
+      ],
+      "impact_level": "low",
+      "equipment_requires": [],
+      "conditioning_friendly": false
     }
   ]
 }
