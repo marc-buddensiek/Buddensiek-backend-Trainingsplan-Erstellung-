@@ -177,6 +177,12 @@ Pattern-Automatismus.
   Am echten Output prüfen: (1) wirkt die deterministische Conditioning-Auswahl fachlich gut oder
   schematisch? (2) erfüllt Claudes Kraft-Auswahl Balance/Symmetrie/Variation tatsächlich? Erst danach
   endgültig: Trennung so lassen oder anpassen.
+- **Dritter-Pool-Drift (claude_client ↔ plan_assembler) — kein Handlungsbedarf jetzt:**
+  `_pruefe_vollstaendigkeit` (9-3a) filtert Kraft-Sessions über `slot["pool"]` **truthy** (jeder
+  Wert), der Assembler bypassed Claude exakt bei `pool == "conditioning"`/`"athletik"`. Heute
+  deckungsgleich. Wird je ein **dritter pool-Typ** eingeführt, müssen **beide** Stellen mitwandern
+  (sonst nähme der Filter ihn aus SOLL, während der Assembler ihn nicht bypassed → Inkonsistenz).
+  _Auslöser:_ neuer Pool-Typ.
 
 ## Logging / Observability
 
