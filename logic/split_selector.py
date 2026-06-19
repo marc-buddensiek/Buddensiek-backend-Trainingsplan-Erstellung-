@@ -12,6 +12,7 @@ Slot-Anzahl nach Session-Dauer:
 from __future__ import annotations
 from models import KlientenInput, Hauptziel
 from logic.conditioning_formats import pick_conditioning_formats
+from logic.equipment_filter import filtere_uebungen
 
 
 def _slot(beschreibung: str, pattern: str, tier: str = "compound", max_level: int = 4,
@@ -345,7 +346,7 @@ def _renumber(sessions: list[dict]) -> list[dict]:
 
 # ── Split selector ─────────────────────────────────────────────────────────────
 
-def waehle_split(klient: KlientenInput, level: int) -> dict:
+def _waehle_split_impl(klient: KlientenInput, level: int) -> dict:
     """
     Returns {"split_typ": str, "sessions": list[dict]}.
     Ziel × Tage × Dauer → Split (Spec Thema 4); Slot-Zahl je Dauer in den Templates.
@@ -441,3 +442,42 @@ def waehle_split(klient: KlientenInput, level: int) -> dict:
             ul = _upper_lower_sessions(level, dauer)
             return {"split_typ": "Upper/Lower 4× + Zone 2 + Athletik",
                     "sessions": _renumber(ul + [_zone2_session(5), _athletik_session(6)])}
+
+
+# ── Equipment-bewusste Carry-Behandlung ────────────────────────────────────────
+
+def _carry_moeglich(klient: KlientenInput, level: int) -> bool:
+    """Ground truth: hat der Klient nach Equipment + Level + Verletzungsfilter eine ECHTE
+    Carry-Übung? `filtere_uebungen` backfillt einen leeren carry-Pool über
+    `_apply_pattern_fallback` mit Core-Übungen (`ersatz_fuer="carry"`) — die zählen NICHT
+    als befüllbares Carry. Daher: mindestens eine carry-Übung OHNE `ersatz_fuer`-Marker."""
+    pool = filtere_uebungen(klient, level)
+    return any(not ex.get("ersatz_fuer") for ex in pool.get("carry", []))
+
+
+def _ersetze_unbefuellbaren_carry(sessions: list[dict]) -> None:
+    """Klient ohne echtes Carry (Equipment): Carry-Slots auflösen (in-place). Diskriminiert
+    am tier des Carry-Slots — deckt sich mit den zwei Carry-Templates:
+      • tier 'core'  → Full Body C, wo Carry den Core-Slot ERSETZT → zurück zu einem Core-Slot
+        (Session bleibt gleich lang, behält einen Core).
+      • sonst (tier 'isolation' = Lower B, Carry ist ZUSATZ-Slot, Core separat vorhanden)
+        → Slot ersatzlos entfernen (Session wird um 1 kürzer; kein doppelter Core)."""
+    for s in sessions:
+        neue: list[dict] = []
+        for slot in s["slots"]:
+            if slot["pattern"] != "carry":
+                neue.append(slot)
+            elif slot["tier"] == "core":
+                neue.append(_slot("Core", "core", "core", slot["max_level"]))
+            # tier != core → weglassen
+        s["slots"] = neue
+
+
+def waehle_split(klient: KlientenInput, level: int) -> dict:
+    """Ziel × Tage × Dauer → Split (Spec Thema 4). Danach: Carry-Slots auflösen, wenn der
+    Klient equipment-bedingt KEIN echtes Carry befüllen kann (nur dieser Fall — andere leere
+    Pools laufen bewusst weiter über den 9-3a-Vollständigkeits-Check / MVP-5-Fallback)."""
+    result = _waehle_split_impl(klient, level)
+    if not _carry_moeglich(klient, level):
+        _ersetze_unbefuellbaren_carry(result["sessions"])
+    return result
