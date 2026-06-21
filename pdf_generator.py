@@ -134,7 +134,7 @@ def build_pdf(plan_data: dict) -> FPDF:
         pdf.set_font("Helvetica", "B", 8)
         pdf.set_text_color(*C_DARK_GREY)
         pdf.set_fill_color(*C_LIGHT_GREY)
-        label = f"  Woche {woche['woche_nummer']} — {woche['block_typ'].upper()}  |  {woche['ziel_saetze']} Sätze × RPE {woche['ziel_rpe']:g}"
+        label = f"  Woche {woche['woche_nummer']} — {woche['block_typ'].upper()}  |  {woche['ziel_saetze']} Sätze × RIR {woche['ziel_rir']:g}"
         pdf.cell(0, 6, label, fill=True, new_x="LMARGIN", new_y="NEXT")
         for s in woche["sessions"]:
             pdf.set_font("Helvetica", "", 8)
@@ -152,7 +152,7 @@ def build_pdf(plan_data: dict) -> FPDF:
 
         # Wochen-Header
         block_label = f"WOCHE {woche['woche_nummer']} — {woche['block_typ'].upper()}"
-        vol_label   = f"{woche['ziel_saetze']} Sätze  ·  RPE {woche['ziel_rpe']:g}  ·  {woche['volumen_stufe'].replace('_', ' ').title()}"
+        vol_label   = f"{woche['ziel_saetze']} Sätze  ·  RIR {woche['ziel_rir']:g}  ·  {woche['volumen_stufe'].replace('_', ' ').title()}"
 
         pdf.ln(4)
         pdf.set_font("Helvetica", "B", 14)
@@ -207,16 +207,16 @@ def build_pdf(plan_data: dict) -> FPDF:
                     else:
                         vol_str = u["wdh"]
                     spec_parts = []
-                    if u.get("rpe") is not None:
-                        spec_parts.append(f"RPE {u['rpe']:g}")
+                    if u.get("rir") is not None:
+                        spec_parts.append(f"RIR {u['rir']:g}")
                     if u["pausenzeit_sek"] > 0:
                         spec_parts.append(f"Pause {u['pausenzeit_sek']}s")
                     spec_str = "  ·  ".join(spec_parts)
                 else:
                     vol_str  = f"{u['saetze']}×{u['wdh']}"
-                    # Athletik (Naht 5) trägt keine RPE — RPE-Teil nur bei Kraftsätzen (rpe != None)
-                    rpe_part = f"RPE {u['rpe']:g}  ·  " if u.get("rpe") is not None else ""
-                    spec_str = f"{rpe_part}Tempo {u['tempo']}  ·  Pause {u['pausenzeit_sek']}s"
+                    # Conditioning/Athletik & Zeit-Holds tragen kein RIR — RIR-Teil nur wenn gesetzt
+                    rir_part = f"RIR {u['rir']:g}  ·  " if u.get("rir") is not None else ""
+                    spec_str = f"{rir_part}Tempo {u['tempo']}  ·  Pause {u['pausenzeit_sek']}s"
 
                 pdf.set_font("Helvetica", "B", 8)
                 pdf.set_text_color(*C_BLACK)
@@ -228,13 +228,6 @@ def build_pdf(plan_data: dict) -> FPDF:
                 pdf.set_font("Helvetica", "", 7)
                 pdf.set_text_color(*C_MID_GREY)
                 pdf.cell(0, 5, spec_str, new_x="LMARGIN", new_y="NEXT")
-
-                # L1-RIR-Hilfe (nur gesetzt für Level-1-Kraftsätze)
-                if u.get("rpe_hinweis"):
-                    pdf.set_font("Helvetica", "I", 6.5)
-                    pdf.set_text_color(*C_MID_GREY)
-                    pdf.set_x(20)
-                    pdf.multi_cell(176, 3.5, f"↳ RPE-Hilfe: {u['rpe_hinweis']}")
 
                 # Coaching Cues
                 cues = "  ·  ".join(u["coaching_cues"])
@@ -271,8 +264,8 @@ def build_pdf(plan_data: dict) -> FPDF:
                     else:
                         vol_str = u["wdh"]
                     spec_parts = []
-                    if u.get("rpe") is not None:
-                        spec_parts.append(f"RPE {u['rpe']:g}")
+                    if u.get("rir") is not None:
+                        spec_parts.append(f"RIR {u['rir']:g}")
                     if u["pausenzeit_sek"] > 0:
                         spec_parts.append(f"Pause {u['pausenzeit_sek']}s")
                     spec_str = "  ·  ".join(spec_parts)

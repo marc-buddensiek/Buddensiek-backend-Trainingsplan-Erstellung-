@@ -364,10 +364,10 @@ def main():
     print()
     print(f"  Ergebnis: {w_passed}/{w_passed+w_failed} bestanden")
 
-    # ── RIR-Hilfe-Tests (MVP-6 Naht 3, additiv) ───────────────────────────────
+    # ── RIR-Output-Tests (Naht B: RIR = 10 − RPE am Ausgang, Holds ohne RIR) ──
     print()
     print("=" * 65)
-    print("RIR-HILFE-TESTS (Level-1-rpe_hinweis, rein additiv)")
+    print("RIR-OUTPUT-TESTS (RIR = 10 − RPE am Ausgang, Zeit-Holds ohne RIR — Befund 7)")
     print("=" * 65)
 
     from scripts.generate_test_plans import _auto_claude_output
@@ -403,31 +403,38 @@ def main():
             print(f"  ❌ {desc}  →  {e}")
             rir_failed += 1
 
-    def l1_kraft_hat_hinweis():
-        lvl, plan = _plan(dict(hauptziel_ref="muskelaufbau", tage=4, **_L1))
-        assert lvl == 1, f"Fixture nicht L1 (got L{lvl})"
+    def rir_output_kraft():
+        # Nicht-Hold-Kraftsätze tragen RIR (nicht None, 0 ≤ rir ≤ 6, 0.5-Raster).
+        _, plan = _plan(dict(hauptziel_ref="muskelaufbau", tage=4, **_L1))
         st, _ = _split_kind(plan)
-        assert st, "keine Kraft-Übungen im Plan"
-        assert all(u["rpe_hinweis"] for u in st), "L1-Kraftsatz ohne rpe_hinweis"
+        kraft = [u for u in st if u["tempo"] != "halten"]
+        assert kraft, "keine Nicht-Hold-Kraftsätze im Plan"
+        for u in kraft:
+            assert u["rir"] is not None, f"Kraftsatz ohne RIR: {u['name']}"
+            assert 0 <= u["rir"] <= 6, f"RIR {u['rir']} außerhalb [0,6]: {u['name']}"
+            assert (u["rir"] * 2) == int(u["rir"] * 2), f"RIR {u['rir']} nicht im 0.5-Raster"
 
-    def l1_metcon_bleibt_none():
-        lvl, plan = _plan(dict(hauptziel_ref="fettabbau", tage=4, **_L1))
-        assert lvl == 1, f"Fixture nicht L1 (got L{lvl})"
-        _, mc = _split_kind(plan)
-        assert mc, "kein Metcon-Anteil im Fettabbau-Plan"
-        assert all(u["rpe_hinweis"] is None for u in mc), "L1-Metcon-Satz trägt rpe_hinweis"
+    def holds_kein_rir():
+        # Befund-7-Guard: Zeit-Holds (tempo "halten") tragen kein RIR.
+        _, plan = _plan(dict(hauptziel_ref="muskelaufbau", tage=4, **_L1))
+        st, _ = _split_kind(plan)
+        holds = [u for u in st if u["tempo"] == "halten"]
+        assert holds, "kein Zeit-Hold im Plan (Fixture deckt Befund 7 nicht ab)"
+        assert all(u["rir"] is None for u in holds), "Zeit-Hold trägt RIR (Befund 7)"
 
-    def l2_komplett_none():
-        lvl, plan = _plan(dict(hauptziel_ref="muskelaufbau", tage=4, session_min=60,
-                               kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80,
-                               trainingsjahre_ref="ein_bis_zwei"))
-        assert lvl == 2, f"Fixture nicht L2 (got L{lvl})"
-        st, mc = _split_kind(plan)
-        assert all(u["rpe_hinweis"] is None for u in st + mc), "L2 trägt rpe_hinweis"
+    def rir_welle_richtung():
+        # RIR invertiert die RPE-Welle: ziel_rir W1 ≥ W2 ≥ W3, Deload-W4 ≥ W3.
+        _, plan = _plan(dict(hauptziel_ref="muskelaufbau", tage=4, session_min=60,
+                             kniebeugen=35, pushups=20, situps=35, burpees=20, plank=80,
+                             trainingsjahre_ref="ein_bis_zwei"))
+        r = [w["ziel_rir"] for w in plan["wochen"]]   # W1..W4
+        assert all(0 <= x <= 6 for x in r), f"ziel_rir außerhalb [0,6]: {r}"
+        assert r[0] >= r[1] >= r[2], f"RIR nicht fallend über Ladewochen: {r}"
+        assert r[3] >= r[2], f"Deload-RIR nicht ≥ Intensivierung: {r}"
 
-    _rcheck("L1-Kraftsätze tragen rpe_hinweis (RIR-Klartext)", l1_kraft_hat_hinweis)
-    _rcheck("L1-Metcon-Sätze bleiben None",                    l1_metcon_bleibt_none)
-    _rcheck("L2 komplett None (kein RIR-Hinweis)",             l2_komplett_none)
+    _rcheck("Nicht-Hold-Kraftsätze tragen RIR (0–6, 0.5-Raster)", rir_output_kraft)
+    _rcheck("Zeit-Holds ohne RIR (Befund-7-Guard)",              holds_kein_rir)
+    _rcheck("RIR-Welle invertiert RPE (W1≥W2≥W3, Deload≥W3)",    rir_welle_richtung)
 
     print()
     print(f"  Ergebnis: {rir_passed}/{rir_passed+rir_failed} bestanden")
@@ -435,7 +442,7 @@ def main():
     # ── Conditioning ohne RPE (MVP-7 Naht 2a) ─────────────────────────────────
     print()
     print("=" * 65)
-    print("CONDITIONING OHNE RPE (MVP-7 Naht 2a)")
+    print("CONDITIONING OHNE RIR (MVP-7 Naht 2a)")
     print("=" * 65)
 
     cr_passed = cr_failed = 0
@@ -450,21 +457,22 @@ def main():
             print(f"  ❌ {desc}  →  {e}")
             cr_failed += 1
 
-    def metcon_ohne_rpe_kraft_mit():
+    def metcon_ohne_rir_kraft_mit():
         _, plan = _plan(dict(hauptziel_ref="fettabbau", tage=4, **_L1))
         st, mc = _split_kind(plan)
         assert mc, "kein Metcon-Anteil im Fettabbau-Plan"
-        assert all(u["rpe"] is None for u in mc), "Conditioning-Satz trägt RPE"
-        assert st and all(u["rpe"] is not None for u in st), "Kraft-Satz ohne RPE"
+        assert all(u["rir"] is None for u in mc), "Conditioning-Satz trägt RIR"
+        kraft = [u for u in st if u["tempo"] != "halten"]   # Holds tragen bewusst kein RIR (Befund 7)
+        assert kraft and all(u["rir"] is not None for u in kraft), "Nicht-Hold-Kraftsatz ohne RIR"
 
-    def recomp_finisher_ohne_rpe():
+    def recomp_finisher_ohne_rir():
         _, plan = _plan(dict(hauptziel_ref="recomp", tage=4, session_min=45, **_L1))
         blocks = [s["metcon_block"] for w in plan["wochen"] for s in w["sessions"] if s.get("metcon_block")]
         assert blocks, "kein Recomp-Finisher (metcon_block) im Plan"
-        assert all(u["rpe"] is None for mb in blocks for u in mb["uebungen"]), "Finisher-Satz trägt RPE"
+        assert all(u["rir"] is None for mb in blocks for u in mb["uebungen"]), "Finisher-Satz trägt RIR"
 
-    _crcheck("Conditioning-Sätze rpe None, Kraft-Sätze rpe gesetzt", metcon_ohne_rpe_kraft_mit)
-    _crcheck("Recomp-Finisher (metcon_block) rpe None",             recomp_finisher_ohne_rpe)
+    _crcheck("Conditioning-Sätze rir None, Nicht-Hold-Kraft rir gesetzt", metcon_ohne_rir_kraft_mit)
+    _crcheck("Recomp-Finisher (metcon_block) rir None",                  recomp_finisher_ohne_rir)
 
     print()
     print(f"  Ergebnis: {cr_passed}/{cr_passed+cr_failed} bestanden")
@@ -593,7 +601,7 @@ def main():
             for s in cond:
                 d = s["dauer_min_geschaetzt"]
                 assert 40 <= d <= 50, f"L{lvl} {s['session_typ']} {d}min != ~45 (Level deckelt die Dauer nicht)"
-                assert all(u["rpe"] is None for u in s["haupt_uebungen"])
+                assert all(u["rir"] is None for u in s["haupt_uebungen"])
 
     def e2e_a_recomp_finisher_kurz():
         # (a) gemischter Tag: Kraft + Finisher (NICHT block-gestapelt, kurz). 4e-2: Format rotiert {amrap, zirkel}.
@@ -694,7 +702,7 @@ def main():
         for s in cdays:
             b2 = s["conditioning_block_2"]
             assert b2["uebungen"], "Segment 2 leer"
-            assert all(u["rpe"] is None for u in b2["uebungen"]), "Segment 2 mit RPE (Conditioning!)"
+            assert all(u["rir"] is None for u in b2["uebungen"]), "Segment 2 mit RIR (Conditioning!)"
             assert b2["typ"] != s["session_typ"], f"Segment 2 == Segment 1 ({b2['typ']})"
         _, kurz = _plan(dict(base, session_min=30))
         cshort = [s for s in kurz["wochen"][0]["sessions"] if s["session_typ"] in CONDITIONING]
@@ -743,7 +751,7 @@ def main():
         a = next(s for s in w1 if s["session_typ"] == "athletik")
         assert not a.get("cardio"), "Athletik-Tag hat Cardio (DQ4)"
         assert a["dauer_min_geschaetzt"] == 45, f"Athletik nicht auf Session-Dauer (getrimmt?): {a['dauer_min_geschaetzt']}"
-        assert a["haupt_uebungen"] and all(u["rpe"] is None for u in a["haupt_uebungen"]), "Athletik mit RPE (DQ3)"
+        assert a["haupt_uebungen"] and all(u["rir"] is None for u in a["haupt_uebungen"]), "Athletik mit RIR (DQ3)"
         for u in a["haupt_uebungen"]:                     # skill-Dosierung exakt (nicht getrimmt)
             sk = exb[u["exercise_id"]]["skill_level"]
             es, ew, _ = athletik_dosierung(sk, deload=False)

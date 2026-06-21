@@ -86,7 +86,7 @@ def main():
     print(f"Split:     {plan.klient_snapshot.split_typ}")
     print()
     for woche in plan.wochen:
-        print(f"  Woche {woche.woche_nummer} ({woche.block_typ.upper()}) — {woche.ziel_saetze} Sätze × RPE {woche.ziel_rpe}:")
+        print(f"  Woche {woche.woche_nummer} ({woche.block_typ.upper()}) — {woche.ziel_saetze} Sätze × RIR {woche.ziel_rir}:")
         for s in woche.sessions:
             cardio_str = f" + {s.cardio.typ.upper()} {s.cardio.dauer_min}min" if s.cardio else ""
             pst_str = " [PST RE-TEST]" if s.pst_tests else ""

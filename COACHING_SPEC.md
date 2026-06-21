@@ -144,8 +144,10 @@ zu füllen, wird einfach der **bestmögliche Plan mit den gegebenen Tagen und de
 
 ### Intensität & Frequenz
 
-- **RPE-basiert**, RPE-Spannen je Level, steigend über die Welle.
-- **Level 1:** zusätzlich Klartext-Hilfe zum RPE (z.B. „2–3 Wiederholungen in Reserve"). _Neu ggü. Code._
+- **RPE-basiert** (intern), RPE-Spannen je Level, steigend über die Welle.
+- **Ausgabe-Konvention (Naht B):** Intern rechnet die Logik in **RPE** (Welle, Level-Cap, Periodisierung);
+  im Plan/PDF wird **RIR = 10 − RPE** (Reps in Reserve) ausgegeben — die kundenseitige Hauptzahl, für alle
+  Level. **Zeit-Holds** (tempo „halten") tragen **kein** RIR; die Zeit ist die Dosis (Befund 7).
 - **Frequenz:** ≤3 Tage Ganzkörper; ab 4 Tagen Upper/Lower → jeder Muskel 2×/Woche.
 
 ### Zahlen
@@ -198,7 +200,8 @@ Sicherheitsnetz). Satz-Cap je Tier (max 4), weil 5–6 Arbeitssätze auf einer �
 Korridor als Obergrenze statt Fixwert: Volumen folgt der real verfügbaren Zeit (Tage × Dauer), gedeckelt
 durch das pro Level Erholbare. Fettabbau-Korridor steigt stärker mit Level, weil im Defizit mehr Volumen
 für den Muskelerhalt nötig ist (nicht weniger). RPE statt %1RM, weil kein Maxtest vorliegt (PST ist
-Bodyweight); Anfänger-RIR-Hilfe, weil L1 RPE schwer einschätzt. Kein Auto-Eingriff bei Zeitmangel: hält
+Bodyweight); kundenseitig als RIR ausgegeben (RIR = 10 − RPE, für alle Level einheitlich — die frühere
+separate L1-Texthilfe entfällt). Kein Auto-Eingriff bei Zeitmangel: hält
 das Modell ehrlich und vorhersehbar — der Coach steuert via internem Kapazitäts-Flag.
 
 ### Umsetzungs-Hinweise & offene Punkte (kein Code jetzt)
@@ -532,9 +535,9 @@ Wie „conditioning-tauglich" markiert ist (Hybrid, Details in SCHEMA.md):
   Lasthalten ist das definierende Merkmal; skill-1-Klienten fallen auf andere session-füllende
   Formate zurück. Verfügbarkeit ist **skill-gegated, nicht L4-exklusiv** (Tabelle: L2–L4). Details +
   Ketten s. **Komplexe**-Abschnitt oben.
-- **Conditioning trägt KEINE RPE.** Die Intensität ergibt sich aus **Format + Work:Rest + Dauer**. Die
-  RPE-Welle und `rpe_hinweis` (Thema 1/3) gelten ausschließlich für **Kraftsätze**, nie für
-  Metcon/Conditioning-Blöcke (in MVP-6 bereits so gebaut: `rpe_hinweis` nur nicht-metabolic).
+- **Conditioning trägt KEINE RPE/RIR.** Die Intensität ergibt sich aus **Format + Work:Rest + Dauer**. Die
+  RPE-Welle (Thema 1/3) gilt ausschließlich für **Kraftsätze**, nie für Metcon/Conditioning-Blöcke —
+  entsprechend tragen Conditioning-Sätze im Output **kein RIR** (`rir=None`).
 
 ### Recomp-Finisher
 

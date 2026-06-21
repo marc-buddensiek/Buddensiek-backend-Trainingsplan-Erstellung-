@@ -19,7 +19,7 @@ from models import (
 )
 from logic.volume_calculator import (
     berechne_volumen, ZEIT_PRO_SATZ_KRAFT,
-    FINISHER_MIN_RECOMP, tier_floor, rir_hinweis,
+    FINISHER_MIN_RECOMP, tier_floor,
 )
 from logic.conditioning_formats import (
     is_conditioning, is_block_format, conditioning_target_min, block_count, level_work_rest,
@@ -344,7 +344,7 @@ def _build_metcon_block(
             name=ex["name"],
             saetze=cfg.get("saetze", 1),
             wdh=_metabolic_wdh(metcon_typ, ex["pattern"], woche_typ),
-            rpe=None,   # Conditioning-Finisher trägt keine RPE (Spec Thema 6)
+            rir=None,   # Conditioning-Finisher trägt kein RIR (Spec Thema 6)
             tempo=_tempo(ex["pattern"], metcon_typ),
             pausenzeit_sek=cfg.get("pause", 0),
             coaching_cues=ex["coaching_cues"][:2],
@@ -384,7 +384,7 @@ def _build_conditioning_segment(fmt: str, seg_dauer: int, pool_sorted: list[dict
             ex = picks[i % len(picks)]
             out.append(HauptUebung(
                 reihenfolge=i + 1, exercise_id=ex["id"], name=ex["name"],
-                saetze=bp["saetze"], wdh=bp["wdh"], rpe=None,
+                saetze=bp["saetze"], wdh=bp["wdh"], rir=None,
                 tempo=_tempo(ex["pattern"], fmt), pausenzeit_sek=REST_BETWEEN_BLOCKS_SEK,
                 coaching_cues=ex["coaching_cues"][:3], notiz="",
             ))
@@ -394,7 +394,7 @@ def _build_conditioning_segment(fmt: str, seg_dauer: int, pool_sorted: list[dict
             out.append(HauptUebung(
                 reihenfolge=i + 1, exercise_id=ex["id"], name=ex["name"],
                 saetze=m_cfg.get("saetze", 3), wdh=_metabolic_wdh(fmt, ex["pattern"], woche_typ),
-                rpe=None, tempo=_tempo(ex["pattern"], fmt), pausenzeit_sek=m_cfg.get("pause", 0),
+                rir=None, tempo=_tempo(ex["pattern"], fmt), pausenzeit_sek=m_cfg.get("pause", 0),
                 coaching_cues=ex["coaching_cues"][:3], notiz="",
             ))
     return out
@@ -544,7 +544,7 @@ def assemble_plan(
                         a_saetze, a_wdh, a_pause = athletik_dosierung(ex["skill_level"], deload=ist_deload)
                         haupt_uebungen.append(HauptUebung(
                             reihenfolge=i + 1, exercise_id=ex["id"], name=ex["name"],
-                            saetze=a_saetze, wdh=f"{a_wdh} Wdh", rpe=None, tempo="explosiv",
+                            saetze=a_saetze, wdh=f"{a_wdh} Wdh", rir=None, tempo="explosiv",
                             pausenzeit_sek=a_pause, coaching_cues=ex["coaching_cues"][:3], notiz="",
                         ))
                     slot_tiers = ["compound"] * len(haupt_uebungen)
@@ -568,7 +568,7 @@ def assemble_plan(
                                 name=ex["name"],
                                 saetze=bp["saetze"],
                                 wdh=bp["wdh"],
-                                rpe=None,
+                                rir=None,
                                 tempo=_tempo(ex["pattern"], session_typ),
                                 pausenzeit_sek=REST_BETWEEN_BLOCKS_SEK,
                                 coaching_cues=ex["coaching_cues"][:3],
@@ -598,8 +598,10 @@ def assemble_plan(
                             u_rpe        = volumen.get(f"{slot_tier}_rpe", rpe)
                             u_pausenzeit = _pausenzeit(slot_tier, pattern)
 
-                        # L1-RIR-Hilfe: nur Kraftsätze (nicht-metabolic); rir_hinweis liefert für Level ≥ 2 None
-                        u_rpe_hinweis = None if is_metabolic else rir_hinweis(level, u_rpe)
+                        # RPE→RIR-Transform am Ausgang (intern bleibt RPE): RIR = 10 − RPE (0.5-Raster).
+                        # Zeit-Holds (tempo "halten") tragen kein RIR — die Zeitangabe ist die Dosis (Befund 7).
+                        u_tempo = _tempo(pattern, session_typ)
+                        u_rir   = None if (u_rpe is None or u_tempo == "halten") else round((10 - u_rpe) * 2) / 2
 
                         haupt_uebungen.append(
                             HauptUebung(
@@ -608,12 +610,11 @@ def assemble_plan(
                                 name=ex["name"],
                                 saetze=u_saetze,
                                 wdh=u_wdh,
-                                rpe=u_rpe,
-                                tempo=_tempo(pattern, session_typ),
+                                rir=u_rir,
+                                tempo=u_tempo,
                                 pausenzeit_sek=u_pausenzeit,
                                 coaching_cues=ex["coaching_cues"][:3],
                                 notiz=u.notiz,
-                                rpe_hinweis=u_rpe_hinweis,
                             )
                         )
                         slot_tiers.append(slot_tier)
@@ -690,7 +691,7 @@ def assemble_plan(
                 block_typ=woche_typ,
                 volumen_stufe=stufe,
                 ziel_saetze=saetze,
-                ziel_rpe=rpe,
+                ziel_rir=round((10 - rpe) * 2) / 2,
                 sessions=sessions,
             )
         )

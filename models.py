@@ -149,7 +149,7 @@ class KlientenInput(BaseModel):
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CLAUDE OUTPUT — minimales Schema was Claude zurückgeben MUSS
-# Python ergänzt danach sets/reps/rpe/coaching_cues aus exercises.json
+# Python ergänzt danach sets/reps/rir/coaching_cues aus exercises.json
 # ═══════════════════════════════════════════════════════════════════════════════
 
 class UebungAuswahl(BaseModel):
@@ -208,15 +208,11 @@ class HauptUebung(BaseModel):
     name: str
     saetze: int = Field(..., ge=1, le=15)
     wdh: str = Field(..., description="z.B. '8-10' oder '45sec' oder '20m'")
-    rpe: Optional[float] = Field(default=None, ge=1, le=10, description="float (0.5-Raster) für Kraftsätze; None für Conditioning/Metcon (trägt keine RPE, Thema 6)")
+    rir: Optional[float] = Field(default=None, ge=0, le=6, description="RIR (Reps in Reserve, 0.5-Raster) für Kraftsätze; None für Conditioning/Metcon und Zeit-Holds (Thema 6/Befund 7). Intern rechnet die Logik in RPE; RIR = 10 − RPE.")
     tempo: str = Field(..., description="z.B. '2-1-1-0' oder 'halten'")
     pausenzeit_sek: int = Field(..., ge=0, le=300)
     coaching_cues: list[str] = Field(..., min_length=1, max_length=5)
     notiz: str = Field(default="", max_length=300)
-    rpe_hinweis: Optional[str] = Field(
-        default=None, max_length=120,
-        description="RIR-Klartext für Level 1, z.B. '2-3 Wiederholungen in Reserve' (Spec Thema 3)"
-    )
 
 
 class Cardio(BaseModel):
@@ -278,7 +274,7 @@ class Woche(BaseModel):
     block_typ: Literal["akkumulation", "progression", "intensivierung", "deload"]
     volumen_stufe: Literal["sehr_niedrig", "niedrig", "mittel", "hoch"]
     ziel_saetze: int = Field(..., ge=1, le=20)
-    ziel_rpe: float = Field(..., ge=4, le=10)
+    ziel_rir: float = Field(..., ge=0, le=6)
     sessions: list[Session]
 
 

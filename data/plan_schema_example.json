@@ -1,8 +1,8 @@
 {
   "_kommentar_architektur": {
-    "claude_output": "Claude gibt NUR exercise_id + notiz pro Slot aus. Python berechnet Sätze/Wdh/RPE und fügt coaching_cues aus exercises.json hinzu.",
+    "claude_output": "Claude gibt NUR exercise_id + notiz pro Slot aus. Python berechnet Sätze/Wdh/RIR (= 10 − RPE) und fügt coaching_cues aus exercises.json hinzu.",
     "gespeichert_in": "Supabase Tabelle 'plans' als JSONB. Frontend rendert dieses vollständige Schema.",
-    "deload": "Woche 4 immer block_typ=deload, reduzierte Sätze/RPE + PST Re-Test am Ende.",
+    "deload": "Woche 4 immer block_typ=deload, reduzierte Sätze/RIR + PST Re-Test am Ende.",
     "cardio": "Optionales Feld pro Session. null wenn kein Cardio. Typ: liss | hiit | none."
   },
 
@@ -29,7 +29,7 @@
       "block_typ": "akkumulation",
       "volumen_stufe": "niedrig",
       "ziel_sätze": 3,
-      "ziel_rpe": 7,
+      "ziel_rir": 3,
       "sessions": [
 
         {
@@ -56,7 +56,7 @@
               "name": "Bench Press (Langhantel)",
               "sätze": 3,
               "wdh": "8-10",
-              "rpe": 7,
+              "rir": 3,
               "tempo": "2-1-1-0",
               "pausenzeit_sek": 120,
               "coaching_cues": [
@@ -72,7 +72,7 @@
               "name": "Incline Kurzhantel Press",
               "sätze": 3,
               "wdh": "10-12",
-              "rpe": 7,
+              "rir": 3,
               "tempo": "2-0-1-0",
               "pausenzeit_sek": 90,
               "coaching_cues": [
@@ -88,7 +88,7 @@
               "name": "Kurzhantel Schulterdrücken",
               "sätze": 3,
               "wdh": "10-12",
-              "rpe": 7,
+              "rir": 3,
               "tempo": "2-0-1-0",
               "pausenzeit_sek": 90,
               "coaching_cues": [
@@ -104,7 +104,7 @@
               "name": "Cable Seitheben",
               "sätze": 3,
               "wdh": "12-15",
-              "rpe": 6,
+              "rir": 4,
               "tempo": "2-0-1-1",
               "pausenzeit_sek": 60,
               "coaching_cues": [
@@ -120,7 +120,7 @@
               "name": "Face Pull (Kabel)",
               "sätze": 3,
               "wdh": "15",
-              "rpe": 6,
+              "rir": 4,
               "tempo": "2-1-1-0",
               "pausenzeit_sek": 60,
               "coaching_cues": [
@@ -168,7 +168,7 @@
               "name": "Back Squat",
               "sätze": 3,
               "wdh": "6-8",
-              "rpe": 7,
+              "rir": 3,
               "tempo": "3-0-1-0",
               "pausenzeit_sek": 150,
               "coaching_cues": [
@@ -184,7 +184,7 @@
               "name": "Bulgarian Split Squat (Kurzhantel)",
               "sätze": 3,
               "wdh": "10",
-              "rpe": 7,
+              "rir": 3,
               "tempo": "2-0-1-0",
               "pausenzeit_sek": 90,
               "coaching_cues": [
@@ -200,7 +200,7 @@
               "name": "Beinpresse (Maschine)",
               "sätze": 3,
               "wdh": "12-15",
-              "rpe": 6,
+              "rir": 4,
               "tempo": "2-0-1-0",
               "pausenzeit_sek": 90,
               "coaching_cues": [
@@ -216,7 +216,7 @@
               "name": "Dead Bug",
               "sätze": 3,
               "wdh": "8",
-              "rpe": 6,
+              "rir": 4,
               "tempo": "3-0-1-0",
               "pausenzeit_sek": 60,
               "coaching_cues": [
@@ -263,7 +263,7 @@
               "name": "Lat Pulldown",
               "sätze": 3,
               "wdh": "8-10",
-              "rpe": 7,
+              "rir": 3,
               "tempo": "2-1-1-0",
               "pausenzeit_sek": 120,
               "coaching_cues": [
@@ -279,7 +279,7 @@
               "name": "Kurzhantel Row",
               "sätze": 3,
               "wdh": "10-12",
-              "rpe": 7,
+              "rir": 3,
               "tempo": "2-0-1-1",
               "pausenzeit_sek": 90,
               "coaching_cues": [
@@ -295,7 +295,7 @@
               "name": "Seated Cable Row",
               "sätze": 3,
               "wdh": "12",
-              "rpe": 7,
+              "rir": 3,
               "tempo": "2-1-1-0",
               "pausenzeit_sek": 90,
               "coaching_cues": [
@@ -311,7 +311,7 @@
               "name": "Cuban Press",
               "sätze": 3,
               "wdh": "12",
-              "rpe": 5,
+              "rir": 5,
               "tempo": "2-1-2-0",
               "pausenzeit_sek": 60,
               "coaching_cues": [
@@ -363,7 +363,7 @@
               "name": "Trap Bar Deadlift",
               "sätze": 3,
               "wdh": "6-8",
-              "rpe": 7,
+              "rir": 3,
               "tempo": "2-0-1-0",
               "pausenzeit_sek": 150,
               "coaching_cues": [
@@ -379,7 +379,7 @@
               "name": "Hip Thrust (Langhantel)",
               "sätze": 3,
               "wdh": "10-12",
-              "rpe": 7,
+              "rir": 3,
               "tempo": "2-0-1-2",
               "pausenzeit_sek": 90,
               "coaching_cues": [
@@ -395,7 +395,7 @@
               "name": "Romanian Deadlift (Kurzhantel)",
               "sätze": 3,
               "wdh": "12",
-              "rpe": 7,
+              "rir": 3,
               "tempo": "3-0-1-0",
               "pausenzeit_sek": 90,
               "coaching_cues": [
@@ -411,7 +411,7 @@
               "name": "Plank",
               "sätze": 3,
               "wdh": "45sec",
-              "rpe": 6,
+              "rir": null,
               "tempo": "halten",
               "pausenzeit_sek": 60,
               "coaching_cues": [
@@ -443,8 +443,8 @@
       "block_typ": "progression",
       "volumen_stufe": "mittel",
       "ziel_sätze": 4,
-      "ziel_rpe": 8,
-      "_kommentar": "Gleiche Übungen wie Woche 1. Sätze: 3→4. RPE: 7→8. Gewicht erhöhen wenn Woche 1 RPE unter Ziel lag.",
+      "ziel_rir": 2,
+      "_kommentar": "Gleiche Übungen wie Woche 1. Sätze: 3→4. RIR: 3→2. Gewicht erhöhen wenn Woche 1 RIR über Ziel lag.",
       "sessions": [
         { "session_id": "w2_s1", "tag": "montag", "fokus": "oberkörper_push", "haupt_uebungen": "identisch_w1_s1_mit_erhöhtem_gewicht" },
         { "session_id": "w2_s2", "tag": "dienstag", "fokus": "unterkörper_squat", "haupt_uebungen": "identisch_w1_s2_mit_erhöhtem_gewicht" },
@@ -458,8 +458,8 @@
       "block_typ": "intensivierung",
       "volumen_stufe": "hoch",
       "ziel_sätze": 4,
-      "ziel_rpe": 9,
-      "_kommentar": "Gleiche Übungen. RPE: 8→9. Optional 1 Übung pro Session durch komplexere Variation ersetzen (progressions_up). Z.B. gym_trap_bar_deadlift → gym_conventional_deadlift.",
+      "ziel_rir": 1,
+      "_kommentar": "Gleiche Übungen. RIR: 2→1. Optional 1 Übung pro Session durch komplexere Variation ersetzen (progressions_up). Z.B. gym_trap_bar_deadlift → gym_conventional_deadlift.",
       "sessions": [
         { "session_id": "w3_s1", "tag": "montag", "fokus": "oberkörper_push" },
         { "session_id": "w3_s2", "tag": "dienstag", "fokus": "unterkörper_squat" },
@@ -473,7 +473,7 @@
       "block_typ": "deload",
       "volumen_stufe": "sehr_niedrig",
       "ziel_sätze": 2,
-      "ziel_rpe": 6,
+      "ziel_rir": 4,
       "_kommentar": "Deload: 50% Volumen, -20-30% Gewicht. Gleiche Übungen, gleiche Technik. Ende der Woche: PST Re-Test.",
       "sessions": [
 
@@ -490,7 +490,7 @@
               "name": "Bench Press (Langhantel)",
               "sätze": 2,
               "wdh": "8-10",
-              "rpe": 6,
+              "rir": 4,
               "tempo": "2-1-1-0",
               "pausenzeit_sek": 120,
               "coaching_cues": [
@@ -506,7 +506,7 @@
               "name": "Kurzhantel Schulterdrücken",
               "sätze": 2,
               "wdh": "10-12",
-              "rpe": 6,
+              "rir": 4,
               "tempo": "2-0-1-0",
               "pausenzeit_sek": 90,
               "coaching_cues": [
@@ -530,7 +530,7 @@
             {
               "reihenfolge": 1,
               "exercise_id": "gym_back_squat",
-              "sätze": 2, "wdh": "6-8", "rpe": 6,
+              "sätze": 2, "wdh": "6-8", "rir": 4,
               "tempo": "3-0-1-0", "pausenzeit_sek": 120,
               "coaching_cues": [
                 "Knie nach außen drücken",
@@ -555,7 +555,7 @@
             {
               "reihenfolge": 1,
               "exercise_id": "gym_lat_pulldown",
-              "sätze": 2, "wdh": "8-10", "rpe": 6,
+              "sätze": 2, "wdh": "8-10", "rir": 4,
               "tempo": "2-1-1-0", "pausenzeit_sek": 120,
               "coaching_cues": [
                 "Schulterblätter nach unten und zusammen vor dem Ziehen",
@@ -580,7 +580,7 @@
             {
               "reihenfolge": 1,
               "exercise_id": "gym_trap_bar_deadlift",
-              "sätze": 2, "wdh": "6-8", "rpe": 6,
+              "sätze": 2, "wdh": "6-8", "rir": 4,
               "tempo": "2-0-1-0", "pausenzeit_sek": 120,
               "coaching_cues": [
                 "Griffe auf mittlerer Höhe für mehr Quad-Aktivierung",
