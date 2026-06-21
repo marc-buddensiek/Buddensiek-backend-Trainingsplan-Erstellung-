@@ -246,6 +246,10 @@ das Modell ehrlich und vorhersehbar — der Coach steuert via internem Kapazitä
 | 5 | Upper/Lower + 1 Ganzkörper-Akzent-Tag |
 | 6 | Upper/Lower 3× wiederholt → jeder Muskel 3×/Woche (PPL entfällt) |
 
+→ **Kein angehängtes Cardio:** Muskelaufbau & Recomp sind reine Kraft (Recomp ggf. + Conditioning-
+Finisher, s. Thema 6). Ein LISS-/Cardio-Block wird NICHT angehängt — LISS/Cardio ist ausschließlich
+dem **Longevity**-Pfad zugeordnet (Zone-2).
+
 **Fettabbau** (Kraft + Conditioning — KEIN reines Conditioning mehr):
 | Tage | Struktur |
 |---|---|
@@ -254,6 +258,8 @@ das Modell ehrlich und vorhersehbar — der Coach steuert via internem Kapazitä
 | 5 | 4 Kraft + 1 Conditioning |
 | 6 | 4 Kraft + 2 Conditioning |
 → ⚠️ große Änderung ggü. Code (heute: Fettabbau = 100 % Conditioning).
+→ **Kein angehängtes Cardio:** Fettabbau ist **Kraft + Conditioning** — ein zusätzlicher LISS-/HIIT-
+Cardio-Block wird NICHT angehängt. LISS/Cardio ist ausschließlich dem **Longevity**-Pfad zugeordnet (Zone-2).
 
 **Longevity** (Kraft + Cardio + Athletik):
 | Tage | Struktur |

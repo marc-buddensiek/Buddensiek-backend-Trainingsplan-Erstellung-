@@ -255,26 +255,13 @@ def _cool_down(fokus: str) -> CoolDown:
 # ── Cardio je Session-Fokus + Ziel ───────────────────────────────────────────
 
 def _cardio(hauptziel: Hauptziel, fokus: str) -> Cardio | None:
-    ist_conditioning = any(w in fokus.lower() for w in ("conditioning", "hiit", "kondition"))
-    ist_zone2 = "zone" in fokus.lower()
-
-    if ist_conditioning:
-        return Cardio(
-            typ="hiit",
-            dauer_min=12,
-            beschreibung="4 Runden: 20 Sek. All-out / 40 Sek. Pause — Burpees, Kettlebell Swings oder Sprints",
-        )
-    if ist_zone2:
+    # hauptziel aktuell ungenutzt – Cardio nur noch Zone-2/Longevity (Spec Thema 4: Cardio
+    # ausschließlich Longevity-Pfad; fettabbau/recomp bekommen KEIN angehängtes Cardio).
+    if "zone" in fokus.lower():
         return Cardio(
             typ="liss",
             dauer_min=30,
             beschreibung="Zone 2 — Tempo halten bei dem du dich noch unterhalten könntest (ca. 120-135 bpm)",
-        )
-    if hauptziel in (Hauptziel.fettabbau, Hauptziel.recomp):
-        return Cardio(
-            typ="liss",
-            dauer_min=15,
-            beschreibung="10 Min ruhiges Gehen oder Bike als aktive Erholung nach der Session",
         )
     return None
 
