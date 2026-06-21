@@ -35,23 +35,38 @@ Verliererseite im selben oder nächsten Commit angeglichen — kein Konflikt ble
 
 Drei Wochen ansteigende Belastung, dann eine Deload-Woche:
 
-| Woche | Typ | Belastung (intensitätsgeführt — Volumen ~flach, RPE trägt die Welle) |
+| Woche | Typ | Belastung (intensitätsgeführt — Volumen folgt Modell A v2 [Thema 3], RPE trägt die Welle) |
 |---|---|---|
-| 1 | Akkumulation | niedrig (Einstieg) — RPE am unteren Spannen-Ende (`rpe_low`); Volumen auf Cap-Unterkante |
-| 2 | Progression | mittel — RPE in der Spannen-Mitte; Volumen unverändert |
-| 3 | Intensivierung | hoch (Peak) — RPE am oberen Spannen-Ende (`rpe_high`); Volumen +1 Satz (Intensiv-Spike) |
-| 4 | **Deload** | RPE auf `rpe_low − 1` (Floor 4); Volumen = Cap-Unterkante (~67–75 % des Peak-Volumens) |
+| 1 | Akkumulation | niedrig (Einstieg) — RPE = W1-Spalte der Ziel-Welle |
+| 2 | Progression | mittel — RPE = W2-Spalte |
+| 3 | Intensivierung | hoch (Peak) — RPE = W3-Spalte |
+| 4 | **Deload** | RPE = W4-Spalte der Ziel-Welle (Floor 4); Volumen-Deload nach Modell A v2 (Thema 3) |
+
+**Intensitäts-Welle (ziel-abhängig + level-gedeckelt) — RPE/Woche aus `_ZIEL_RPE_WELLE[ziel][woche]`:**
+
+| Ziel | W1 Akku | W2 Prog | W3 Int | W4 Deload |
+|---|---|---|---|---|
+| muskelaufbau | 7 | 8 | 9 | 6 |
+| recomp | 7 | 8 | 8 | 6 |
+| fettabbau | 7 | 7 | 8 | 6 |
+| longevity | 6 | 7 | 7 | 5 |
+
+Gedeckelt durch `_LEVEL_CAP` (Obergrenze je Level): L1 7 · L2 8 · L3 9 · L4 9. RPE-Floor 4.
+Tier-Offset: compound 0 · accessory −1 · isolation −2 · core 0 (Fallback auf `ziel_rpe`).
+Deload (W4) = W4-Spalte der Welle (nicht mehr aus einer Level-Spanne).
+
+**Ausgabe:** Intensität wird kundenseitig als **RIR (= 10 − RPE)** ausgegeben; intern rechnet die
+Logik in RPE. Ausgabe-Konvention: siehe Thema 3.
 
 **Entscheidungen im Detail:**
 
 - **Modell:** 3:1-Welle (wie bisher im Code). Begründung: einfach, vorhersehbar, gut im PDF
   kommunizierbar, eingebauter Erholungspuffer, funktioniert über alle Ziele.
-- **Level-Differenzierung:** **Keine.** Das Periodisierungs-Modell ist für **alle Level (1–4)
-  einheitlich**. (Level beeinflusst weiterhin Volumen/Intensität — das ist Thema 3 —, aber NICHT
-  die Wellen-Struktur selbst.)
-- **Deload:** **Fix in Woche 4** (jeder Block endet mit Deload). Realisierung unter Modell A:
-  Volumen = Tier-Cap-Unterkante (compound 3 von 4 = 75 %, accessory/iso/core 2 von 3 = 67 %
-  → **~67–75 % des Peak-Volumens**), RPE auf **`rpe_low − 1`** (Floor 4, eine Stufe unter der
+- **Level-Differenzierung:** über `_LEVEL_CAP` — deckelt die Welle nach oben (z.B. L1 nie über
+  RPE 7 → der muskelaufbau-W3-Peak 9 wird auf 7 gekappt). Die Wellen-*Form* (3:1) ist über alle
+  Level gleich, die *Höhe* deckelt der Level-Cap. (Level steuert zusätzlich Volumen/Intensität — Thema 3.)
+- **Deload:** **Fix in Woche 4** (jeder Block endet mit Deload). Realisierung: **Volumen-Deload nach
+  Modell A v2** (Thema 3), **RPE = W4-Spalte der Ziel-Welle** (Floor 4, eine Stufe unter der
   leichtesten Ladewoche).
   → **Konfliktregel-Anpassung (2026-06-13, Coach):** Die frühere Vorgabe „60 % des Volumens"
   (alter Code-Faktor `_PERIODISIERUNG_FAKTOR["deload"] = 0.50`) ist unter Modell A gegenstandslos —
@@ -59,16 +74,18 @@ Drei Wochen ansteigende Belastung, dann eine Deload-Woche:
   trägt jetzt das **Doppel aus Cap-Floor-Volumen + abgesenktem RPE** den Deload. Begründung: bewusst
   leichter Deload für gemischte, verletzungsbelastete Population; kein %1RM verfügbar (PST ist
   Bodyweight). **Ersetzt** die 0.60/0.50-Festlegung (toter Code-Faktor in MVP-6 Naht 2 entfernt).
+  (Stand 2026-06-13. Seit Modell A v2 [2026-06-21] trägt der Volumen-Deload die v2-Rampe statt der
+  Cap-Unterkante — siehe Thema 3. Begriff hier historisch.)
 - Gleiche Übungen über alle 4 Wochen, nur Sätze (Intensiv-Spike) / RPE verändern sich.
 
 **Begründung:** 3:1-Welle gewählt, weil sie über alle Ziele/Level robust ist, im PDF leicht erklärbar und
 einen Erholungspuffer (Deload) fest eingebaut hat. Verworfen: *linear* (kein Deload → höheres
 Übertrainings-Risiko bei häufiger Block-Wiederholung), *undulierend/DUP* (für gemischte Population &
 Einsteiger zu komplex, schwer im statischen PDF zu kommunizieren), *Block-Periodisierung* (bräuchte
-gekettete Blöcke — zu viel Overhead für V1). Einheitlich statt level-abhängig: hält Logik und Tests
-einfach; das Level steuert ohnehin Volumen/Intensität, nicht die Wellen-Struktur. Die früher als
-„60 % statt 50 %" diskutierte Deload-Tiefe ist unter Modell A in die Cap-Floor-Logik + RPE-Absenkung
-(`rpe_low − 1`) übergegangen — siehe Konfliktregel-Anpassung oben.
+gekettete Blöcke — zu viel Overhead für V1). Wellen-Form einheitlich, Höhe level-gedeckelt (`_LEVEL_CAP`):
+hält Logik und Tests einfach; das Level deckelt die Welle nach oben und steuert Volumen/Intensität. Die
+früher als „60 % statt 50 %" diskutierte Deload-Tiefe ist unter Modell A in die Volumen-Deload-Logik +
+RPE-Absenkung (W4-Spalte der Welle) übergegangen — siehe Konfliktregel-Anpassung oben.
 
 **Noch offen / abhängig von späteren Themen:**
 - Exakte Volumen-/RPE-Faktoren der Wochen 1–3 → gehört zu **Thema 3 (Volumen & Intensität)**.
@@ -173,7 +190,8 @@ _Logik Fettabbau:_ im Kaloriendefizit braucht ein höher trainierter Klient **me
 Muskelerhalt, nicht weniger — daher steigt der Korridor mit dem Level stärker an als zuvor.
 _Recomp = wie Muskelaufbau:_ bei Erhaltungskalorien / leichtem Überschuss ist volles Volumen möglich.
 
-**RPE-Spannen je Level (steigen über die Welle):** L1 = 6–7 · L2 = 7–8 · L3 = 7–9 · L4 = 7–9.
+**Level-Deckel (`_LEVEL_CAP`, Obergrenze je Level):** L1 = 7 · L2 = 8 · L3 = 9 · L4 = 9.
+Die früheren festen Level-Spannen entfielen mit der ziel-abhängigen Welle (Thema 1).
 Tier-Abstufung: accessory = compound − 1, isolation = compound − 2 (min. 4).
 
 **Session-Kapazität — Zeit-Parameter (Modell-A-Eingaben):**
@@ -359,37 +377,14 @@ Ganzkörper-Akzent-Tag statt Mobility-Tag bei 5 Tagen, weil Mobility ein eigenes
 
 ---
 
-## 5. Recovery-Anpassung — ✅ entschieden (2026-06-04)
+## 5. Recovery — informativ, kein Trainings-Effekt (entschieden 2026-06-04, entkoppelt 2026-06-21)
 
-**Nur die RPE wird angepasst — das Volumen (Sätze) bleibt in allen Fällen unverändert.** Keine
-Steigerung über den Level-Korridor hinaus. Eingaben: `stress_level` (1–10), `schlaf_stunden` (4–10).
-Die RPE wird relativ zur RPE-Spanne des Klienten-Levels gesetzt:
+**Recovery (Stress/Schlaf) wirkt NICHT auf Trainingsparameter** (entkoppelt 2026-06-21, Naht A).
+`stress_level` und `schlaf_stunden` werden rein **informativ** geführt (`recovery_modifier` im
+Klient-Snapshot) und steuern weder RPE noch Volumen.
 
-| Recovery-Lage | Bedingung | RPE-Ziel |
-|---|---|---|
-| Sehr hohe Belastung | Stress ≥ 9 **oder** Schlaf ≤ 4 h | unteres Ende der Spanne **− 1** |
-| Hohe Belastung | Stress ≥ 8 **oder** Schlaf ≤ 5 h | unteres Ende der Spanne |
-| Gute Recovery | Stress < 5 **und** Schlaf ≥ 7 h | oberes Ende der Spanne |
-| Normal/moderat | sonst (z.B. Stress 6–7, Schlaf 6 h) | normale Spanne, keine Anpassung |
-
-Auswertung in dieser Reihenfolge (schlechtester zutreffender Fall gewinnt): sehr hoch → hoch → gut → normal.
-
-_Beispiel (Level 2, RPE-Spanne 7–8):_ gute Recovery → bis 8 · hohe Belastung → max 7 · sehr hohe → max 6.
-
-**Untergrenze:** RPE fällt nie unter **4** (Plan-Minimum).
-
-**Umsetzungs-Detail (beim Coden klären) — Zusammenspiel mit der 3:1-Welle:** Bisher steigt die RPE über
-die Welle (Akkumulation → Intensivierung). Vorschlag zur Auflösung: Die Welle bestimmt die Basis-RPE;
-die Recovery-Regel wirkt als **Deckel nach oben** (schlechte Recovery) bzw. **Freigabe bis oberes Ende**
-(gute Recovery). In der Deload-Woche greift ohnehin der RPE-Floor (Thema 1).
-
-**Begründung:** Nur RPE anpassen, Volumen unangetastet, weil zwei gleichzeitige Stellschrauben (Volumen
-UND RPE) sich überlagern und schwer nachvollziehbar machen — die RPE ist der direktere Hebel für die
-Tagesform. Verworfen: Volumen senken (kollidiert mit Modell A und der Block-Progression über Logs),
-beides gleichzeitig (zu aggressiv/intransparent). Nur abwärts, keine Steigerung über den Korridor: gute
-Recovery nutzt das obere Ende der bestehenden Spanne, geht aber nie über das Level-Erholbare hinaus.
-Zweistufige Schwelle, weil Stress 9 / Schlaf ≤ 4 h eine deutlich stärkere Entlastung rechtfertigt als
-Stress 8 / Schlaf 5 h. RPE-Floor 4, damit das Training ein Reiz bleibt.
+**Begründung:** Ein einmaliger Intake-Wert ist ein zu schwaches Signal für die Block-Intensität;
+echte Autoregulation braucht wiederkehrendes Feedback (Check-ins) → BACKLOG (Autoregulations-Feature).
 
 ---
 

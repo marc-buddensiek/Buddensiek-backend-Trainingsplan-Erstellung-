@@ -87,23 +87,27 @@ Typeform-Webhook
 **Slot-Tiers:** compound > accessory > isolation > core
 - Pausenzeit: compound 180s, accessory 90s, isolation 60s, core 45s
 
-**Periodisierung (3:1-Welle, intensitätsgeführt):** Sätze bleiben über W1–W3 ~flach auf der
-Tier-Cap-Unterkante (nur Intensivierung +1 Satz); die Progression läuft über die **RPE**, nicht
-das Volumen. Die RPE-Welle ankert in der Level-Spanne `rpe_low`–`rpe_high`:
+**Periodisierung (3:1-Welle, intensitätsgeführt):** Volumen folgt Modell A v2 (Sätze ~flach + Mike-Rampe);
+die Progression läuft über die **RPE**. Die RPE-Welle ist **ziel-abhängig** (`_ZIEL_RPE_WELLE[ziel][woche]`)
+und **level-gedeckelt** (`_LEVEL_CAP`):
 
-| Woche | Typ | RPE |
-|---|---|---|
-| 1 | akkumulation | `rpe_low` (Einstieg) |
-| 2 | progression | Mitte `(rpe_low+rpe_high)/2` |
-| 3 | intensivierung | `rpe_high` (Peak) |
-| 4 | deload | `rpe_low − 1` (Floor 4); Volumen = Cap-Unterkante (~67–75 % des Peaks) |
+| Ziel | W1 | W2 | W3 | W4 Deload |
+|---|---|---|---|---|
+| muskelaufbau | 7 | 8 | 9 | 6 |
+| recomp | 7 | 8 | 8 | 6 |
+| fettabbau | 7 | 7 | 8 | 6 |
+| longevity | 6 | 7 | 7 | 5 |
+
+`_LEVEL_CAP` (Obergrenze je Level): L1 7 · L2 8 · L3 9 · L4 9; Floor 4. Tier-Offset: compound 0 ·
+accessory −1 · isolation −2 · core 0. Deload (W4) = W4-Spalte der Welle. Kundenseitig wird
+**RIR = 10 − RPE** ausgegeben (intern RPE); Zeit-Holds tragen kein RIR. Konvention: COACHING_SPEC Thema 3.
 
 **Ziel → Session-Format:**
 - `muskelaufbau` / `ausdauer` / `gesundheit` — klassisch Sätze × Wdh
 - `recomp` — Kraft-Block (Sätze × Wdh) + MetconBlock-Finisher (AMRAP/EMOM)
 - `fettabbau` — nur Conditioning: intervalle / amrap / zirkel / emom (rotierend)
 
-**Recovery-Modifier (nur RPE, NIE Volumen — schlechtester Fall gewinnt):** Stress ≥9 oder Schlaf ≤4h → RPE-Basis gedeckelt auf `rpe_low − 1` · Stress ≥8 oder Schlaf ≤5h → auf `rpe_low` · Stress <5 und Schlaf ≥7h → frei bis `rpe_high`. RPE-Boden 4. Deload ignoriert Recovery.
+**Recovery (Stress/Schlaf):** wirkt NICHT auf Trainingsparameter — `stress_level`/`schlaf_stunden` sind rein informativ (`recovery_modifier` im Snapshot), steuern weder RPE noch Volumen (entkoppelt 2026-06-21; Autoregulation → BACKLOG).
 
 **Verletzungen:** exercises.json `avoid_if_injury` und `substitutions_b` steuern Ausschluss und Ersatz.
 
