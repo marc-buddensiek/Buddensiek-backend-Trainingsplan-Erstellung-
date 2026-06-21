@@ -5806,7 +5806,8 @@
       "progressions_down": [],
       "pattern_tags": [],
       "joint_stress": [
-        "ankle"
+        "ankle",
+        "knee"
       ],
       "impact_level": "medium",
       "equipment_requires": [],
@@ -5836,7 +5837,10 @@
       "progressions_up": [],
       "progressions_down": [],
       "pattern_tags": [],
-      "joint_stress": [],
+      "joint_stress": [
+        "knee",
+        "ankle"
+      ],
       "impact_level": "low",
       "equipment_requires": [],
       "conditioning_friendly": false
@@ -5865,7 +5869,10 @@
       "progressions_up": [],
       "progressions_down": [],
       "pattern_tags": [],
-      "joint_stress": [],
+      "joint_stress": [
+        "knee",
+        "ankle"
+      ],
       "impact_level": "low",
       "equipment_requires": [],
       "conditioning_friendly": false
