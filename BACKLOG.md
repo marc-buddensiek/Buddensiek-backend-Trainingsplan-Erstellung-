@@ -190,12 +190,10 @@ _Aus dem echten 12-Case-Output-Review (test_runs/2026-06-19_run3/REVIEW.md). Kra
 (Claude) durchweg gut; offene Punkte fast alle in der deterministischen Python-Logik._
 
 **ERLEDIGT:** Befund 1 Knie — Conditioning joint_stress-Tagging (`08923b2`) · Cardio-Spec-Alignment,
-LISS-15/HIIT-12 raus (`ae0fe0b`) · Befund 2 Dauer/Display — proportionales Warm-up + kosmetische Anzeige (`fd7d3e5`).
+LISS-15/HIIT-12 raus (`ae0fe0b`) · Befund 2 Dauer/Display — proportionales Warm-up + kosmetische Anzeige (`fd7d3e5`) ·
+Befund 3 Volumen-Korridore + Mike-Rampe (Modell A v2, `04e43ca`).
 
 **MITTEL:**
-- **Befund 3 — Volumen ziel-/dauerblind** (identische `ziel_saetze` für L4-Hyper wie Longevity;
-  Zeitbudget bei 60 min ungenutzt; seit Befund-2-Display-Fix als Δ=−20 Anzeige↔real sichtbar).
-  Cases 6/9/11. _Braucht Coaching-Entscheid:_ Volumen-Korridore pro Ziel × Level.
 - **Befund 4 — RPE 9 ab Woche 1**, keine Aufbau-Welle (nur Deload-Abfall). Cases 6/5/3/11.
   _Braucht Coaching-Entscheid:_ RPE-Wellen-Schema pro Block.
 
