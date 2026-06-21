@@ -190,19 +190,12 @@ _Aus dem echten 12-Case-Output-Review (test_runs/2026-06-19_run3/REVIEW.md). Kra
 (Claude) durchweg gut; offene Punkte fast alle in der deterministischen Python-Logik._
 
 **ERLEDIGT:** Befund 1 Knie — Conditioning joint_stress-Tagging (`08923b2`) · Cardio-Spec-Alignment,
-LISS-15/HIIT-12 raus (`ae0fe0b`).
+LISS-15/HIIT-12 raus (`ae0fe0b`) · Befund 2 Dauer/Display — proportionales Warm-up + kosmetische Anzeige (`fd7d3e5`).
 
 **MITTEL:**
-- **Befund 2 — Dauer-Overshoot / Display.** Governing: Zeit = weiches Ziel (±5 min Rauschen,
-  vollständiges Workout hat Vorrang). Fix zweiteilig: (a) **Display** — kundenseitige
-  `dauer_min_geschaetzt` = angefragte `session_dauer_min` (rein kosmetisch, keine Warnung;
-  interne Schätzung bleibt als Trim-Ziel erhalten, wird NICHT gelöscht). (b) **Warm-up
-  proportional** ≈ Session/6, gedeckelt 5–10 (30→5, 60→10); Schätzer-Pauschale (10) und
-  Template-Wert (7–8) angleichen. Finisher-Pauschale/Kraft-Floor nicht angefasst (Toleranz
-  deckt's ab). **Nächste Naht.**
 - **Befund 3 — Volumen ziel-/dauerblind** (identische `ziel_saetze` für L4-Hyper wie Longevity;
-  Zeitbudget bei 60 min ungenutzt). Cases 6/9/11. _Braucht Coaching-Entscheid:_ Volumen-Korridore
-  pro Ziel × Level.
+  Zeitbudget bei 60 min ungenutzt; seit Befund-2-Display-Fix als Δ=−20 Anzeige↔real sichtbar).
+  Cases 6/9/11. _Braucht Coaching-Entscheid:_ Volumen-Korridore pro Ziel × Level.
 - **Befund 4 — RPE 9 ab Woche 1**, keine Aufbau-Welle (nur Deload-Abfall). Cases 6/5/3/11.
   _Braucht Coaching-Entscheid:_ RPE-Wellen-Schema pro Block.
 
