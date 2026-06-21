@@ -1,10 +1,11 @@
 """
 Level + Ziel + Wochen-Typ + Recovery → per-Tier Sätze + RPE
 
-Volumen = Modell A (Session-Kapazität), intensitätsgeführt → Sätze ~flach:
-  Tier-Satz-Caps (harte Obergrenze 4): compound 3-4, accessory/isolation/core 2-3.
-  Sätze bleiben über W1–W3 auf/nahe Cap-Unterkante (nur Intensivierung +1);
-  Deload = Cap-Unterkante. Die Progression läuft über die RPE, NICHT das Volumen.
+Volumen = Modell A v2 (Befund 3) — additive Satz-Regel pro Slot, ziel- + level- + wochen-abhängig:
+  saetze = clamp(BASIS[ziel][tier] + LEVEL_OFFSET[level] (nur acc/iso) + RAMPE[ziel][woche],
+                 BODEN[tier], DECKE[ziel][tier]).
+  Mike-Rampe: muskelaufbau/recomp steigern über W1→W3 und deloaden in W4 über das Volumen;
+  fettabbau/longevity bleiben flach (Deload dort nur über die RPE). RPE-Welle separat (s.u.).
 
 Session-Budget (Kraft): (Dauer − Warmup 10 − Finisher) ÷ 2 Min/Satz;
   Finisher = 8 Min bei Recomp, sonst 0. Conditioning läuft separat über _METABOLIC_CONFIG.
@@ -28,20 +29,29 @@ from models import KlientenInput, Hauptziel
 
 WocheTyp = Literal["akkumulation", "progression", "intensivierung", "deload"]
 
-# Volumen-Ramp (nur _tier_saetze; die RPE-Welle ankert separat in _wave_rpe).
-# Deload nutzt die Cap-Unterkante direkt → kein deload-Eintrag (Prozent-Faktor war tot).
-_PERIODISIERUNG_FAKTOR: dict[str, float] = {
-    "akkumulation":   0.70,
-    "progression":    0.85,
-    "intensivierung": 1.00,
+# Volumen-Korridore (Modell A v2, Befund 3): additive Satz-Regel pro Slot —
+# saetze = clamp(BASIS[ziel][tier] + LEVEL_OFFSET[level](nur acc/iso) + RAMPE[ziel][woche], BODEN, DECKE)
+_BASIS: dict[str, dict[str, int]] = {
+    "muskelaufbau": {"compound": 3, "accessory": 3, "isolation": 3, "core": 2},
+    "fettabbau":    {"compound": 3, "accessory": 2, "isolation": 2, "core": 2},
+    "recomp":       {"compound": 3, "accessory": 3, "isolation": 2, "core": 2},
+    "longevity":    {"compound": 2, "accessory": 2, "isolation": 2, "core": 2},
 }
+_LEVEL_OFFSET: dict[int, int] = {1: -1, 2: 0, 3: 0, 4: 1}   # nur accessory + isolation
+_RAMPE: dict[str, list[int]] = {   # W1 Akku · W2 Prog · W3 Int · W4 Deload
+    "muskelaufbau": [0, 1, 2, -2],
+    "recomp":       [0, 0, 1, -1],
+    "fettabbau":    [0, 0, 0, 0],
+    "longevity":    [0, 0, 0, 0],
+}
+_BODEN: dict[str, int] = {"compound": 2, "accessory": 2, "isolation": 2, "core": 1}
+_WOCHE_IDX = {"akkumulation": 0, "progression": 1, "intensivierung": 2, "deload": 3}
 
-_TIER_CAP: dict[str, tuple[int, int]] = {   # Satz-Cap je Tier, harte Obergrenze 4
-    "compound":  (3, 4),
-    "accessory": (2, 3),
-    "isolation": (2, 3),
-    "core":      (2, 3),
-}
+
+def _decke(ziel: str, tier: str) -> int:
+    if tier == "compound": return 4
+    if tier == "core":     return 3
+    return 5 if ziel == "muskelaufbau" else 4   # accessory/isolation
 
 # Kapazitäts-Konstanten (Spec Thema 3, Zeit-Parameter) — Single Source of Truth,
 # auch von plan_assembler konsumiert (Naht 2).
@@ -55,7 +65,7 @@ def finisher_min(ziel: Hauptziel) -> int:
 
 
 def tier_floor(tier: str) -> int:
-    return _TIER_CAP[tier][0]   # Cap-Unterkante je Tier — Trim-Floor in Naht 2b
+    return _BODEN[tier]   # Korridor-Boden je Tier — Trim-Floor (Modell A v2)
 
 _RPE_RANGES: dict[int, tuple[int, int]] = {
     1: (6, 7),
@@ -112,13 +122,12 @@ def _wave_rpe(woche_typ: WocheTyp, rpe_low: int, rpe_high: int) -> float:
     return float(rpe_high)   # intensivierung
 
 
-def _tier_saetze(tier: str, woche_typ: WocheTyp) -> int:
-    # Welle rampt in der Cap-Range; Deload = Cap-Unterkante (kein Prozent-Faktor)
-    cap_low, cap_high = _TIER_CAP[tier]
-    if woche_typ == "deload":
-        return cap_low
-    periodo = _PERIODISIERUNG_FAKTOR[woche_typ]
-    return min(cap_high, int(cap_low + (cap_high - cap_low) * periodo))
+def _tier_saetze(ziel: str, level: int, tier: str, woche_typ: WocheTyp) -> int:
+    # additive Korridor-Regel: Basis(ziel) + Level-Offset(nur acc/iso) + Rampe(ziel,woche),
+    # geklemmt in [Boden, Decke]. Mike-Rampe steigert muskel/recomp, deloadet via −Rampe.
+    offset = _LEVEL_OFFSET[level] if tier in ("accessory", "isolation") else 0
+    rampe  = _RAMPE[ziel][_WOCHE_IDX[woche_typ]]
+    return max(_BODEN[tier], min(_decke(ziel, tier), _BASIS[ziel][tier] + offset + rampe))
 
 
 def berechne_volumen(
@@ -137,11 +146,12 @@ def berechne_volumen(
     rpe_low, rpe_high = _RPE_RANGES[level]
     lage = _recovery_lage(klient)
 
-    # ── Volumen: Modell A — Sätze aus Tier-Caps, intensitätsgeführt (~flach) ──
-    compound_saetze  = _tier_saetze("compound", woche_typ)
-    accessory_saetze = _tier_saetze("accessory", woche_typ)
-    isolation_saetze = _tier_saetze("isolation", woche_typ)
-    core_saetze      = _tier_saetze("core", woche_typ)
+    # ── Volumen: Modell A v2 — additive Korridor-Regel (ziel × level × woche), Befund 3 ──
+    ziel = klient.hauptziel.value
+    compound_saetze  = _tier_saetze(ziel, level, "compound", woche_typ)
+    accessory_saetze = _tier_saetze(ziel, level, "accessory", woche_typ)
+    isolation_saetze = _tier_saetze(ziel, level, "isolation", woche_typ)
+    core_saetze      = _tier_saetze(ziel, level, "core", woche_typ)
 
     # ── RPE: Welle ankert unten → rampt auf rpe_high; Recovery deckelt (Thema 1/5) ──
     if woche_typ == "deload":

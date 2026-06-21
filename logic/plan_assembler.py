@@ -433,7 +433,8 @@ def _trim_auf_dauer(uebungen: list, tiers: list, wunschdauer: int,
             return haupt_comp                               # Haupt-Compound zuletzt
         return None
 
-    while _schaetze_dauer(uebungen, zeit_pro_satz, wunschdauer, finisher_min_val, cardio_min) > wunschdauer:
+    # Trim-Puffer (Befund 3): erst kürzen bei > Budget + 5 min — schützt die Muskelaufbau-W3-Rampe.
+    while _schaetze_dauer(uebungen, zeit_pro_satz, wunschdauer, finisher_min_val, cardio_min) > wunschdauer + 5:
         i = _kandidat()
         if i is None:
             # TODO(short-session-pattern-drop): V1 entfernt kein Pflicht-Pattern. An der

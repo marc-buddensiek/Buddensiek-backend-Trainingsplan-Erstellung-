@@ -220,6 +220,36 @@ das Modell ehrlich und vorhersehbar — der Coach steuert via internem Kapazitä
 - Longevity-Volumen: hängt vom Session-Format ab → final erst mit **Thema 4/6**.
   (Ziel-Set wurde in Thema 4 geändert: Ausdauer & Gesundheit → **Longevity**.)
 
+### Volumen-Korridore (Modell A v2, 2026-06-21) — Befund 3
+
+Additive Satz-Regel **pro Slot** (ersetzt die alte flache Tier-Cap-Mechanik):
+
+> `saetze = clamp( BASIS[ziel][tier] + LEVEL_OFFSET[level] (nur accessory/isolation) + RAMPE[ziel][woche], BODEN[tier], DECKE[ziel][tier] )`
+
+**Basis (W1-Start) je Ziel × Tier:**
+| Ziel | compound | accessory | isolation | core |
+|---|---|---|---|---|
+| muskelaufbau | 3 | 3 | 3 | 2 |
+| fettabbau | 3 | 2 | 2 | 2 |
+| recomp | 3 | 3 | 2 | 2 |
+| longevity | 2 | 2 | 2 | 2 |
+
+**Level-Offset** (nur accessory + isolation; compound & core = 0): L1 −1 · L2 0 · L3 0 · L4 +1.
+
+**Rampe** (W1 Akku · W2 Prog · W3 Int · W4 Deload): muskelaufbau `[0, +1, +2, −2]` · recomp `[0, 0, +1, −1]` · fettabbau `[0, 0, 0, 0]` · longevity `[0, 0, 0, 0]`.
+
+**Decke:** compound 4 (alle) · accessory/isolation **5 nur muskelaufbau**, sonst 4 · core 3 (alle).
+**Boden:** compound/accessory/isolation 2 · core 1.
+
+**Deload (W4):** muskelaufbau (−2) und recomp (−1) senken zusätzlich das **Volumen** (Mike-Deload);
+**fettabbau/longevity bleiben volumenflach** → Deload dort allein über die **RPE-Absenkung** (Thema 1/5).
+
+**Trim-Kopplung (Befund 2):** Der Dauer-Trim kürzt Sätze erst bei Überschreitung **> Budget + 5 min**
+(Puffer), damit die W3-Rampe nicht weggetrimmt wird.
+
+Betrifft **nur die Satzzahl**. Wdh (`_WDH_MAP`) und Realism-Schwellen tragen weiter
+`TODO(longevity-volume)` (eigene Achse, hier nicht final).
+
 ---
 
 ## 4. Split-Logik je Ziel — ✅ entschieden (2026-06-04)
