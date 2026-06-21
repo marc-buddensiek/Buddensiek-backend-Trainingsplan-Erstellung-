@@ -18,7 +18,7 @@ from models import (
     WarmUp, WarmUpUebung, HauptUebung, Cardio, CoolDown, CoolDownUebung, PSTTest,
 )
 from logic.volume_calculator import (
-    berechne_volumen, WARMUP_MIN, ZEIT_PRO_SATZ_KRAFT,
+    berechne_volumen, ZEIT_PRO_SATZ_KRAFT,
     FINISHER_MIN_RECOMP, tier_floor, rir_hinweis,
 )
 from logic.conditioning_formats import (
@@ -157,11 +157,18 @@ def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str, level: int,
 
 # ── Warm-Up je Equipment ──────────────────────────────────────────────────────
 
-def _warm_up(equipment: Equipment, fokus: str) -> WarmUp:
+def _warmup_dauer(session_dauer_min: int) -> int:
+    """Warm-up-Dauer proportional zur Session (≈ Session/6, gedeckelt 5–10): 20→5 · 30→5 ·
+    45→8 · 60→10. Gemeinsame Quelle für _warm_up (gerendert) UND _schaetze_dauer (intern)."""
+    return max(5, min(10, round(session_dauer_min / 6)))
+
+
+def _warm_up(equipment: Equipment, fokus: str, session_dauer_min: int) -> WarmUp:
+    wu = _warmup_dauer(session_dauer_min)   # proportional, ersetzt die früheren Protokoll-Fixwerte
     if equipment == Equipment.kettlebell:
         return WarmUp(
             protokoll="kettlebell",
-            dauer_min=8,
+            dauer_min=wu,
             uebungen=[
                 WarmUpUebung(name="Halo", saetze=2, wdh=8),
                 WarmUpUebung(name="Goblet Squat (leicht)", saetze=2, wdh=10),
@@ -172,7 +179,7 @@ def _warm_up(equipment: Equipment, fokus: str) -> WarmUp:
     elif equipment in (Equipment.bodyweight, Equipment.travel):
         return WarmUp(
             protokoll="calisthenics",
-            dauer_min=5,
+            dauer_min=wu,
             uebungen=[
                 WarmUpUebung(name="Squat-to-Stand", saetze=2, wdh=8),
                 WarmUpUebung(name="World's Greatest Stretch", dauer_sek=30, seiten=2),
@@ -183,7 +190,7 @@ def _warm_up(equipment: Equipment, fokus: str) -> WarmUp:
     elif equipment == Equipment.hybrid:
         return WarmUp(
             protokoll="kettlebell",
-            dauer_min=7,
+            dauer_min=wu,
             uebungen=[
                 WarmUpUebung(name="Halo", saetze=2, wdh=6),
                 WarmUpUebung(name="Goblet Squat (leicht)", saetze=2, wdh=8),
@@ -196,7 +203,7 @@ def _warm_up(equipment: Equipment, fokus: str) -> WarmUp:
         if ist_upper:
             return WarmUp(
                 protokoll="kraft",
-                dauer_min=8,
+                dauer_min=wu,
                 uebungen=[
                     WarmUpUebung(name="Band Pull-Apart", saetze=2, wdh=15),
                     WarmUpUebung(name="Scapula Push-Up", saetze=2, wdh=10),
@@ -207,7 +214,7 @@ def _warm_up(equipment: Equipment, fokus: str) -> WarmUp:
         else:
             return WarmUp(
                 protokoll="kraft",
-                dauer_min=8,
+                dauer_min=wu,
                 uebungen=[
                     WarmUpUebung(name="Hip Circle", dauer_sek=20, seiten=2),
                     WarmUpUebung(name="Glute Bridge (Aktivierung)", saetze=2, wdh=15),
@@ -397,11 +404,12 @@ def _build_conditioning_segment(fmt: str, seg_dauer: int, pool_sorted: list[dict
 # Konstanten/Helper aus volume_calculator (Single Source of Truth: Modell-A-Zeitparameter).
 # Cooldown ist in die Warmup-Pauschale gefaltet; Cardio additiv (Block bleibt sichtbar).
 
-def _schaetze_dauer(haupt_uebungen: list, zeit_pro_satz: float, finisher_min_val: int = 0, cardio_min: int = 0) -> int:
+def _schaetze_dauer(haupt_uebungen: list, zeit_pro_satz: float, session_dauer_min: int,
+                    finisher_min_val: int = 0, cardio_min: int = 0) -> int:
     # finisher_min_val = interne Finisher-Minuten gemischter Tage (C3) — fließt NUR in die
     # Dauer-Rechnung; der Finisher hat KEINE eigene Tagesdauer (MetconBlock ohne dauer-Feld).
     sets_total = sum(u.saetze for u in haupt_uebungen)
-    total = WARMUP_MIN + sets_total * zeit_pro_satz + finisher_min_val + cardio_min
+    total = _warmup_dauer(session_dauer_min) + sets_total * zeit_pro_satz + finisher_min_val + cardio_min
     return min(120, max(20, round(total / 5) * 5))
 
 
@@ -425,7 +433,7 @@ def _trim_auf_dauer(uebungen: list, tiers: list, wunschdauer: int,
             return haupt_comp                               # Haupt-Compound zuletzt
         return None
 
-    while _schaetze_dauer(uebungen, zeit_pro_satz, finisher_min_val, cardio_min) > wunschdauer:
+    while _schaetze_dauer(uebungen, zeit_pro_satz, wunschdauer, finisher_min_val, cardio_min) > wunschdauer:
         i = _kandidat()
         if i is None:
             # TODO(short-session-pattern-drop): V1 entfernt kein Pflicht-Pattern. An der
@@ -609,7 +617,7 @@ def assemble_plan(
                         )
                         slot_tiers.append(slot_tier)
 
-            warm_up    = _warm_up(klient.equipment, fokus)
+            warm_up    = _warm_up(klient.equipment, fokus, klient.session_dauer_min)
             is_athletik = build_athletik and not ath_fallback_zone2
             # Naht 5-2/5-3: echter Athletik-Tag trägt KEIN Cardio (DQ4); im Leer-Pool-Fallback wird der
             # Tag zum Zone-2-Cardio-Tag (DQ6); sonst Cardio je Fokus/Ziel (unverändert).
@@ -653,10 +661,9 @@ def assemble_plan(
             if not is_metabolic and not is_athletik and haupt_uebungen:   # Dauer gewinnt: Kraft trimmen
                 _trim_auf_dauer(haupt_uebungen, slot_tiers, klient.session_dauer_min,
                                 zeit_pro_satz, finisher_dauer, cardio_min)
-            if is_metabolic or is_athletik:   # Conditioning-/Athletik-Tage füllen die gewählte Session-Dauer
-                dauer = min(120, max(20, klient.session_dauer_min))   # (keine Level-Deckelung)
-            else:
-                dauer = _schaetze_dauer(haupt_uebungen, zeit_pro_satz, finisher_dauer, cardio_min)
+            # Display kosmetisch (Befund 2): ALLE Tage zeigen die angefragte Session-Dauer.
+            # Die interne Schätzung dient nur dem Trim (in _trim_auf_dauer), nicht der Anzeige.
+            dauer = min(120, max(20, klient.session_dauer_min))
 
             sessions.append(
                 Session(
