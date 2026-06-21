@@ -20,7 +20,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
 
 from parsers import parse_typeform_payload
 from logic.level_calculator import berechne_level
-from logic.volume_calculator import berechne_volumen, tier_floor, _RPE_RANGES
+from logic.volume_calculator import berechne_volumen, tier_floor, _ZIEL_RPE_WELLE, _LEVEL_CAP, _WOCHE_IDX
 from logic.split_selector import waehle_split
 from logic.equipment_filter import filtere_uebungen
 from logic.plan_assembler import assemble_plan
@@ -295,7 +295,7 @@ def main():
     # ── RPE-Wellen-Tests (MVP-6 Naht 1) ───────────────────────────────────────
     print()
     print("=" * 65)
-    print("RPE-WELLEN-TESTS (Periodisierung + Recovery-Deckel, Spec Thema 1/5)")
+    print("RPE-WELLEN-TESTS (ziel-abhängige Welle, level-gedeckelt, Recovery entkoppelt)")
     print("=" * 65)
 
     def _klient(stress: int, schlaf: str):
@@ -313,44 +313,40 @@ def main():
             print(f"  ❌ {desc}  →  {e}")
             w_failed += 1
 
-    k_normal = _klient(5, "6")   # lage 'normal' → reine Wellen-Basis (kein Deckel)
+    k_normal = _klient(5, "6")   # muskelaufbau-Default; Recovery wirkt nicht mehr auf RPE
+
+    def _erwartet_rpe(ziel: str, lvl: int, woche: str) -> float:
+        welle = _ZIEL_RPE_WELLE[ziel][_WOCHE_IDX[woche]]
+        return float(max(4, min(_LEVEL_CAP[lvl], welle)))
 
     def wave_per_level():
+        # Ziel-Welle, level-gedeckelt: nicht-strikt monoton akku ≤ prog ≤ intens,
+        # Anker an der Tabelle (Cap flacht L1/L2 ab → nicht strikt).
         for lvl in (1, 2, 3, 4):
-            lo, hi = _RPE_RANGES[lvl]
             akku   = berechne_volumen(k_normal, lvl, "akkumulation")["ziel_rpe"]
             prog   = berechne_volumen(k_normal, lvl, "progression")["ziel_rpe"]
             intens = berechne_volumen(k_normal, lvl, "intensivierung")["ziel_rpe"]
-            assert akku < prog < intens, f"L{lvl}: nicht streng monoton {akku}/{prog}/{intens}"
-            assert akku == float(lo) and intens == float(hi), f"L{lvl}: Anker {akku}/{intens} != {lo}/{hi}"
-            step = prog - akku
-            assert step in (0.5, 1.0), f"L{lvl}: Schritt {step} nicht in {{0.5,1.0}}"
-            assert (intens - prog) == step, f"L{lvl}: ungleiche Schritte"
+            assert akku <= prog <= intens, f"L{lvl}: nicht monoton {akku}/{prog}/{intens}"
+            assert akku == _erwartet_rpe("muskelaufbau", lvl, "akkumulation"), f"L{lvl}: Akku-Anker {akku}"
+            assert intens == _erwartet_rpe("muskelaufbau", lvl, "intensivierung"), f"L{lvl}: Int-Anker {intens}"
 
     def deload_rpe_und_saetze():
         for lvl in (1, 2, 3, 4):
-            lo, _ = _RPE_RANGES[lvl]
             d = berechne_volumen(k_normal, lvl, "deload")
-            assert d["ziel_rpe"] == max(4.0, lo - 1), f"L{lvl}: Deload-RPE {d['ziel_rpe']} != rpe_low-1"
+            assert d["ziel_rpe"] == _erwartet_rpe("muskelaufbau", lvl, "deload"), \
+                f"L{lvl}: Deload-RPE {d['ziel_rpe']} != W4-Spalte"
             for tier in ("compound", "accessory", "isolation", "core"):
                 assert d[f"{tier}_saetze"] == tier_floor(tier), f"L{lvl}/{tier}: Deload-Sätze != Cap-Floor"
 
-    def recovery_deckel():
-        # L2/Progression, Wellen-Basis 7.5; lo=7 hi=8
-        erwartet = {"sehr_hoch": 6.0, "hoch": 7.0, "gut": 8.0, "normal": 7.5}
-        lagen = {"sehr_hoch": (9, "5"), "hoch": (8, "6"), "gut": (3, "8"), "normal": (5, "6")}
-        for lage, (s, sl) in lagen.items():
-            got = berechne_volumen(_klient(s, sl), 2, "progression")["ziel_rpe"]
-            assert got == erwartet[lage], f"lage {lage}: {got} != {erwartet[lage]}"
-        # gute Recovery nie über rpe_high
-        assert berechne_volumen(_klient(3, "8"), 2, "progression")["ziel_rpe"] <= _RPE_RANGES[2][1]
-
-    def deload_ignoriert_recovery():
-        # sehr_hoch darf den Deload-RPE nicht weiter senken (Floor rpe_low-1 greift direkt)
+    def recovery_entkoppelt_rpe():
+        # Zwei Klienten, identisch bis auf Stress/Schlaf → identischer ziel_rpe (Entkopplung).
+        gut      = _klient(4, "8")   # stress 4 / schlaf ≥7 (früher 'gut' → Decke)
+        schlecht = _klient(9, "4")   # stress 9 / schlaf ≤4 (früher 'sehr_hoch' → Deckel)
         for lvl in (1, 2, 3, 4):
-            lo, _ = _RPE_RANGES[lvl]
-            got = berechne_volumen(_klient(9, "4"), lvl, "deload")["ziel_rpe"]
-            assert got == max(4.0, lo - 1), f"L{lvl}: Deload+sehr_hoch {got} != {max(4.0, lo-1)}"
+            for woche in ("akkumulation", "progression", "intensivierung", "deload"):
+                g = berechne_volumen(gut, lvl, woche)["ziel_rpe"]
+                s = berechne_volumen(schlecht, lvl, woche)["ziel_rpe"]
+                assert g == s, f"L{lvl}/{woche}: Recovery wirkt auf RPE {g} != {s}"
 
     def kein_float_in_saetzen():
         v = berechne_volumen(k_normal, 2, "progression")
@@ -360,10 +356,9 @@ def main():
             if "rpe" in key:
                 assert isinstance(val, float), f"{key} ist {type(val).__name__}, erwartet float"
 
-    _check("Welle streng monoton + Anker (rpe_low→rpe_high), Schritt 0.5/1.0", wave_per_level)
-    _check("Deload-RPE == rpe_low−1 (Floor 4) + Deload-Sätze == Cap-Floor",      deload_rpe_und_saetze)
-    _check("Recovery-Deckel über 4 Lagen, gute Recovery nie > rpe_high",         recovery_deckel)
-    _check("Deload ignoriert Recovery (Floor greift direkt)",                    deload_ignoriert_recovery)
+    _check("Ziel-Welle monoton (akku ≤ prog ≤ intens) + Tabellen-Anker",        wave_per_level)
+    _check("Deload-RPE == W4-Spalte der Ziel-Welle + Deload-Sätze == Cap-Floor", deload_rpe_und_saetze)
+    _check("Recovery entkoppelt: Stress/Schlaf ändern ziel_rpe nicht",          recovery_entkoppelt_rpe)
     _check("Kein Float in Sätzen, RPE ist float (Frontend-Vertrag)",            kein_float_in_saetzen)
 
     print()

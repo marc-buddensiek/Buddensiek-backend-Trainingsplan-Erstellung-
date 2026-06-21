@@ -10,16 +10,11 @@ Volumen = Modell A v2 (Befund 3) — additive Satz-Regel pro Slot, ziel- + level
 Session-Budget (Kraft): (Dauer − Warmup 10 − Finisher) ÷ 2 Min/Satz;
   Finisher = 8 Min bei Recomp, sonst 0. Conditioning läuft separat über _METABOLIC_CONFIG.
 
-RPE-Welle (ankert unten, rampt über die volle Spanne — float, 0.5-Raster):
-  Akku = rpe_low · Progression = Mitte · Intensivierung = rpe_high
-  Deload = rpe_low − 1 (eine Stufe unter der leichtesten Ladewoche), Floor 4.
-
-Recovery (nur RPE, NIE Volumen) — Deckel auf die Wellen-Basis, schlechtester Fall gewinnt:
-  Stress ≥9 ODER Schlaf ≤4h → Basis-RPE gedeckelt auf rpe_low − 1
-  Stress ≥8 ODER Schlaf ≤5h → Basis-RPE gedeckelt auf rpe_low
-  Stress <5 UND Schlaf ≥7h  → Basis-RPE freigegeben bis rpe_high (nie darüber)
-  sonst                      → keine Anpassung
-  RPE-Boden: nie < 4. Deload ignoriert Recovery (rpe_low − 1 greift direkt).
+RPE-Welle (ziel-abhängig, level-gedeckelt — float, 0.5-Raster):
+  base = clamp(ZIEL_RPE_WELLE[ziel][woche], FLOOR=4, LEVEL_CAP[level])
+  W1 Akku · W2 Prog · W3 Int · W4 Deload — Deload-RPE kommt aus der W4-Spalte der Tabelle.
+  Tier-Offset: compound 0 · accessory −1 · isolation −2 · core 0 (Fallback auf ziel_rpe).
+  Stress/Schlaf wirken NICHT mehr auf RPE (entkoppelt) — nur noch informativ (recovery_modifier).
 """
 
 from __future__ import annotations
@@ -67,12 +62,15 @@ def finisher_min(ziel: Hauptziel) -> int:
 def tier_floor(tier: str) -> int:
     return _BODEN[tier]   # Korridor-Boden je Tier — Trim-Floor (Modell A v2)
 
-_RPE_RANGES: dict[int, tuple[int, int]] = {
-    1: (6, 7),
-    2: (7, 8),
-    3: (7, 9),
-    4: (7, 9),
+# RPE-Welle pro Ziel (W1 Akku · W2 Prog · W3 Int · W4 Deload) — Intensität vor Volumen.
+_ZIEL_RPE_WELLE: dict[str, list[int]] = {
+    "muskelaufbau": [7, 8, 9, 6],
+    "recomp":       [7, 8, 8, 6],
+    "fettabbau":    [7, 7, 8, 6],
+    "longevity":    [6, 7, 7, 5],
 }
+_LEVEL_CAP: dict[int, int] = {1: 7, 2: 8, 3: 9, 4: 9}   # max RPE je Level
+_RPE_FLOOR = 4
 
 
 def _recovery_lage(klient: KlientenInput) -> str:
@@ -84,19 +82,6 @@ def _recovery_lage(klient: KlientenInput) -> str:
     if klient.stress_level < 5 and klient.schlaf_stunden >= 7:
         return "gut"
     return "normal"
-
-
-def _recovery_rpe(lage: str, wave_rpe: float, rpe_low: int, rpe_high: int) -> float:
-    # Welle = Basis-RPE; Recovery = Deckel nach oben (schlecht) / Freigabe bis oberes Ende (gut)
-    if lage == "sehr_hoch":
-        rpe = min(wave_rpe, rpe_low - 1)   # unteres Ende − 1
-    elif lage == "hoch":
-        rpe = min(wave_rpe, rpe_low)        # unteres Ende
-    elif lage == "gut":
-        rpe = max(wave_rpe, rpe_high)       # oberes Ende
-    else:
-        rpe = wave_rpe                       # keine Anpassung
-    return max(4, rpe)                       # RPE-Boden: nie < 4
 
 
 def rir_hinweis(level: int, rpe: float) -> str | None:
@@ -112,14 +97,10 @@ def rir_hinweis(level: int, rpe: float) -> str | None:
     return f"noch ~{int(rir)}-{int(rir) + 1} Wiederholungen in Reserve"
 
 
-def _wave_rpe(woche_typ: WocheTyp, rpe_low: int, rpe_high: int) -> float:
-    # Welle ankert unten, rampt über die volle Spanne (Intensität vor Volumen):
-    #   Akku = rpe_low · Progression = Mitte · Intensivierung = rpe_high
-    if woche_typ == "akkumulation":
-        return float(rpe_low)
-    if woche_typ == "progression":
-        return (rpe_low + rpe_high) / 2
-    return float(rpe_high)   # intensivierung
+def _ziel_rpe_base(ziel: str, level: int, woche_typ: WocheTyp) -> float:
+    # Welle aus der Ziel-Tabelle, gedeckelt durch den Level-Cap, Boden 4.
+    welle = _ZIEL_RPE_WELLE[ziel][_WOCHE_IDX[woche_typ]]
+    return float(max(_RPE_FLOOR, min(_LEVEL_CAP[level], welle)))
 
 
 def _tier_saetze(ziel: str, level: int, tier: str, woche_typ: WocheTyp) -> int:
@@ -143,7 +124,6 @@ def berechne_volumen(
       volumen_stufe: str
       recovery_modifier: str
     """
-    rpe_low, rpe_high = _RPE_RANGES[level]
     lage = _recovery_lage(klient)
 
     # ── Volumen: Modell A v2 — additive Korridor-Regel (ziel × level × woche), Befund 3 ──
@@ -153,12 +133,8 @@ def berechne_volumen(
     isolation_saetze = _tier_saetze(ziel, level, "isolation", woche_typ)
     core_saetze      = _tier_saetze(ziel, level, "core", woche_typ)
 
-    # ── RPE: Welle ankert unten → rampt auf rpe_high; Recovery deckelt (Thema 1/5) ──
-    if woche_typ == "deload":
-        raw_rpe = max(4.0, rpe_low - 1)   # eine Stufe unter leichtester Ladewoche; Recovery wirkt nicht
-    else:
-        base    = _wave_rpe(woche_typ, rpe_low, rpe_high)
-        raw_rpe = _recovery_rpe(lage, base, rpe_low, rpe_high)
+    # ── RPE: ziel-abhängige Welle, level-gedeckelt; Recovery wirkt NICHT mehr (entkoppelt) ──
+    raw_rpe  = _ziel_rpe_base(ziel, level, woche_typ)   # Deload = W4-Spalte der Tabelle
     ziel_rpe = max(4.0, min(10.0, round(raw_rpe * 2) / 2))   # 0.5-Raster, float in [4,10]
 
     # ── Volumen-Stufe (Wellen-Label, unverändert) ──
