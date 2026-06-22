@@ -22,7 +22,7 @@ from logic.volume_calculator import (
     FINISHER_MIN_RECOMP, tier_floor,
 )
 from logic.conditioning_formats import (
-    is_conditioning, is_block_format, conditioning_target_min, block_count, level_work_rest,
+    is_conditioning, is_block_format, conditioning_target_min, block_count,
     block_params, REST_BETWEEN_BLOCKS_SEK, conditioning_pool, split_conditioning_segments,
 )
 from logic.athletik import athletik_pool, athletik_dosierung
@@ -161,8 +161,10 @@ def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str, level: int,
                 f"Kein Stop zwischen Übungen. Runden am Ende notieren.")
     if session_typ == "intervalle":
         r = cfg.get("saetze", 4)
-        work, rest = level_work_rest(level)   # Level-Work:Rest (Spec Thema 6), block-/wochen-unabhängig
-        return (f"Intervalle: {r} Runden je Übung — {work} Sek Arbeit / {rest} Sek. Pause. "
+        # Header modell-agnostisch (Befund E): KEINE konkrete Work:Rest-Zahl mehr — die per-Übung-Zeilen
+        # tragen die echten (gerampten) Arbeit/Pause-Werte. Vermeidet den Widerspruch level-fest (45/15)
+        # vs wochen-rampt (30→40). Timing-Modell-Entscheid: s. TODO(conditioning-timing-model).
+        return (f"Intervalle: {r} Runden je Übung — Arbeit/Pause pro Übung angegeben. "
                 f"2 Min. Pause zwischen Übungen. Ziel: 85-90% HF-Max.")
     return None
 

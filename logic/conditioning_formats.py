@@ -50,9 +50,12 @@ _EQUIPMENT_FORMATS: dict[str, set[str]] = {
     "home_gym":   set(),
 }
 
-# Level → (Work, Rest) Sek. Gilt für Work:Rest-Formate (Intervall); Block-Formate mit festem
-# Timing ignorieren das. Konsumiert in plan_assembler._format_notiz (intervalle-Notiz). Höheres
-# Level = dichteres Verhältnis (mehr Arbeit, weniger Pause).
+# Level → (Work, Rest) Sek. Höheres Level = dichteres Verhältnis (mehr Arbeit, weniger Pause).
+# TODO(conditioning-timing-model): level-fest (45/15 + Progression über Runden) vs wochen-rampt
+# (_METABOLIC_CONFIG intervalle 30→40) — Entscheid im Conditioning-Methodik-Durchgang (mit
+# Fettabbau-Rampe). _LEVEL_WORK_REST ist der level-feste Kandidat; seit Naht 2b NICHT mehr im
+# Intervalle-Header (der ist jetzt modell-agnostisch), bis der Entscheid fällt. level_work_rest()
+# bleibt für Tests/künftige Nutzung exportiert.
 _LEVEL_WORK_REST: dict[int, tuple[int, int]] = {1: (40, 20), 2: (45, 15), 3: (45, 15), 4: (50, 10)}
 
 # (Die früheren Level-Dauer-Bänder steuern die Dauer NICHT mehr — Dauer = session_dauer_min.
