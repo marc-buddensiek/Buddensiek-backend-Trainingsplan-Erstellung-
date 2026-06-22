@@ -198,7 +198,10 @@ Befund 3 Volumen-Korridore + Mike-Rampe (Modell A v2, `04e43ca`).
   _Braucht Coaching-Entscheid:_ RPE-Wellen-Schema pro Block.
 
 **NIEDRIG:**
-- **Befund 5 — statische Notiz** „Woche 1…" propagiert unverändert in W2–4 (Claude-Output). Cases 1/4/5/9/11.
+- ~~**Befund 5 — statische Notiz** „Woche 1…" in W2–4~~ **ERLEDIGT**: week-agnostische Notiz-Regel +
+  entschärfte few-shot-Vorbilder im prompt_template. _Optional später:_ echte **Per-Woche-Notizen**
+  (Claude pro Woche statt einmal) — größerer Eingriff (4× Calls / week-aware Prompt), nur falls
+  wochenspezifische Hinweise gewünscht.
 - **Befund 6 — Label vs. Inhalt:** Pull-Tag mit Push-Slots; „+Carry"-Tag ohne Carry-Slot. Cases 1/10 + alle Splits.
 - **Befund 7 — `rpe_hinweis` (RIR-Wortlaut) auf Zeit-Holds**, nur L1 (Claude-Output).
 - **Befund 1 WS-Teil — Conditioning `spine`-Tagging dünn** (nur `cond_row_erg` trägt `spine`); kein

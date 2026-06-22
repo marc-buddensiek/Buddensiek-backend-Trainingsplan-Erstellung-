@@ -54,7 +54,11 @@ REGELN FÜR NOTIZEN
 
 Die notiz ist für den Klienten sichtbar. Sie soll klient-spezifisch sein — nicht generisch.
 
-✓ Gut: "Starte mit 60kg — dein Fokus in Woche 1 ist Technik, nicht Gewicht"
+Notizen müssen über den GESAMTEN 4-Wochen-Block gültig sein — KEINE wochenspezifische Rahmung
+(kein "in Woche 1", "zu Beginn des Blocks", "Woche 1 ist..."). Coaching-Inhalt: Technik,
+Substitution, Kontrast zu anderen Sessions (S1/S2), Sicherheits-/Ausführungs-Hinweis.
+
+✓ Gut: "Starte konservativ — Technik vor Last, sauber bevor du steigerst"
 ✓ Gut: "Wegen Knieproblemen: Knie-Tracking besonders beachten, lieber weniger Tiefe"
 ✓ Gut: Leer ("") wenn es nichts Spezifisches zu sagen gibt
 ✗ Schlecht: "Kontrolliert ausführen" — steht schon in den Coaching Cues
@@ -131,7 +135,7 @@ Dein Output:
         {
           "reihenfolge": 1,
           "exercise_id": "gym_db_bench_press",
-          "notiz": "Kurzhantel statt Langhantel — schonender für die linke Schulter. Sobald schmerzfrei: Wechsel zu gym_bench_press in Block 2."
+          "notiz": "Kurzhantel statt Langhantel — schonender für die linke Schulter. Sobald schmerzfrei: zu gym_bench_press wechseln."
         },
         {
           "reihenfolge": 2,
@@ -161,7 +165,7 @@ Dein Output:
         {
           "reihenfolge": 1,
           "exercise_id": "gym_back_squat",
-          "notiz": "Startgewicht: 70-75% von dem was du kennst — Woche 1 ist Technik-Check."
+          "notiz": "Startgewicht: 70-75% von dem, was du kennst — Technik sauber, bevor du steigerst."
         },
         {
           "reihenfolge": 2,
