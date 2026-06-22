@@ -205,6 +205,21 @@ Befund 3 Volumen-Korridore + Mike-Rampe (Modell A v2, `04e43ca`).
   akuter Sicherheitsfall, da echte WS-Lader bereits getaggt.
 - **Warm-up tagesspezifisch** — System-Hochfahren + gezielte Aktivierung pro Tages-Pattern; eigene Logik.
 
+## Verletzungs-Tagging — Audit & Tier (nach elbow-Nachtrag 2026-06-22)
+
+- **Last-/intensitätsabgestufter Verletzungs-Tier (Modell-Grenze):** `joint_stress` ist heute
+  **binär** (belastet ja/nein) — keine Last-/Intensitätsabstufung. Folge: bei Ellbogen bleiben nur
+  leichte BW-Rows (selbst Ellbogen-Zug) als „tolerierbarer" Rücken-Reiz übrig, während schwere KB-Pulls
+  korrekt rausfallen — die Unterscheidung „leicht tolerierbar vs. schwer meiden" ist aber **nicht
+  modelliert**. Idee: ein „light/tolerable"-Tier, das leichte Varianten überleben lässt, wenn der
+  echte Lader gefiltert ist. Verknüpft mit der fehlenden ellbogen-schonenden Zug-Alternative (KB/BW).
+- **Systematischer Verletzungs-Tag-Audit über alle 8 Typen** (`knie · schulter · wirbelsäule · hüfte ·
+  ellenbogen · handgelenk · hals · knöchel`): elbow + ankle + knee sind nachgezogen; offen sind v. a.
+  `hals/neck` (heute nur 1 Tag) und eine Vollprüfung, dass je Gelenk die echten Lader getaggt sind.
+  - **Audit-Leitregel:** pro Gelenk **nur die wirklich belastenden** Übungen taggen (kein Über-Filtern).
+    Stufe 2 (blanket High-Impact bei *jeder* Verletzung) erst **gelenk-spezifisch** machen, NACHDEM
+    `joint_stress` vollständig auditiert ist (sonst Lücke bei Hand-Impact-Übungen).
+
 ## Logging / Observability
 
 - **Fundament gebaut** (`logging_config.py`, zentral, dictConfig, Plaintext + Modulname,

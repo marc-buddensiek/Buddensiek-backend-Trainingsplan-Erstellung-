@@ -786,6 +786,16 @@ Bei Verletzungs-Eingabe (z.B. „Knie") filtert der Generator in dieser Reihenfo
 > Knie, Trap Bar Deadlift bei Rücken). Ihre einzige echte Lücke (Knöchel ↔ tiefe Dorsalflexion)
 > ist durch den ankle-Tagging-Nachtrag geschlossen. `joint_stress` + `impact_level` sind die
 > **einzige Wahrheit**; Qualitätssicherung über das verbindliche Validator-Gate (SCHEMA.md).
+>
+> **elbow-Tagging-Nachtrag (2026-06-22):** KB-Pull/Ballistik + Rudern (`kb_row`, `gym_db_row`,
+> `gym_chest_supported_db_row`, `kb_renegade_row`, `kb_snatch`, `kb_clean`, `kb_high_pull`,
+> `kb_clean_and_press`) tragen jetzt `joint_stress: elbow` (vorher ungetaggt → Ellbogen-Klient
+> bekam sie). Bewusst NICHT getaggt: `kb_swing_one_hand` — kein Zug (Ellbogen nicht unter Last
+> gebeugt), nur grifflastig; `kb_swing_two_hand` (hüftdominant); `kb_turkish_getup`. **Leitprinzip:
+> pro Gelenk nur die ECHTEN Lader filtern, kein Über-Filtern.** Modell-Grenze: der Tag ist binär
+> (belastet ja/nein), keine Last-/Intensitätsabstufung. **Offene Lücke:** rein ellbogen-schonende
+> Zug-Alternativen für KB/BW fehlen — nach dem Filter bleiben nur leichte BW-Rows (selbst Ellbogen-
+> Zug, bewusst als tolerierbarer Tier behalten, Path A).
 
 Ersatz immer aus gleichem Pattern. **Wichtige Klarstellung:** das System erkennt Gelenk-Belastung NICHT
 aus dem Übungsnamen — **jede Übung muss explizit getaggt sein.**

@@ -991,7 +991,8 @@
       "joint_stress": [
         "shoulder",
         "wrist",
-        "spine"
+        "spine",
+        "elbow"
       ],
       "impact_level": "medium",
       "equipment_requires": [],
@@ -1037,7 +1038,8 @@
       "joint_stress": [
         "shoulder",
         "wrist",
-        "spine"
+        "spine",
+        "elbow"
       ],
       "impact_level": "medium",
       "equipment_requires": [],
@@ -2152,7 +2154,9 @@
         "bw_inverted_row"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
+      "joint_stress": [
+        "elbow"
+      ],
       "impact_level": "low",
       "equipment_requires": [],
       "conditioning_friendly": false
@@ -2272,7 +2276,9 @@
         "bw_inverted_row"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
+      "joint_stress": [
+        "elbow"
+      ],
       "impact_level": "low",
       "equipment_requires": [],
       "conditioning_friendly": false
@@ -2316,7 +2322,8 @@
       "joint_stress": [
         "spine",
         "shoulder",
-        "wrist"
+        "wrist",
+        "elbow"
       ],
       "impact_level": "low",
       "equipment_requires": [],
@@ -5001,7 +5008,9 @@
         "bw_ring_row"
       ],
       "pattern_tags": [],
-      "joint_stress": [],
+      "joint_stress": [
+        "elbow"
+      ],
       "impact_level": "low",
       "equipment_requires": [],
       "conditioning_friendly": false
@@ -6374,7 +6383,8 @@
       "pattern_tags": [],
       "joint_stress": [
         "shoulder",
-        "spine"
+        "spine",
+        "elbow"
       ],
       "impact_level": "medium",
       "equipment_requires": [],
@@ -6412,7 +6422,8 @@
       "pattern_tags": [],
       "joint_stress": [
         "shoulder",
-        "spine"
+        "spine",
+        "elbow"
       ],
       "impact_level": "medium",
       "equipment_requires": [],
