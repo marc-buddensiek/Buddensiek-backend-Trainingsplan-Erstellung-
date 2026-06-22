@@ -279,6 +279,15 @@ Befund 3 Volumen-Korridore + Mike-Rampe (Modell A v2, `04e43ca`).
 - **Timing:** Produkt-Entscheidung, NICHT jetzt. An Fillout-Intake-Neubau und/oder Output-Review
   koppeln. Blockiert nichts Aktuelles.
 
+### Entscheidungsmatrix / Intake-Design (→ MVP-11/12)
+Intake aus Backend-Anforderungen ableiten (kein Alt-Fillout — Backend ist die Schranke).
+Schritt 1 (read-only): Input-Inventar — jedes vom Backend konsumierte Intake-Feld aus
+parser + models + ALLEN Logik-Konsumenten, mit Typ/Enum/Wertebereich + Downstream-Wirkung.
+Daraus: (a) Fillout-Fragen-Spec (eine Frage je Feld, Optionen = akzeptierte Enums/Bereiche),
+(b) Backbone für den Stimmigkeits-Audit der Kette Level→Split→Equipment→Volumen/RPE→Claude-Auswahl.
+Schließt die offene Home-Equipment-Granularität ein (= eine Zelle der Matrix; Alt-TODO Home-Equip
+hierin aufgegangen). Nicht-Blocker für Beispielpläne.
+
 ## MVP-11 — Test-Harness
 
 - **Aktuelle Tests prüfen nur „läuft / crasht nicht", NICHT fachliche Korrektheit** der Pläne.
