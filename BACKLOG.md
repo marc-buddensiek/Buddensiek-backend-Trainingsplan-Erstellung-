@@ -286,6 +286,20 @@ Sessions. FIX: Varianten-/Dedup-Regel (gleicher Primär nicht 2× ohne Variation
 **Checker (MVP-11) validiert:** Primär-Rolle passt zum Ziel; eingesetztes pattern==Slot-pattern; kein
 Primär-Lift 2×/Woche ohne Variation.
 
+## JSON-als-Vertrag (MVP-12, API-Contract mit Manu) — Kunde sieht JSON, nicht PDF
+
+Grundsatz: Das JSON muss kundenseitig vollständig/korrekt sein; das Frontend darf NICHTS re-derivieren.
+PDF = nur Dev-/Coach-Vorschau. Verifikation ab jetzt gegen JSON, nicht PDF.
+- **fokus_anzeige FEHLT:** JSON trägt nur Routing-Key `fokus` („Upper A — Push"); das kundenseitige Label
+  („Oberkörper – Push-Schwerpunkt") lebt nur im pdf_generator → muss als eigenes Feld ins JSON.
+- **Conditioning-Semantik IMPLIZIT:** `wdh` ist fusionierter String („30 Sek"/„15 m"/„12 Wdh"); `saetze`=Runden
+  vs Sätze nur aus `session_typ` ableitbar. Frontend müsste raten → strukturiert: **wert + einheit getrennt**,
+  Runden-vs-Sätze + Format explizit pro Block. (Spiegelt das PDF-only „N Runden · Arbeit/Pause".)
+- **KONSEQUENZ:** kundenseitige Befund-6-Labels + format-bewusstes Conditioning sind PDF-only erledigt,
+  JSON-seitig OFFEN → hier im API-Contract schließen. Kandidat für „free pre-lock change" wie rpe→rir.
+- **TODO:** vollständige kundenseitige JSON-Shape mit Manu definieren (welche Felder rendert das Frontend,
+  welche Display-Strings liefert das Backend) BEVOR der Contract lockt.
+
 ## Reihenfolge (2026-06-22)
 
 Phase 1 Output-Closeout → MVP-10 Persistenz → MVP-11 Checker → Phase 4 Bibliothek + Tag-Audit
