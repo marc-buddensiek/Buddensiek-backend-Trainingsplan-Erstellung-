@@ -778,7 +778,10 @@ kalibriert statt geraten.
 
 Bei Verletzungs-Eingabe (z.B. „Knie") filtert der Generator in dieser Reihenfolge:
 1. Übungen mit `joint_stress: knee` ausschließen (Ausschluss-Semantik, SCHEMA.md Abschn. 2).
-2. Übungen mit `impact_level: high` ausschließen (bei Verletzung generell vorsichtiger).
+2. Übungen mit `impact_level: high` ausschließen — **joint-gegated** (seit 2026-06-22): nur bei
+   **Bein-/Achs-/Hals-Verletzung** (`_HIGH_IMPACT_GATED = {knee, ankle, hip, spine, neck}`).
+   Oberkörper-Verletzte (Ellbogen/Handgelenk/Schulter) behalten Fuß-Sprünge; deren Hand-Impact
+   wird über Stufe 1 (joint_stress) gefiltert, nicht mehr pauschal über Stufe 2.
 
 > **Entschieden 2026-06-12 (ersetzt den früheren 3-Stufen-Ansatz):** Die pattern_tags-Blocker
 > (Stufe 3) sind **gestrichen** — nach vollständigem Tagging waren sie zu 90 % redundant oder tot

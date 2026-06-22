@@ -5987,7 +5987,11 @@
       "pattern_tags": [],
       "joint_stress": [
         "shoulder",
-        "wrist"
+        "wrist",
+        "elbow",
+        "knee",
+        "ankle",
+        "hip"
       ],
       "impact_level": "high",
       "equipment_requires": [],

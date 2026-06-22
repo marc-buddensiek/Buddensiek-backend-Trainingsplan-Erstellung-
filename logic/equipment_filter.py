@@ -36,6 +36,10 @@ _VERLETZUNG_MAP: dict[str, str] = {
     "knöchel":      "ankle",
 }
 
+# Stufe-2-Gating (Verletzungsfilter): High-Impact nur bei Bein-/Achs-/Hals-Verletzung meiden.
+# Backstop, bis joint_stress lückenlos getaggt ist — dann kann Stufe 2 ganz entfallen (BACKLOG).
+_HIGH_IMPACT_GATED = {"knee", "ankle", "hip", "spine", "neck"}
+
 # Equipment-Pfade die sich gegenseitig einschließen
 _EQUIPMENT_INCLUDES: dict[str, list[str]] = {
     "gym":        ["gym"],
@@ -80,8 +84,9 @@ def filtere_uebungen(klient: KlientenInput, level: int) -> dict[str, list[dict]]
         # (Vereinigung über alle Verletzungen — Mehrfach-Verletzungen automatisch abgedeckt)
         if verletzungs_keys and any(r in ex.get("joint_stress", []) for r in verletzungs_keys):
             continue
-        # Verletzungs-Filter Stufe 2: bei jeder Verletzung kein high-Impact (Spec Thema 8)
-        if verletzungs_keys and ex.get("impact_level") == "high":
+        # Verletzungs-Filter Stufe 2: High-Impact nur bei Bein-/Achs-/Hals-Verletzung meiden
+        # (joint-gegated, Spec Thema 8) — Oberkörper-Verletzte behalten Fuß-Sprünge.
+        if (verletzungs_keys & _HIGH_IMPACT_GATED) and ex.get("impact_level") == "high":
             continue
 
         # Kein verletzungs_flag mehr: nach dem 2-Stufen-Filter ist die Liste

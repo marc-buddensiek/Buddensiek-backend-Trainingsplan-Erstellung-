@@ -217,8 +217,10 @@ Befund 3 Volumen-Korridore + Mike-Rampe (Modell A v2, `04e43ca`).
   ellenbogen · handgelenk · hals · knöchel`): elbow + ankle + knee sind nachgezogen; offen sind v. a.
   `hals/neck` (heute nur 1 Tag) und eine Vollprüfung, dass je Gelenk die echten Lader getaggt sind.
   - **Audit-Leitregel:** pro Gelenk **nur die wirklich belastenden** Übungen taggen (kein Über-Filtern).
-    Stufe 2 (blanket High-Impact bei *jeder* Verletzung) erst **gelenk-spezifisch** machen, NACHDEM
-    `joint_stress` vollständig auditiert ist (sonst Lücke bei Hand-Impact-Übungen).
+    **Teilerledigt (2026-06-22):** Stufe 2 ist jetzt **joint-gegated** (`_HIGH_IMPACT_GATED =
+    {knee, ankle, hip, spine, neck}`), `bw_burpee` voll getaggt (shoulder/wrist/elbow/knee/ankle/hip).
+    **Endstufe:** Stufe 2 **ganz entfernen**, sobald ALLE Impact-Übungen lückenlos joint-getaggt sind
+    (Fuß-Sprünge tragen teils noch kein `hip`/`spine` — Stufe 2 bleibt bis dahin Backstop).
 
 ## Logging / Observability
 
