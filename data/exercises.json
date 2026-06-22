@@ -454,7 +454,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "bw_cossack_squat",
@@ -2740,7 +2741,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "distanz"
     },
     {
       "id": "gym_suitcase_carry_db",
@@ -2785,7 +2787,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "distanz"
     },
     {
       "id": "gym_overhead_carry_db",
@@ -2831,7 +2834,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "distanz"
     },
     {
       "id": "kb_farmers_carry",
@@ -2874,7 +2878,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "distanz"
     },
     {
       "id": "kb_rack_walk",
@@ -2918,7 +2923,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "distanz"
     },
     {
       "id": "kb_bottoms_up_carry",
@@ -2962,7 +2968,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "distanz"
     },
     {
       "id": "bw_plank",
@@ -3010,7 +3017,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "bw_dead_bug",
@@ -3054,7 +3062,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "gym_pallof_press",
@@ -3093,7 +3102,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "gym_ab_wheel",
@@ -3141,7 +3151,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "gym_cable_crunch",
@@ -3184,7 +3195,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "kb_turkish_getup",
@@ -3230,7 +3242,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "kb_windmill",
@@ -3275,7 +3288,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "bw_hollow_body",
@@ -3322,7 +3336,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "bw_copenhagen_plank",
@@ -3365,7 +3380,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "gym_reverse_hyper",
@@ -3402,7 +3418,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "bw_mcgill_bird_dog",
@@ -3445,7 +3462,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "bw_mcgill_curl_up",
@@ -3484,7 +3502,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "bw_tibialis_raise",
@@ -3523,7 +3542,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "gym_paused_back_squat",
@@ -5233,7 +5253,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "distanz"
     },
     {
       "id": "bw_side_plank",
@@ -5280,7 +5301,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "gym_hanging_knee_raise",
@@ -5326,7 +5348,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "gym_hanging_leg_raise",
@@ -5373,7 +5396,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "bw_v_up",
@@ -5419,7 +5443,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "bw_l_sit",
@@ -5466,7 +5491,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "bw_dragon_flag",
@@ -5513,7 +5539,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "gym_ab_rollout_standing",
@@ -5562,7 +5589,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "gym_overhead_squat",
@@ -5641,7 +5669,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "cond_row_erg",
@@ -5672,7 +5701,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "cond_ski_erg",
@@ -5701,7 +5731,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "cond_battle_ropes",
@@ -5731,7 +5762,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "cond_sled_push",
@@ -5758,7 +5790,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "distanz"
     },
     {
       "id": "cond_sled_drag",
@@ -5785,7 +5818,8 @@
       "joint_stress": [],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "distanz"
     },
     {
       "id": "cond_jump_rope",
@@ -5820,7 +5854,8 @@
       ],
       "impact_level": "medium",
       "equipment_requires": [],
-      "conditioning_friendly": false
+      "conditioning_friendly": false,
+      "unit": "zeit"
     },
     {
       "id": "cond_jumping_jacks",
@@ -6036,7 +6071,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": true
+      "conditioning_friendly": true,
+      "unit": "zeit"
     },
     {
       "id": "bw_bear_crawl",
@@ -6077,7 +6113,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": true
+      "conditioning_friendly": true,
+      "unit": "zeit"
     },
     {
       "id": "bw_crab_walk",
@@ -6117,7 +6154,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": true
+      "conditioning_friendly": true,
+      "unit": "zeit"
     },
     {
       "id": "bw_inchworm",
@@ -6157,7 +6195,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": true
+      "conditioning_friendly": true,
+      "unit": "zeit"
     },
     {
       "id": "bw_pushup_conditioning",
@@ -6759,7 +6798,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": true
+      "conditioning_friendly": true,
+      "unit": "zeit"
     },
     {
       "id": "ath_med_ball_rotational_throw",
@@ -6797,7 +6837,8 @@
       ],
       "impact_level": "low",
       "equipment_requires": [],
-      "conditioning_friendly": true
+      "conditioning_friendly": true,
+      "unit": "zeit"
     },
     {
       "id": "ath_med_ball_chest_pass",

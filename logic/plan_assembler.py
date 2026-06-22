@@ -54,21 +54,24 @@ _WDH_MAP: dict[Hauptziel, dict[str, str]] = {
 _CORE_WDH = {1: "20sec", 2: "30sec", 3: "45sec", 4: "60sec"}
 
 
-def _wdh(hauptziel: Hauptziel, pattern: str, tier: str, level: int) -> str:
-    if pattern == "carry":
+def _wdh(hauptziel: Hauptziel, pattern: str, tier: str, level: int, unit: str = "reps") -> str:
+    # Einheit (unit) bestimmt Wert+Label: distanz→Meter, zeit→Sekunden, sonst Reps.
+    if unit == "distanz" or pattern == "carry":
         return "20m"
-    if tier == "core" or pattern == "core":
+    if unit == "zeit" or tier == "core" or pattern == "core":
         return _CORE_WDH.get(level, "30sec")
     return _WDH_MAP.get(hauptziel, {}).get(tier, "8-12")
 
 
 # ── Tempo je Pattern + Session-Typ ────────────────────────────────────────────
 
-def _tempo(pattern: str, session_typ: str = "kraft") -> str:
+def _tempo(pattern: str, session_typ: str = "kraft", unit: str = "reps") -> str:
     if session_typ in ("amrap", "zirkel"):
         return "zügig"
     if session_typ == "intervalle":
         return "explosiv"
+    if unit == "zeit":          # Zeit-Holds (auch pattern≠core, z.B. wall_sit) → halten
+        return "halten"
     if pattern in ("squat", "hinge", "push_horizontal", "push_vertical"):
         return "3-1-1-0"
     if pattern in ("pull_horizontal", "pull_vertical"):
@@ -580,6 +583,7 @@ def assemble_plan(
                     for u in valid_auswahl:
                         ex = ex_by_id[u.exercise_id]
                         pattern = ex["pattern"]
+                        u_unit  = ex.get("unit", "reps")   # Bewegungs-Einheit (Naht 1)
                         slot_idx = u.reihenfolge - 1
                         slot_tier = (
                             slot_templates[slot_idx]["tier"]
@@ -594,14 +598,15 @@ def assemble_plan(
                             u_pausenzeit = m_cfg.get("pause", 0)
                         else:
                             u_saetze     = volumen.get(f"{slot_tier}_saetze", saetze)
-                            u_wdh        = _wdh(klient.hauptziel, pattern, slot_tier, level)
+                            u_wdh        = _wdh(klient.hauptziel, pattern, slot_tier, level, u_unit)
                             u_rpe        = volumen.get(f"{slot_tier}_rpe", rpe)
                             u_pausenzeit = _pausenzeit(slot_tier, pattern)
 
                         # RPE→RIR-Transform am Ausgang (intern bleibt RPE): RIR = 10 − RPE (0.5-Raster).
-                        # Zeit-Holds (tempo "halten") tragen kein RIR — die Zeitangabe ist die Dosis (Befund 7).
-                        u_tempo = _tempo(pattern, session_typ)
-                        u_rir   = None if (u_rpe is None or u_tempo == "halten") else round((10 - u_rpe) * 2) / 2
+                        # RIR gilt NUR bei unit=="reps" — Zeit-Holds/Carry/Cardio (zeit/distanz/kalorien)
+                        # tragen kein RIR (eine Regel statt der alten tempo=="halten"-/Carry-Marker, Naht 1).
+                        u_tempo = _tempo(pattern, session_typ, u_unit)
+                        u_rir   = round((10 - u_rpe) * 2) / 2 if (u_rpe is not None and u_unit == "reps") else None
 
                         haupt_uebungen.append(
                             HauptUebung(

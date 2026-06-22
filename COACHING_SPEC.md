@@ -164,7 +164,13 @@ zu füllen, wird einfach der **bestmögliche Plan mit den gegebenen Tagen und de
 - **RPE-basiert** (intern), RPE-Spannen je Level, steigend über die Welle.
 - **Ausgabe-Konvention (Naht B):** Intern rechnet die Logik in **RPE** (Welle, Level-Cap, Periodisierung);
   im Plan/PDF wird **RIR = 10 − RPE** (Reps in Reserve) ausgegeben — die kundenseitige Hauptzahl, für alle
-  Level. **Zeit-Holds** (tempo „halten") tragen **kein** RIR; die Zeit ist die Dosis (Befund 7).
+  Level.
+- **Bewegungs-Einheit `unit` (Naht 1, exercises.json):** jede Übung trägt eine Einheit
+  `reps | zeit | distanz | kalorien` (Default `reps`; gesetzt: Carries/Sleds→`distanz`, Holds+Cardio-
+  Maschinen→`zeit`). **RIR gilt NUR bei `unit==reps`** — Zeit-Holds, Carries (Distanz) und Cardio tragen
+  kein RIR; die Einheit IST die Dosis. Ersetzt den alten `tempo=="halten"`-Marker (Befund 7) durch eine
+  zentrale Regel. _Cardio-Wert (z. B. „30 Sek"/„kcal" statt „10 Wdh") + format-abhängige Einheit → Naht 2
+  (Conditioning-Darstellung); 17 rep-basierte Core interim `unit=zeit` → Phase-4-Audit._
 - **Frequenz:** ≤3 Tage Ganzkörper; ab 4 Tagen Upper/Lower → jeder Muskel 2×/Woche.
 
 ### Zahlen

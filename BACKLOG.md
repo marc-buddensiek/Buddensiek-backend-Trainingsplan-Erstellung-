@@ -233,6 +233,15 @@ Fachlich prüfen, nur echte Lader taggen, leichte Varianten NICHT — alles chec
 - **NICHT taggen (Reha-Keeper):** Reverse Lunge, Step-up.
 - **Leitregel:** pro Gelenk ALLE echten Lader über ALLE Muster; leichte Varianten nicht taggen.
 
+## unit-Reklassifikation (Phase 4)
+
+17 rep-basierte Core-Übungen tragen aktuell **interim `unit=zeit`** (Status quo aus Naht 1, Variante A),
+gehören aber auf **`unit=reps` + Core-Rep-Range** (Hold-vs-Rep deliberat im Audit entscheiden; Checker
+fängt unit/Wert-Inkohärenz). Kandidaten: `gym_hanging_leg_raise`, `gym_hanging_knee_raise`, `bw_v_up`,
+`gym_cable_crunch`, `gym_ab_wheel`, `gym_ab_rollout_standing`, `bw_dragon_flag`, `bw_mcgill_curl_up`,
+`kb_turkish_getup`, `kb_windmill`, `bw_mountain_climber`, `bw_bear_crawl`, `bw_crab_walk`, `bw_inchworm`,
+`bw_tibialis_raise`, `gym_reverse_hyper`, `ath_med_ball_slam`, `ath_med_ball_rotational_throw`.
+
 ## Bibliotheks-Erweiterung (Phase 4, Survival-Matrix-gesteuert)
 
 - **KB-Oberkörper dünn:** 1 ladbarer KB-Horizontaldruck (`kb_floor_press`), **0 KB-Vertikalzug** →

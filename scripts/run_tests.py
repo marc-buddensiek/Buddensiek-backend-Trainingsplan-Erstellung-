@@ -403,22 +403,31 @@ def main():
             print(f"  ❌ {desc}  →  {e}")
             rir_failed += 1
 
+    def _unit_of():
+        import json, pathlib
+        return {e["id"]: e.get("unit", "reps") for e in json.loads(
+            (pathlib.Path(__file__).parent.parent / "data" / "exercises.json").read_text())["exercises"]}
+
     def rir_output_kraft():
-        # Nicht-Hold-Kraftsätze tragen RIR (nicht None, 0 ≤ rir ≤ 6, 0.5-Raster).
+        # RIR nur bei unit==reps; Nicht-reps (Carry=distanz, Hold=zeit) tragen kein RIR (Naht 1).
+        uof = _unit_of()
         _, plan = _plan(dict(hauptziel_ref="muskelaufbau", tage=4, **_L1))
         st, _ = _split_kind(plan)
-        kraft = [u for u in st if u["tempo"] != "halten"]
-        assert kraft, "keine Nicht-Hold-Kraftsätze im Plan"
-        for u in kraft:
-            assert u["rir"] is not None, f"Kraftsatz ohne RIR: {u['name']}"
+        reps    = [u for u in st if uof.get(u["exercise_id"], "reps") == "reps"]
+        nonreps = [u for u in st if uof.get(u["exercise_id"], "reps") != "reps"]
+        assert reps, "keine reps-Kraftsätze im Plan"
+        for u in reps:
+            assert u["rir"] is not None, f"reps-Kraftsatz ohne RIR: {u['name']}"
             assert 0 <= u["rir"] <= 6, f"RIR {u['rir']} außerhalb [0,6]: {u['name']}"
             assert (u["rir"] * 2) == int(u["rir"] * 2), f"RIR {u['rir']} nicht im 0.5-Raster"
+        assert all(u["rir"] is None for u in nonreps), "Nicht-reps-Übung (zeit/distanz) trägt RIR"
 
     def holds_kein_rir():
-        # Befund-7-Guard: Zeit-Holds (tempo "halten") tragen kein RIR.
+        # Befund-7-Guard via unit: Zeit-Holds (unit==zeit) tragen kein RIR.
+        uof = _unit_of()
         _, plan = _plan(dict(hauptziel_ref="muskelaufbau", tage=4, **_L1))
         st, _ = _split_kind(plan)
-        holds = [u for u in st if u["tempo"] == "halten"]
+        holds = [u for u in st if uof.get(u["exercise_id"], "reps") == "zeit"]
         assert holds, "kein Zeit-Hold im Plan (Fixture deckt Befund 7 nicht ab)"
         assert all(u["rir"] is None for u in holds), "Zeit-Hold trägt RIR (Befund 7)"
 
@@ -458,12 +467,15 @@ def main():
             cr_failed += 1
 
     def metcon_ohne_rir_kraft_mit():
+        import json, pathlib
+        uof = {e["id"]: e.get("unit", "reps") for e in json.loads(
+            (pathlib.Path(__file__).parent.parent / "data" / "exercises.json").read_text())["exercises"]}
         _, plan = _plan(dict(hauptziel_ref="fettabbau", tage=4, **_L1))
         st, mc = _split_kind(plan)
         assert mc, "kein Metcon-Anteil im Fettabbau-Plan"
         assert all(u["rir"] is None for u in mc), "Conditioning-Satz trägt RIR"
-        kraft = [u for u in st if u["tempo"] != "halten"]   # Holds tragen bewusst kein RIR (Befund 7)
-        assert kraft and all(u["rir"] is not None for u in kraft), "Nicht-Hold-Kraftsatz ohne RIR"
+        reps = [u for u in st if uof.get(u["exercise_id"], "reps") == "reps"]   # nur reps tragen RIR (Naht 1)
+        assert reps and all(u["rir"] is not None for u in reps), "reps-Kraftsatz ohne RIR"
 
     def recomp_finisher_ohne_rir():
         _, plan = _plan(dict(hauptziel_ref="recomp", tage=4, session_min=45, **_L1))
