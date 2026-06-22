@@ -471,6 +471,10 @@ def _ersetze_unbefuellbaren_carry(sessions: list[dict]) -> None:
                 neue.append(_slot("Core", "core", "core", slot["max_level"]))
             # tier != core → weglassen
         s["slots"] = neue
+        # Befund 6: Label ↔ Inhalt — wenn kein Carry-Slot mehr da ist, "+ Carry" aus dem fokus entfernen
+        # (betrifft "Full Body C — Single Leg + Carry"), sonst verspricht das Label einen fehlenden Slot.
+        if "Carry" in s["fokus"] and not any(sl["pattern"] == "carry" for sl in neue):
+            s["fokus"] = s["fokus"].replace(" + Carry", "").rstrip(" +")
 
 
 def waehle_split(klient: KlientenInput, level: int) -> dict:

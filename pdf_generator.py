@@ -77,6 +77,21 @@ class PlanPDF(FPDF):
         self.cell(0, 5, value, new_x="LMARGIN", new_y="NEXT")
 
 
+# Ehrliches Anzeige-Label (Befund 6): Upper/Lower-Tage sind Schwerpunkt-Tage (bewusst gemischt),
+# nicht exklusiv. Das fokus-Feld bleibt der Routing-Key (für _warm_up/_cool_down/_cardio-Substring-
+# Parsing in plan_assembler) — hier wird NUR die kundenseitige Anzeige abgeleitet.
+_FOKUS_ANZEIGE = {
+    "Upper A — Push":  "Oberkörper – Push-Schwerpunkt",
+    "Upper B — Pull":  "Oberkörper – Pull-Schwerpunkt",
+    "Lower A — Squat": "Unterkörper – Squat-Schwerpunkt",
+    "Lower B — Hinge": "Unterkörper – Hinge-Schwerpunkt",
+}
+
+
+def _anzeige_fokus(fokus: str) -> str:
+    return _FOKUS_ANZEIGE.get(fokus, fokus)
+
+
 def _cond_vol_spec(typ: str, u: dict) -> tuple[str, str]:
     """Format-bewusste Conditioning-Zeile → (vol_str, spec_str). Naht 2a.
     Intervalle/Zirkel = Runden; AMRAP = Wert/Runde; Block-Formate (tabata/density/ladders) unverändert."""
@@ -156,7 +171,7 @@ def build_pdf(plan_data: dict) -> FPDF:
             cardio_str = f"  +{s['cardio']['typ'].upper()}" if s.get("cardio") else ""
             pst_str = "  [PST RE-TEST]" if s.get("pst_tests") else ""
             tag = s["tag"].capitalize()
-            line = f"    {tag:<12}  {s['fokus']:<38} ~{s['dauer_min_geschaetzt']}min{cardio_str}{pst_str}"
+            line = f"    {tag:<12}  {_anzeige_fokus(s['fokus']):<38} ~{s['dauer_min_geschaetzt']}min{cardio_str}{pst_str}"
             pdf.cell(0, 5, line, new_x="LMARGIN", new_y="NEXT")
         pdf.ln(1)
 
@@ -185,7 +200,7 @@ def build_pdf(plan_data: dict) -> FPDF:
             pdf.set_fill_color(*C_DARK_GREY)
             pdf.set_text_color(*C_WHITE)
             pdf.set_font("Helvetica", "B", 9)
-            header = f"  {s['tag'].upper()}  —  {s['fokus'].upper()}  (~{s['dauer_min_geschaetzt']} min)"
+            header = f"  {s['tag'].upper()}  —  {_anzeige_fokus(s['fokus']).upper()}  (~{s['dauer_min_geschaetzt']} min)"
             pdf.cell(0, 6, header, fill=True, new_x="LMARGIN", new_y="NEXT")
             pdf.ln(1)
 
