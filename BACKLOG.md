@@ -221,6 +221,35 @@ Befund 3 Volumen-Korridore + Mike-Rampe (Modell A v2, `04e43ca`).
     {knee, ankle, hip, spine, neck}`), `bw_burpee` voll getaggt (shoulder/wrist/elbow/knee/ankle/hip).
     **Endstufe:** Stufe 2 **ganz entfernen**, sobald ALLE Impact-Übungen lückenlos joint-getaggt sind
     (Fuß-Sprünge tragen teils noch kein `hip`/`spine` — Stufe 2 bleibt bis dahin Backstop).
+## Verletzungs-Tag-Audit (Phase 4, nach MVP-11, checker-validiert) — „nur echte Lader pro Gelenk"
+
+Fachlich prüfen, nur echte Lader taggen, leichte Varianten NICHT — alles checker-validiert in EINEM Zug.
+- **elbow-Drücke:** `bw_one_arm_pushup`, `bw_one_arm_pushup_negatives`, `bw_archer_pushup`,
+  `bw_pike_pushup_elevated` (aus vetteter Vorschau, in den Audit gefaltet — Drücken lädt den Ellbogen wie Ziehen).
+- **spine/hip an geladenen Hinges:** `gym_rdl_db`, `kb_deadlift` ohne Tag; `gym_rdl_barbell` hat `spine`, **nicht** `hip` (Inkonsistenz).
+- **knee:** `gym_box_squat` (nur `spine`), `gym_leg_press_machine`.
+- **neck:** HSPU-/Handstand-Inversionen (HWS-Last; repo-weit nur 1× `neck`).
+- **wrist:** `bw_incline_pushup` (borderline).
+- **NICHT taggen (Reha-Keeper):** Reverse Lunge, Step-up.
+- **Leitregel:** pro Gelenk ALLE echten Lader über ALLE Muster; leichte Varianten nicht taggen.
+
+## Bibliotheks-Erweiterung (Phase 4, Survival-Matrix-gesteuert)
+
+- **KB-Oberkörper dünn:** 1 ladbarer KB-Horizontaldruck (`kb_floor_press`), **0 KB-Vertikalzug** →
+  gesunder KB-Klient bekommt den Oberkörper ~92 % als Bodyweight. Teils physikalisch (KB kein
+  Vertikalzug), teils echte Lücke (ladbarer Horizontaldruck oberhalb Floor-Press fehlt). Tag-Erweiterung hilft begrenzt.
+- **Ellbogen-schonende Band-Züge (Straight-Arm)** fehlen für KB/BW.
+
+## Befund 6 KORRIGIERT (kein Template-Bug)
+
+- Upper A/B = **Schwerpunkt-Tage** (Betonung im Compound-Tier, nicht im Slot-Count); 5-Slot-Upper =
+  2 Push : 2 Pull : 1 Core ist Vorlage.
+- Fix = nur **ehrliche Labels** („Oberkörper – Push-Schwerpunkt") → Phase 1, kleiner Punkt.
+
+## Reihenfolge (2026-06-22)
+
+Phase 1 Output-Closeout → MVP-10 Persistenz → MVP-11 Checker → Phase 4 Bibliothek + Tag-Audit
+(checker-validiert) → MVP-12.
 
 ## Logging / Observability
 

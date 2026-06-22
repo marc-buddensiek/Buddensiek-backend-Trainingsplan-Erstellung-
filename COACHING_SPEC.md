@@ -799,6 +799,15 @@ Bei Verletzungs-Eingabe (z.B. „Knie") filtert der Generator in dieser Reihenfo
 > (belastet ja/nein), keine Last-/Intensitätsabstufung. **Offene Lücke:** rein ellbogen-schonende
 > Zug-Alternativen für KB/BW fehlen — nach dem Filter bleiben nur leichte BW-Rows (selbst Ellbogen-
 > Zug, bewusst als tolerierbarer Tier behalten, Path A).
+>
+> **GEPLANT für Phase-4-Audit (2026-06-22) — schwere BW-Drücke:** `bw_one_arm_pushup`,
+> `bw_one_arm_pushup_negatives`, `bw_archer_pushup`, `bw_pike_pushup_elevated` sollen `joint_stress: elbow`
+> erhalten — Drücken lädt den Ellbogen (Trizeps/Streckung) genauso wie Ziehen, und der schwere Push-Opener
+> umgeht heute den Filter (`bw_one_arm_pushup` ist der L4-Default ohne ladbare Presse → Ellbogen-Klient
+> bekommt ihn). **Noch NICHT getaggt** — in den Sammel-Audit gefaltet (BACKLOG, Phase 4), damit alle
+> Gelenke checker-validiert in einem Zug nachgezogen werden. Leichte bilaterale Drücke (`bw_pushup`,
+> `bw_decline_pushup`, flacher `bw_pike_pushup`, `bw_downward_dog_pushup`) bleiben ungetaggt (tolerierbarer
+> Tier). **Leitprinzip: pro Gelenk ALLE echten Lader über ALLE Muster taggen, kein Über-Filtern.**
 
 Ersatz immer aus gleichem Pattern. **Wichtige Klarstellung:** das System erkennt Gelenk-Belastung NICHT
 aus dem Übungsnamen — **jede Übung muss explizit getaggt sein.**
