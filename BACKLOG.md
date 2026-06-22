@@ -258,6 +258,34 @@ fängt unit/Wert-Inkohärenz). Kandidaten: `gym_hanging_leg_raise`, `gym_hanging
   2 Push : 2 Pull : 1 Core ist Vorlage.
 - Fix = nur **ehrliche Labels** („Oberkörper – Push-Schwerpunkt") → Phase 1, kleiner Punkt.
 
+## Auswahl-Qualität — URSACHEN-Karte (MVP-11.5, checker-validiert)
+
+Root-Cause-Inspektion 2026-06-22: **4 unabhängige Wurzeln, kein gemeinsamer Root.** Symptom-Fix
+verlagert nur das Problem — Mechanismus fixen.
+
+**α SKILL-PROXY + fehlende Ziel-Eignung** (Overhead Squat als Hypertrophie-Squat).
+Ursache: Primär-Wahl=Claude, gesteuert von prompt_template Prinzip 6 („L3-4 anspruchsvolle Compounds");
+`skill_level` misst Komplexität, nicht Eignung (overhead=4 > back=2). Kein Ziel-Eignungs-Signal im Prompt.
+FIX: (i) Bewegungs-Rolle-Feld in exercises.json `{massereiz_primär|skill|mobilität|accessory}`;
+(ii) Prinzip 6 reframen: „ziel-geeigneter Massereiz als Primär", Komplexität NICHT als Kriterium;
+Ziel→Rolle-Mapping im Prompt. **DESIGN-ENTSCHEID offen:** Rolle-Enum+Mapping (Lean) vs Ziel×Übung-Matrix.
+
+**β POOL-KNAPPHEIT** (Cossack als travel-Squat). travel/home-squat-Pool: 0 ladbare bilaterale Squats.
+FIX: Bibliotheks-Erweiterung (Survival-Matrix-gesteuert) — Metadaten/Prompt lösen das NICHT.
+
+**γ-latent SLOT-PATTERN NICHT ERZWUNGEN.** Assembler prüft eingesetztes pattern nie gegen Slot-pattern
+(`valid_auswahl` zieht aus allen 161, nicht Slot-Pool); `_pruefe_vollstaendigkeit` zählt nur Slots.
+Heute hält nur Claudes Disziplin die Pattern. FIX: striktes Slot-Pattern-Enforcement (verwerfen/
+ersetzen bei Mismatch) — kleine Assembler-Naht.
+
+**δ CROSS-SESSION-WIEDERHOLUNG** (Conventional Deadlift 2×/Woche, gleicher Lift). Keine Dedup über
+Sessions. FIX: Varianten-/Dedup-Regel (gleicher Primär nicht 2× ohne Variation) — eigene Naht.
+
+**GEMEINSAMER ERMÖGLICHER:** keine Bewegungs-Rolle-Dimension; `skill_level` = Komplexität ≠ Eignung.
+**KOMBI-NAHT** deckt α+γ-latent (Rolle+Ziel-Eignung+Prinzip-6+Enforcement); β=Bibliothek; δ=Dedup.
+**Checker (MVP-11) validiert:** Primär-Rolle passt zum Ziel; eingesetztes pattern==Slot-pattern; kein
+Primär-Lift 2×/Woche ohne Variation.
+
 ## Reihenfolge (2026-06-22)
 
 Phase 1 Output-Closeout → MVP-10 Persistenz → MVP-11 Checker → Phase 4 Bibliothek + Tag-Audit
