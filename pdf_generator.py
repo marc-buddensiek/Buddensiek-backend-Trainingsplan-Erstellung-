@@ -77,6 +77,20 @@ class PlanPDF(FPDF):
         self.cell(0, 5, value, new_x="LMARGIN", new_y="NEXT")
 
 
+def _cond_vol_spec(typ: str, u: dict) -> tuple[str, str]:
+    """Format-bewusste Conditioning-Zeile → (vol_str, spec_str). Naht 2a.
+    Intervalle/Zirkel = Runden; AMRAP = Wert/Runde; Block-Formate (tabata/density/ladders) unverändert."""
+    s, w, p = u["saetze"], u["wdh"], u["pausenzeit_sek"]
+    if typ == "intervalle":
+        return f"{s} Runden", f"{w} Arbeit / {p} Sek Pause"
+    if typ == "zirkel":
+        return f"{s} Runden", f"{w} je Übung"
+    if typ == "amrap":
+        return w, "AMRAP - Runden zählen"
+    vol = f"{s}× {w}" if s > 1 else w
+    return vol, (f"Pause {p}s" if p > 0 else "")
+
+
 def build_pdf(plan_data: dict) -> FPDF:
     snap = plan_data["klient_snapshot"]
     vorname = plan_data.get("vorname", "Klient")
@@ -201,17 +215,8 @@ def build_pdf(plan_data: dict) -> FPDF:
             is_metabolic_session = s.get("session_typ") in _CONDITIONING
             for u in s["haupt_uebungen"]:
                 if is_metabolic_session:
-                    # Metabolic: kein Tempo, Pause nur bei Intervallen
-                    if u["saetze"] > 1:
-                        vol_str = f"{u['saetze']}× {u['wdh']}"
-                    else:
-                        vol_str = u["wdh"]
-                    spec_parts = []
-                    if u.get("rir") is not None:
-                        spec_parts.append(f"RIR {u['rir']:g}")
-                    if u["pausenzeit_sek"] > 0:
-                        spec_parts.append(f"Pause {u['pausenzeit_sek']}s")
-                    spec_str = "  ·  ".join(spec_parts)
+                    # Format-bewusste Conditioning-Zeile (Naht 2a) — Conditioning trägt kein RIR
+                    vol_str, spec_str = _cond_vol_spec(s.get("session_typ"), u)
                 else:
                     vol_str  = f"{u['saetze']}×{u['wdh']}"
                     # Conditioning/Athletik & Zeit-Holds tragen kein RIR — RIR-Teil nur wenn gesetzt
@@ -259,16 +264,7 @@ def build_pdf(plan_data: dict) -> FPDF:
                 pdf.multi_cell(0, 4.5, f"  {mb['format_notiz']}", fill=True)
                 pdf.ln(1)
                 for u in mb["uebungen"]:
-                    if u["saetze"] > 1:
-                        vol_str = f"{u['saetze']}× {u['wdh']}"
-                    else:
-                        vol_str = u["wdh"]
-                    spec_parts = []
-                    if u.get("rir") is not None:
-                        spec_parts.append(f"RIR {u['rir']:g}")
-                    if u["pausenzeit_sek"] > 0:
-                        spec_parts.append(f"Pause {u['pausenzeit_sek']}s")
-                    spec_str = "  ·  ".join(spec_parts)
+                    vol_str, spec_str = _cond_vol_spec(mb["typ"], u)
                     pdf.set_font("Helvetica", "B", 8)
                     pdf.set_text_color(*C_BLACK)
                     pdf.cell(6, 5, f"  {u['reihenfolge']}.")
@@ -300,8 +296,7 @@ def build_pdf(plan_data: dict) -> FPDF:
                 pdf.multi_cell(0, 4.5, f"  {mb['format_notiz']}", fill=True)
                 pdf.ln(1)
                 for u in mb["uebungen"]:
-                    vol_str = f"{u['saetze']}× {u['wdh']}" if u["saetze"] > 1 else u["wdh"]
-                    spec_str = f"Pause {u['pausenzeit_sek']}s" if u["pausenzeit_sek"] > 0 else ""
+                    vol_str, spec_str = _cond_vol_spec(mb["typ"], u)
                     pdf.set_font("Helvetica", "B", 8)
                     pdf.set_text_color(*C_BLACK)
                     pdf.cell(6, 5, f"  {u['reihenfolge']}.")

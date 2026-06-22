@@ -121,10 +121,19 @@ _METABOLIC_CONFIG: dict[str, dict[str, dict]] = {
 }
 
 
-def _metabolic_wdh(session_typ: str, pattern: str, woche_typ: str) -> str:
+# Cardio-Wert für rep-zählende Formate (amrap/zirkel): Maschinen (unit=zeit) zeigen Zeit statt Reps.
+# intervalle bleibt über _METABOLIC_CONFIG (cfg["wdh"] ist dort schon Zeit). kalorien vertagt (kein Datum).
+_CARDIO_WERT_ZEIT = {"amrap": "40 Sek", "zirkel": "40 Sek"}
+
+
+def _metabolic_wdh(session_typ: str, pattern: str, woche_typ: str, unit: str = "reps") -> str:
     cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {})
     if pattern == "core":
         return "45 Sek"
+    if unit == "zeit":
+        return _CARDIO_WERT_ZEIT.get(session_typ, cfg.get("wdh", "40 Sek"))
+    if unit == "distanz":
+        return "15 m"
     return cfg.get("wdh", "10 Wdh")
 
 
@@ -346,7 +355,7 @@ def _build_metcon_block(
             exercise_id=ex["id"],
             name=ex["name"],
             saetze=cfg.get("saetze", 1),
-            wdh=_metabolic_wdh(metcon_typ, ex["pattern"], woche_typ),
+            wdh=_metabolic_wdh(metcon_typ, ex["pattern"], woche_typ, ex.get("unit", "reps")),
             rir=None,   # Conditioning-Finisher trägt kein RIR (Spec Thema 6)
             tempo=_tempo(ex["pattern"], metcon_typ),
             pausenzeit_sek=cfg.get("pause", 0),
@@ -396,7 +405,7 @@ def _build_conditioning_segment(fmt: str, seg_dauer: int, pool_sorted: list[dict
         for i, ex in enumerate(picks):
             out.append(HauptUebung(
                 reihenfolge=i + 1, exercise_id=ex["id"], name=ex["name"],
-                saetze=m_cfg.get("saetze", 3), wdh=_metabolic_wdh(fmt, ex["pattern"], woche_typ),
+                saetze=m_cfg.get("saetze", 3), wdh=_metabolic_wdh(fmt, ex["pattern"], woche_typ, ex.get("unit", "reps")),
                 rir=None, tempo=_tempo(ex["pattern"], fmt), pausenzeit_sek=m_cfg.get("pause", 0),
                 coaching_cues=ex["coaching_cues"][:3], notiz="",
             ))
@@ -593,7 +602,7 @@ def assemble_plan(
 
                         if is_metabolic:
                             u_saetze     = m_cfg.get("saetze", 3)
-                            u_wdh        = _metabolic_wdh(session_typ, pattern, woche_typ)
+                            u_wdh        = _metabolic_wdh(session_typ, pattern, woche_typ, u_unit)
                             u_rpe        = None   # Conditioning trägt keine RPE (Spec Thema 6)
                             u_pausenzeit = m_cfg.get("pause", 0)
                         else:
