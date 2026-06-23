@@ -26,6 +26,7 @@ from logic.split_selector import waehle_split
 from logic.equipment_filter import filtere_uebungen
 from logic.plan_assembler import assemble_plan
 from claude.claude_client import generiere_uebungsauswahl
+import db
 from db import speichere_plan, speichere_klient
 from logging_config import setup_logging
 
@@ -70,7 +71,11 @@ async def new_plan(request: Request, background_tasks: BackgroundTasks):
     # Correlation-ID für den ganzen Async-Vorgang (ein Submit = ein vorgang_id); macht
     # Doppel-Submit sichtbar (gleiche client_id, zwei vorgang_id).
     vorgang_id = uuid.uuid4().hex[:12]
-    log.info(f"{_log_prefix(vorgang_id)} Vorgang akzeptiert — Generierung startet im Hintergrund")
+    # Status 'läuft' SOFORT im Submit-Pfad persistieren (nicht erst im Hintergrund-Task),
+    # damit ein hängender Vorgang DB-seitig sichtbar ist. client_id aus dem Webhook-hidden-Feld.
+    client_id = payload.get("form_response", {}).get("hidden", {}).get("client_id", "-")
+    db.vorgang_starten(vorgang_id, client_id)
+    log.info(f"{_log_prefix(vorgang_id, client_id)} Vorgang akzeptiert — Generierung startet im Hintergrund")
     background_tasks.add_task(_generiere_plan_task, payload, vorgang_id)
     return {"status": "accepted", "message": "Plan-Generierung gestartet"}
 
@@ -80,8 +85,7 @@ async def _generiere_plan_task(payload: dict, vorgang_id: str):
     try:
         await _pipeline(payload, vorgang_id)
     except Exception as e:
-        # TODO(9-3b-status-persist): Vorgang-Status (failed) persistieren + vorgang_id
-        #   an Klienten ausliefern (Abruf-Endpunkt). Schema-Arbeit, MVP-10.
+        db.vorgang_fehlgeschlagen(vorgang_id, str(e))
         log.error(f"{_log_prefix(vorgang_id)} Pipeline-Fehler: {type(e).__name__}: {e}", exc_info=True)
 
 
@@ -94,6 +98,7 @@ async def _pipeline(payload: dict, vorgang_id: str):
     except Exception as e:
         token = payload.get("form_response", {}).get("token")
         log.error(f"{_log_prefix(vorgang_id)} Parser-Fehler (token={token}): {type(e).__name__}: {e}")
+        db.vorgang_fehlgeschlagen(vorgang_id, f"Parser-Fehler: {type(e).__name__}: {e}")
         return
 
     pfx = _log_prefix(vorgang_id, klient.client_id)
@@ -144,6 +149,7 @@ async def _pipeline(payload: dict, vorgang_id: str):
     # ── 5. Klient + Plan in Supabase speichern ────────────────────────────────
     await speichere_klient(klient, level, split["split_typ"])
     await speichere_plan(plan)
+    db.vorgang_fertig(vorgang_id, plan.plan_id)
 
     log.info(f"{pfx} Plan {plan.plan_id} gespeichert ✓")
 

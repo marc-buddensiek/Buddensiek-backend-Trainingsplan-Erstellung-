@@ -2,13 +2,15 @@
 Supabase-Datenbankschicht.
 
 Tabellen:
-  clients  — Klientenstammdaten + aktuelles Level
-  plans    — vollständige Plan-JSONs (JSONB-Spalte)
+  clients   — Klientenstammdaten + aktuelles Level
+  plans     — vollständige Plan-JSONs (JSONB-Spalte)
+  vorgaenge — technischer Vorgangs-Status (läuft → fertig | fehlgeschlagen), s. schema/001_vorgaenge.sql
 """
 
 from __future__ import annotations
 import logging
 import os
+from datetime import datetime, timezone
 
 from supabase import create_client, Client
 from models import KlientenInput, Plan
@@ -51,3 +53,41 @@ async def speichere_plan(plan: Plan) -> None:
         "plan_data":    plan.model_dump(),
     }).execute()
     log.info(f"[DB] Plan {plan.plan_id} gespeichert")
+
+
+# ── Vorgangs-Status-Lebenszyklus (MVP-10) ───────────────────────────────────────
+# Bewusst SYNCHRON (anders als speichere_* oben): ein Vorgang muss sofort als 'läuft'
+# persistiert sein, bevor der Hintergrund-Task startet. Status: läuft → fertig |
+# fehlgeschlagen (s. schema/001_vorgaenge.sql). aktualisiert_am wird Python-seitig gesetzt
+# (timestamptz akzeptiert ISO-8601); erstellt_am bleibt der DB-Default beim Insert.
+
+def _jetzt() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def vorgang_starten(vorgang_id: str, client_id: str) -> None:
+    _get_client().table("vorgaenge").upsert({
+        "vorgang_id":      vorgang_id,
+        "client_id":       client_id,
+        "status":          "läuft",
+        "aktualisiert_am": _jetzt(),
+    }).execute()
+    log.info(f"[DB] Vorgang {vorgang_id} → läuft")
+
+
+def vorgang_fertig(vorgang_id: str, plan_id: str) -> None:
+    _get_client().table("vorgaenge").update({
+        "status":          "fertig",
+        "plan_id":         plan_id,
+        "aktualisiert_am": _jetzt(),
+    }).eq("vorgang_id", vorgang_id).execute()
+    log.info(f"[DB] Vorgang {vorgang_id} → fertig (plan {plan_id})")
+
+
+def vorgang_fehlgeschlagen(vorgang_id: str, fehler_text: str) -> None:
+    _get_client().table("vorgaenge").update({
+        "status":          "fehlgeschlagen",
+        "fehler_text":     fehler_text,
+        "aktualisiert_am": _jetzt(),
+    }).eq("vorgang_id", vorgang_id).execute()
+    log.info(f"[DB] Vorgang {vorgang_id} → fehlgeschlagen: {fehler_text[:80]}")
