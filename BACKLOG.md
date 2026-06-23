@@ -427,3 +427,11 @@ hierin aufgegangen). Nicht-Blocker für Beispielpläne.
   und `logic/plan_assembler.py:45` (`_WDH_MAP`), final mit Thema 4–6.
 - **`equipment_requires`** seit der Migration in allen 125 als `[]` materialisiert (dormant,
   0 echte Daten; lebender Leser `equipment_filter:94`).
+
+## MVP-10 — offene Punkte aus der Status-Persistenz-Naht
+
+- **`speichere_*` async/await-Bug:** `speichere_plan` und `speichere_klient` in `db.py` sind als `async` deklariert, rufen aber das synchrone supabase-py `.execute()` ohne `await`. Vorbestehend, nicht durch `8505eca` entstanden. Bewusst separat geparkt, um die Status-Naht auf ein Thema zu halten. Die drei `vorgang_*`-Funktionen sind bereits korrekt synchron. _Fix:_ entweder die beiden auf synchron umstellen (konsistent mit `vorgang_*`) oder echtes async-DB-Pattern. _Eigener Commit._
+
+- **Submit-Pfad-Robustheit bei DB-Ausfall:** `db.vorgang_starten` läuft synchron im Webhook-Handler (`main.py` Submit-Pfad), bevor `202` zurückgeht. Fehlt die Supabase-Erreichbarkeit (Env nicht gesetzt oder DB down), wirft `POST /api/new-plan` statt sauber `202` zu antworten. In Production mit gesetzter Env unkritisch; lokal/ohne Env relevant. Bewusst nicht in der Status-Naht umhüllt (nicht spezifiziert, eigenes Thema = Endpunkt-Fehlertoleranz). _Fix:_ `vorgang_starten` gegen DB-Ausfall absichern, sodass der Submit-Pfad robust `202` liefert. _Eigener Commit._
+
+- **`pending_review` als Default — bewusste Policy, kein Versäumnis:** Jeder erfolgreiche Plan erhält weiterhin `status="pending_review"` (`db.py`, unangetastet seit `8505eca`), d. h. jeder Plan wird manuell geprüft, bevor er zum Kunden geht. _Trigger zum Umbau:_ Erst wenn eine Qualitätsquote belegt, dass Pläne ohne Korrektur solide rauskommen, auf automatische Freigabe umstellen (Default `freigegeben`, `pending_review` nur noch im Fehlerfall). Hängt am technischen Vorgangs-Status aus MVP-10, der die Fehlererkennung erst ermöglicht. _Nicht anfassen ohne diesen Kontext._
