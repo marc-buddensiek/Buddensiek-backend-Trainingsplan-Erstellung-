@@ -388,6 +388,8 @@ Daraus: (a) Fillout-Fragen-Spec (eine Frage je Feld, Optionen = akzeptierte Enum
 Schließt die offene Home-Equipment-Granularität ein (= eine Zelle der Matrix; Alt-TODO Home-Equip
 hierin aufgegangen). Nicht-Blocker für Beispielpläne.
 
+- **Stress/Schlaf komplett entfernen (Intake + Code) — Entscheidung getroffen:** `stress_level` (1-10) und `schlaf_stunden` (4.0-10.0) werden heute geparst (`parsers.py`), im Plan-Snapshot gespeichert (`plan_assembler.py`, `KlientenSnapshot`) und zu `recovery_modifier` ausgewertet (`volume_calculator.py` `_recovery_lage`) — wirken aber auf NICHTS (kein Pfad in RPE/Volumen/Deckel/Split/Übungswahl; einziger Leser ist ein Dev-`print` in `test_pipeline.py`). Seit Recovery-Entkopplung (Naht A) + Datenschutz (Naht 9-1, raus aus Claude-Prompt) totes Steuer-Signal. **Entscheidung:** vollständig entfernen — auch als Intake-Frage (kein totes Pflichtfeld, keine ungenutzte Gesundheitsdaten-Erhebung = datenschutzfreundlicher). _Scope:_ Intake-Frage (Fillout) + `models.py` (`KlientenInput` + `KlientenSnapshot`) + `parsers.py` + `volume_calculator.py` (`_recovery_lage`/`recovery_modifier`) + `plan_assembler.py`-Snapshot + Dev-Leser in `test_pipeline.py`. _Timing:_ an den Fillout-Intake-Neubau koppeln (Querschnitts-Naht, Inspektion-vor-Build). _Nicht MVP-11._ _Falls Autoregulation später zurückkommt: über wiederkehrendes Check-in-Feedback (V1.5), nicht über einmaligen Intake-Wert._
+
 ## MVP-11 — Test-Harness
 
 - **Aktuelle Tests prüfen nur „läuft / crasht nicht", NICHT fachliche Korrektheit** der Pläne.
