@@ -71,7 +71,7 @@ def _plan_kontext(plan: dict) -> str:
 
 # ── Regel 6: Verletzungs-Sicherheit (Negation des Filters) ────────────────────────
 
-def _regel6_verletzung(plan: dict, EXMAP: dict[str, dict], soll_patterns: dict | None = None) -> list[Verstoss]:
+def _regel6_verletzung(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) -> list[Verstoss]:
     REGEL = "Regel 6 — Verletzungs-Sicherheit"
     kontext = _plan_kontext(plan)
     snap = plan.get("klient_snapshot", {})
@@ -126,9 +126,10 @@ def _slot_key(session_id: str) -> str:
     return session_id.split("_", 1)[1] if "_" in session_id else session_id
 
 
-def _regel2_slot_pattern(plan: dict, EXMAP: dict[str, dict], soll_patterns: dict | None = None) -> list[Verstoss]:
+def _regel2_slot_pattern(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) -> list[Verstoss]:
     REGEL = "Regel 2 — Slot-Pattern-Treue"
-    if not soll_patterns:   # ohne Soll (z.B. Direktaufruf ohne Split) nicht prüfbar → still überspringen
+    patterns_soll = (soll or {}).get("patterns")
+    if not patterns_soll:   # ohne Soll (z.B. Direktaufruf ohne Split) nicht prüfbar → still überspringen
         return []
     kontext = _plan_kontext(plan)
     verstoesse: list[Verstoss] = []
@@ -138,7 +139,7 @@ def _regel2_slot_pattern(plan: dict, EXMAP: dict[str, dict], soll_patterns: dict
         for s in w.get("sessions", []):
             if s.get("session_typ") != "kraft":
                 continue   # Conditioning/Athletik/Zone-2: keine festen Kraft-Slots → skip
-            patterns = soll_patterns.get(_slot_key(s.get("session_id", "")))
+            patterns = patterns_soll.get(_slot_key(s.get("session_id", "")))
             if not patterns:
                 continue
             for u in s.get("haupt_uebungen", []):
@@ -163,7 +164,7 @@ def _regel2_slot_pattern(plan: dict, EXMAP: dict[str, dict], soll_patterns: dict
 
 # ── Regel 5: Einheit-Konsistenz (rir-Gate global + wdh-Format kraft-scoped) ────────
 
-def _regel5_einheit(plan: dict, EXMAP: dict[str, dict], soll_patterns: dict | None = None) -> list[Verstoss]:
+def _regel5_einheit(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) -> list[Verstoss]:
     REGEL_A = "Regel 5 — Einheit (RIR-Gate)"
     REGEL_B = "Regel 5 — Einheit (wdh-Format)"
     kontext = _plan_kontext(plan)
@@ -215,38 +216,105 @@ def _regel5_einheit(plan: dict, EXMAP: dict[str, dict], soll_patterns: dict | No
     return verstoesse
 
 
-# ── Regel-Registry (erweiterbar: Regeln 1-5 hier ergänzen) ────────────────────────
+# ── Regel 4: RIR-Welle (Soll via berechne_volumen-Orakel, kein Hardcode) ──────────
+
+def _regel4_rir(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) -> list[Verstoss]:
+    REGEL = "Regel 4 — RIR-Welle"
+    tiers_soll = (soll or {}).get("tiers")
+    rir_soll = (soll or {}).get("rir")
+    if not tiers_soll or not rir_soll:
+        return []
+    kontext = _plan_kontext(plan)
+    verstoesse: list[Verstoss] = []
+
+    for w in plan.get("wochen", []):
+        wn = w.get("woche_nummer", "?")
+        block = w.get("block_typ")
+        soll_block = rir_soll.get(block, {})
+
+        # Session-Sanity: Wochen-ziel_rir == compound-RIR der Welle
+        comp = soll_block.get("compound")
+        if comp is not None and w.get("ziel_rir") != comp:
+            verstoesse.append(Verstoss(
+                REGEL, "fehler", kontext,
+                f"W{wn}/{block}: ziel_rir={w.get('ziel_rir')} ≠ compound-Soll {comp}",
+            ))
+
+        for s in w.get("sessions", []):
+            if s.get("session_typ") != "kraft":
+                continue
+            session_tiers = tiers_soll.get(_slot_key(s.get("session_id", "")))
+            if not session_tiers:
+                continue
+            for u in s.get("haupt_uebungen", []):
+                if u.get("rir") is None:
+                    continue   # Nicht-reps → Einheit-Gate (Regel 5)
+                idx = u.get("reihenfolge", 0) - 1
+                if idx < 0 or idx >= len(session_tiers):
+                    continue
+                tier = session_tiers[idx]
+                erwartet = soll_block.get(tier)
+                if erwartet is None:
+                    continue
+                if u["rir"] != erwartet:
+                    verstoesse.append(Verstoss(
+                        REGEL, "fehler", kontext,
+                        f"'{u.get('name', '?')}' ({u.get('exercise_id')}, W{wn}/{s.get('session_id')} "
+                        f"#{u.get('reihenfolge')}, tier={tier}, {block}): rir={u['rir']} ≠ erwartet {erwartet}",
+                    ))
+    return verstoesse
+
+
+# ── Regel-Registry (erweiterbar: Regel 3 hier ergänzen) ───────────────────────────
 
 REGELN = [
     _regel6_verletzung,
     _regel2_slot_pattern,
     _regel5_einheit,
+    _regel4_rir,
 ]
 
 
 def pruefe_plan(plan: dict, profil_label: str = "", EXMAP: dict[str, dict] | None = None,
-                soll_patterns: dict | None = None) -> list[Verstoss]:
+                soll: dict | None = None) -> list[Verstoss]:
     """Prüft EINEN Plan gegen alle registrierten Regeln; sammelt alle Verstöße.
-    soll_patterns = {slot_key: [pattern, …]} pro Session (für Regel 2; aus dem Split)."""
+    soll = Werkzeugkiste aus dem Split/Orakel:
+      {"patterns": {slot_key:[pattern]}, "tiers": {slot_key:[tier]},
+       "rir": {woche_typ:{tier:rir}}} — von Regel 2 (patterns) / Regel 4 (tiers+rir) genutzt."""
     EXMAP = EXMAP if EXMAP is not None else lade_exmap()
     verstoesse: list[Verstoss] = []
     for regel in REGELN:
-        verstoesse.extend(regel(plan, EXMAP, soll_patterns))
+        verstoesse.extend(regel(plan, EXMAP, soll))
     return verstoesse
 
 
 # ── Runner: über die 12 Profil-Cases ──────────────────────────────────────────────
 
-def _soll_patterns_aus_split(split: dict) -> dict[str, list[str]]:
-    """{slot_key: [slot-pattern, …]} pro Session — das Soll für Regel 2 (Slot-Pattern-Treue)."""
-    return {
-        _slot_key(s["session_id"]): [sl["pattern"] for sl in s.get("slots", [])]
-        for s in split["sessions"]
-    }
+def _baue_soll(split: dict, klient, level: int) -> dict:
+    """Werkzeugkiste fürs Prüfen — aus demselben deterministischen Split + dem RIR-Orakel:
+      patterns/tiers pro Session-Slot · rir pro woche_typ×tier via berechne_volumen (kein Hardcode)."""
+    from logic.volume_calculator import berechne_volumen
+
+    patterns = {_slot_key(s["session_id"]): [sl["pattern"] for sl in s.get("slots", [])] for s in split["sessions"]}
+    tiers    = {_slot_key(s["session_id"]): [sl["tier"]    for sl in s.get("slots", [])] for s in split["sessions"]}
+
+    def _rir(rpe: float) -> float:
+        return round((10 - rpe) * 2) / 2   # gleiche Transform wie im Assembler
+
+    rir = {}
+    for wt in ("akkumulation", "progression", "intensivierung", "deload"):
+        v = berechne_volumen(klient, level, wt)
+        rir[wt] = {
+            "compound":  _rir(v["compound_rpe"]),
+            "accessory": _rir(v["accessory_rpe"]),
+            "isolation": _rir(v["isolation_rpe"]),
+            "core":      _rir(v["ziel_rpe"]),   # kein core_rpe-Key → ziel_rpe
+        }
+    return {"patterns": patterns, "tiers": tiers, "rir": rir}
 
 
 def _baue_plan(case: dict) -> tuple[dict, dict]:
-    """Plan-Dict + Soll-Pattern-Mapping (aus demselben deterministischen Split)."""
+    """Plan-Dict + Soll-Werkzeugkiste (aus demselben deterministischen Split + Orakel)."""
     from scripts.run_test_matrix import baue_payload
     from scripts.generate_test_plans import _auto_claude_output
     from parsers import parse_typeform_payload
@@ -261,7 +329,7 @@ def _baue_plan(case: dict) -> tuple[dict, dict]:
     uebungen = filtere_uebungen(klient, level)
     plan = assemble_plan(klient=klient, level=level, split=split,
                          claude_output=_auto_claude_output(split, uebungen), block_nummer=1)
-    return plan.model_dump(), _soll_patterns_aus_split(split)
+    return plan.model_dump(), _baue_soll(split, klient, level)
 
 
 def main() -> int:
@@ -269,14 +337,14 @@ def main() -> int:
 
     EXMAP = lade_exmap()
     print("=" * 70)
-    print("PLAN-CHECKER — Regel 6 (Verletzung) + 2 (Slot-Pattern) + 5 (Einheit) über 12 Profile")
+    print("PLAN-CHECKER — Regel 6+2+5+4 über 12 Profile")
     print("=" * 70)
 
     sauber = 0
     for c in CASES:
         label = f"{c['nr']}_{c['kurzname']}"
-        plan, soll_patterns = _baue_plan(c)
-        verstoesse = pruefe_plan(plan, label, EXMAP, soll_patterns)
+        plan, soll = _baue_plan(c)
+        verstoesse = pruefe_plan(plan, label, EXMAP, soll)
         if not verstoesse:
             print(f"  ✅ {label}")
             sauber += 1
@@ -286,7 +354,7 @@ def main() -> int:
                 print(f"       {v.detail}")
 
     print()
-    print(f"  {sauber}/{len(CASES)} Pläne regelkonform (Regel 6 + 2 + 5)")
+    print(f"  {sauber}/{len(CASES)} Pläne regelkonform (Regel 6+2+5+4)")
     return 0 if sauber == len(CASES) else 1
 
 
