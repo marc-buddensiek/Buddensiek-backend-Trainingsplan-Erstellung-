@@ -252,6 +252,33 @@ fängt unit/Wert-Inkohärenz). Kandidaten: `gym_hanging_leg_raise`, `gym_hanging
   Vertikalzug), teils echte Lücke (ladbarer Horizontaldruck oberhalb Floor-Press fehlt). Tag-Erweiterung hilft begrenzt.
 - **Ellbogen-schonende Band-Züge (Straight-Arm)** fehlen für KB/BW.
 
+### Coverage-Audit-Befund (vollständige Bedarfsliste, Artefakt-Vorbehalt aufgelöst)
+
+_Read-only-Audit über Pattern×Equipment×Skill-Leiter + Muskel-Erreichbarkeit (via
+_EQUIPMENT_INCLUDES). Vier echte Übungs-Lücken + ein Vokabular-Hygiene-Thema:_
+
+_**Echte Übungs-Lücken (Programm bricht / Muskel nicht primär erreichbar):**_
+_1. carry LEER bei bodyweight + travel → zugleich forearms-Lücke (alle forearms-Primärtreiber
+   sind Carries). EINE bodyweight-taugliche Carry-Übung schließt beide (erreicht via Inklusion
+   auch kettlebell/hybrid)._
+_2. shoulders_rear primär fehlt bei bodyweight + kettlebell (die 3 Treiber Face Pull/Cuban Press/
+   Band Pull-Apart sind alle gym oder band-/gym-getaggt) → Rear-Delt-Übung (Band/Bodyweight, kb)._
+_3. push_vertical + pull_vertical L1 Pool=1 bei allen Nicht-gym-Welten → L1-vertikale Compounds
+   (bekannt; pull_vertical der härteste, Band-Assisted/Scapular als L1-Einstieg)._
+_4. Leiter-Löcher: home_gym hinge L3 fehlt · kettlebell + hybrid pull_horizontal L2 fehlt
+   (Progression bricht mittendrin) → je 1 Füll-Übung._
+
+_**Daten-Hygiene (separat, KEIN Übungs-Mangel — vor der Erweiterung zu erledigen):**_
+_5. Schulter-Vokabular doppelt codiert: generisch `shoulders` (13 prim/27 sek, für KB/Carry/Core/
+   Conditioning) vs. spezifisch `shoulders_front/lateral/rear` (fürs Isotraining). Disjunkt, keine
+   Mischformen → sauber normalisierbar. Blockiert belastbare Per-Welt-Schulter-Coverage.
+   Normalisierung VOR der Erweiterung, damit neue Übungen gleich sauber getaggt werden._
+
+_Methodik-Anker (was "vollständig" heißt): pro Pattern×Equipment durchgehende Skill-Leiter L1→L4
++ jeder große Muskel pro Welt primär (isoliert) erreichbar + genug distinkte Optionen je Slot
+für Wochen-Variation. Quellen für Kandidaten: Vadnal (Bodyweight/Band), Israetel (Gym),
+Pavel (Kettlebell)._
+
 ## Befund 6 KORRIGIERT (kein Template-Bug)
 
 - Upper A/B = **Schwerpunkt-Tage** (Betonung im Compound-Tier, nicht im Slot-Count); 5-Slot-Upper =
