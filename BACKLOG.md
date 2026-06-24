@@ -403,6 +403,27 @@ hierin aufgegangen). Nicht-Blocker für Beispielpläne.
   rauskommt. Falls nicht: **neue, gezielte Lösung statt des verworfenen Generaldeckels.** Ziel:
   Pläne sind ohne manuelles Drüberschauen fachlich korrekt.
 
+### Korrektheits-Regelliste (geschärft, code-verifiziert 2026-06-23)
+
+Jede Regel gegen den realen Code geprüft (nicht gegen Spec/Memory). Checker = `scripts/plan_checker.py`, eine Regel pro Naht im `REGELN`-Register.
+
+**Gebaut:**
+- **Regel 6 — Verletzungs-Sicherheit** (`d01da9f`): exakte Negation des 2-Stufen-Filters (`joint_stress` + high-impact-gated). Konsistenz-/Regressions-Wächter Filter↔Output, NICHT Tag-Vollständigkeit (= Phase-4-Audit). `_VERLETZUNG_MAP`/`_HIGH_IMPACT_GATED` aus `equipment_filter` importiert.
+
+**Spezifiziert, baubar (je eigene Naht):**
+- **Regel 1 — Dauer ≤ Budget:** Session-Dauer innerhalb gewählte Dauer **±10 Min, symmetrisch** (50-70 für 60er). Verstoß außerhalb.
+- **Regel 2 — Slot-Pattern-Treue (γ):** eingesetztes `pattern` == Slot-`pattern`. Heute NICHT erzwungen (`valid_auswahl` zieht aus allen 161) → Checker deckt es auf.
+- **Regel 3 — Keine Primär-Dedup (δ):** dieselbe Primär-`exercise_id` nicht 2×/Woche. **Variation erlaubt** (Deadlift + RDL = ok, verschiedene IDs). Enge Form (identische ID), sofort prüfbar. _3b (verwandte Lifts im selben Workout) verworfen — Slot-Pattern-Regel verhindert das strukturell._
+- **Regel 4 — RIR-Welle:** exakte Soll-Tabelle pro **Ziel × Level**, abgeleitet aus `_ZIEL_RPE_WELLE` × `_LEVEL_CAP` (`volume_calculator.py`), RIR=10−RPE. Plus Tier-Gradient (accessory +1, isolation +2 ≤6, core +0) + Einheit-Gate (Conditioning/Hold/Carry → kein RIR). _Caveats als Soll (nicht Bug):_ longevity Level-blind (Cap nie bindend); recomp/fettabbau erreichen nie RIR 1 (Wellen-Cap 8). Stress/Schlaf ändern Welle NICHT (entkoppelt).
+- **Regel 5 — Einheit-Konsistenz:** `unit` passt zu `wdh`/`rir`; `unit!=reps` ⇒ `rir is None`. `unit` via `.get(..,"reps")` (Feld fehlt bei Default).
+
+**Bewusst NICHT im Checker:**
+- **RPE-senkt-nie-Volumen — gestrichen:** Stress/Schlaf sind totes Steuer-Signal (Recovery-Entkopplung Naht A), keine Kopplung mehr zu prüfen. (Felder werden ohnehin entfernt, s. Intake-Karte.)
+- **Regel α — Primär-Rolle-zum-Ziel:** braucht Bewegungs-Rolle-Feld (existiert nicht) → **Phase 4** (Bibliotheks-Erweiterung).
+- **Volumen-Plausibilität pro Muskel/Woche:** Checker kann zählen, aber „fachlich genug?" ist **Coach-Urteil** (unverifizierte Modell-A-Annahme), keine Maschine.
+
+_Reihenfolge der nächsten Nähte: Regel 1 → 2 → 5 → 4 → 3 (aufsteigende Komplexität). Später: Sprung von 12 Profilen aufs echte Kreuzprodukt (eigene Naht)._
+
 ## MVP-2 — laufend
 
 - **Schema-Spec abgenickt** → `SCHEMA.md` ist die verbindliche Referenz.
