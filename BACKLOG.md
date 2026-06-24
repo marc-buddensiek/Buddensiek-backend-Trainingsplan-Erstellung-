@@ -273,6 +273,17 @@ Ziel→Rolle-Mapping im Prompt. **DESIGN-ENTSCHEID offen:** Rolle-Enum+Mapping (
 **β POOL-KNAPPHEIT** (Cossack als travel-Squat). travel/home-squat-Pool: 0 ladbare bilaterale Squats.
 FIX: Bibliotheks-Erweiterung (Survival-Matrix-gesteuert) — Metadaten/Prompt lösen das NICHT.
 
+_β raumweit quantifiziert (Kreuzprodukt-Sweep `23dd5a3`): 456 Regel-3-Verstöße über
+90 von 1536 Kombis. Muster: L1 (74 Kombis) × dünnes Equipment (travel 30 · kettlebell 18 ·
+bodyweight 18 · home_gym/hybrid je 10 · gym 4) × viele Tage (6T:52 · 5T:24 · 4T:14 · 3T:0).
+Mechanismus: zu wenige distinkte ladbare Compounds, um alle Wochen-Compound-Slots ohne
+Wiederholung zu füllen. ZWEI LESARTEN, noch nicht entschieden:_
+_(1) Echte Pool-Knappheit → Bibliothek erweitern (Phase 4); der Sweep liefert die Bedarfs-Landkarte._
+_(2) Stub-Picker-Artefakt → der echte Claude würde im dünnen Pool cleverer variieren/Fallback ziehen,
+wo der deterministische Round-Robin-Stub stur wiederholt._
+_VERIFIKATION: nur an echten Claude-Läufen für genau diese Kombis (L1×travel/kb/bw×5-6T)
+klärbar → an den Output-Review koppeln, NICHT am Checker/Stub "wegmachen" (Regel 3 ist korrekt)._
+
 **γ-latent SLOT-PATTERN NICHT ERZWUNGEN.** Assembler prüft eingesetztes pattern nie gegen Slot-pattern
 (`valid_auswahl` zieht aus allen 161, nicht Slot-Pool); `_pruefe_vollstaendigkeit` zählt nur Slots.
 Heute hält nur Claudes Disziplin die Pattern. FIX: striktes Slot-Pattern-Enforcement (verwerfen/
@@ -425,7 +436,10 @@ _Regel-Satz komplett (5 Regeln). Nächste Naht: Kreuzprodukt-Sprung (kein neuer 
 - **Regel α — Primär-Rolle-zum-Ziel:** braucht Bewegungs-Rolle-Feld (existiert nicht) → **Phase 4** (Bibliotheks-Erweiterung).
 - **Volumen-Plausibilität pro Muskel/Woche:** Checker kann zählen, aber „fachlich genug?" ist **Coach-Urteil** (unverifizierte Modell-A-Annahme), keine Maschine.
 
-_Alle 5 Regeln gebaut. Offen: Kreuzprodukt-Sprung (12 Profile → itertools.product Ziel×Tage×Dauer×Level×Equipment) + optional CI-Gate (Exit-Code vorbereitet)._
+_Kreuzprodukt-Sprung gebaut (`23dd5a3`): Struktur-Sweep 1536 (alle 5 Regeln, ohne Verletzung)
++ Verletzungs-Sweep 216 (nur Regel 6), --kreuzprodukt-Flag, deterministisch ~10s, Exit 0/1.
+Level-Ableitung raumweit konsistent (0 Mismatches). Offen: CI-Gate (Exit-Code-Trennung
+bekannte vs. neue Funde) — eigenes Thema._
 
 ## MVP-2 — laufend
 
