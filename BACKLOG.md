@@ -284,6 +284,22 @@ wo der deterministische Round-Robin-Stub stur wiederholt._
 _VERIFIKATION: nur an echten Claude-Läufen für genau diese Kombis (L1×travel/kb/bw×5-6T)
 klärbar → an den Output-Review koppeln, NICHT am Checker/Stub "wegmachen" (Regel 3 ist korrekt)._
 
+_β Ursache lokalisiert (Filter-Pfad-Inspektion, roh vs. nach Fallback):_
+_- roh == nach Fallback überall → _apply_pattern_fallback feuert in der β-Ecke NICHT
+  (greift nur bei leerem Pool; keine 0-Pools). Knappheit = reine Stammdaten-Lücke, kein Fallback-Effekt._
+_- KRITISCH: push_vertical UND pull_vertical haben Pool=1 bei L1 für travel/kettlebell/home_gym/hybrid
+  (bodyweight ebenso). Bei Pool=1 ist Wiederholung arithmetisch unvermeidbar, sobald die Woche
+  das Pattern in ≥2 Compound-Slots braucht — unabhängig vom Picker._
+_→ Lesart (2) "Stub-Artefakt" für die Pool=1-Fälle WIDERLEGT (echter Claude kann keine nicht-existente
+  zweite Übung wählen). Lesart (1) "echte Bibliothekslücke" BESTÄTIGT. Kein API-Test dafür nötig._
+_- Grauzone Pool=2-3 (squat/hinge/pull_horizontal): klügerer Picker könnte variieren, solange Slots ≤ Pool;
+  bei 5-6-Tage-Splits oft trotzdem zu wenig. Hier bliebe ein echter Claude-Lauf aussagekräftig (sekundär)._
+_- gym durchweg sauber (keine compound-Pattern ≤3) — deckt sich mit Sweep (gym 4 Kombis vs travel 30)._
+
+_BEDARFSLISTE (L1, vor Erweiterung): L1-taugliche (skill_level=1) vertikale Compounds für
+NICHT-gym-Equipment — push_vertical + pull_vertical sind der Hauptengpass (Pool 1→≥2 löst den
+Großteil der 456 Funde strukturell). Konkrete Übungsauswahl = Coach-Entscheidung (offen)._
+
 **γ-latent SLOT-PATTERN NICHT ERZWUNGEN.** Assembler prüft eingesetztes pattern nie gegen Slot-pattern
 (`valid_auswahl` zieht aus allen 161, nicht Slot-Pool); `_pruefe_vollstaendigkeit` zählt nur Slots.
 Heute hält nur Claudes Disziplin die Pattern. FIX: striktes Slot-Pattern-Enforcement (verwerfen/
