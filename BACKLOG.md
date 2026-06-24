@@ -411,9 +411,11 @@ Jede Regel gegen den realen Code geprüft (nicht gegen Spec/Memory). Checker = `
 - **Regel 6 — Verletzungs-Sicherheit** (`d01da9f`): exakte Negation des 2-Stufen-Filters (`joint_stress` + high-impact-gated). Konsistenz-/Regressions-Wächter Filter↔Output, NICHT Tag-Vollständigkeit (= Phase-4-Audit). `_VERLETZUNG_MAP`/`_HIGH_IMPACT_GATED` aus `equipment_filter` importiert.
 - **Regel 2 — Slot-Pattern-Treue (γ)** (`aab1dd2`): eingesetztes `pattern` == Slot-`pattern`. Heute NICHT erzwungen (`valid_auswahl` zieht aus allen 161) → Checker deckt es auf.
 - **Regel 5 — Einheit-Konsistenz** (`f79e3ec`): zwei verschieden-skopierte Teil-Checks. Teil A rir-Gate (GLOBAL, haupt_uebungen + metcon_block + conditioning_block_2): `rir is not None ⟹ unit=="reps"`. Teil B wdh-Format (NUR Kraft-haupt_uebungen): distanz⇒…m, zeit⇒…sec, reps⇒kein sec/m. Conditioning/Blöcke vom wdh-Check ausgenommen — Format-Override (Naht 2a) ist legitim. _Präzisierung ggü. ursprünglich "unit passt zu wdh/rir": global nicht umsetzbar (Conditioning überschreibt Anzeige-Einheit), daher zweigeteilt._
+- **Regel 4 — RIR-Welle** (`6341a7c`): End-to-End-Wächter — trägt der fertige Plan die RIR-Welle, die `berechne_volumen` erzeugt? Soll = ORAKEL (`berechne_volumen` aufgerufen, NICHT dupliziert) → longevity-Level-Blindheit + recomp/fettabbau-Cap fallen automatisch korrekt heraus. Pro Kraft-Übung: tier (aus Split) × block_typ → erwartetes RIR; + Session-Sanity (`ziel_rir` == compound-Soll). Komplementär zu `run_tests` (das die Funktion isoliert prüft, Regel 4 den Output).
+
+_Signatur aller Regeln: `(plan, EXMAP, soll)` mit `soll = {patterns, tiers, rir}` — erweiterbare Werkzeugkiste, neue Soll-Arten ohne Signatur-Wuchs ergänzbar._
 
 **Spezifiziert, baubar (je eigene Naht):**
-- **Regel 4 — RIR-Welle:** exakte Soll-Tabelle pro **Ziel × Level**, abgeleitet aus `_ZIEL_RPE_WELLE` × `_LEVEL_CAP` (`volume_calculator.py`), RIR=10−RPE. Plus Tier-Gradient (accessory +1, isolation +2 ≤6, core +0) + Einheit-Gate (Conditioning/Hold/Carry → kein RIR). _Caveats als Soll (nicht Bug):_ longevity Level-blind (Cap nie bindend); recomp/fettabbau erreichen nie RIR 1 (Wellen-Cap 8). Stress/Schlaf ändern Welle NICHT (entkoppelt).
 - **Regel 3 — Keine Primär-Dedup (δ):** dieselbe Primär-`exercise_id` nicht 2×/Woche. **Variation erlaubt** (Deadlift + RDL = ok, verschiedene IDs). Enge Form (identische ID), sofort prüfbar. _3b (verwandte Lifts im selben Workout) verworfen — Slot-Pattern-Regel verhindert das strukturell._
 
 **Bewusst NICHT im Checker:**
@@ -422,7 +424,7 @@ Jede Regel gegen den realen Code geprüft (nicht gegen Spec/Memory). Checker = `
 - **Regel α — Primär-Rolle-zum-Ziel:** braucht Bewegungs-Rolle-Feld (existiert nicht) → **Phase 4** (Bibliotheks-Erweiterung).
 - **Volumen-Plausibilität pro Muskel/Woche:** Checker kann zählen, aber „fachlich genug?" ist **Coach-Urteil** (unverifizierte Modell-A-Annahme), keine Maschine.
 
-_Reihenfolge der nächsten Nähte: Regel 4 → 3. Später: Sprung von 12 Profilen aufs echte Kreuzprodukt (eigene Naht)._
+_Letzte Regel-Naht: Regel 3 → danach Kreuzprodukt-Sprung (12 Profile → echtes Ziel×Tage×Dauer×Level×Equipment, eigene Naht)._
 
 ## MVP-2 — laufend
 
