@@ -23,7 +23,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
 # Single source of truth: Map + Gating aus dem Filter IMPORTIEREN, nicht duplizieren.
 # Regel 6 ist die exakte Negation von equipment_filter Stufe 1/2 — bleibt so bei
 # Filter-Änderungen automatisch konsistent.
-from logic.equipment_filter import _VERLETZUNG_MAP, _HIGH_IMPACT_GATED
+from logic.equipment_filter import _VERLETZUNG_MAP, _HIGH_IMPACT_GATED, _FALLBACK_PATTERN
 
 _EXERCISES_PATH = pathlib.Path(__file__).parent.parent / "data" / "exercises.json"
 
@@ -71,7 +71,7 @@ def _plan_kontext(plan: dict) -> str:
 
 # ── Regel 6: Verletzungs-Sicherheit (Negation des Filters) ────────────────────────
 
-def _regel6_verletzung(plan: dict, EXMAP: dict[str, dict]) -> list[Verstoss]:
+def _regel6_verletzung(plan: dict, EXMAP: dict[str, dict], soll_patterns: dict | None = None) -> list[Verstoss]:
     REGEL = "Regel 6 — Verletzungs-Sicherheit"
     kontext = _plan_kontext(plan)
     snap = plan.get("klient_snapshot", {})
@@ -119,25 +119,79 @@ def _regel6_verletzung(plan: dict, EXMAP: dict[str, dict]) -> list[Verstoss]:
     return verstoesse
 
 
+# ── Regel 2: Slot-Pattern-Treue (γ — eingesetztes pattern == Slot-pattern) ─────────
+
+def _slot_key(session_id: str) -> str:
+    """Wochenübergreifender Schlüssel: 'w3_s2' → 's2' (Split nutzt 'w1_sN', Plan 'w{N}_sN')."""
+    return session_id.split("_", 1)[1] if "_" in session_id else session_id
+
+
+def _regel2_slot_pattern(plan: dict, EXMAP: dict[str, dict], soll_patterns: dict | None = None) -> list[Verstoss]:
+    REGEL = "Regel 2 — Slot-Pattern-Treue"
+    if not soll_patterns:   # ohne Soll (z.B. Direktaufruf ohne Split) nicht prüfbar → still überspringen
+        return []
+    kontext = _plan_kontext(plan)
+    verstoesse: list[Verstoss] = []
+
+    for w in plan.get("wochen", []):
+        wn = w.get("woche_nummer", "?")
+        for s in w.get("sessions", []):
+            if s.get("session_typ") != "kraft":
+                continue   # Conditioning/Athletik/Zone-2: keine festen Kraft-Slots → skip
+            patterns = soll_patterns.get(_slot_key(s.get("session_id", "")))
+            if not patterns:
+                continue
+            for u in s.get("haupt_uebungen", []):
+                idx = u.get("reihenfolge", 0) - 1
+                if idx < 0 or idx >= len(patterns):
+                    continue   # Ausrichtungs-Sicherheit (sollte nicht auftreten)
+                soll = patterns[idx]
+                ex = EXMAP.get(u.get("exercise_id"))
+                if ex is None:
+                    continue   # unbekannte ID → Regel 6
+                ist = ex.get("pattern")
+                if ist == soll or ist == _FALLBACK_PATTERN.get(soll):
+                    continue
+                verstoesse.append(Verstoss(
+                    REGEL, "fehler", kontext,
+                    f"'{u.get('name', '?')}' ({u.get('exercise_id')}, W{wn}/{s.get('session_id')} "
+                    f"#{u.get('reihenfolge')}): pattern '{ist}' ≠ Slot-Soll '{soll}' "
+                    f"(auch kein Fallback {_FALLBACK_PATTERN.get(soll, '–')})",
+                ))
+    return verstoesse
+
+
 # ── Regel-Registry (erweiterbar: Regeln 1-5 hier ergänzen) ────────────────────────
 
 REGELN = [
     _regel6_verletzung,
+    _regel2_slot_pattern,
 ]
 
 
-def pruefe_plan(plan: dict, profil_label: str = "", EXMAP: dict[str, dict] | None = None) -> list[Verstoss]:
-    """Prüft EINEN Plan gegen alle registrierten Regeln; sammelt alle Verstöße."""
+def pruefe_plan(plan: dict, profil_label: str = "", EXMAP: dict[str, dict] | None = None,
+                soll_patterns: dict | None = None) -> list[Verstoss]:
+    """Prüft EINEN Plan gegen alle registrierten Regeln; sammelt alle Verstöße.
+    soll_patterns = {slot_key: [pattern, …]} pro Session (für Regel 2; aus dem Split)."""
     EXMAP = EXMAP if EXMAP is not None else lade_exmap()
     verstoesse: list[Verstoss] = []
     for regel in REGELN:
-        verstoesse.extend(regel(plan, EXMAP))
+        verstoesse.extend(regel(plan, EXMAP, soll_patterns))
     return verstoesse
 
 
 # ── Runner: über die 12 Profil-Cases ──────────────────────────────────────────────
 
-def _baue_plan(case: dict) -> dict:
+def _soll_patterns_aus_split(split: dict) -> dict[str, list[str]]:
+    """{slot_key: [slot-pattern, …]} pro Session — das Soll für Regel 2 (Slot-Pattern-Treue)."""
+    return {
+        _slot_key(s["session_id"]): [sl["pattern"] for sl in s.get("slots", [])]
+        for s in split["sessions"]
+    }
+
+
+def _baue_plan(case: dict) -> tuple[dict, dict]:
+    """Plan-Dict + Soll-Pattern-Mapping (aus demselben deterministischen Split)."""
     from scripts.run_test_matrix import baue_payload
     from scripts.generate_test_plans import _auto_claude_output
     from parsers import parse_typeform_payload
@@ -152,7 +206,7 @@ def _baue_plan(case: dict) -> dict:
     uebungen = filtere_uebungen(klient, level)
     plan = assemble_plan(klient=klient, level=level, split=split,
                          claude_output=_auto_claude_output(split, uebungen), block_nummer=1)
-    return plan.model_dump()
+    return plan.model_dump(), _soll_patterns_aus_split(split)
 
 
 def main() -> int:
@@ -160,14 +214,14 @@ def main() -> int:
 
     EXMAP = lade_exmap()
     print("=" * 70)
-    print("PLAN-CHECKER — Regel 6 (Verletzungs-Sicherheit) über 12 Profile")
+    print("PLAN-CHECKER — Regel 6 (Verletzung) + Regel 2 (Slot-Pattern) über 12 Profile")
     print("=" * 70)
 
     sauber = 0
     for c in CASES:
         label = f"{c['nr']}_{c['kurzname']}"
-        plan = _baue_plan(c)
-        verstoesse = pruefe_plan(plan, label, EXMAP)
+        plan, soll_patterns = _baue_plan(c)
+        verstoesse = pruefe_plan(plan, label, EXMAP, soll_patterns)
         if not verstoesse:
             print(f"  ✅ {label}")
             sauber += 1
@@ -177,7 +231,7 @@ def main() -> int:
                 print(f"       {v.detail}")
 
     print()
-    print(f"  {sauber}/{len(CASES)} Pläne regelkonform (Regel 6)")
+    print(f"  {sauber}/{len(CASES)} Pläne regelkonform (Regel 6 + 2)")
     return 0 if sauber == len(CASES) else 1
 
 
