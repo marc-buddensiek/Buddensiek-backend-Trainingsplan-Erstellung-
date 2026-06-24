@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import pathlib
 import sys
+from collections import Counter
 from dataclasses import dataclass
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
@@ -265,13 +266,52 @@ def _regel4_rir(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) ->
     return verstoesse
 
 
-# ── Regel-Registry (erweiterbar: Regel 3 hier ergänzen) ───────────────────────────
+# ── Regel 3: Keine Primär-Dedup (δ — gleicher compound-Lift nicht 2×/Woche) ────────
+
+def _regel3_dedup(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) -> list[Verstoss]:
+    REGEL = "Regel 3 — Keine Primär-Dedup"
+    tiers_soll = (soll or {}).get("tiers")
+    if not tiers_soll:
+        return []
+    kontext = _plan_kontext(plan)
+    verstoesse: list[Verstoss] = []
+
+    for w in plan.get("wochen", []):
+        wn = w.get("woche_nummer", "?")
+        primaer: list[tuple] = []   # (exercise_id, name, session_id, reihenfolge)
+        for s in w.get("sessions", []):
+            if s.get("session_typ") != "kraft":
+                continue   # nur Kraft trägt compound-Primär
+            st = tiers_soll.get(_slot_key(s.get("session_id", "")))
+            if not st:
+                continue
+            for u in s.get("haupt_uebungen", []):
+                idx = u.get("reihenfolge", 0) - 1
+                if 0 <= idx < len(st) and st[idx] == "compound":
+                    primaer.append((u.get("exercise_id"), u.get("name", "?"),
+                                    s.get("session_id"), u.get("reihenfolge")))
+
+        for ex_id, n in Counter(p[0] for p in primaer).items():
+            if n < 2:
+                continue
+            vork = [f"W{wn}/{sid}#{r}" for (eid, _nm, sid, r) in primaer if eid == ex_id]
+            name = next((nm for (eid, nm, _s, _r) in primaer if eid == ex_id), "?")
+            verstoesse.append(Verstoss(
+                REGEL, "fehler", kontext,
+                f"'{name}' ({ex_id}) {n}× als Primär in Woche {wn}: {vork} — "
+                f"gleicher Primär-Lift {n}×/Woche, Variation fehlt",
+            ))
+    return verstoesse
+
+
+# ── Regel-Registry ─────────────────────────────────────────────────────────────
 
 REGELN = [
     _regel6_verletzung,
     _regel2_slot_pattern,
     _regel5_einheit,
     _regel4_rir,
+    _regel3_dedup,
 ]
 
 
@@ -337,7 +377,7 @@ def main() -> int:
 
     EXMAP = lade_exmap()
     print("=" * 70)
-    print("PLAN-CHECKER — Regel 6+2+5+4 über 12 Profile")
+    print("PLAN-CHECKER — Regel 6+2+5+4+3 über 12 Profile")
     print("=" * 70)
 
     sauber = 0
@@ -354,7 +394,7 @@ def main() -> int:
                 print(f"       {v.detail}")
 
     print()
-    print(f"  {sauber}/{len(CASES)} Pläne regelkonform (Regel 6+2+5+4)")
+    print(f"  {sauber}/{len(CASES)} Pläne regelkonform (Regel 6+2+5+4+3)")
     return 0 if sauber == len(CASES) else 1
 
 
