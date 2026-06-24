@@ -16,8 +16,9 @@ from __future__ import annotations
 import json
 import pathlib
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 from dataclasses import dataclass
+from itertools import product
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
 
@@ -330,6 +331,28 @@ def pruefe_plan(plan: dict, profil_label: str = "", EXMAP: dict[str, dict] | Non
 
 # ── Runner: über die 12 Profil-Cases ──────────────────────────────────────────────
 
+# PST + trainingsjahre, sodass berechne_level EXAKT das Ziel-Level liefert (Cap ≥ level).
+# Anker equipment-unabhängig; raw-Band 5-8/9-13/14-17/18-20 → L1-L4.
+_PST_FUER_LEVEL = {
+    1: dict(kniebeugen=10, pushups=5,  situps=10, burpees=5,  plank_sek=30,  trainingsjahre="keine"),
+    2: dict(kniebeugen=40, pushups=20, situps=40, burpees=20, plank_sek=90,  trainingsjahre="ein_bis_zwei"),
+    3: dict(kniebeugen=60, pushups=40, situps=60, burpees=30, plank_sek=150, trainingsjahre="drei_bis_fuenf"),
+    4: dict(kniebeugen=80, pushups=60, situps=75, burpees=40, plank_sek=200, trainingsjahre="fuenf_plus"),
+}
+
+
+def pst_fuer_level(level: int) -> dict:
+    return dict(_PST_FUER_LEVEL[level])
+
+
+def _make_case(ziel: str, equipment: str, tage: int, dauer: int, level: int, verletzungen: list[str]) -> dict:
+    """Achsen-Kombination → vollständiges case-Dict für baue_payload (PST aus pst_fuer_level)."""
+    c = pst_fuer_level(level)
+    c.update(vorname="sweep", alter=30, hauptziel=ziel, equipment=equipment,
+             tage_pro_woche=tage, session_dauer_min=dauer, verletzungen=verletzungen)
+    return c
+
+
 def _baue_soll(split: dict, klient, level: int) -> dict:
     """Werkzeugkiste fürs Prüfen — aus demselben deterministischen Split + dem RIR-Orakel:
       patterns/tiers pro Session-Slot · rir pro woche_typ×tier via berechne_volumen (kein Hardcode)."""
@@ -398,5 +421,92 @@ def main() -> int:
     return 0 if sauber == len(CASES) else 1
 
 
+# ── Kreuzprodukt-Sprung: alle Regeln über den ganzen Eingaberaum ──────────────────
+
+_ZIELE = ["muskelaufbau", "fettabbau", "recomp", "longevity"]
+_EQUIP = ["gym", "home_gym", "kettlebell", "bodyweight", "travel", "hybrid"]
+_TAGE = [3, 4, 5, 6]
+_DAUER = [20, 30, 45, 60]
+_LEVELS = [1, 2, 3, 4]
+_VERLETZUNGEN = [
+    ["knie"], ["schulter"], ["wirbelsäule"], ["hüfte"], ["ellenbogen"],
+    ["handgelenk"], ["hals"], ["knöchel"], ["wirbelsäule", "knie"],
+]
+
+
+def main_kreuzprodukt() -> int:
+    EXMAP = lade_exmap()
+    print("=" * 70)
+    print("PLAN-CHECKER — KREUZPRODUKT-SPRUNG")
+    print("=" * 70)
+
+    # ── Struktur-Sweep: Ziel × Equip × Tage × Dauer × Level (ohne Verletzung), alle 5 Regeln ──
+    verst = defaultdict(list)
+    mism = []
+    total = sauber = 0
+    for ziel, eq, tg, da, lv in product(_ZIELE, _EQUIP, _TAGE, _DAUER, _LEVELS):
+        total += 1
+        kombi = f"{ziel}/{eq}/{tg}T/{da}min/L{lv}"
+        plan, soll = _baue_plan(_make_case(ziel, eq, tg, da, lv, []))
+        erreicht = plan["klient_snapshot"]["level"]
+        if erreicht != lv:
+            mism.append(f"{kombi}: erreicht L{erreicht} (Generator-Bug)")
+            continue
+        vs = pruefe_plan(plan, kombi, EXMAP, soll)
+        if vs:
+            for v in vs:
+                verst[v.regel].append(f"{kombi} · {v.detail}")
+        else:
+            sauber += 1
+    n_verst = sum(len(x) for x in verst.values())
+    print(f"\nStruktur-Sweep: {sauber}/{total} regelkonform, {n_verst} Verstöße, {len(mism)} Level-Mismatches")
+
+    # ── Verletzungs-Sweep: nur Regel 6, repräsentative Achsen (ziel/dauer/tage fix) ──
+    iv_verst = []
+    iv_mism = []
+    iv_total = iv_sauber = 0
+    for verl in _VERLETZUNGEN:
+        for eq in _EQUIP:
+            for lv in _LEVELS:
+                iv_total += 1
+                kombi = f"muskelaufbau/{eq}/4T/60min/L{lv}/{'+'.join(verl)}"
+                plan, soll = _baue_plan(_make_case("muskelaufbau", eq, 4, 60, lv, verl))
+                if plan["klient_snapshot"]["level"] != lv:
+                    iv_mism.append(f"{kombi}: erreicht L{plan['klient_snapshot']['level']}")
+                    continue
+                vs = _regel6_verletzung(plan, EXMAP, soll)
+                if vs:
+                    iv_verst += [f"{kombi} · {v.detail}" for v in vs]
+                else:
+                    iv_sauber += 1
+    print(f"Verletzungs-Sweep (Regel 6): {iv_sauber}/{iv_total} regelkonform, {len(iv_verst)} Verstöße, {len(iv_mism)} Level-Mismatches")
+
+    # ── Detail nur bei Funden ──
+    if mism or iv_mism:
+        print("\n--- LEVEL-MISMATCHES (Generator, kein Regel-Fund) ---")
+        for m in mism + iv_mism:
+            print(f"  {m}")
+    if n_verst:
+        print("\n--- VERSTÖSSE (Struktur-Sweep), gruppiert nach Regel ---")
+        for regel in sorted(verst):
+            print(f"  [{regel}] {len(verst[regel])}:")
+            for d in verst[regel][:25]:
+                print(f"     {d}")
+            if len(verst[regel]) > 25:
+                print(f"     … (+{len(verst[regel]) - 25} weitere)")
+    if iv_verst:
+        print("\n--- VERSTÖSSE (Verletzungs-Sweep, Regel 6) ---")
+        for d in iv_verst[:50]:
+            print(f"  {d}")
+        if len(iv_verst) > 50:
+            print(f"  … (+{len(iv_verst) - 50} weitere)")
+
+    ok = (n_verst == 0 and not mism and len(iv_verst) == 0 and not iv_mism)
+    print(f"\n{'ALLES GRÜN' if ok else 'FUNDE — siehe oben'}")
+    return 0 if ok else 1
+
+
 if __name__ == "__main__":
+    if "--kreuzprodukt" in sys.argv:
+        raise SystemExit(main_kreuzprodukt())
     raise SystemExit(main())
