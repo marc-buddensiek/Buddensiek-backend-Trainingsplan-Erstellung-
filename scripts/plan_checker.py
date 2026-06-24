@@ -161,11 +161,66 @@ def _regel2_slot_pattern(plan: dict, EXMAP: dict[str, dict], soll_patterns: dict
     return verstoesse
 
 
+# ── Regel 5: Einheit-Konsistenz (rir-Gate global + wdh-Format kraft-scoped) ────────
+
+def _regel5_einheit(plan: dict, EXMAP: dict[str, dict], soll_patterns: dict | None = None) -> list[Verstoss]:
+    REGEL_A = "Regel 5 — Einheit (RIR-Gate)"
+    REGEL_B = "Regel 5 — Einheit (wdh-Format)"
+    kontext = _plan_kontext(plan)
+    verstoesse: list[Verstoss] = []
+
+    for w in plan.get("wochen", []):
+        wn = w.get("woche_nummer", "?")
+        for s in w.get("sessions", []):
+            sid = s.get("session_id", "?")
+            is_kraft = s.get("session_typ") == "kraft"
+            # (src, uebungen, wdh-prüfen?) — Teil B nur Kraft-haupt_uebungen; Blöcke nie wdh-geprüft.
+            gruppen = [("haupt", s.get("haupt_uebungen", []), is_kraft)]
+            for f in ("metcon_block", "conditioning_block_2"):
+                blk = s.get(f)
+                if blk:
+                    gruppen.append((f, blk.get("uebungen", []), False))
+
+            for src, lst, wdh_pruefen in gruppen:
+                for u in lst:
+                    ex = EXMAP.get(u.get("exercise_id"))
+                    if ex is None:
+                        continue   # unbekannte ID → Regel 6
+                    unit = ex.get("unit", "reps")
+
+                    # TEIL A — rir-Gate (GLOBAL): RIR nur bei unit=reps
+                    if u.get("rir") is not None and unit != "reps":
+                        verstoesse.append(Verstoss(
+                            REGEL_A, "fehler", kontext,
+                            f"'{u.get('name', '?')}' ({u.get('exercise_id')}, W{wn}/{sid}/{src}): "
+                            f"rir={u.get('rir')} bei unit='{unit}' — RIR nur bei unit=reps zulässig",
+                        ))
+
+                    # TEIL B — wdh-Format (NUR Kraft-haupt_uebungen; Conditioning-Format-Override legitim)
+                    if wdh_pruefen:
+                        wdh = u.get("wdh", "")
+                        grund = None
+                        if unit == "distanz" and not wdh.endswith("m"):
+                            grund = "erwartet Distanz (…m)"
+                        elif unit == "zeit" and "sec" not in wdh:
+                            grund = "erwartet Zeit (…sec)"
+                        elif unit == "reps" and ("sec" in wdh or wdh.endswith("m")):
+                            grund = "erwartet Reps (Range/Count, kein sec/m)"
+                        if grund:
+                            verstoesse.append(Verstoss(
+                                REGEL_B, "fehler", kontext,
+                                f"'{u.get('name', '?')}' ({u.get('exercise_id')}, W{wn}/{sid} "
+                                f"#{u.get('reihenfolge')}): unit='{unit}' aber wdh='{wdh}' — {grund}",
+                            ))
+    return verstoesse
+
+
 # ── Regel-Registry (erweiterbar: Regeln 1-5 hier ergänzen) ────────────────────────
 
 REGELN = [
     _regel6_verletzung,
     _regel2_slot_pattern,
+    _regel5_einheit,
 ]
 
 
@@ -214,7 +269,7 @@ def main() -> int:
 
     EXMAP = lade_exmap()
     print("=" * 70)
-    print("PLAN-CHECKER — Regel 6 (Verletzung) + Regel 2 (Slot-Pattern) über 12 Profile")
+    print("PLAN-CHECKER — Regel 6 (Verletzung) + 2 (Slot-Pattern) + 5 (Einheit) über 12 Profile")
     print("=" * 70)
 
     sauber = 0
@@ -231,7 +286,7 @@ def main() -> int:
                 print(f"       {v.detail}")
 
     print()
-    print(f"  {sauber}/{len(CASES)} Pläne regelkonform (Regel 6 + 2)")
+    print(f"  {sauber}/{len(CASES)} Pläne regelkonform (Regel 6 + 2 + 5)")
     return 0 if sauber == len(CASES) else 1
 
 
