@@ -221,6 +221,78 @@ _**Gesamteinordnung:** Bibliothek solide, Regeln greifen — aber der 6-Tage-Spl
 strukturelle Schwäche ([:2]), und Regel 3 ist für L1 zu streng. Substanz-Bewertung der Pläne
 (großes Bild, alle Profile) steht noch aus — Lauf 1 deckte nur die 3 Extrem-6T-Profile ab._
 
+### Output-Review Lauf 2 — voller Lauf (run3, alle 15 Profile) + Coach-Review
+_15/15 generiert, 0 FAILED. Checker (--run-dir): 7/15 regelkonform. Coach-Review (Alen):
+Gerüst überdurchschnittlich solide — Periodisierung, Tier-Logik, Pausen, Tempo, Pattern-
+Abdeckung, Knie-Verletzungslogik exzellent (übertrifft kommerzielle Apps). Substanz trägt.
+Arbeit liegt im Feintuning, NICHT im Fundament._
+
+_**GERÜST — BEHALTEN (nicht anfassen):**_
+_- 3:1-Welle (Akkumulation→Progression→Intensivierung→Deload) intensitätsgeführt, korrekt._
+_- RIR zielabhängig sinkend (MA 3→2→2, L4→1, Longevity 4→3→3), Volumen flach + Mike-Rampe W3._
+_- L1-Deckelung greift (RIR 3 durchgängig, Anfänger nicht ins Versagen). Deload ~50%+RIR4-5._
+_- Pattern-Abdeckung vollständig (alle 7 Muster/Woche), Push/Pull ausbalanciert (Pull≥Push),_
+  _Carry eingebaut, Equipment-Logik + Tempo/Cues lehrbuchkonform._
+
+_**PRIO 1 — Muskelvolumen-Balance (größte Baustelle, NEU):**_
+_- Glutes/Posterior-Chain 27-39 Sätze/Woche >> produktiver Bereich (MAV ~12-18). Ursache:_
+  _hinge + single_leg + glute_bridge + hip_thrust laufen ALLE auf dieselbe Gruppe — Generator_
+  _ist muskelblind (wählt nach pattern, zählt nicht pro Muskel) → Posterior-Chain-Stacking._
+_- Gegenstück: Arme (Bizeps/Trizeps 0-3), Seitschulter (2-4), Waden (0-4) unterversorgt._
+  _Für MA-Ziel zu wenig direkte Armarbeit; Seitschulter bei BW/KB equipmentbedingt limitiert._
+_- VERBINDUNG zur zurückgestellten Muskel-Achse: NICHT die Iso-Frage (gezielt Bizeps), sondern_
+  _Volumen-BILANZIERUNG pro Muskel. Machbar OHNE volle Muskel-Achse: vorhandene (deskriptive)_
+  _muscle_groups-Tags in eine Zähl-/Deckel-Logik einspeisen (begrenzen, wie oft eine Gruppe Primär)._
+_- FIX-RICHTUNG (Montag zu entscheiden): Glute-Volumen deckeln, Sätze auf Arme/Seitschulter/Waden_
+  _umverteilen, v.a. Muskelaufbau-Pläne._
+
+_**PRIO 1b — Zähl-Verdacht (möglicher echter BUG, ZUERST prüfen):**_
+_- Verdacht: unilaterale Übungen (Bulgarian, Lunge, SL-RDL) werden als "3 Sätze" gezählt statt_
+  _"3 pro Bein". Falls die interne Volumen-Bilanz uni=bilateral zählt, unterschätzt sie die reale_
+  _Beinarbeit → Glute-Dominanz noch größer als Reports zeigen. ÜBERPRÜFBAR im Code (berechne_volumen/_
+  _Volumen-Bilanz). Klären VOR der Balance-Arbeit, da es die Grundlage der Volumensteuerung betrifft._
+
+_**PRIO 2 — case07 Wirbelsäule (einziger SAFETY-Befund):**_
+_- Plan enthält schwerste axiale Last des Sets: Trap Bar DL + RDL + Barbell Hip Thrust, progressiv_
+  _bis RIR 2 bei Rücken-Klient/L2. Positiv: Trap Bar (wirbelsäulenfreundlichste Variante) + McGill-_
+  _Big-3 (Bird Dog/Curl-Up/Pallof) korrekt eingebaut. ABER: progressive DL-Last bis RIR 2 zu forsch._
+_- FIX-RICHTUNG: Hinge-Intensität bei Wirbelsäulen-Verletzung deckeln (RIR ≥3), Block 1 eher_
+  _Hip Thrust/45°-Back-Extension statt freiem Kreuzheben._
+
+_**PRIO 3 — Fettabbau-Conditioning zu plyo-lastig:**_
+_- case02 (+teils 05/06): Broad/Split/Tuck Jumps, Plyo-Pushups, Burpees in hoher Dichte —_
+  _gelenkbelastend, fürs Ziel nicht nötig, Adhärenz/Regeneration leiden. Mehr Low-Impact_
+  _(Carries, Skipping, Step-back-Burpee, Ruder/Bike-Intervalle). case03 (Knie) vermied Plyo_
+  _korrekt → konsequent auf alle Fettabbau/Schonungs-Fälle übertragen._
+
+_**PRIO 4 — 6-Tage [:2]-Template-Verdopplung (bekannt, bestätigt):**_
+_- split_selector.py:368 [:2] dupliziert [UA,LA,UB,LB]+[UA,LA] → Push 2×/Pull 1×, Squat 2×/Hinge 1×._
+  _Coach-Urteil: suboptimal (Vorderseite verdoppelt, Pull/Hinge meist Schwachstelle)._
+_- Bestätigt in run3: tritt auch bei voller Gym-Ausstattung auf (case09) → strukturell, nicht_
+  _Knappheit. Ist die Wurzel der 6T-Regel-3-Repeats (s2==s6 identische Templates)._
+_- FIX-RICHTUNG: distinkte 5./6. Session (analog 5-Tage-Pfad :365, der eine distinkte Akzent-_
+  _Session anhängt statt zu duplizieren)._
+
+_**PRIO 5 — Tag-Fehler + Bibliothekslücke (klein, klar):**_
+_- gym_face_pull als pattern "push_vertical" getaggt — FALSCH (Face Pull ist Zugmuster). Landet_
+  _in pull_horizontal-Slots → Regel-2-Funde case07/09. Tag korrigieren (pull_horizontal o.ä.)._
+_- bw_tibialis_raise als "core" getaggt, landet in single_leg-Slots (case05/06/14). Isolations-/_
+  _Prehab-Move, eigentlich kein Haupt-Slot-Füller. Einordnung klären._
+_- bw_single_leg_glute_bridge (hinge) in single_leg-Slot (case14) — Tag-Grenzfall, Übung gehört_
+  _fachlich in BEIDE Welten. Mehr-Pattern-Zuordnung erwägen._
+_- BIBLIOTHEKSLÜCKE: bw_pallof_press fehlt — echter Claude griff 3× danach (case07, Wirbel-Klient),_
+  _Validator wies ab, Retry. Bedarfssignal vom Modell selbst. Anti-Rotations-Core für Wirbelsäule._
+
+_**PRIO 6 — Regel 3 level-blind (Checker-Feinschliff):**_
+_- Regel 3 flaggt Grundübungs-Wiederholung auch bei L1, wo sie didaktisch RICHTIG ist (Coach-Urteil)._
+  _Kandidat: Regel 3 level-abhängig (L1 darf Grundübung wiederholen, L3/L4 nicht)._
+
+_**case-spezifisch klein:** case12 (20min L1): Core 8 Sätze > Brust 5 — Core auf 2-3 kürzen,_
+_Platz in Compound. case04: RDL 2×/Woche L2 = normale Frequenz, unkritisch._
+
+_STATUS: Alle Fixes offen, Reihenfolge Montag zu entscheiden. Empfehlung: PRIO 1b (Zähl-Bug)_
+_zuerst prüfen, da Grundlage; dann PRIO 2 (Safety); dann PRIO 1/3/4. Gerüst bleibt unangetastet._
+
 ## Output-Review MVP-9 — offene Befunde
 
 _Aus dem echten 12-Case-Output-Review (test_runs/2026-06-19_run3/REVIEW.md). Kraft-Auswahl
