@@ -24,6 +24,9 @@ from datetime import date
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
 
+from dotenv import load_dotenv
+load_dotenv()   # .env selbst laden — CLI läuft nicht über main.py, das sonst den Key bereitstellt
+
 from parsers import parse_typeform_payload
 from logic.level_calculator import berechne_level
 
