@@ -94,6 +94,12 @@ CASES = [
     {"nr": "10", "kurzname": "gym_l1_kurz",         "equipment": "gym",        "trainingsjahre": "unter_1",        "kniebeugen": 20, "pushups": 10, "situps": 20, "burpees": 5,  "plank_sek": 30,  "erwartetes_level": 1, "hauptziel": "recomp",       "tage_pro_woche": 3, "session_dauer_min": 30, "alter": 30, "verletzungen": []},
     {"nr": "11", "kurzname": "gym_l2_longevity",    "equipment": "gym",        "trainingsjahre": "ein_bis_zwei",   "kniebeugen": 40, "pushups": 20, "situps": 40, "burpees": 20, "plank_sek": 90,  "erwartetes_level": 2, "hauptziel": "longevity",    "tage_pro_woche": 4, "session_dauer_min": 60, "alter": 55, "verletzungen": []},
     {"nr": "12", "kurzname": "bodyweight_l1_short", "equipment": "bodyweight", "trainingsjahre": "unter_1",        "kniebeugen": 20, "pushups": 10, "situps": 20, "burpees": 5,  "plank_sek": 30,  "erwartetes_level": 1, "hauptziel": "muskelaufbau", "tage_pro_woche": 4, "session_dauer_min": 20, "alter": 30, "verletzungen": []},
+    # 13-15: hinge-Repeat-Ecke (L1 × 5-6 Tage) für die Output-Review-Lesart-2-Probe — der Stub wiederholt
+    # kb_deadlift/glute_bridge über 2 hinge-Compound-Slots; prüft, ob der echte Claude variiert. trainingsjahre
+    # "keine" deckelt garantiert auf L1 (_JAHRES_CAP), unabhängig von PST.
+    {"nr": "13", "kurzname": "kettlebell_l1_6t",    "equipment": "kettlebell", "trainingsjahre": "keine",         "kniebeugen": 20, "pushups": 10, "situps": 20, "burpees": 5,  "plank_sek": 30,  "erwartetes_level": 1, "hauptziel": "muskelaufbau", "tage_pro_woche": 6, "session_dauer_min": 45, "alter": 30, "verletzungen": []},
+    {"nr": "14", "kurzname": "bodyweight_l1_6t",    "equipment": "bodyweight", "trainingsjahre": "keine",         "kniebeugen": 20, "pushups": 10, "situps": 20, "burpees": 5,  "plank_sek": 30,  "erwartetes_level": 1, "hauptziel": "muskelaufbau", "tage_pro_woche": 6, "session_dauer_min": 60, "alter": 30, "verletzungen": []},
+    {"nr": "15", "kurzname": "hybrid_l1_6t",        "equipment": "hybrid",     "trainingsjahre": "keine",         "kniebeugen": 20, "pushups": 10, "situps": 20, "burpees": 5,  "plank_sek": 30,  "erwartetes_level": 1, "hauptziel": "muskelaufbau", "tage_pro_woche": 6, "session_dauer_min": 45, "alter": 30, "verletzungen": []},
 ]
 
 
@@ -111,6 +117,9 @@ _ZWECK = {
     "10": "L1 + Kurz-Session 30min",
     "11": "Longevity-Pfad (Zone 2 / Athletik)",
     "12": "L1 + 20min Short-Session",
+    "13": "L1 hinge-Repeat (kettlebell, Lesart-2-Probe)",
+    "14": "L1 hinge-Repeat (bodyweight, Lesart-2-Probe)",
+    "15": "L1 hinge-Repeat (hybrid, Lesart-2-Probe)",
 }
 
 
@@ -146,7 +155,7 @@ def _trockenvalidierung() -> None:
                   f"FEHLER ({type(e).__name__}: {e})")
 
     print("-" * len(header))
-    print(f"\n{'Alle 12 Profile OK ✓' if fehler == 0 else f'{fehler} FEHLER'}  ·  Payloads: {_OUT_DIR}")
+    print(f"\n{f'Alle {len(CASES)} Profile OK ✓' if fehler == 0 else f'{fehler} FEHLER'}  ·  Payloads: {_OUT_DIR}")
 
 
 # ── Echter Lauf (--run / --run-all): normaler Pipeline-Pfad, echter Claude-Client ──
