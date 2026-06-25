@@ -279,6 +279,32 @@ _Methodik-Anker (was "vollständig" heißt): pro Pattern×Equipment durchgehende
 für Wochen-Variation. Quellen für Kandidaten: Vadnal (Bodyweight/Band), Israetel (Gym),
 Pavel (Kettlebell)._
 
+### Wirkungsmessung Phase-4-Erweiterung (nach Commit 0fe2053)
+_Kreuzprodukt-Sweep erneut: **456 → 224 Regel-3-Funde (−51 %)**, betroffene Kombis 90 → 56.
+push/pull_vertical in den Restfunden NICHT mehr vorhanden — vertikaler β-Engpass strukturell
+gelöst (Pool 1→≥2). Regel 2/4/5/6 weiter 0 Funde, 0 Level-Mismatches, Verletzungs-Sweep 216/216._
+
+_**Diagnose-Verschiebung — die 224 Restfunde sind NICHT mehr Library-Knappheit:**_
+_- 100% hinge, konzentriert auf bw_glute_bridge (192) + kb_deadlift (32), L1 × travel/bodyweight/kb/hybrid × 5-6 Tage._
+_- ABER: L1-hinge-Pool ist jetzt 2-4 distinkt (travel/bw: 2 = glute_bridge + single_leg_glute_bridge;
+  kb/hybrid: 4; home_gym: 3). Bei Pool≥2 ist Wiederholung NICHT mehr arithmetisch erzwungen._
+_→ Lesart 1 (echte Knappheit) für den Rest WIDERLEGT. Die 224 sind Lesart 2 = Stub-Picker-Artefakt:
+  _auto_claude_output (Round-Robin) wiederholt bw_glute_bridge statt auf die 2. Übung zu wechseln.
+  Der echte Claude würde voraussichtlich variieren → Regel 3 erfüllt. Klärung am Output-Review
+  (echter Claude-Lauf), NICHT durch weitere hinge-Übungen (Pool reicht bereits)._
+
+_**Hebel verschoben: von Daten zu Picker.** Bibliotheksarbeit für Regel 3 ist abgeschlossen —
+weitere hinge-Übungen würden Regel 3 nicht verbessern. Restfunde sind ein bekanntes Stub-Verhalten._
+
+_**Zwei kleine offene Punkte (niedrige Priorität, kein Regel-Verstoß):**_
+_- bodyweight-L1-hinge-Variety: die 2 Optionen sind beide Glute-Bridge-Spielarten — unter Regel-3-Radar,
+  aber dünne Bewegungsvielfalt. Optional: eine nicht-Brücken-L1-hinge (z.B. Good-Morning ohne Last)._
+_- home_gym hinge L3-Loch: L2 hat 3 Optionen, L4 nur Nordic Curl — fehlende L3-Progressionsstufe,
+  KEIN Auswahl-Bruch (skill-Filter liefert L1+L2 weiter). Kosmetisch._
+
+_**carry bodyweight/travel: bewusst NICHT gefüllt** — echter beladener Carry braucht Last;
+reines Körpergewicht hat keine sinnvolle Carry-Übung. Scope-Entscheid, kein offener Punkt._
+
 ## Befund 6 KORRIGIERT (kein Template-Bug)
 
 - Upper A/B = **Schwerpunkt-Tage** (Betonung im Compound-Tier, nicht im Slot-Count); 5-Slot-Upper =
