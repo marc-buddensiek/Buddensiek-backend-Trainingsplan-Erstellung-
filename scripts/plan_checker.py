@@ -8,7 +8,9 @@ eine lesbare, lokalisierte Meldung (welche Regel, welcher Plan, welche Übung, w
 Stand (MVP-11, erste Naht): NUR Regel 6 (Verletzungs-Sicherheit). Regeln 1-5 folgen
 je als eigene Naht — einfach einen weiteren Prüfer in REGELN ergänzen.
 
-  python3 scripts/plan_checker.py     # läuft über die 12 Profil-Cases, Exit 0/1
+  python3 scripts/plan_checker.py                 # 12 Profil-Cases (Stub), Exit 0/1
+  python3 scripts/plan_checker.py --kreuzprodukt  # ganzer Eingaberaum (Stub)
+  python3 scripts/plan_checker.py --run-dir DIR   # externe Plan-JSONs (echter Claude-Output)
 """
 
 from __future__ import annotations
@@ -395,6 +397,33 @@ def _baue_plan(case: dict) -> tuple[dict, dict]:
     return plan.model_dump(), _baue_soll(split, klient, level)
 
 
+def pruefe_externen_plan(plan_json_path, EXMAP: dict[str, dict] | None = None) -> list[Verstoss]:
+    """Prüft eine EXTERNE Plan-JSON (echter Claude-Output aus test_runs/) gegen Regel 2-6.
+
+    `soll` wird aus dem self-contained `klient_snapshot` des Plans rekonstruiert — kein Case nötig:
+    der Snapshot trägt level/ziel/equipment/tage/dauer/verletzungen, exakt die waehle_split- +
+    berechne_volumen-Eingaben. Das ist `_baue_plan` MINUS dem Stub-Schritt: der Plan kommt von
+    Platte statt aus `_auto_claude_output`; `soll` entsteht deterministisch aus demselben Split.
+    PST/trainingsjahre/alter sind Dummies — `level` ist gegeben, wird NICHT via berechne_level neu gerechnet."""
+    from models import KlientenInput
+    from logic.split_selector import waehle_split
+
+    plan = json.loads(pathlib.Path(plan_json_path).read_text(encoding="utf-8"))
+    snap = plan["klient_snapshot"]
+    level = snap["level"]
+    klient = KlientenInput(
+        client_id="ext", vorname="ext", alter=30, trainingsjahre="ein_bis_zwei",
+        kniebeugen_wdh=0, pushups_wdh=0, situps_wdh=0, burpees_wdh=0, plank_sek=0,  # PST irrelevant: level fix
+        stress_level=snap["stress"], schlaf_stunden=snap["schlaf_stunden"],
+        hauptziel=snap["ziel"], equipment=snap["equipment"],
+        tage_pro_woche=snap["tage_pro_woche"], session_dauer_min=snap["session_dauer_min"],
+        verletzungen=snap["verletzungen"],
+    )
+    split = waehle_split(klient, level)
+    soll = _baue_soll(split, klient, level)
+    return pruefe_plan(plan, EXMAP=EXMAP if EXMAP is not None else lade_exmap(), soll=soll)
+
+
 def main() -> int:
     from scripts.run_test_matrix import CASES
 
@@ -506,7 +535,48 @@ def main_kreuzprodukt() -> int:
     return 0 if ok else 1
 
 
+# ── Externe Pläne: echten Claude-Output (test_runs/) gegen Regel 2-6 prüfen ───────
+
+def main_run_dir(ordner: str) -> int:
+    EXMAP = lade_exmap()
+    d = pathlib.Path(ordner)
+    print("=" * 70)
+    print(f"PLAN-CHECKER — EXTERNE PLÄNE aus {d}")
+    print("=" * 70)
+
+    dateien = sorted(d.glob("*.json"))
+    if not dateien:
+        print(f"Keine *.json in {d} gefunden.")
+        return 1
+
+    sauber = 0
+    for f in dateien:
+        verstoesse = pruefe_externen_plan(f, EXMAP)
+        if not verstoesse:
+            print(f"  ✅ {f.name}")
+            sauber += 1
+        else:
+            nach_regel: dict[str, list[str]] = defaultdict(list)
+            for v in verstoesse:
+                nach_regel[v.regel].append(v.detail)
+            print(f"  ❌ {f.name} — {len(verstoesse)} Verstoß/Verstöße:")
+            for regel in sorted(nach_regel):
+                print(f"       [{regel}] {len(nach_regel[regel])}:")
+                for det in nach_regel[regel]:
+                    print(f"          {det}")
+
+    print()
+    print(f"  {sauber}/{len(dateien)} Pläne regelkonform (Regel 6+2+5+4+3)")
+    return 0 if sauber == len(dateien) else 1
+
+
 if __name__ == "__main__":
     if "--kreuzprodukt" in sys.argv:
         raise SystemExit(main_kreuzprodukt())
+    if "--run-dir" in sys.argv:
+        i = sys.argv.index("--run-dir")
+        if i + 1 >= len(sys.argv):
+            print("Usage: python3 scripts/plan_checker.py --run-dir <ordner>")
+            raise SystemExit(2)
+        raise SystemExit(main_run_dir(sys.argv[i + 1]))
     raise SystemExit(main())
