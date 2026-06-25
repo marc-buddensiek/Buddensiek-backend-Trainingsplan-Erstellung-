@@ -184,6 +184,43 @@ Pattern-Automatismus.
   (sonst nähme der Filter ihn aus SOLL, während der Assembler ihn nicht bypassed → Inkonsistenz).
   _Auslöser:_ neuer Pool-Typ.
 
+## Output-Review — erster echter Lauf
+
+### Output-Review Lauf 1 (Cases 13-15, echter Claude, 2026-06-25)
+_Erster echter Claude-Output gegen Checker-Brücke geprüft (--run-dir). 0/3 "regelkonform"
+laut Checker — aber die Funde zerfallen in echte Befunde vs. zu strenge Regeln:_
+
+_**BEFUND 1 (strukturell, wichtigste Wurzel): 6-Tage-Split [:2]-Template-Verdopplung.**_
+_split_selector.py:368: `ul6 = _upper_lower_sessions(...) + _upper_lower_sessions(...)[:2]`
+dupliziert wortwörtlich [UA,LA,UB,LB] + [UA,LA] → Upper A + Lower A je 2×, Upper B + Lower B je 1×.
+Folgen:_
+_- Push 2×/Pull 1×, Squat 2×/Hinge 1× — Vorderseite verdoppelt. COACH-URTEIL (Alen): suboptimal,
+  Pull/Hinge sind bei den meisten Klienten die Schwachstelle → gehört gefixt (Verdopplung sollte
+  NICHT pauschal Push/Squat bevorzugen)._
+_- s2==s6 sind identische "Lower A"-Templates (beide hinge-Slot) → Picker (Stub UND echter Claude)
+  hat keinen Anlass zu variieren → derselbe hinge-Lift 2×/Woche. DAS ist die strukturelle Wurzel
+  von ~160 der 224 6-Tage-Regel-3-Funde — NICHT (nur) Round-Robin/Stub-Artefakt._
+_- KORREKTUR früherer Lesart: hinge-Repeat bei 6T ist strukturell (Template-Dublette), nicht
+  Bibliotheks-Knappheit und nicht bloß Stub-Picker. Pool-Erweiterung allein löst es NICHT._
+_- Gegenbeweis dass es Artefakt ist: 5-Tage-Pfad (:365) hängt eine DISTINKTE Akzent-Session an
+  statt zu duplizieren. Fix-Richtung: analoge distinkte 6. (und 5.) Session für 6 Tage._
+_STATUS: Fix zurückgestellt bis nach vollem Output-Review-Lauf (alle 12 Profile)._
+
+_**BEFUND 2 (Regel zu streng): Regel 3 ist level-blind.**_
+_Grundübungs-Wiederholung bei L1/Anfänger ist didaktisch RICHTIG (Technik/Frequenz). Regel 3
+flaggt sie trotzdem als Mangel. COACH-URTEIL (Alen): bei L1 ist Wiederholung der Grundübung ok.
+Kandidat: Regel 3 level-abhängig machen (L1 darf Grundübung wiederholen, L3/L4 nicht)._
+
+_**BEFUND 3 (Knappheit zeigt sich als Pattern-Bruch): Regel 2.**_
+_case14: T-Supermans (pull_horizontal) in hinge-Slot — echter Claude wich aus, weil L1-bodyweight-hinge
+nur Glute-Bridge-Varianten hat (Pool erschöpft). Echte Knappheit, zeigt sich als Slot-Pattern-Bruch.
+Außerdem Tag-Grenzfall: Single Leg Glute Bridge (hinge-getaggt) in single_leg-Slot — die Übung
+gehört fachlich in BEIDE Welten; Ein-Pattern-Zuordnung ist hier zu eng._
+
+_**Gesamteinordnung:** Bibliothek solide, Regeln greifen — aber der 6-Tage-Split hat eine
+strukturelle Schwäche ([:2]), und Regel 3 ist für L1 zu streng. Substanz-Bewertung der Pläne
+(großes Bild, alle Profile) steht noch aus — Lauf 1 deckte nur die 3 Extrem-6T-Profile ab._
+
 ## Output-Review MVP-9 — offene Befunde
 
 _Aus dem echten 12-Case-Output-Review (test_runs/2026-06-19_run3/REVIEW.md). Kraft-Auswahl
