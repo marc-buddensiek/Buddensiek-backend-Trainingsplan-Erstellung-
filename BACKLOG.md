@@ -208,6 +208,26 @@ Befund 3 Volumen-Korridore + Mike-Rampe (Modell A v2, `04e43ca`).
   akuter Sicherheitsfall, da echte WS-Lader bereits getaggt.
 - **Warm-up tagesspezifisch** — System-Hochfahren + gezielte Aktivierung pro Tages-Pattern; eigene Logik.
 
+## Datenschutz / DSGVO
+
+### Datenschutz Prompt-Pfad — verifiziert + offene Go-Live-Punkte
+_Prompt-Pfad pseudonymisiert verifiziert (vor erstem echten Call): SYSTEM_PROMPT PII-frei,
+USER-Prompt trägt nur fachliche Felder (Alter, Level, Ziel, Equipment, Verletzungen, berechnete
+Trainingsparameter, gefilterte Übungen). Sauber DRAUSSEN: vorname, motivation, stress_level,
+schlaf_stunden, client_id, trainingsjahre, email. Call ohne Zusatz-Metadaten; Prompt-Inhalt
+wird nie geloggt (nur vorgang_id + Modell). Kein Leak, kein Bug._
+
+_OFFEN VOR GO-LIVE (kein Code-Fix, sondern Recht/Doku — NICHT von Claude.ai abschließend beurteilbar,
+gehört zu Datenschutz-Expertise):_
+_1. Exaktes Alter geht an die API (personenbezogen). Datensparsamkeits-Option: Altersband statt
+   exaktem Wert — zu prüfen, ob die Auswahl-Logik ein Band verträgt (alter numerisch gebraucht?)._
+_2. Verletzungen = Gesundheitsdaten (DSGVO Art. 9, besondere Kategorie), gehen an Anthropic
+   (US-Auftragsverarbeiter). Erfordert: AVV/DPA mit Anthropic, Rechtsgrundlage/Einwilligung für
+   Art.-9-Daten im Fillout-Intake, Doku der US-Übermittlung. VOR Go-Live von Datenschutz-Expertise
+   prüfen lassen._
+_Für Output-Review mit TESTDATEN unkritisch (keine echten Klientendaten). Relevant erst bei
+echten Klienten (MVP-12/Go-Live)._
+
 ## Verletzungs-Tagging — Audit & Tier (nach elbow-Nachtrag 2026-06-22)
 
 - **Last-/intensitätsabgestufter Verletzungs-Tier (Modell-Grenze):** `joint_stress` ist heute
