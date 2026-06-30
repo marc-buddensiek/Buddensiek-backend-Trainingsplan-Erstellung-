@@ -1,0 +1,4063 @@
+{
+  "plan_id": "dc3403b2-60dd-4a09-b68e-f01220163c6e",
+  "client_id": "00000000-0000-0000-0000-000000000001",
+  "erstellt_am": "2026-06-30T19:43:50Z",
+  "block_nummer": 1,
+  "klient_snapshot": {
+    "level": 3,
+    "ziel": "recomp",
+    "equipment": "gym",
+    "split_typ": "Upper/Lower 4× + Metcon",
+    "tage_pro_woche": 4,
+    "session_dauer_min": 60,
+    "verletzungen": []
+  },
+  "wochen": [
+    {
+      "woche_nummer": 1,
+      "block_typ": "akkumulation",
+      "volumen_stufe": "niedrig",
+      "ziel_saetze": 3,
+      "ziel_rir": 3.0,
+      "sessions": [
+        {
+          "session_id": "w1_s1",
+          "tag": "montag",
+          "session_typ": "kraft",
+          "fokus": "Upper A — Push",
+          "fokus_anzeige": "Oberkörper – Push",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Band Pull-Apart",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Scapula Push-Up",
+                "saetze": 2,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Face Pull (leicht)",
+                "saetze": 2,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Arm Circles",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_bench_press",
+              "name": "Bench Press (Langhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Schulterblätter zusammenziehen und zur Bank drücken",
+                "Ellenbogen ca. 45–60° zum Körper",
+                "Brust berühren — kein Abprellen"
+              ],
+              "notiz": "Starte konservativ — Technik und Kontrolle haben Vorrang vor Last, sauber bevor du steigerst.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_barbell_row",
+              "name": "Barbell Row",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Rumpf ca. 45° — Spannung im unteren Rücken halten",
+                "Stange zur Hüfte ziehen, nicht zur Brust",
+                "Schulterblätter am Endpunkt zusammendrücken"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_ohp_barbell",
+              "name": "Overhead Press (Langhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Stange über dem Kopf — nicht vor dem Körper",
+                "Gesäß und Bauch anspannen, kein Hohlkreuz",
+                "Ellenbogen leicht nach vorne, nicht zur Seite"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_pullup",
+              "name": "Pull-Up",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schulterblätter zuerst nach unten und zusammen — dann ziehen",
+                "Brust zur Stange führen, nicht das Kinn",
+                "Kontrolliertes Absenken bis volle Streckung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_cable_lateral_raise",
+              "name": "Cable Seitheben",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "12-20",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Leicht gebeugte Ellenbogen, Bewegung aus der Schulter",
+                "Daumen leicht nach unten — mehr Lateral Head",
+                "Kontrolliert absenken, nicht fallen lassen"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_ab_wheel",
+              "name": "Ab Wheel Rollout",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Nur so weit ausrollen wie Lendenwirbel flach bleibt",
+                "Langsam — der Rückweg ist der Trainingsstimulus",
+                "Schultern über den Handgelenken zu Beginn"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "zirkel",
+            "runden": 3,
+            "runden_pause_sek": 60,
+            "format_notiz": "3 Runden Zirkel — alle 3 Übungen nacheinander ohne Pause. 60 Sek. Pause nach jeder Runde. Runden notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_pogo_hops",
+                "name": "Pogo Hops",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Steife Knöchel, kurze Bodenkontakte",
+                  "Aus den Waden federn"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "ath_med_ball_chest_pass",
+                "name": "Med Ball Chest Pass",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Explosiv von der Brust wegdrücken",
+                  "Stand stabil"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "ath_lateral_bound",
+                "name": "Lateral Bound",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Seitlich abdrücken, einbeinig landen",
+                  "Landung kontrolliert abfangen"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w1_s2",
+          "tag": "dienstag",
+          "session_typ": "kraft",
+          "fokus": "Lower A — Squat",
+          "fokus_anzeige": "Unterkörper – Squat",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Glute Bridge (Aktivierung)",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Leg Swing",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Goblet Squat (leicht)",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_front_squat",
+              "name": "Front Squat",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ellenbogen hoch, Stange auf den vorderen Deltas",
+                "Oberkörper so aufrecht wie möglich",
+                "Knie nach außen über die Zehen"
+              ],
+              "notiz": "Starte konservativ mit dem Gewicht — Mobilität und aufrechter Torso haben Vorrang.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_rdl_barbell",
+              "name": "Romanian Deadlift (Langhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Hüfte nach hinten schieben, nicht runterdrücken",
+                "Stange nah am Körper über Schienbeinen",
+                "Weiche Knie — kein Lock-Out am Boden"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_bulgarian_split_squat_db",
+              "name": "Bulgarian Split Squat (Kurzhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hinteren Fuß auf der Bank — Rist, nicht Zehen",
+                "Vorderen Fuß weit genug vorne, Knie über den Zehen",
+                "Hüfte gerade absenken — kein Schieben nach vorne"
+              ],
+              "notiz": "Schwächere Seite zuerst — gleiche Wiederholungen mit der stärkeren Seite.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_45_degree_back_extension",
+              "name": "45° Rückenstrecker",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Oberkörper nur bis parallel zum Boden heben — kein Hyperextend",
+                "Langsam absenken — Dehnung im unteren Rücken",
+                "Arme vor der Brust verschränkt oder hinter dem Kopf"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "bw_tibialis_raise",
+              "name": "Tibialis Raise (Ben Patrick)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Rücken an die Wand, Füße ca. 30cm entfernt",
+                "Zehen maximal nach oben ziehen, Fersen auf dem Boden",
+                "Kniegesundheit — täglich möglich"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "bw_copenhagen_plank",
+              "name": "Copenhagen Plank",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Oberes Bein auf der Bank, Körper als Brett",
+                "Hüfte hoch halten — kein Durchhängen",
+                "Für Einsteiger: Knie auf der Bank statt Fuß"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "amrap",
+            "runden": null,
+            "runden_pause_sek": null,
+            "format_notiz": "8 Min. AMRAP — so viele Runden wie möglich mit allen 3 Übungen. Kein Stop zwischen Übungen. Runden am Ende notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_box_jump",
+                "name": "Box Jump",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Arme mitschwingen, weich landen",
+                  "Volle Hüftstreckung oben"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_burpee",
+                "name": "Burpee",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Brust zum Boden, dann explosiv hoch",
+                  "Hüfte mitnehmen, nicht durchhängen"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "bw_skater_squat",
+                "name": "Skater Squat",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Kein Aufstützen — freistehend auf einem Bein",
+                  "Hinteres Knie taucht fast den Boden"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w1_s3",
+          "tag": "donnerstag",
+          "session_typ": "kraft",
+          "fokus": "Upper B — Pull",
+          "fokus_anzeige": "Oberkörper – Pull",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Band Pull-Apart",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Scapula Push-Up",
+                "saetze": 2,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Face Pull (leicht)",
+                "saetze": 2,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Arm Circles",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_weighted_pullup",
+              "name": "Weighted Pull-Up (Gürtel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Gewicht am Gürtel — Technik identisch mit Pull-Up",
+                "Kein Schwung — strikt",
+                "Kontrolliertes Absenken bis volle Streckung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_incline_db_press",
+              "name": "Incline Kurzhantel Press",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Bank auf 30–45° — nicht zu steil",
+                "Schulterblätter zusammen und einsinken lassen",
+                "Kontrolliertes Absenken bis auf Höhe der oberen Brust"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_chest_supported_db_row",
+              "name": "Chest Supported Row (Kurzhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Brust auf Schrägbank — kein Schwung aus dem Rücken möglich",
+                "Ideal für Rücken-Isolation ohne Rückenbeschwerden",
+                "Schulterblätter maximieren am Endpunkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_weighted_dips",
+              "name": "Weighted Dips (Gürtel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Oberkörper leicht nach vorne für mehr Brustfokus",
+                "Bis Schultern unter Ellenbogen absenken — volle ROM",
+                "Gewicht am Gürtel — kontrollierte Ausführung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_face_pull",
+              "name": "Face Pull (Kabel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "12-20",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Seil zum Gesicht ziehen, Ellenbogen hoch",
+                "Außenrotation am Endpunkt — Daumen nach hinten",
+                "Schultergesundheit: täglich möglich"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_hanging_leg_raise",
+              "name": "Hanging Leg Raise (gestreckt)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Beine gestreckt bis horizontal — kein Schwung",
+                "Hüfte leicht nach hinten rollen am Endpunkt",
+                "Schultern aktiv gepackt"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "zirkel",
+            "runden": 3,
+            "runden_pause_sek": 60,
+            "format_notiz": "3 Runden Zirkel — alle 3 Übungen nacheinander ohne Pause. 60 Sek. Pause nach jeder Runde. Runden notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "bw_jump_squat",
+                "name": "Jump Squat",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Sanft landen — erst Zehen, dann Ferse",
+                  "Squat-Tiefe vor dem Sprung, nicht nur Hüftbeuge"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_pushup_conditioning",
+                "name": "Push-Up (Conditioning)",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Körper in einer Linie",
+                  "Ellbogen ~45° am Körper"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "ath_lateral_bound",
+                "name": "Lateral Bound",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Seitlich abdrücken, einbeinig landen",
+                  "Landung kontrolliert abfangen"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w1_s4",
+          "tag": "freitag",
+          "session_typ": "kraft",
+          "fokus": "Lower B — Hinge",
+          "fokus_anzeige": "Unterkörper – Hinge",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Glute Bridge (Aktivierung)",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Leg Swing",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Goblet Squat (leicht)",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_conventional_deadlift",
+              "name": "Conventional Deadlift",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Stange nah am Körper — über den Schienbeinen",
+                "Hüfte und Schultern gleichzeitig hochziehen",
+                "Gesäß anspannen am Ende der Bewegung"
+              ],
+              "notiz": "Starte konservativ — Technik und Spannung im Rücken haben Vorrang vor Last.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_paused_back_squat",
+              "name": "Paused Back Squat",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "3 Sek. unten halten — keine Entspannung",
+                "Aus dem Loch heraus drücken, kein Rebound",
+                "Knie nach außen, Oberkörper stabil durch die Pause"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_single_leg_rdl_db",
+              "name": "Single Leg RDL (Kurzhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Spielbein und Oberkörper bilden eine Linie",
+                "Hantel nah am Standbein entlangführen",
+                "Hüfte gerade halten — nicht rotieren"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_hip_thrust_barbell",
+              "name": "Hip Thrust (Langhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schulterblätter auf der Bank, Kinn zur Brust",
+                "Volle Hüftstreckung oben — Glutes maximal anspannen",
+                "Knie 90° am höchsten Punkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_suitcase_carry_db",
+              "name": "Suitcase Carry (einseitig)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "20",
+              "einheit": "meter",
+              "rir": null,
+              "tempo": "gleichmäßig",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Nur eine Seite belastet — Oberkörper trotzdem gerade",
+                "Nicht zur Hantelseite neigen",
+                "Seitliche Stabilisatoren maximal aktiviert"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_pallof_press",
+              "name": "Pallof Press",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Seitlich zum Kabel stehen, Kern maximal anspannen",
+                "Arme langsam nach vorne strecken, Rotationswiderstand halten",
+                "Kein Eindrehen der Hüfte — Anti-Rotation ist das Ziel"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "amrap",
+            "runden": null,
+            "runden_pause_sek": null,
+            "format_notiz": "8 Min. AMRAP — so viele Runden wie möglich mit allen 3 Übungen. Kein Stop zwischen Übungen. Runden am Ende notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_broad_jump",
+                "name": "Broad Jump",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Weit nach vorn, Arme führen",
+                  "Weich auf beiden Füßen landen"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_squat_thrust",
+                "name": "Squat Thrust (Burpee ohne Sprung)",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Hände am Boden, Beine zurück und vor",
+                  "Rumpf stabil"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "bw_skater_squat",
+                "name": "Skater Squat",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Kein Aufstützen — freistehend auf einem Bein",
+                  "Hinteres Knie taucht fast den Boden"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        }
+      ]
+    },
+    {
+      "woche_nummer": 2,
+      "block_typ": "progression",
+      "volumen_stufe": "mittel",
+      "ziel_saetze": 3,
+      "ziel_rir": 2.0,
+      "sessions": [
+        {
+          "session_id": "w2_s1",
+          "tag": "montag",
+          "session_typ": "kraft",
+          "fokus": "Upper A — Push",
+          "fokus_anzeige": "Oberkörper – Push",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Band Pull-Apart",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Scapula Push-Up",
+                "saetze": 2,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Face Pull (leicht)",
+                "saetze": 2,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Arm Circles",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_bench_press",
+              "name": "Bench Press (Langhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Schulterblätter zusammenziehen und zur Bank drücken",
+                "Ellenbogen ca. 45–60° zum Körper",
+                "Brust berühren — kein Abprellen"
+              ],
+              "notiz": "Starte konservativ — Technik und Kontrolle haben Vorrang vor Last, sauber bevor du steigerst.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_barbell_row",
+              "name": "Barbell Row",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Rumpf ca. 45° — Spannung im unteren Rücken halten",
+                "Stange zur Hüfte ziehen, nicht zur Brust",
+                "Schulterblätter am Endpunkt zusammendrücken"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_ohp_barbell",
+              "name": "Overhead Press (Langhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Stange über dem Kopf — nicht vor dem Körper",
+                "Gesäß und Bauch anspannen, kein Hohlkreuz",
+                "Ellenbogen leicht nach vorne, nicht zur Seite"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_pullup",
+              "name": "Pull-Up",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schulterblätter zuerst nach unten und zusammen — dann ziehen",
+                "Brust zur Stange führen, nicht das Kinn",
+                "Kontrolliertes Absenken bis volle Streckung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_cable_lateral_raise",
+              "name": "Cable Seitheben",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "12-20",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Leicht gebeugte Ellenbogen, Bewegung aus der Schulter",
+                "Daumen leicht nach unten — mehr Lateral Head",
+                "Kontrolliert absenken, nicht fallen lassen"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_ab_wheel",
+              "name": "Ab Wheel Rollout",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Nur so weit ausrollen wie Lendenwirbel flach bleibt",
+                "Langsam — der Rückweg ist der Trainingsstimulus",
+                "Schultern über den Handgelenken zu Beginn"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "amrap",
+            "runden": null,
+            "runden_pause_sek": null,
+            "format_notiz": "8 Min. AMRAP — so viele Runden wie möglich mit allen 3 Übungen. Kein Stop zwischen Übungen. Runden am Ende notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_broad_jump",
+                "name": "Broad Jump",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Weit nach vorn, Arme führen",
+                  "Weich auf beiden Füßen landen"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_squat_thrust",
+                "name": "Squat Thrust (Burpee ohne Sprung)",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Hände am Boden, Beine zurück und vor",
+                  "Rumpf stabil"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "bw_skater_squat",
+                "name": "Skater Squat",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Kein Aufstützen — freistehend auf einem Bein",
+                  "Hinteres Knie taucht fast den Boden"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w2_s2",
+          "tag": "dienstag",
+          "session_typ": "kraft",
+          "fokus": "Lower A — Squat",
+          "fokus_anzeige": "Unterkörper – Squat",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Glute Bridge (Aktivierung)",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Leg Swing",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Goblet Squat (leicht)",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_front_squat",
+              "name": "Front Squat",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ellenbogen hoch, Stange auf den vorderen Deltas",
+                "Oberkörper so aufrecht wie möglich",
+                "Knie nach außen über die Zehen"
+              ],
+              "notiz": "Starte konservativ mit dem Gewicht — Mobilität und aufrechter Torso haben Vorrang.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_rdl_barbell",
+              "name": "Romanian Deadlift (Langhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Hüfte nach hinten schieben, nicht runterdrücken",
+                "Stange nah am Körper über Schienbeinen",
+                "Weiche Knie — kein Lock-Out am Boden"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_bulgarian_split_squat_db",
+              "name": "Bulgarian Split Squat (Kurzhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hinteren Fuß auf der Bank — Rist, nicht Zehen",
+                "Vorderen Fuß weit genug vorne, Knie über den Zehen",
+                "Hüfte gerade absenken — kein Schieben nach vorne"
+              ],
+              "notiz": "Schwächere Seite zuerst — gleiche Wiederholungen mit der stärkeren Seite.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_45_degree_back_extension",
+              "name": "45° Rückenstrecker",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Oberkörper nur bis parallel zum Boden heben — kein Hyperextend",
+                "Langsam absenken — Dehnung im unteren Rücken",
+                "Arme vor der Brust verschränkt oder hinter dem Kopf"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "bw_tibialis_raise",
+              "name": "Tibialis Raise (Ben Patrick)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Rücken an die Wand, Füße ca. 30cm entfernt",
+                "Zehen maximal nach oben ziehen, Fersen auf dem Boden",
+                "Kniegesundheit — täglich möglich"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "bw_copenhagen_plank",
+              "name": "Copenhagen Plank",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Oberes Bein auf der Bank, Körper als Brett",
+                "Hüfte hoch halten — kein Durchhängen",
+                "Für Einsteiger: Knie auf der Bank statt Fuß"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "zirkel",
+            "runden": 3,
+            "runden_pause_sek": 60,
+            "format_notiz": "3 Runden Zirkel — alle 3 Übungen nacheinander ohne Pause. 60 Sek. Pause nach jeder Runde. Runden notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_tuck_jump",
+                "name": "Tuck Jump",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Knie zur Brust ziehen",
+                  "Sofort weich abfedern"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "ath_med_ball_chest_pass",
+                "name": "Med Ball Chest Pass",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Explosiv von der Brust wegdrücken",
+                  "Stand stabil"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "ath_lateral_bound",
+                "name": "Lateral Bound",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Seitlich abdrücken, einbeinig landen",
+                  "Landung kontrolliert abfangen"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w2_s3",
+          "tag": "donnerstag",
+          "session_typ": "kraft",
+          "fokus": "Upper B — Pull",
+          "fokus_anzeige": "Oberkörper – Pull",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Band Pull-Apart",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Scapula Push-Up",
+                "saetze": 2,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Face Pull (leicht)",
+                "saetze": 2,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Arm Circles",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_weighted_pullup",
+              "name": "Weighted Pull-Up (Gürtel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Gewicht am Gürtel — Technik identisch mit Pull-Up",
+                "Kein Schwung — strikt",
+                "Kontrolliertes Absenken bis volle Streckung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_incline_db_press",
+              "name": "Incline Kurzhantel Press",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Bank auf 30–45° — nicht zu steil",
+                "Schulterblätter zusammen und einsinken lassen",
+                "Kontrolliertes Absenken bis auf Höhe der oberen Brust"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_chest_supported_db_row",
+              "name": "Chest Supported Row (Kurzhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Brust auf Schrägbank — kein Schwung aus dem Rücken möglich",
+                "Ideal für Rücken-Isolation ohne Rückenbeschwerden",
+                "Schulterblätter maximieren am Endpunkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_weighted_dips",
+              "name": "Weighted Dips (Gürtel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Oberkörper leicht nach vorne für mehr Brustfokus",
+                "Bis Schultern unter Ellenbogen absenken — volle ROM",
+                "Gewicht am Gürtel — kontrollierte Ausführung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_face_pull",
+              "name": "Face Pull (Kabel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "12-20",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Seil zum Gesicht ziehen, Ellenbogen hoch",
+                "Außenrotation am Endpunkt — Daumen nach hinten",
+                "Schultergesundheit: täglich möglich"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_hanging_leg_raise",
+              "name": "Hanging Leg Raise (gestreckt)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Beine gestreckt bis horizontal — kein Schwung",
+                "Hüfte leicht nach hinten rollen am Endpunkt",
+                "Schultern aktiv gepackt"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "amrap",
+            "runden": null,
+            "runden_pause_sek": null,
+            "format_notiz": "8 Min. AMRAP — so viele Runden wie möglich mit allen 3 Übungen. Kein Stop zwischen Übungen. Runden am Ende notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_pogo_hops",
+                "name": "Pogo Hops",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Steife Knöchel, kurze Bodenkontakte",
+                  "Aus den Waden federn"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_burpee",
+                "name": "Burpee",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Brust zum Boden, dann explosiv hoch",
+                  "Hüfte mitnehmen, nicht durchhängen"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "bw_skater_squat",
+                "name": "Skater Squat",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Kein Aufstützen — freistehend auf einem Bein",
+                  "Hinteres Knie taucht fast den Boden"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w2_s4",
+          "tag": "freitag",
+          "session_typ": "kraft",
+          "fokus": "Lower B — Hinge",
+          "fokus_anzeige": "Unterkörper – Hinge",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Glute Bridge (Aktivierung)",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Leg Swing",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Goblet Squat (leicht)",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_conventional_deadlift",
+              "name": "Conventional Deadlift",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Stange nah am Körper — über den Schienbeinen",
+                "Hüfte und Schultern gleichzeitig hochziehen",
+                "Gesäß anspannen am Ende der Bewegung"
+              ],
+              "notiz": "Starte konservativ — Technik und Spannung im Rücken haben Vorrang vor Last.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_paused_back_squat",
+              "name": "Paused Back Squat",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "3 Sek. unten halten — keine Entspannung",
+                "Aus dem Loch heraus drücken, kein Rebound",
+                "Knie nach außen, Oberkörper stabil durch die Pause"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_single_leg_rdl_db",
+              "name": "Single Leg RDL (Kurzhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Spielbein und Oberkörper bilden eine Linie",
+                "Hantel nah am Standbein entlangführen",
+                "Hüfte gerade halten — nicht rotieren"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_hip_thrust_barbell",
+              "name": "Hip Thrust (Langhantel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schulterblätter auf der Bank, Kinn zur Brust",
+                "Volle Hüftstreckung oben — Glutes maximal anspannen",
+                "Knie 90° am höchsten Punkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_suitcase_carry_db",
+              "name": "Suitcase Carry (einseitig)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "20",
+              "einheit": "meter",
+              "rir": null,
+              "tempo": "gleichmäßig",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Nur eine Seite belastet — Oberkörper trotzdem gerade",
+                "Nicht zur Hantelseite neigen",
+                "Seitliche Stabilisatoren maximal aktiviert"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_pallof_press",
+              "name": "Pallof Press",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Seitlich zum Kabel stehen, Kern maximal anspannen",
+                "Arme langsam nach vorne strecken, Rotationswiderstand halten",
+                "Kein Eindrehen der Hüfte — Anti-Rotation ist das Ziel"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "zirkel",
+            "runden": 3,
+            "runden_pause_sek": 60,
+            "format_notiz": "3 Runden Zirkel — alle 3 Übungen nacheinander ohne Pause. 60 Sek. Pause nach jeder Runde. Runden notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_box_jump",
+                "name": "Box Jump",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Arme mitschwingen, weich landen",
+                  "Volle Hüftstreckung oben"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_pushup_conditioning",
+                "name": "Push-Up (Conditioning)",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Körper in einer Linie",
+                  "Ellbogen ~45° am Körper"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "ath_lateral_bound",
+                "name": "Lateral Bound",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Seitlich abdrücken, einbeinig landen",
+                  "Landung kontrolliert abfangen"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        }
+      ]
+    },
+    {
+      "woche_nummer": 3,
+      "block_typ": "intensivierung",
+      "volumen_stufe": "hoch",
+      "ziel_saetze": 4,
+      "ziel_rir": 2.0,
+      "sessions": [
+        {
+          "session_id": "w3_s1",
+          "tag": "montag",
+          "session_typ": "kraft",
+          "fokus": "Upper A — Push",
+          "fokus_anzeige": "Oberkörper – Push",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Band Pull-Apart",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Scapula Push-Up",
+                "saetze": 2,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Face Pull (leicht)",
+                "saetze": 2,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Arm Circles",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_bench_press",
+              "name": "Bench Press (Langhantel)",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Schulterblätter zusammenziehen und zur Bank drücken",
+                "Ellenbogen ca. 45–60° zum Körper",
+                "Brust berühren — kein Abprellen"
+              ],
+              "notiz": "Starte konservativ — Technik und Kontrolle haben Vorrang vor Last, sauber bevor du steigerst.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_barbell_row",
+              "name": "Barbell Row",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Rumpf ca. 45° — Spannung im unteren Rücken halten",
+                "Stange zur Hüfte ziehen, nicht zur Brust",
+                "Schulterblätter am Endpunkt zusammendrücken"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_ohp_barbell",
+              "name": "Overhead Press (Langhantel)",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Stange über dem Kopf — nicht vor dem Körper",
+                "Gesäß und Bauch anspannen, kein Hohlkreuz",
+                "Ellenbogen leicht nach vorne, nicht zur Seite"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_pullup",
+              "name": "Pull-Up",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schulterblätter zuerst nach unten und zusammen — dann ziehen",
+                "Brust zur Stange führen, nicht das Kinn",
+                "Kontrolliertes Absenken bis volle Streckung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_cable_lateral_raise",
+              "name": "Cable Seitheben",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "12-20",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Leicht gebeugte Ellenbogen, Bewegung aus der Schulter",
+                "Daumen leicht nach unten — mehr Lateral Head",
+                "Kontrolliert absenken, nicht fallen lassen"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_ab_wheel",
+              "name": "Ab Wheel Rollout",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Nur so weit ausrollen wie Lendenwirbel flach bleibt",
+                "Langsam — der Rückweg ist der Trainingsstimulus",
+                "Schultern über den Handgelenken zu Beginn"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "zirkel",
+            "runden": 4,
+            "runden_pause_sek": 60,
+            "format_notiz": "4 Runden Zirkel — alle 3 Übungen nacheinander ohne Pause. 60 Sek. Pause nach jeder Runde. Runden notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_box_jump",
+                "name": "Box Jump",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Arme mitschwingen, weich landen",
+                  "Volle Hüftstreckung oben"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_pushup_conditioning",
+                "name": "Push-Up (Conditioning)",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Körper in einer Linie",
+                  "Ellbogen ~45° am Körper"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "ath_lateral_bound",
+                "name": "Lateral Bound",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Seitlich abdrücken, einbeinig landen",
+                  "Landung kontrolliert abfangen"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w3_s2",
+          "tag": "dienstag",
+          "session_typ": "kraft",
+          "fokus": "Lower A — Squat",
+          "fokus_anzeige": "Unterkörper – Squat",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Glute Bridge (Aktivierung)",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Leg Swing",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Goblet Squat (leicht)",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_front_squat",
+              "name": "Front Squat",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ellenbogen hoch, Stange auf den vorderen Deltas",
+                "Oberkörper so aufrecht wie möglich",
+                "Knie nach außen über die Zehen"
+              ],
+              "notiz": "Starte konservativ mit dem Gewicht — Mobilität und aufrechter Torso haben Vorrang.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_rdl_barbell",
+              "name": "Romanian Deadlift (Langhantel)",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Hüfte nach hinten schieben, nicht runterdrücken",
+                "Stange nah am Körper über Schienbeinen",
+                "Weiche Knie — kein Lock-Out am Boden"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_bulgarian_split_squat_db",
+              "name": "Bulgarian Split Squat (Kurzhantel)",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hinteren Fuß auf der Bank — Rist, nicht Zehen",
+                "Vorderen Fuß weit genug vorne, Knie über den Zehen",
+                "Hüfte gerade absenken — kein Schieben nach vorne"
+              ],
+              "notiz": "Schwächere Seite zuerst — gleiche Wiederholungen mit der stärkeren Seite.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_45_degree_back_extension",
+              "name": "45° Rückenstrecker",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Oberkörper nur bis parallel zum Boden heben — kein Hyperextend",
+                "Langsam absenken — Dehnung im unteren Rücken",
+                "Arme vor der Brust verschränkt oder hinter dem Kopf"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "bw_tibialis_raise",
+              "name": "Tibialis Raise (Ben Patrick)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Rücken an die Wand, Füße ca. 30cm entfernt",
+                "Zehen maximal nach oben ziehen, Fersen auf dem Boden",
+                "Kniegesundheit — täglich möglich"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "bw_copenhagen_plank",
+              "name": "Copenhagen Plank",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Oberes Bein auf der Bank, Körper als Brett",
+                "Hüfte hoch halten — kein Durchhängen",
+                "Für Einsteiger: Knie auf der Bank statt Fuß"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "amrap",
+            "runden": null,
+            "runden_pause_sek": null,
+            "format_notiz": "8 Min. AMRAP — so viele Runden wie möglich mit allen 3 Übungen. Kein Stop zwischen Übungen. Runden am Ende notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "bw_jump_squat",
+                "name": "Jump Squat",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Sanft landen — erst Zehen, dann Ferse",
+                  "Squat-Tiefe vor dem Sprung, nicht nur Hüftbeuge"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_squat_thrust",
+                "name": "Squat Thrust (Burpee ohne Sprung)",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Hände am Boden, Beine zurück und vor",
+                  "Rumpf stabil"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "bw_skater_squat",
+                "name": "Skater Squat",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Kein Aufstützen — freistehend auf einem Bein",
+                  "Hinteres Knie taucht fast den Boden"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w3_s3",
+          "tag": "donnerstag",
+          "session_typ": "kraft",
+          "fokus": "Upper B — Pull",
+          "fokus_anzeige": "Oberkörper – Pull",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Band Pull-Apart",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Scapula Push-Up",
+                "saetze": 2,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Face Pull (leicht)",
+                "saetze": 2,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Arm Circles",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_weighted_pullup",
+              "name": "Weighted Pull-Up (Gürtel)",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Gewicht am Gürtel — Technik identisch mit Pull-Up",
+                "Kein Schwung — strikt",
+                "Kontrolliertes Absenken bis volle Streckung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_incline_db_press",
+              "name": "Incline Kurzhantel Press",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Bank auf 30–45° — nicht zu steil",
+                "Schulterblätter zusammen und einsinken lassen",
+                "Kontrolliertes Absenken bis auf Höhe der oberen Brust"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_chest_supported_db_row",
+              "name": "Chest Supported Row (Kurzhantel)",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Brust auf Schrägbank — kein Schwung aus dem Rücken möglich",
+                "Ideal für Rücken-Isolation ohne Rückenbeschwerden",
+                "Schulterblätter maximieren am Endpunkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_weighted_dips",
+              "name": "Weighted Dips (Gürtel)",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Oberkörper leicht nach vorne für mehr Brustfokus",
+                "Bis Schultern unter Ellenbogen absenken — volle ROM",
+                "Gewicht am Gürtel — kontrollierte Ausführung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_face_pull",
+              "name": "Face Pull (Kabel)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "12-20",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Seil zum Gesicht ziehen, Ellenbogen hoch",
+                "Außenrotation am Endpunkt — Daumen nach hinten",
+                "Schultergesundheit: täglich möglich"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_hanging_leg_raise",
+              "name": "Hanging Leg Raise (gestreckt)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Beine gestreckt bis horizontal — kein Schwung",
+                "Hüfte leicht nach hinten rollen am Endpunkt",
+                "Schultern aktiv gepackt"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "zirkel",
+            "runden": 4,
+            "runden_pause_sek": 60,
+            "format_notiz": "4 Runden Zirkel — alle 3 Übungen nacheinander ohne Pause. 60 Sek. Pause nach jeder Runde. Runden notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_broad_jump",
+                "name": "Broad Jump",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Weit nach vorn, Arme führen",
+                  "Weich auf beiden Füßen landen"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "ath_med_ball_chest_pass",
+                "name": "Med Ball Chest Pass",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Explosiv von der Brust wegdrücken",
+                  "Stand stabil"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "ath_lateral_bound",
+                "name": "Lateral Bound",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Seitlich abdrücken, einbeinig landen",
+                  "Landung kontrolliert abfangen"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w3_s4",
+          "tag": "freitag",
+          "session_typ": "kraft",
+          "fokus": "Lower B — Hinge",
+          "fokus_anzeige": "Unterkörper – Hinge",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Glute Bridge (Aktivierung)",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Leg Swing",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Goblet Squat (leicht)",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_conventional_deadlift",
+              "name": "Conventional Deadlift",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Stange nah am Körper — über den Schienbeinen",
+                "Hüfte und Schultern gleichzeitig hochziehen",
+                "Gesäß anspannen am Ende der Bewegung"
+              ],
+              "notiz": "Starte konservativ — Technik und Spannung im Rücken haben Vorrang vor Last.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_paused_back_squat",
+              "name": "Paused Back Squat",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 2.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "3 Sek. unten halten — keine Entspannung",
+                "Aus dem Loch heraus drücken, kein Rebound",
+                "Knie nach außen, Oberkörper stabil durch die Pause"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_single_leg_rdl_db",
+              "name": "Single Leg RDL (Kurzhantel)",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Spielbein und Oberkörper bilden eine Linie",
+                "Hantel nah am Standbein entlangführen",
+                "Hüfte gerade halten — nicht rotieren"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_hip_thrust_barbell",
+              "name": "Hip Thrust (Langhantel)",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schulterblätter auf der Bank, Kinn zur Brust",
+                "Volle Hüftstreckung oben — Glutes maximal anspannen",
+                "Knie 90° am höchsten Punkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_suitcase_carry_db",
+              "name": "Suitcase Carry (einseitig)",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "20",
+              "einheit": "meter",
+              "rir": null,
+              "tempo": "gleichmäßig",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Nur eine Seite belastet — Oberkörper trotzdem gerade",
+                "Nicht zur Hantelseite neigen",
+                "Seitliche Stabilisatoren maximal aktiviert"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_pallof_press",
+              "name": "Pallof Press",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Seitlich zum Kabel stehen, Kern maximal anspannen",
+                "Arme langsam nach vorne strecken, Rotationswiderstand halten",
+                "Kein Eindrehen der Hüfte — Anti-Rotation ist das Ziel"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "amrap",
+            "runden": null,
+            "runden_pause_sek": null,
+            "format_notiz": "8 Min. AMRAP — so viele Runden wie möglich mit allen 3 Übungen. Kein Stop zwischen Übungen. Runden am Ende notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_tuck_jump",
+                "name": "Tuck Jump",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Knie zur Brust ziehen",
+                  "Sofort weich abfedern"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_burpee",
+                "name": "Burpee",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Brust zum Boden, dann explosiv hoch",
+                  "Hüfte mitnehmen, nicht durchhängen"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "bw_skater_squat",
+                "name": "Skater Squat",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Kein Aufstützen — freistehend auf einem Bein",
+                  "Hinteres Knie taucht fast den Boden"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        }
+      ]
+    },
+    {
+      "woche_nummer": 4,
+      "block_typ": "deload",
+      "volumen_stufe": "sehr_niedrig",
+      "ziel_saetze": 2,
+      "ziel_rir": 4.0,
+      "sessions": [
+        {
+          "session_id": "w4_s1",
+          "tag": "montag",
+          "session_typ": "kraft",
+          "fokus": "Upper A — Push",
+          "fokus_anzeige": "Oberkörper – Push",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Band Pull-Apart",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Scapula Push-Up",
+                "saetze": 2,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Face Pull (leicht)",
+                "saetze": 2,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Arm Circles",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_bench_press",
+              "name": "Bench Press (Langhantel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Schulterblätter zusammenziehen und zur Bank drücken",
+                "Ellenbogen ca. 45–60° zum Körper",
+                "Brust berühren — kein Abprellen"
+              ],
+              "notiz": "Starte konservativ — Technik und Kontrolle haben Vorrang vor Last, sauber bevor du steigerst.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_barbell_row",
+              "name": "Barbell Row",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Rumpf ca. 45° — Spannung im unteren Rücken halten",
+                "Stange zur Hüfte ziehen, nicht zur Brust",
+                "Schulterblätter am Endpunkt zusammendrücken"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_ohp_barbell",
+              "name": "Overhead Press (Langhantel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Stange über dem Kopf — nicht vor dem Körper",
+                "Gesäß und Bauch anspannen, kein Hohlkreuz",
+                "Ellenbogen leicht nach vorne, nicht zur Seite"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_pullup",
+              "name": "Pull-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schulterblätter zuerst nach unten und zusammen — dann ziehen",
+                "Brust zur Stange führen, nicht das Kinn",
+                "Kontrolliertes Absenken bis volle Streckung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_cable_lateral_raise",
+              "name": "Cable Seitheben",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "12-20",
+              "einheit": "wiederholungen",
+              "rir": 6.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Leicht gebeugte Ellenbogen, Bewegung aus der Schulter",
+                "Daumen leicht nach unten — mehr Lateral Head",
+                "Kontrolliert absenken, nicht fallen lassen"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_ab_wheel",
+              "name": "Ab Wheel Rollout",
+              "saetze": 1,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Nur so weit ausrollen wie Lendenwirbel flach bleibt",
+                "Langsam — der Rückweg ist der Trainingsstimulus",
+                "Schultern über den Handgelenken zu Beginn"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "amrap",
+            "runden": null,
+            "runden_pause_sek": null,
+            "format_notiz": "8 Min. AMRAP — so viele Runden wie möglich mit allen 3 Übungen. Kein Stop zwischen Übungen. Runden am Ende notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_tuck_jump",
+                "name": "Tuck Jump",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Knie zur Brust ziehen",
+                  "Sofort weich abfedern"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_burpee",
+                "name": "Burpee",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Brust zum Boden, dann explosiv hoch",
+                  "Hüfte mitnehmen, nicht durchhängen"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "bw_skater_squat",
+                "name": "Skater Squat",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Kein Aufstützen — freistehend auf einem Bein",
+                  "Hinteres Knie taucht fast den Boden"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w4_s2",
+          "tag": "dienstag",
+          "session_typ": "kraft",
+          "fokus": "Lower A — Squat",
+          "fokus_anzeige": "Unterkörper – Squat",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Glute Bridge (Aktivierung)",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Leg Swing",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Goblet Squat (leicht)",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_front_squat",
+              "name": "Front Squat",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ellenbogen hoch, Stange auf den vorderen Deltas",
+                "Oberkörper so aufrecht wie möglich",
+                "Knie nach außen über die Zehen"
+              ],
+              "notiz": "Starte konservativ mit dem Gewicht — Mobilität und aufrechter Torso haben Vorrang.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_rdl_barbell",
+              "name": "Romanian Deadlift (Langhantel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Hüfte nach hinten schieben, nicht runterdrücken",
+                "Stange nah am Körper über Schienbeinen",
+                "Weiche Knie — kein Lock-Out am Boden"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_bulgarian_split_squat_db",
+              "name": "Bulgarian Split Squat (Kurzhantel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hinteren Fuß auf der Bank — Rist, nicht Zehen",
+                "Vorderen Fuß weit genug vorne, Knie über den Zehen",
+                "Hüfte gerade absenken — kein Schieben nach vorne"
+              ],
+              "notiz": "Schwächere Seite zuerst — gleiche Wiederholungen mit der stärkeren Seite.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_45_degree_back_extension",
+              "name": "45° Rückenstrecker",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Oberkörper nur bis parallel zum Boden heben — kein Hyperextend",
+                "Langsam absenken — Dehnung im unteren Rücken",
+                "Arme vor der Brust verschränkt oder hinter dem Kopf"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "bw_tibialis_raise",
+              "name": "Tibialis Raise (Ben Patrick)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Rücken an die Wand, Füße ca. 30cm entfernt",
+                "Zehen maximal nach oben ziehen, Fersen auf dem Boden",
+                "Kniegesundheit — täglich möglich"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "bw_copenhagen_plank",
+              "name": "Copenhagen Plank",
+              "saetze": 1,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Oberes Bein auf der Bank, Körper als Brett",
+                "Hüfte hoch halten — kein Durchhängen",
+                "Für Einsteiger: Knie auf der Bank statt Fuß"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "zirkel",
+            "runden": 2,
+            "runden_pause_sek": 60,
+            "format_notiz": "2 Runden Zirkel — alle 3 Übungen nacheinander ohne Pause. 60 Sek. Pause nach jeder Runde. Runden notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_pogo_hops",
+                "name": "Pogo Hops",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Steife Knöchel, kurze Bodenkontakte",
+                  "Aus den Waden federn"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_pushup_conditioning",
+                "name": "Push-Up (Conditioning)",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Körper in einer Linie",
+                  "Ellbogen ~45° am Körper"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "ath_lateral_bound",
+                "name": "Lateral Bound",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Seitlich abdrücken, einbeinig landen",
+                  "Landung kontrolliert abfangen"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w4_s3",
+          "tag": "donnerstag",
+          "session_typ": "kraft",
+          "fokus": "Upper B — Pull",
+          "fokus_anzeige": "Oberkörper – Pull",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Band Pull-Apart",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Scapula Push-Up",
+                "saetze": 2,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Face Pull (leicht)",
+                "saetze": 2,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Arm Circles",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_weighted_pullup",
+              "name": "Weighted Pull-Up (Gürtel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Gewicht am Gürtel — Technik identisch mit Pull-Up",
+                "Kein Schwung — strikt",
+                "Kontrolliertes Absenken bis volle Streckung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_incline_db_press",
+              "name": "Incline Kurzhantel Press",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Bank auf 30–45° — nicht zu steil",
+                "Schulterblätter zusammen und einsinken lassen",
+                "Kontrolliertes Absenken bis auf Höhe der oberen Brust"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_chest_supported_db_row",
+              "name": "Chest Supported Row (Kurzhantel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Brust auf Schrägbank — kein Schwung aus dem Rücken möglich",
+                "Ideal für Rücken-Isolation ohne Rückenbeschwerden",
+                "Schulterblätter maximieren am Endpunkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_weighted_dips",
+              "name": "Weighted Dips (Gürtel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Oberkörper leicht nach vorne für mehr Brustfokus",
+                "Bis Schultern unter Ellenbogen absenken — volle ROM",
+                "Gewicht am Gürtel — kontrollierte Ausführung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_face_pull",
+              "name": "Face Pull (Kabel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "12-20",
+              "einheit": "wiederholungen",
+              "rir": 6.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 60,
+              "coaching_cues": [
+                "Seil zum Gesicht ziehen, Ellenbogen hoch",
+                "Außenrotation am Endpunkt — Daumen nach hinten",
+                "Schultergesundheit: täglich möglich"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_hanging_leg_raise",
+              "name": "Hanging Leg Raise (gestreckt)",
+              "saetze": 1,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Beine gestreckt bis horizontal — kein Schwung",
+                "Hüfte leicht nach hinten rollen am Endpunkt",
+                "Schultern aktiv gepackt"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "amrap",
+            "runden": null,
+            "runden_pause_sek": null,
+            "format_notiz": "8 Min. AMRAP — so viele Runden wie möglich mit allen 3 Übungen. Kein Stop zwischen Übungen. Runden am Ende notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "ath_box_jump",
+                "name": "Box Jump",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Arme mitschwingen, weich landen",
+                  "Volle Hüftstreckung oben"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "bw_squat_thrust",
+                "name": "Squat Thrust (Burpee ohne Sprung)",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Hände am Boden, Beine zurück und vor",
+                  "Rumpf stabil"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "bw_skater_squat",
+                "name": "Skater Squat",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "10",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Kein Aufstützen — freistehend auf einem Bein",
+                  "Hinteres Knie taucht fast den Boden"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w4_s4",
+          "tag": "freitag",
+          "session_typ": "kraft",
+          "fokus": "Lower B — Hinge",
+          "fokus_anzeige": "Unterkörper – Hinge",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "kraft",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Glute Bridge (Aktivierung)",
+                "saetze": 2,
+                "wert": "15",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Leg Swing",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Goblet Squat (leicht)",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "gym_conventional_deadlift",
+              "name": "Conventional Deadlift",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Stange nah am Körper — über den Schienbeinen",
+                "Hüfte und Schultern gleichzeitig hochziehen",
+                "Gesäß anspannen am Ende der Bewegung"
+              ],
+              "notiz": "Starte konservativ — Technik und Spannung im Rücken haben Vorrang vor Last.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "gym_paused_back_squat",
+              "name": "Paused Back Squat",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "6-10",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "3 Sek. unten halten — keine Entspannung",
+                "Aus dem Loch heraus drücken, kein Rebound",
+                "Knie nach außen, Oberkörper stabil durch die Pause"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "gym_single_leg_rdl_db",
+              "name": "Single Leg RDL (Kurzhantel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Spielbein und Oberkörper bilden eine Linie",
+                "Hantel nah am Standbein entlangführen",
+                "Hüfte gerade halten — nicht rotieren"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "gym_hip_thrust_barbell",
+              "name": "Hip Thrust (Langhantel)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schulterblätter auf der Bank, Kinn zur Brust",
+                "Volle Hüftstreckung oben — Glutes maximal anspannen",
+                "Knie 90° am höchsten Punkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 5,
+              "exercise_id": "gym_suitcase_carry_db",
+              "name": "Suitcase Carry (einseitig)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "20",
+              "einheit": "meter",
+              "rir": null,
+              "tempo": "gleichmäßig",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Nur eine Seite belastet — Oberkörper trotzdem gerade",
+                "Nicht zur Hantelseite neigen",
+                "Seitliche Stabilisatoren maximal aktiviert"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 6,
+              "exercise_id": "gym_pallof_press",
+              "name": "Pallof Press",
+              "saetze": 1,
+              "saetze_typ": "saetze",
+              "wert": "45",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Seitlich zum Kabel stehen, Kern maximal anspannen",
+                "Arme langsam nach vorne strecken, Rotationswiderstand halten",
+                "Kein Eindrehen der Hüfte — Anti-Rotation ist das Ziel"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": {
+            "typ": "zirkel",
+            "runden": 2,
+            "runden_pause_sek": 60,
+            "format_notiz": "2 Runden Zirkel — alle 3 Übungen nacheinander ohne Pause. 60 Sek. Pause nach jeder Runde. Runden notieren.",
+            "uebungen": [
+              {
+                "reihenfolge": 1,
+                "exercise_id": "bw_jump_squat",
+                "name": "Jump Squat",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Sanft landen — erst Zehen, dann Ferse",
+                  "Squat-Tiefe vor dem Sprung, nicht nur Hüftbeuge"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 2,
+                "exercise_id": "ath_med_ball_chest_pass",
+                "name": "Med Ball Chest Pass",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Explosiv von der Brust wegdrücken",
+                  "Stand stabil"
+                ],
+                "notiz": "",
+                "seiten": null
+              },
+              {
+                "reihenfolge": 3,
+                "exercise_id": "ath_lateral_bound",
+                "name": "Lateral Bound",
+                "saetze": null,
+                "saetze_typ": null,
+                "wert": "12",
+                "einheit": "wiederholungen",
+                "rir": null,
+                "tempo": "zügig",
+                "pausenzeit_sek": 0,
+                "coaching_cues": [
+                  "Seitlich abdrücken, einbeinig landen",
+                  "Landung kontrolliert abfangen"
+                ],
+                "notiz": "",
+                "seiten": null
+              }
+            ]
+          },
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": [
+            {
+              "test": "kniebeugen",
+              "einheit": "wiederholungen",
+              "ergebnis": null
+            },
+            {
+              "test": "pushups",
+              "einheit": "wiederholungen",
+              "ergebnis": null
+            },
+            {
+              "test": "situps",
+              "einheit": "wiederholungen",
+              "ergebnis": null
+            },
+            {
+              "test": "burpees",
+              "einheit": "wiederholungen",
+              "ergebnis": null
+            },
+            {
+              "test": "plank",
+              "einheit": "sekunden",
+              "ergebnis": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
