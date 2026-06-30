@@ -721,6 +721,7 @@ STATUS: zweiter gezielter Lauf (Tage-Achse zuerst) geplant, bevor Live-Gang.
 | api_10 | LO·Travel·L4 | ❌ | geblockt (W5); Zone-2=Kraft (W2); Chest-to-Bar=Stange (W7); Unterfüllung (W1) |
 | api_11 | LO·BW·L3 | offen | Unterfüllung (W1); Zone-2=Kraft (W2); RIR-Bodyweight (W4) |
 | api_12 | LO·KB·L1 | ❌ | geblockt (W5); Zone-2=Kraft+LISS (W2); Unterfüllung (W1) |
+| api_13 | MA·Gym·L2·3T | ✅ | nur Dauer-Anzeige (W1; ~49 statt 60) — Volumen korridor-gedeckelt by-design; Mo/Mi/Fr sauber verteilt (2. Lauf, Tage-Achse) |
 
 ## Wurzel 1 — Volumen/Dauer-Unterfüllung [ offen ]  (A1,A2,A3,A4,A5,E1)
 
@@ -729,6 +730,7 @@ STATUS: zweiter gezielter Lauf (Tage-Achse zuerst) geplant, bevor Live-Gang.
 - A3: Longevity-Krafttage nur 4 Übungen / 8–10 Sätze, über alle Level (10,11,12).
 - A4: Fettabbau-Krafttage nur 4 Übungen (04,05,06).
 - A5: L1 weniger Sätze (12–14) als L3/L4 (16–17) → verstärkt Unterfüllung (03,08,12).
+- 3-TAGE-BELEG (api_13, MA·Gym·L2, 3T Full Body, Woche 2 / 4 Sätze): Session trägt 4 Übungen (Back Squat, Bench, Lat Pulldown, Pallof). Echte Zeit ~49 min (WU 10 + ~34 Hauptteil mit 180s-Compound-Pausen + CD 5) — aber dauer_min_geschaetzt meldet 60. = A1/A2 am 3T-Schnitt. PRÄZISIERUNG (Fix-Richtung): Die Unterfüllung ist hier vermutlich KORRIDOR-GEDECKELT BY-DESIGN (60 min ließe mehr Sätze zu, aber L2-Volumen-Korridor deckelt darunter; Spec „Level-Deckel gewinnt, kein Auto-Padding"). → Der kundensichtbare Fehler ist die DAUER-ANZEIGE (60 statt ~49), NICHT das Volumen. Customer-Fix = ehrliche Dauer, nicht Workout aufpumpen. Beim Abarbeiten verifizieren: ist der L2-Korridor über die 3 Tage gefüllt (dann 4 Übungen/Session korrekt) oder bleibt Korridor-Raum? POSITIV (3T-Struktur): Mo/Mi/Fr mit Pausentag — sauber verteilt, kein geblockter Tag (Gegenteil W5).
 
 ## Wurzel 2 — Conditioning-Format & -Beschriftung [ offen ]  (C1,C4,C5,C6)
 
