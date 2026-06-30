@@ -803,7 +803,7 @@ aufgebrochen werden muss? Reiht sich an die übrigen Contract-Nachträge (cardio
 
 Betroffen: alle 12 (systematisch, jeder Pfad). Erzeuger: `plan_assembler.py` `_warm_up()` / `_cool_down()` — beide fest kodierte Listen.
 
-- **9a — JSON-Schema-Abweichung (kundensichtbar → MVP-12-Contract, mit Manu):** warm_up/cool_down-Übungen tragen saetze/wdh/dauer_sek/seiten (Einheit implizit über belegtes-vs-null-Feld) — ABWEICHEND vom wert+einheit-Schema der Kraft-/Conditioning-Übungen (Blocker 2a). Frontend müsste zwei Übungs-Schemata rendern. Reiht sich an die Contract-Nachträge.
+- **9a — JSON-Schema-Abweichung (kundensichtbar → MVP-12-Contract, mit Manu):** warm_up/cool_down-Übungen tragen saetze/wdh/dauer_sek/seiten (Einheit implizit über belegtes-vs-null-Feld) — ABWEICHEND vom wert+einheit-Schema der Kraft-/Conditioning-Übungen (Blocker 2a). Frontend müsste zwei Übungs-Schemata rendern. Reiht sich an die Contract-Nachträge. → Schema-Teil erledigt (Naht A1, 7e8fe48); 9b/9c (statische Listen, Cooldown-Budget) bleiben offen (Wert-Arbeit).
 - **9b — statische Listen, nicht abgeleitet (Methodik):** Warm-up: Achsen Equipment × Tages-Fokus, ABER Fokus nur im gym/home_gym-Zweig — KB/BW/Travel rein equipment-basiert. Cool-down: nur Fokus. ZIEL geht in beide nicht ein. Listen sind statisch, nicht aus der gefilterten Bibliothek, nicht Claude-gewählt. Dauer Warm-up = session/6 (5–10), Cool-down fix 5 min. Offen (Coach): statisch ausreichend, oder pattern-spezifische Aktivierung? Soll Ziel einfließen? — vgl. bestehenden Backlog-Wunsch „Warm-up tagesspezifisch" (deckt bisher nur gym-Zweig halb ab).
 - **9c — Cool-down nicht im Zeit-Budget (Dauer, berührt Wurzel 1):** Kapazitäts-Formel zieht nur Warmup + Finisher ab, NICHT die 5 min Cool-down → 5 min unverbucht, mögliche Session-Überschreitung. Beim Abarbeiten verifizieren.
 
@@ -863,7 +863,7 @@ Konsolidiert alle Contract-Themen aus dem Coach-Review (Detail jeweils am verlin
 1. [offen] fokus_anzeige ins JSON (Blocker 1) — Kundenlabel lebt nur im pdf_generator; _FOKUS_ANZEIGE unvollständig (Upper/Lower C, Full Body, Conditioning fehlen). 🔧+👁
 2. [offen] Conditioning {wert, einheit} statt fusioniertem String (Blocker 2a) + Runden-vs-Sätze nicht nur aus session_typ. 🔧
 3. [offen] Zirkel/Runden BLOCK-level + Runden-Pause als Feld (W2) — heute runden pro Übung repliziert, Zirkel-Semantik + 60s-Pause nur Prosa → Frontend kann Zirkel nicht von „Sätze einzeln" unterscheiden. 🔧
-4. [offen] Warm-up/Cool-down-Übungsschema an wert+einheit angleichen (W9a) — tragen heute saetze/wdh/dauer_sek/seiten → sonst zwei Übungs-Schemata im Frontend. 🔧
+4. [ERLEDIGT (Naht A1, 7e8fe48)] Warm-up/Cool-down-Übungsschema an wert+einheit angleichen (W9a) — WU/CD tragen jetzt wert+einheit wie HauptUebung → einheitliches Übungs-Schema über alle Typen. 🔧
 5. [offen] einseitig/seiten als strukturiertes Feld (W12) — „pro Seite" zuverlässig; heute Prosa. Verankert auch korrekte Dosis, nicht nur Anzeige. 🔧+👁
 
 ── ANZEIGE-WERT (interner Wert leckt zum Kunden) ──
