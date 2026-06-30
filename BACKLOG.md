@@ -76,25 +76,42 @@ ebenfalls falsch). tabata ist sauber (zeitbasiert). Beim Density-Umbau ladders m
 PRIORITÄT: Conditioning-Methodik, kein Contract-Blocker (JSON-Struktur unberührt — wert/einheit/
 saetze_typ bleiben gleich, egal welche Density-Definition).
 
-## Conditioning-Pool: kraftintensive Übungen ausschließen (Coach-Entscheid)
-BEFUND: Push-Ups erscheinen im Conditioning. Coach-Bewertung: zu kraftintensiv, "Pulskiller" —
-muskuläre Ermüdung (Brust/Trizeps) erzwingt Pause VOR der kardiovaskulären Belastung, bricht
-den Puls statt ihn zu halten. Widerspricht dem Conditioning-Zweck.
-OFFEN: Ist das ein Einzelausschluss (nur Push-Up) oder ein PRINZIP (alle Übungen, wo muskuläre
-vor kardiovaskulärer Ermüdung kommt)? Wahrscheinlich Prinzip → "conditioning-tauglich"-Kriterium
-für den Pool nötig. Inspektion offen: gibt es schon ein Eignungs-Tag, oder nimmt der Pool jede
-Übung mit passendem Pattern? PRIORITÄT: Conditioning-Methodik, kein Contract-Blocker.
+_HINWEIS (Conditioning-Methodik-Strang): Die folgenden Karten + die Density-Karte oben bilden EINEN
+fokussierten Conditioning-Methodik-Durchgang. Das Conditioning-Varianz-Prinzip (Conditioning variiert /
+Kraft bleibt für Progression) ist KORREKT umgesetzt — nur die Offset-Formel hat den Bug (Karte 1).
+NICHT verwechseln mit TODO(conditioning-timing-model) (Progressions-Modell „WIE schwer", Session 23.6) —
+diese Karten sind „WELCHE Übungen" + „welches Format"._
 
-## Conditioning: Übungen Woche für Woche variieren (Coach-Wunsch, Code-Stand prüfen)
-COACH-ABSICHT: Conditioning-Übungen sollen über die 4 Wochen WECHSELN (Varietät), während
-Kraft-Übungen GLEICH bleiben (Progression über Sätze/RIR). Begründung: Kraft braucht
-Wiederholung für Progression, Conditioning profitiert von Abwechslung.
-OFFEN/ZU PRÜFEN: Variieren die Conditioning-Übungen heute schon über W1-W4 oder sind sie
-wochengleich? (Inspektion war angestoßen, nicht abgeschlossen.) Falls wochengleich → Änderung
-nötig: Conditioning-Übungswahl pro Woche neu, Kraft fix lassen.
-ABGRENZUNG: NICHT zu verwechseln mit dem geparkten Progressions-Modell TODO(conditioning-timing-model)
-(level-fest+Runden vs. wochen-rampt, aus Session 23.6) — das ist WIE schwer, dies ist WELCHE Übungen.
+## Conditioning-Wochen-Varianz: Offset-Kollision pinnt 1-/3-Kandidaten-Patterns
+BEFUND (Ursache diagnostiziert): Conditioning-Übungen sollen über W1-W4 rotieren (Coach-Prinzip:
+Conditioning variiert, Kraft bleibt für Progression). Rotation EXISTIERT (_pick_finisher_uebungen,
+plan_assembler:308-320: ex = cands[offset % len], offset = woche_idx*3 + session_idx). ABER
+modular-arithmetischer blinder Fleck: bei Patterns mit 1 oder 3 Kandidaten löscht der Multiplikator
+*3 den Wochen-Term (woche_idx*3 % 3 = 0) → dieselbe Übung jede Woche für diesen Slot.
+SICHTBAR: manu_beispiel (gym/Wirbelsäule) pinnt Wall Ball (push_vertical, 1 Kand.) + Push-Up
+(push_horizontal, 3 Kand.) auf feste Positionen jede Woche; 4er/6er-Patterns variieren korrekt.
+ALTER Plan (case02 travel, amrap/zirkel) variierte sichtbarer — andere Pool-Verteilung, weniger
+1er/3er-Kollisionen, KEIN Format-Unterschied in der Logik.
+FIX-RICHTUNG (nicht "Rotation hinzufügen" — die existiert): Offset-Formel reparieren. Optionen:
+(a) Multiplikator teilerfremd zu typischen Kandidaten-Zahlen (statt *3), (b) woche_idx additiv
+separat in Pattern-Wahl mischen (eigener Term), (c) Hash-/Mix-Funktion statt linearer Offset.
+RESTPROBLEM: 1-Kandidaten-Patterns (Wall Ball = einziger push_vertical) bleiben strukturell
+gepinnt → nur Pool-Erweiterung ODER Ausschluss aus Pool löst das.
 PRIORITÄT: Conditioning-Methodik, kein Contract-Blocker.
+
+## Conditioning-Pool: kraftintensive Übungen ausschließen
+BEFUND: Push-Ups im Conditioning. Coach: zu kraftintensiv, "Pulskiller" — muskuläre Ermüdung
+(Brust/Trizeps) erzwingt Pause VOR kardiovaskulärer Belastung, bricht den Puls. Widerspricht
+Conditioning-Zweck. (Verknüpft mit Karte 1: gepinntes Push-Up trifft genau hier auf.)
+OFFEN: Einzelausschluss oder Prinzip (alle Übungen mit muskulärer-vor-kardio-Ermüdung)?
+Wahrscheinlich Prinzip → "conditioning-tauglich"-Kriterium für Pool. Gibt es schon ein
+Eignungs-Tag, oder nimmt Pool jede Übung mit passendem Pattern? PRIORITÄT: Conditioning-Methodik.
+
+## Fettabbau-Conditioning zu plyo-/sprung-lastig (PRIO 3, Beleg: case02 travel)
+BEFUND: Travel-Fettabbau-Plan fast ausschließlich Sprungbelastung (Jumping Jacks, Push-up to
+Jump, Broad Jumps, Split Jumps, Burpees, Jump Squat, Pogo Hops, Plank Jacks, Sprawl-to-Stand)
+über alle Wochen/Tage. Für Fettabbau-Klienten (oft schwerer/untrainiert) gelenkmäßig viel Impact
++ einseitig. PRIORITÄT: Conditioning-Methodik.
 
 ## MVP-7 — Conditioning-Formate
 
