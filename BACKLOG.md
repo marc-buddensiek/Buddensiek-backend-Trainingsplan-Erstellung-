@@ -740,7 +740,7 @@ STATUS: zweiter gezielter Lauf (Tage-Achse zuerst) geplant, bevor Live-Gang.
 - C4: zwei identische Conditioning-Formate am Stück (density+density) (05,06).
 - C5: Longevity „Zone 2"-Tag trägt rep-basierte Kraftübungen statt Cardio (10,11,12) — vgl. Mobility-Feature (Eintrag bei MVP-12).
 - C6: gemischte Finisher-Dosierung — zeit- („8 Min AMRAP") vs runden-basiert („3 Runden Zirkel") (04–09).
-- ZIRKEL-STRUKTUR (verifiziert api_07, metcon_block typ=zirkel): „runden" lebt PRO ÜBUNG (jede Übung saetze:3, saetze_typ:"runden") — KEIN block-level Runden-Feld. Folge: JSON kann Zirkel (3 Runden über ALLE Übungen nacheinander) strukturell nicht von „3 Sätze je Übung einzeln" unterscheiden; die Zirkel-Semantik existiert nur als Prosa in format_notiz. PDF spiegelt das (druckt saetze=3 pro Übung). Erzeuger plan_assembler.py:363-383 / _format_notiz:160. 60-Sek-Runden-Pause ist prosa-only (kein Feld); pausenzeit_sek:0 ist nur die Pause ZWISCHEN Übungen. wert+einheit sauber (12/wiederholungen). [strukturell]
+- ZIRKEL-STRUKTUR (verifiziert api_07, metcon_block typ=zirkel): „runden" lebt PRO ÜBUNG (jede Übung saetze:3, saetze_typ:"runden") — KEIN block-level Runden-Feld. Folge: JSON kann Zirkel (3 Runden über ALLE Übungen nacheinander) strukturell nicht von „3 Sätze je Übung einzeln" unterscheiden; die Zirkel-Semantik existiert nur als Prosa in format_notiz. PDF spiegelt das (druckt saetze=3 pro Übung). Erzeuger plan_assembler.py:363-383 / _format_notiz:160. 60-Sek-Runden-Pause ist prosa-only (kein Feld); pausenzeit_sek:0 ist nur die Pause ZWISCHEN Übungen. wert+einheit sauber (12/wiederholungen). [strukturell] → ✅ ERLEDIGT (Naht W2, 81feccf): runden + runden_pause_sek am Block/Session, Conditioning-Übungen ohne saetze, format_notiz aus _runden_felder (wortgleich).
 
 ## Wurzel 3 — Übungs-Eignung Conditioning [ offen ]  (C2,C3)
 
@@ -855,6 +855,19 @@ ZWEITER BELEG (api_13, MA·Gym·L2): Pallof Press 3×30 Sek — einseitig (seitl
 
 ---
 
+## VERTRAGS-STAND — JSON schema-fertig (Stand: nach Naht W2, 81feccf)
+
+Alle FORM-/Struktur-Blocker vor dem Vertrags-Lock sind gebaut oder als vorhanden verifiziert:
+✅ P1 fokus_anzeige (vorhanden) · ✅ P2 Conditioning wert+einheit (vorhanden) · ✅ P3 Zirkel/Runden block-level (Naht W2) · ✅ P4 WU/CD-Schema (Naht A1) · ✅ P5 seiten-Feld Form/Render (Naht A2) · ✅ P8 tag-Feld (vorhanden).
+
+VEREINBARTE VERTRAGS-REGELN (mit Manu zu bestätigen):
+- Additiv-erweiterbar / tolerant reader: neue optionale Felder dürfen jederzeit dazukommen, Frontend ignoriert Unbekanntes → Logging-Felder (V1.5) später ohne Vertragsbruch (P7).
+- Session-Reihenfolge folgt dem tag-Feld (Wochentag), nicht der Array-Position → Tag-Umlabeln/-Tausch ohne Backend.
+
+EINZIGE OFFENE ENTSCHEIDUNG VOR LOCK (P6): Interne Routing-Werte cardio.typ + fokus im Kunden-JSON lassen (tolerant reader trägt's) ODER raus (kleiner Serializer-Fix). Anzeige-/Hygiene-Frage, kein Bau.
+
+NACH DEM LOCK (berührt Vertrag NICHT, Wert-Arbeit): alle übrigen Wurzeln (Volumen, Reihenfolge, Conditioning-Intensität, Dosierung, Retest, Athletik-Inhalt, einseitig-Tagging füllt seiten, …).
+
 ## → MANU-CONTRACT-AGENDA (vor Vertrags-Lock zu klären)
 
 Konsolidiert alle Contract-Themen aus dem Coach-Review (Detail jeweils am verlinkten Eintrag unten / in den Wurzeln). Reihenfolge = Gesprächs-Reihenfolge. Status: [ offen ] / [ erledigt ]
@@ -862,7 +875,7 @@ Konsolidiert alle Contract-Themen aus dem Coach-Review (Detail jeweils am verlin
 ── STRUKTUR-BLOCKER (Frontend kann ohne Fix nicht korrekt rendern) ──
 1. [ERLEDIGT (fokus_labels-Single-Source-Naht, vor 12er-Lauf)] fokus_anzeige ins JSON (Blocker 1). 🔧+👁 fokus_anzeige existiert (Session-Pflichtfeld), Mapping vollständig, Single Source (PDF+JSON aus anzeige_fokus). Verifiziert: 0 leere/rohe Werte über 20 Pläne. Frühere „C/Full Body/Conditioning fehlen"-Notiz war stale. Kein Bau.
 2. [ERLEDIGT (Naht 2a, vor 12er-Lauf)] Conditioning {wert, einheit} statt fusioniertem String (Blocker 2a) + Runden-vs-Sätze nicht nur aus session_typ. 🔧 Conditioning/Metcon trägt getrennte wert+einheit + explizites saetze_typ (Runden vs Sätze nicht mehr aus session_typ). Verifiziert an api_14/api_20. NICHT zu verwechseln mit Punkt 3 (Zirkel/Runden BLOCK-level) — das bleibt offen.
-3. [offen] Zirkel/Runden BLOCK-level + Runden-Pause als Feld (W2) — heute runden pro Übung repliziert, Zirkel-Semantik + 60s-Pause nur Prosa → Frontend kann Zirkel nicht von „Sätze einzeln" unterscheiden. 🔧
+3. [ERLEDIGT (Naht W2, 81feccf)] Zirkel/Runden BLOCK-level + Runden-Pause als Feld (W2). 🔧 runden + runden_pause_sek als Block-/Session-Felder (Runden-Formate); Conditioning-Übungen tragen kein saetze mehr → W2 gelöst (JSON unterscheidet „N Runden über alle Übungen" von „N Sätze je Übung einzeln").
 4. [ERLEDIGT (Naht A1, 7e8fe48)] Warm-up/Cool-down-Übungsschema an wert+einheit angleichen (W9a) — WU/CD tragen jetzt wert+einheit wie HauptUebung → einheitliches Übungs-Schema über alle Typen. 🔧
 5. [ERLEDIGT Form-/Render-Teil (Naht A2, 7bab657)] einseitig/seiten als strukturiertes Feld (W12) — „pro Seite" zuverlässig. 🔧+👁 seiten-Feld an HauptUebung + Render („je Seite") + 3 falsche WU/CD-seiten korrigiert. OFFEN (Wert, nach Vertrag): einseitig-Tagging der exercises.json-Übungen → füllt seiten für Kraft/Core (Phase-4-Wert-Arbeit). Vertrag ist bereit, Anzeige greift sobald getaggt.
 
@@ -956,7 +969,7 @@ OFFEN (Contract, mit Manu): `cardio.typ` bleibt interner Routing-Wert; Anzeige n
 (Blocker 1) an. KEIN Struktur-Blocker (`cardio`-Objekt existiert korrekt, `models.py:220`), aber
 Anzeige-Wert. **PRIORITÄT: Contract-Anzeige (vor/mit Manu klären).**
 
-### Contract-Nachtrag — Zirkel/Runden block-level + Runden-Pause als Feld (2026-06-30, 12er-API-Lauf)
+### Contract-Nachtrag — Zirkel/Runden block-level + Runden-Pause als Feld (2026-06-30, 12er-API-Lauf) — ✅ ERLEDIGT (Naht W2, 81feccf)
 
 Aktuell: runden pro Übung repliziert (jede Übung saetze:3, saetze_typ:"runden"), Zirkel-Semantik
 („nacheinander, X Runden über alle Übungen") + Runden-Pause nur im `format_notiz`-Text. `pausenzeit_sek`
