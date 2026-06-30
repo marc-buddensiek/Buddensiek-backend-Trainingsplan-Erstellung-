@@ -861,7 +861,7 @@ Konsolidiert alle Contract-Themen aus dem Coach-Review (Detail jeweils am verlin
 
 ── STRUKTUR-BLOCKER (Frontend kann ohne Fix nicht korrekt rendern) ──
 1. [offen] fokus_anzeige ins JSON (Blocker 1) — Kundenlabel lebt nur im pdf_generator; _FOKUS_ANZEIGE unvollständig (Upper/Lower C, Full Body, Conditioning fehlen). 🔧+👁
-2. [offen] Conditioning {wert, einheit} statt fusioniertem String (Blocker 2a) + Runden-vs-Sätze nicht nur aus session_typ. 🔧
+2. [ERLEDIGT (Naht 2a, vor 12er-Lauf)] Conditioning {wert, einheit} statt fusioniertem String (Blocker 2a) + Runden-vs-Sätze nicht nur aus session_typ. 🔧 Conditioning/Metcon trägt getrennte wert+einheit + explizites saetze_typ (Runden vs Sätze nicht mehr aus session_typ). Verifiziert an api_14/api_20. NICHT zu verwechseln mit Punkt 3 (Zirkel/Runden BLOCK-level) — das bleibt offen.
 3. [offen] Zirkel/Runden BLOCK-level + Runden-Pause als Feld (W2) — heute runden pro Übung repliziert, Zirkel-Semantik + 60s-Pause nur Prosa → Frontend kann Zirkel nicht von „Sätze einzeln" unterscheiden. 🔧
 4. [ERLEDIGT (Naht A1, 7e8fe48)] Warm-up/Cool-down-Übungsschema an wert+einheit angleichen (W9a) — WU/CD tragen jetzt wert+einheit wie HauptUebung → einheitliches Übungs-Schema über alle Typen. 🔧
 5. [ERLEDIGT Form-/Render-Teil (Naht A2, 7bab657)] einseitig/seiten als strukturiertes Feld (W12) — „pro Seite" zuverlässig. 🔧+👁 seiten-Feld an HauptUebung + Render („je Seite") + 3 falsche WU/CD-seiten korrigiert. OFFEN (Wert, nach Vertrag): einseitig-Tagging der exercises.json-Übungen → füllt seiten für Kraft/Core (Phase-4-Wert-Arbeit). Vertrag ist bereit, Anzeige greift sobald getaggt.
@@ -908,10 +908,10 @@ zurück. Auch die PDF-Anzeige ist heute lückenhaft._
 _FIX: fokus_anzeige ins Session-Modell, im Assembler befüllen, _FOKUS_ANZEIGE an geteilten Ort
 (aus PDF rausziehen) + alle Fokus-Typen vervollständigen._
 
-_**Blocker 2a — Conditioning wdh = verschmolzener Wert+Einheit (HAUPT, reine Technik):**_
+_**Blocker 2a — Conditioning wdh = verschmolzener Wert+Einheit (HAUPT, reine Technik): ✅ ERLEDIGT (Naht 2a, vor 12er-Lauf).**_
 _Kraft wdh "6-10" (reps implizit) vs. Conditioning "12 Wdh"/"45 Sek" (Einheit im String). Kein
 getrenntes {wert, einheit} → Konsument muss Strings parsen, um reps von Zeit zu unterscheiden._
-_FIX: value/unit-Split im Übungs-Modell._
+_FIX: value/unit-Split im Übungs-Modell — umgesetzt; HauptUebung trägt wert+einheit + explizites saetze_typ (Runden vs Sätze). Verifiziert an api_14/api_20. (Zirkel/Runden BLOCK-level = separate offene Sache, s. Wurzel 2 Zirkel-Struktur / Agenda-Punkt 3.)_
 
 _**Blocker 2b — Intensitätsfeld-Inkonsistenz: ✅ BEREITS ERLEDIGT (Fehlbefund aus alter JSON).**_
 _Der ursprüngliche Befund (rpe/rpe_hinweis bei Conditioning) stammte aus VERALTETEN test_runs vor der
