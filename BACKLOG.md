@@ -705,7 +705,7 @@ Primär-Lift 2×/Woche ohne Variation.
 | api_04 | FA·KB·L3 | offen | Density-Cardio-Prosa (W2); Push-up/Plyo (W3); geblockt (W5) |
 | api_05 | FA·Travel·L2 | offen | Density×2 (W2); Travel-Equipment (W7); geblockt (W5) |
 | api_06 | FA·Gym·L4 | offen | Density×2 (W2); Push-up/Plyo (W3); geblockt (W5); Reihenfolge Dips/Pull-up (W6); Weighted-Wdh zu hoch (W4) |
-| api_07 | RE·BW·L2 | offen | RIR-Bodyweight (W4); Push-up/Plyo (W3); Glute-Bridge-Doppel (hinge + single_leg, bekannte Doppelnatur/β-Lücke → s. Mehr-Pattern-Modell); Diamond Push-up 10–15 + RIR (= Wurzel 4, Übungs-Charakteristik) |
+| api_07 | RE·BW·L2 | offen | RIR-Bodyweight (W4); Push-up/Plyo (W3); Glute-Bridge-Doppel (hinge + single_leg, bekannte Doppelnatur/β-Lücke → s. Mehr-Pattern-Modell); Diamond Push-up 10–15 + RIR (= Wurzel 4, Übungs-Charakteristik); Zirkel-Runden pro Übung statt block-level (W2/Contract) |
 | api_08 | RE·Gym·L1 | offen | Satz-Unterfüllung L1 (W1) |
 | api_09 | RE·Travel·L3 | offen | Travel-Equipment (W7); Plyo (W3) |
 | api_10 | LO·Travel·L4 | ❌ | geblockt (W5); Zone-2=Kraft (W2); Chest-to-Bar=Stange (W7); Unterfüllung (W1) |
@@ -726,6 +726,7 @@ Primär-Lift 2×/Woche ohne Variation.
 - C4: zwei identische Conditioning-Formate am Stück (density+density) (05,06).
 - C5: Longevity „Zone 2"-Tag trägt rep-basierte Kraftübungen statt Cardio (10,11,12) — vgl. Mobility-Feature (Eintrag bei MVP-12).
 - C6: gemischte Finisher-Dosierung — zeit- („8 Min AMRAP") vs runden-basiert („3 Runden Zirkel") (04–09).
+- ZIRKEL-STRUKTUR (verifiziert api_07, metcon_block typ=zirkel): „runden" lebt PRO ÜBUNG (jede Übung saetze:3, saetze_typ:"runden") — KEIN block-level Runden-Feld. Folge: JSON kann Zirkel (3 Runden über ALLE Übungen nacheinander) strukturell nicht von „3 Sätze je Übung einzeln" unterscheiden; die Zirkel-Semantik existiert nur als Prosa in format_notiz. PDF spiegelt das (druckt saetze=3 pro Übung). Erzeuger plan_assembler.py:363-383 / _format_notiz:160. 60-Sek-Runden-Pause ist prosa-only (kein Feld); pausenzeit_sek:0 ist nur die Pause ZWISCHEN Übungen. wert+einheit sauber (12/wiederholungen). [strukturell]
 
 ## Wurzel 3 — Übungs-Eignung Conditioning [ offen ]  (C2,C3)
 
@@ -895,6 +896,16 @@ OFFEN (Contract, mit Manu): `cardio.typ` bleibt interner Routing-Wert; Anzeige n
 „Zone 2" vs „Grundlagenausdauer" vs beides (`fokus_anzeige`). Reiht sich an die `fokus_anzeige`-Logik
 (Blocker 1) an. KEIN Struktur-Blocker (`cardio`-Objekt existiert korrekt, `models.py:220`), aber
 Anzeige-Wert. **PRIORITÄT: Contract-Anzeige (vor/mit Manu klären).**
+
+### Contract-Nachtrag — Zirkel/Runden block-level + Runden-Pause als Feld (2026-06-30, 12er-API-Lauf)
+
+Aktuell: runden pro Übung repliziert (jede Übung saetze:3, saetze_typ:"runden"), Zirkel-Semantik
+(„nacheinander, X Runden über alle Übungen") + Runden-Pause nur im `format_notiz`-Text. `pausenzeit_sek`
+trägt nur die Pause ZWISCHEN Übungen (0).
+Offen (mit Manu): runden/Runden EINMAL am Block tragen (damit Frontend Zirkel als „nacheinander"
+rendern kann, nicht als „3 Sätze je Übung einzeln") + Runden-Pause als strukturiertes Feld (block-
+oder runden-level) statt Prosa. Reiht sich an die übrigen Contract-Nachträge (cardio.typ, Logging-
+Felder, tag-Feld).
 
 ## [Feature/Longevity] Mobility als dritte Säule ergänzen (2026-06-30)
 
