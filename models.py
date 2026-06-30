@@ -219,7 +219,7 @@ class HauptUebung(BaseModel):
 
 
 class Cardio(BaseModel):
-    typ: Literal["liss", "hiit"]
+    typ: Literal["liss", "hiit"] = Field(exclude=True)   # P6: interner Routing-Wert; aus Kunden-Dump raus (Anzeige via beschreibung)
     dauer_min: int = Field(..., ge=10, le=60)
     beschreibung: str
 
@@ -263,7 +263,7 @@ class Session(BaseModel):
         "tabata", "density", "komplexe", "ladders",               # Conditioning Block-Formate (Thema 6)
         "zone2", "athletik",                                      # Longevity (Thema 4/6)
     ] = "kraft"
-    fokus: str                       # interner Routing-Key (warm_up/cool_down/cardio/zone-Parsing)
+    fokus: str = Field(exclude=True)   # P6: interner Routing-Key (warm_up/cool_down/cardio/zone-Parsing); aus Kunden-Dump raus (Anzeige via fokus_anzeige)
     fokus_anzeige: str               # kundenseitiges Label (logic.fokus_labels) — fokus bleibt intern
     format_notiz: Optional[str] = None
     runden: Optional[int] = None              # Naht W2: Runden am Session-Level für session-füllende Conditioning-Tage (zirkel/…); None bei Kraft/zeit-Formaten

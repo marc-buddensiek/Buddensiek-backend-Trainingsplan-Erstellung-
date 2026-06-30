@@ -14,7 +14,6 @@ import sys
 from fpdf import FPDF
 
 from logic.conditioning_formats import CONDITIONING as _CONDITIONING
-from logic.fokus_labels import anzeige_fokus as _anzeige_fokus
 
 
 # ── Farben (Buddensiek-Stil) ──────────────────────────────────────────────────
@@ -78,8 +77,9 @@ class PlanPDF(FPDF):
         self.cell(0, 5, value, new_x="LMARGIN", new_y="NEXT")
 
 
-# Anzeige-Label: _anzeige_fokus kommt aus logic.fokus_labels (Single Source, oben importiert) —
-# dieselbe Quelle befüllt fokus_anzeige im JSON (plan_assembler). Kein PDF-eigenes Mapping mehr.
+# Anzeige-Label: das PDF liest `fokus_anzeige` direkt aus dem JSON (befüllt vom plan_assembler via
+# logic.fokus_labels). Das interne `fokus` + `cardio.typ` sind via Field(exclude=True) aus dem
+# Kunden-Dump ausgeschlossen (P6) — kein PDF-eigenes Mapping, kein roher Routing-Wert in der Anzeige.
 
 
 # Anzeige aus wert+einheit (Contract trägt {wert, einheit}; Display rekonstruiert wie vor Blocker 2a).
@@ -184,10 +184,10 @@ def build_pdf(plan_data: dict) -> FPDF:
         for s in woche["sessions"]:
             pdf.set_font("Helvetica", "", 8)
             pdf.set_text_color(*C_DARK_GREY)
-            cardio_str = f"  +{s['cardio']['typ'].upper()}" if s.get("cardio") else ""
+            cardio_str = "  +Cardio" if s.get("cardio") else ""   # P6: kein roher cardio.typ-Enum („+LISS") mehr
             pst_str = "  [PST RE-TEST]" if s.get("pst_tests") else ""
             tag = s["tag"].capitalize()
-            line = f"    {tag:<12}  {_anzeige_fokus(s['fokus']):<38} ~{s['dauer_min_geschaetzt']}min{cardio_str}{pst_str}"
+            line = f"    {tag:<12}  {s['fokus_anzeige']:<38} ~{s['dauer_min_geschaetzt']}min{cardio_str}{pst_str}"
             pdf.cell(0, 5, line, new_x="LMARGIN", new_y="NEXT")
         pdf.ln(1)
 
@@ -216,7 +216,7 @@ def build_pdf(plan_data: dict) -> FPDF:
             pdf.set_fill_color(*C_DARK_GREY)
             pdf.set_text_color(*C_WHITE)
             pdf.set_font("Helvetica", "B", 9)
-            header = f"  {s['tag'].upper()}  —  {_anzeige_fokus(s['fokus']).upper()}  (~{s['dauer_min_geschaetzt']} min)"
+            header = f"  {s['tag'].upper()}  —  {s['fokus_anzeige'].upper()}  (~{s['dauer_min_geschaetzt']} min)"
             pdf.cell(0, 6, header, fill=True, new_x="LMARGIN", new_y="NEXT")
             pdf.ln(1)
 
@@ -363,7 +363,7 @@ def build_pdf(plan_data: dict) -> FPDF:
                 pdf.cell(0, 4, "  CARDIO", new_x="LMARGIN", new_y="NEXT")
                 pdf.set_font("Helvetica", "", 7.5)
                 pdf.set_text_color(*C_DARK_GREY)
-                pdf.multi_cell(0, 4, f"  {c['typ'].upper()} · {c['dauer_min']} min  —  {c['beschreibung']}")
+                pdf.multi_cell(0, 4, f"  {c['dauer_min']} min  —  {c['beschreibung']}")   # P6: kein roher cardio.typ; beschreibung trägt „Zone 2 …"
                 pdf.ln(1)
 
             # Cool-Down
