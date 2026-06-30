@@ -84,10 +84,10 @@ class PlanPDF(FPDF):
 
 # Anzeige aus wert+einheit (Contract trägt {wert, einheit}; Display rekonstruiert wie vor Blocker 2a).
 def _wdh_kraft(u: dict) -> str:
-    """Kraft: reps bar ('8-12'), Zeit '…sec', Distanz '…m'."""
+    """Kraft: reps bar ('8-12'), Zeit '… Sek' (deutsch, konsistent zu _wdh_cond), Distanz '…m'."""
     w, e = u.get("wert", ""), u.get("einheit")
     if e == "sekunden":
-        return f"{w}sec"
+        return f"{w} Sek"
     if e == "meter":
         return f"{w}m"
     return w   # wiederholungen
@@ -149,7 +149,7 @@ def build_pdf(plan_data: dict) -> FPDF:
 
     # Klienten-Info
     pdf.section_title("Klientenprofil")
-    verletzungen = ", ".join(snap["verletzungen"]) if snap["verletzungen"] else "keine"
+    verletzungen = ", ".join(v.capitalize() for v in snap["verletzungen"]) if snap["verletzungen"] else "keine"
     session_dauer = snap.get("session_dauer_min", 60)
     tage = snap["tage_pro_woche"]
     wochenzeit = tage * session_dauer
@@ -249,7 +249,10 @@ def build_pdf(plan_data: dict) -> FPDF:
                     vol_str  = f"{u['saetze']}×{_wdh_kraft(u)}"
                     # Conditioning/Athletik & Zeit-Holds tragen kein RIR — RIR-Teil nur wenn gesetzt
                     rir_part = f"RIR {u['rir']:g}  ·  " if u.get("rir") is not None else ""
-                    spec_str = f"{rir_part}Tempo {u['tempo']}  ·  Pause {u['pausenzeit_sek']}s"
+                    # Holds (tempo="halten"): "Tempo halten" ist sinnlos — Tempo-Teil weglassen
+                    # (vol_str "3×30 Sek" trägt die Info schon). Sonst "Tempo {wert}" wie bisher.
+                    tempo_part = "" if u.get("tempo") == "halten" else f"Tempo {u['tempo']}  ·  "
+                    spec_str = f"{rir_part}{tempo_part}Pause {u['pausenzeit_sek']}s"
 
                 pdf.set_font("Helvetica", "B", 8)
                 pdf.set_text_color(*C_BLACK)
