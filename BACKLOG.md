@@ -484,6 +484,26 @@ Befund 3 Volumen-Korridore + Mike-Rampe (Modell A v2, `04e43ca`).
   akuter Sicherheitsfall, da echte WS-Lader bereits getaggt.
 - **Warm-up tagesspezifisch** — System-Hochfahren + gezielte Aktivierung pro Tages-Pattern; eigene Logik.
 
+## ROBUSTHEIT & GO-LIVE (aus Mentor-Review migriert, 2026-06-30)
+
+Offene Produkt-/Policy-Fragen — Coach-Entscheid bzw. vor Live-Gang. KEINE Trainings-Inhalte.
+
+- [ offen ] Doppel-Submit: Schutz vor mehrfachem Absenden des Intake (idempotente Plan-Erstellung).
+- [ offen ] KI-Antwort leer/ungültig: Verhalten, wenn Claude unvollständig/leer liefert (vgl. plan-as-failed-Regel — prüfen ob abgedeckt; Mentor-Fund explizit festhalten).
+- [ offen ] Externe Services down: Verhalten bei Ausfall (Anthropic-API, Supabase) — Fehlerpfad/Retry/Nutzer-Rückmeldung.
+- [ offen ] Plan-Generierungs-Geschwindigkeit: akzeptable Latenz? (echte Calls 11–30s im 12er/8er-Lauf — als Datenpunkt notieren) — UX-Frage fürs Frontend (Ladezustand mit Manu).
+- [ offen ] Methodik-Versions-Stempel: Plan trägt eine Version der Coaching-Logik (Nachvollziehbarkeit, welcher Stand einen Plan erzeugt hat).
+- [ offen ] GDPR-Aktionsplan: vor Live-Gang abarbeiten (Mentor-Review Section E). Kernpunkte:
+  - WANN: Start sobald MVP-9 läuft und echte Daten Richtung Supabase (MVP-10) gehen; Vorarbeit/Denken früh, Umsetzung an MVP-10/12. Gesundheitsdaten (Verletzungen, Diagnosen, Stress, Schlaf) = besondere Kategorie DSGVO Art. 9 (strenger, kein „Häkchen").
+  - (1) Datenfluss-Landkarte: Typeform/Fillout (Erhebung) → Backend → Claude/Anthropic (KI-Übungswahl) → Supabase (Speicher) → PDF; jede Station = Ort mit Gesundheitsdaten.
+  - (2) KI-Weitergabe — UMGESETZT (Naht 9-1, 2026-06-17): Prompt pseudonymisiert, KEINE identifizierenden Daten (Name/vorname, Motivations-Freitext, Stress/Schlaf raus); nur Alter, Level, Ziel, Equipment, Verletzungen (Kategorie, kein Identifier/UUID). Bleibt für Live: AVV (3) + Offenlegung (4).
+  - (3) Auftragsverarbeitungsvertrag (AVV) mit Anthropic UND Supabase; Server-Standort Supabase = EU prüfen; Fillout EU-Hosting nur Team/Enterprise + per Support anfragen (Standard = USA) → für Gesundheitsdaten zwingend EU-Hosting.
+  - (4) Pflicht-Dokumente: Datenschutzerklärung + Verzeichnis der Verarbeitungstätigkeiten + Klientenrechte (Auskunft, Löschung); einmal Datenschutz-Anwalt/Berater (1 h „prüf das") — Gesundheitsdaten + KI-Weitergabe = teure Risiko-Kombination. Offenlegung an Klient (Daten gehen an KI-Anbieter) = Teil von Schritt 4.
+  - (5) Technisch (NACH Policy-Entscheidung): Verschlüsselung + Lösch-Konzept (Aufbewahrungsdauer, wie löscht Klient seine Daten).
+  - (Prompt-Pfad-Teil bereits verifiziert — s. bestehende Sektion „Datenschutz / DSGVO" unten.)
+
+Quelle: MENTOR_FUNDE.md (Section B + E), vor Archivierung migriert.
+
 ## Datenschutz / DSGVO
 
 ### Datenschutz Prompt-Pfad — verifiziert + offene Go-Live-Punkte
