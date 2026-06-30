@@ -252,6 +252,38 @@ _- Verdacht: unilaterale Übungen (Bulgarian, Lunge, SL-RDL) werden als "3 Sätz
   _Beinarbeit → Glute-Dominanz noch größer als Reports zeigen. ÜBERPRÜFBAR im Code (berechne_volumen/_
   _Volumen-Bilanz). Klären VOR der Balance-Arbeit, da es die Grundlage der Volumensteuerung betrifft._
 
+### PRIO 1/1b — Muskel-Volumen-Messung durchgeführt (Reframe + Befund)
+_REFRAME bestätigt: Es gibt im Code KEINE Muskel-Volumen-Bilanz und KEIN uni/bilateral-Konzept
+(berechne_volumen rechnet rein pro Tier, nie pro Muskel). "Zähl-Bug" war kein Bug, sondern
+fehlende Fähigkeit. PRIO 1b fällt mit PRIO 1 zusammen._
+
+_MESSUNG (grob: primär-only, Schulter gruppiert, uni noch nicht ×2) über alle 15 run3-Pläne:_
+
+_**Glute-Dominanz ist KEIN flächendeckendes Problem — konzentriert auf 6-Tage:**_
+_- 3-5-Tage-Pläne (7 Stück): Glutes 8-15 Sätze/Wo = im produktiven Bereich (MAV ~12-18). OK._
+_- 6-Tage-Pläne (case09/13/14/15): Glutes 30-39 = klar zu viel. case06 (L4, 5T): 29 grenzwertig._
+_- WURZEL überlappt mit [:2]-Split (PRIO 4): s2==s6 dupliziert die glute-lastige Lower-A-Session
+  → Glute-Volumen mechanisch verdoppelt. Der [:2]-Fix löst den GROSSTEIL der Glute-Dominanz mit._
+_→ KEINE komplexe Muskel-Steuer-Logik nötig. Hebel ist der [:2]-Fix (ohnehin geplant)._
+
+_**Arme/Waden-Unterversorgung — separat, NICHT vom Split-Fix lösbar:**_
+_- Biceps: 0 Sätze in 11/15 Plänen. Calves: 0 in 12/15. NICHT umfangabhängig (fehlt auch in
+  großen Plänen). Ursache: Pool-Imbalance (glutes 73 Primär-Vorkommen vs. biceps 2, calves 3)
+  + Generator muskelblind. Diese Muskeln haben kein Pattern-Zuhause._
+_→ Das ist die zurückgestellte ISO-SLOT-Frage (Arme/Waden brauchen Iso-Slot zum Selektiertwerden).
+  Messung bestätigt rückwirkend: Iso-Slot-Idee ist der richtige Weg für DIESES Teilproblem.
+  Bleibt zurückgestellt._
+
+_**Offene Bausteine, falls später echte Muskel-Bilanz gewünscht (NICHT jetzt):**_
+_- secondary-Gewichtung (abs 104× sekundär → bei Vollzählung Verzerrung; primär-only oder sek ⅓)._
+_- Schulter-Token-Gruppierung (4 Tokens: shoulders/front/lateral/rear) für ehrliche Schulter-Summe._
+_- unilateral-Marker (hand-getaggt, ~25-35 Kraft-Übungen) für korrektes ×2-Zählen der Beinarbeit._
+_  Name-Heuristik unsauber (37 Treffer mit False Positives einarmig≠einbeinig), pattern=single_leg
+  auch kein sauberer Proxy. Expliziter Marker nötig, falls Bilanz Steuerungs-Grundlage werden soll._
+
+_STATUS: PRIO 1 weitgehend auf [:2]-Fix reduziert. Arme/Waden → Iso-Slot (zurückgestellt).
+Volle Muskel-Bilanz als Werkzeug bleibt optional/später._
+
 _**PRIO 2 — case07 Wirbelsäule (einziger SAFETY-Befund):**_
 _- Plan enthält schwerste axiale Last des Sets: Trap Bar DL + RDL + Barbell Hip Thrust, progressiv_
   _bis RIR 2 bei Rücken-Klient/L2. Positiv: Trap Bar (wirbelsäulenfreundlichste Variante) + McGill-_
