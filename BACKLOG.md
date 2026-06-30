@@ -757,8 +757,17 @@ V1.5-17/18 (PST-Re-Test-Integration → Level-Update; Block-Übergangs-Generator
 Test ist EINMALIG (vor dem ersten Plan), treibt NICHT den nächsten Block. Beim Abarbeiten: Spec
 Thema 2/7 + ROADMAP V1.5-17/18 reconcilen, sonst Re-Add-Risiko.
 
-OFFENE FOLGEFRAGE (Thema-7-Lücke): Wenn Re-Test als Level-Update wegfällt — wie bekommt Block N+1
-sein Level? (Initial-Level bleibt? Logs/Check-in allein?) — zu klären beim Abarbeiten, nicht jetzt.
+AUFLÖSUNGS-RICHTUNG (Coach-Entscheid, Block-Übergang): Block N+1 wird NICHT durch Re-Test eingeleitet,
+sondern durch die drei verbleibenden Indikatoren der Spec Thema 7:
+  - Trainings-Logs (Gewicht/Wdh pro Satz) → V1.5-14
+  - Kunden-/Session-Bewertung (zu leicht/passend/zu schwer, Score) → V1.5-15
+  - Mini-Anamnese/Check-in (Ziele/Verletzungen/Equipment geändert?) → V1.5-16
+Spec Thema 7 reconcilen: „drei Indikatoren (Re-Test + Mini-Anamnese + Logs)" → Re-Test streichen, die
+anderen drei tragen den Übergang. Initial-PST bleibt EINMALIG (Block 1).
+
+CONTRACT-FLAG (→ MVP-12, mit Manu): Logging/Feedback ist V1.5, der JSON-Vertrag ist MVP-12 davor.
+Offen: Soll der Vertrag jetzt schon Logging-/Feedback-Felder vorsehen, damit er bei V1.5 nicht
+aufgebrochen werden muss? Reiht sich an die übrigen Contract-Nachträge (cardio.typ etc.).
 
 ## Plan-spezifische Coach-Funde [ offen ]
 
