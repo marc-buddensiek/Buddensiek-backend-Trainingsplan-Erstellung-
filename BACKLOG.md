@@ -335,6 +335,35 @@ _Platz in Compound. case04: RDL 2×/Woche L2 = normale Frequenz, unkritisch._
 _STATUS: Alle Fixes offen, Reihenfolge Montag zu entscheiden. Empfehlung: PRIO 1b (Zähl-Bug)_
 _zuerst prüfen, da Grundlage; dann PRIO 2 (Safety); dann PRIO 1/3/4. Gerüst bleibt unangetastet._
 
+### Output-Review Lauf 3 — echter 6-Tage-Lauf (case09 gym + case14 bodyweight, nach A/B/C)
+_Zweck: klärt am echten Claude, ob die 6-Tage-Regel-3-Repeats Picker-Artefakt (Lesart 2) oder
+echte Knappheit (Lesart 1) sind. ANTWORT: hängt von der Pool-Tiefe ab — beide Lesarten stimmen,
+je nach Ecke. Das verfeinert die vorige Korrektur ("alles Picker-Artefakt" war zu pauschal)._
+
+_**KERNERGEBNIS — Pool-Tiefe entscheidet:**_
+_| | reicher Pool (gym L2) | dünner Pool (bw L1) |_
+_| Stub | repeated | repeated |_
+_| echter Claude | VARIIERT (0 Regel-3-Funde) | repeated (glute_bridge 3×, inverted_row 2×) |_
+_| Diagnose | Picker-Artefakt (Stub) | echte β-Knappheit |_
+_| Fix | keiner nötig | Pool-Erweiterung (nicht Picker) |_
+
+_- case09 (gym): 0 Regel-3-Funde über 6 distinkte Sessions. Der echte Claude variiert sauber bei
+  reichem Pool. Nur 4 Regel-2-Funde, ALLE = gym_face_pull-Tag-Bug (push_vertical statt pull). Der
+  A/B/C-Fix bewährt sich am echten Output: Sessions distinkt, kein Compound wiederholt._
+_- case14 (bw L1): echter Claude repeated wie der Stub (glute_bridge 3× über alle 3 Lower-Sessions)
+  — bei erschöpftem L1-bodyweight-hinge-Pool KANN er nicht variieren. + t_supermans-Substitution
+  in hinge-Slot (Ausweichen mangels Pool). Das ist reale β-Knappheit, Regel 3 flaggt KORREKT._
+
+_**FOLGERUNGEN:**_
+_- Regel 3 (PRIO 6): in reicher Ecke ZU STRENG (über-flaggt), in dünner Ecke KORREKT. → Regel 3
+  sollte pool-/level-abhängig sein, nicht pauschal flaggen. Bestätigt durch echten Output._
+_- gym_face_pull-Tag-Fix (PRIO 5): größter klarer Hebel — verursacht ALLE 4 case09-Funde. Am
+  echten Output dreifach bestätigt (auch tibialis_raise, single_leg_glute_bridge)._
+_- bw-L1-hinge bleibt reale Lücke: "mehr Glute-Bridge-Varianten" hilft NICHT (Regel 3 zählt
+  distinkte ids) — bräuchte eine NICHT-Brücken-L1-hinge (z.B. Good-Morning ohne Last)._
+_- Checker-Bewertung: Brücke fing exakt die erwartbaren Dinge, keine Fehlalarme, keine Claude-
+  Überraschungen. Checker funktioniert am echten Output wie vorgesehen._
+
 ## Output-Review MVP-9 — offene Befunde
 
 _Aus dem echten 12-Case-Output-Review (test_runs/2026-06-19_run3/REVIEW.md). Kraft-Auswahl
