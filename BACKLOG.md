@@ -819,6 +819,22 @@ in die Dosierung einfließen lassen — z.B. Tag „geladen / fixe-Last / teil-l
 - Weighted Pullup 8-12 vs. normaler Pullup 6-10 — Dosierung last-blind (s. Wurzel 4)
 - **Coach-Verdikt: ⚠️ (erster nicht-❌ Plan)**
 
+## [Feature/Longevity] Mobility als dritte Säule ergänzen (2026-06-30)
+
+COACH-WUNSCH: Longevity = drei Säulen: Kraft + Zone-2-Cardio + MOBILITY. Aktuell fehlt Mobility.
+Wunsch: Am Cardio-Tag (oder wo Zeit im Budget ist) eine Mobility-Einheit ergänzen, im Rahmen der
+verfügbaren Session-Zeit. Damit ist das Longevity-/Gesundheits-Ziel vollständig abgedeckt
+(Kraft + Grundlagenausdauer + Beweglichkeit = die drei großen Longevity-Pfeiler).
+
+ZUSAMMENHANG mit bestehendem Longevity-Befund (Zone-2-Tag trägt Kraftübungen, C5 / Wurzel 2):
+Der Zone-2-Tag soll KEIN Kraft-Block mehr sein → die freiwerdende Zeit/Struktur könnte um Mobility
+ergänzt werden. Zone-2-Tag würde dann „echtes Zone-2-Cardio + Mobility" statt „Kraftübungen + LISS".
+Löst beide Themen gemeinsam: reines Cardio UND Mobility-Säule.
+
+OFFEN: Mobility-Übungs-Pool vorhanden? (warm_up/cool_down-Pool nutzbar, oder eigener Mobility-Pool
+nötig?) Zeit-Budget: wie viel Mobility neben Cardio? Eigener Slot oder an Cardio angehängt?
+PRIORITÄT: Longevity-Methodik / Feature (Teil des Conditioning-/Longevity-Durchgangs).
+
 ## Reihenfolge (2026-06-22)
 
 Phase 1 Output-Closeout → MVP-10 Persistenz → MVP-11 Checker → Phase 4 Bibliothek + Tag-Audit
