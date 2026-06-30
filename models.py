@@ -206,8 +206,8 @@ class HauptUebung(BaseModel):
     reihenfolge: int = Field(..., ge=1, le=10)
     exercise_id: str
     name: str
-    saetze: int = Field(..., ge=1, le=15)
-    saetze_typ: Literal["saetze", "runden"] = "saetze"   # Conditioning zählt Runden, Kraft Sätze
+    saetze: Optional[int] = Field(default=None, ge=1, le=15)   # Naht W2: Kraft/Athletik IMMER gesetzt; Conditioning None (Runden am Block)
+    saetze_typ: Optional[Literal["saetze", "runden"]] = None   # "saetze" bei Kraft/Athletik; None bei Conditioning
     wert: str = Field(..., description="'8-12' (Bereich) · '10' (Einzelwert) · Prosa (bei einheit=format)")
     einheit: Literal["wiederholungen", "sekunden", "meter", "format"]
     rir: Optional[float] = Field(default=None, ge=0, le=6, description="RIR (Reps in Reserve, 0.5-Raster) für Kraftsätze; None für Conditioning/Metcon und Zeit-Holds (Thema 6/Befund 7). Intern rechnet die Logik in RPE; RIR = 10 − RPE.")
@@ -248,6 +248,8 @@ class MetconBlock(BaseModel):
         "amrap", "intervalle", "zirkel",                          # Session-füllend
         "tabata", "density", "komplexe", "ladders",               # Block-Formate (Spec Thema 6)
     ]
+    runden: Optional[int] = None              # Naht W2: Runden am BLOCK (zirkel/intervalle/tabata); None bei zeit-Formaten (amrap/density/ladders)
+    runden_pause_sek: Optional[int] = None    # Pause nach jeder Runde/zwischen Blöcken (strukturiert statt Prosa)
     format_notiz: str
     uebungen: list[HauptUebung]
 
@@ -264,6 +266,8 @@ class Session(BaseModel):
     fokus: str                       # interner Routing-Key (warm_up/cool_down/cardio/zone-Parsing)
     fokus_anzeige: str               # kundenseitiges Label (logic.fokus_labels) — fokus bleibt intern
     format_notiz: Optional[str] = None
+    runden: Optional[int] = None              # Naht W2: Runden am Session-Level für session-füllende Conditioning-Tage (zirkel/…); None bei Kraft/zeit-Formaten
+    runden_pause_sek: Optional[int] = None    # Pause nach jeder Runde (strukturiert statt Prosa)
     dauer_min_geschaetzt: int = Field(..., ge=20, le=120)
     warm_up: WarmUp
     haupt_uebungen: list[HauptUebung]

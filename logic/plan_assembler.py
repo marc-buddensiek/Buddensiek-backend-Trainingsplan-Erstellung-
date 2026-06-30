@@ -130,6 +130,20 @@ _METABOLIC_EINHEIT = {"amrap": "wiederholungen", "zirkel": "wiederholungen", "in
 _CARDIO_WERT_ZEIT = {"amrap": "40", "zirkel": "40"}
 
 
+# Naht W2 (Punkt 3): Runden + Runden-Pause als BLOCK-/Session-Felder — NUR Runden-Formate.
+# Zeit-Formate (amrap/density/ladders) → (None, None). Single Source für _format_notiz UND die
+# runden/runden_pause_sek-Felder an MetconBlock/Session.
+def _runden_felder(fmt: str, woche_typ: str) -> tuple[int | None, int | None]:
+    """(runden, runden_pause_sek) für Runden-Formate; (None, None) sonst (zeit-basiert/Kraft/Athletik)."""
+    if fmt == "tabata":
+        return block_params("tabata")["saetze"], REST_BETWEEN_BLOCKS_SEK      # 8 Runden · 60 s zwischen Blöcken
+    if fmt == "zirkel":
+        return _METABOLIC_CONFIG.get("zirkel", {}).get(woche_typ, {}).get("saetze", 3), 60   # 60 s nach Runde
+    if fmt == "intervalle":
+        return _METABOLIC_CONFIG.get("intervalle", {}).get(woche_typ, {}).get("saetze", 4), 120  # 2 Min zwischen Übungen
+    return None, None
+
+
 def _metabolic_wdh(session_typ: str, pattern: str, woche_typ: str, unit: str = "reps") -> tuple[str, str]:
     """(wert, einheit) — Conditioning-Dosierung. core/zeit→Sekunden, distanz→Meter, sonst Format-Einheit."""
     cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {})
@@ -146,10 +160,12 @@ def _metabolic_wdh(session_typ: str, pattern: str, woche_typ: str, unit: str = "
 
 def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str, level: int, dauer_min: int | None = None) -> str | None:
     # dauer_min = echte/effektive Conditioning-Dauer (Finisher: ≤10 Min; reine Session: session_min−Warmup).
-    cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {})
+    # Naht W2: runden/runden_pause aus _runden_felder (Single Source — dieselben Werte landen in den
+    # runden/runden_pause_sek-Block/Session-Feldern); Text bleibt wortgleich.
+    runden, rpause = _runden_felder(session_typ, woche_typ)
     if session_typ == "tabata":
-        return (f"Tabata — {n_uebungen} Blöcke à 8 Runden 20 s Arbeit / 10 s Pause (4 Min/Block), "
-                f"je Block eine andere Übung, 60 Sek. Pause zwischen den Blöcken.")
+        return (f"Tabata — {n_uebungen} Blöcke à {runden} Runden 20 s Arbeit / 10 s Pause (4 Min/Block), "
+                f"je Block eine andere Übung, {rpause} Sek. Pause zwischen den Blöcken.")
     if session_typ == "density":
         return (f"Density — {n_uebungen} Blöcke à 5 Min: max. Wiederholungen bei festem Gewicht, "
                 f"60 Sek. Pause zwischen den Blöcken.")
@@ -157,20 +173,18 @@ def _format_notiz(session_typ: str, n_uebungen: int, woche_typ: str, level: int,
         return (f"Ladders — {n_uebungen} Blöcke à 5 Min: Wiederholungen aufsteigend (1-2-3-…), "
                 f"je Block eine andere Übung, 60 Sek. Pause zwischen den Blöcken.")
     if session_typ == "zirkel":
-        r = cfg.get("saetze", 3)
-        return (f"{r} Runden Zirkel — alle {n_uebungen} Übungen nacheinander ohne Pause. "
-                f"60 Sek. Pause nach jeder Runde. Runden notieren.")
+        return (f"{runden} Runden Zirkel — alle {n_uebungen} Übungen nacheinander ohne Pause. "
+                f"{rpause} Sek. Pause nach jeder Runde. Runden notieren.")
     if session_typ == "amrap":
         d = dauer_min if dauer_min is not None else 10   # echte Dauer, kein _METABOLIC_CONFIG-Festwert mehr
         return (f"{d} Min. AMRAP — so viele Runden wie möglich mit allen {n_uebungen} Übungen. "
                 f"Kein Stop zwischen Übungen. Runden am Ende notieren.")
     if session_typ == "intervalle":
-        r = cfg.get("saetze", 4)
         # Header modell-agnostisch (Befund E): KEINE konkrete Work:Rest-Zahl mehr — die per-Übung-Zeilen
         # tragen die echten (gerampten) Arbeit/Pause-Werte. Vermeidet den Widerspruch level-fest (45/15)
         # vs wochen-rampt (30→40). Timing-Modell-Entscheid: s. TODO(conditioning-timing-model).
-        return (f"Intervalle: {r} Runden je Übung — Arbeit/Pause pro Übung angegeben. "
-                f"2 Min. Pause zwischen Übungen. Ziel: 85-90% HF-Max.")
+        return (f"Intervalle: {runden} Runden je Übung — Arbeit/Pause pro Übung angegeben. "
+                f"{rpause // 60} Min. Pause zwischen Übungen. Ziel: 85-90% HF-Max.")
     return None
 
 
@@ -362,8 +376,8 @@ def _build_metcon_block(
             reihenfolge=i + 1,
             exercise_id=ex["id"],
             name=ex["name"],
-            saetze=cfg.get("saetze", 1),
-            saetze_typ="runden",
+            saetze=None,          # Naht W2: Runden am Block (s. runden-Feld), nicht pro Übung
+            saetze_typ=None,
             wert=_wert,
             einheit=_einheit,
             rir=None,   # Conditioning-Finisher trägt kein RIR (Spec Thema 6)
@@ -376,8 +390,11 @@ def _build_metcon_block(
     if not selected:
         return None
 
+    _runden, _rpause = _runden_felder(metcon_typ, woche_typ)
     return MetconBlock(
         typ=metcon_typ,
+        runden=_runden,
+        runden_pause_sek=_rpause,
         format_notiz=_format_notiz(metcon_typ, len(selected), woche_typ, level, dauer_min=FINISHER_MIN_RECOMP) or "",
         uebungen=selected,
     )
@@ -406,7 +423,7 @@ def _build_conditioning_segment(fmt: str, seg_dauer: int, pool_sorted: list[dict
             ex = picks[i % len(picks)]
             out.append(HauptUebung(
                 reihenfolge=i + 1, exercise_id=ex["id"], name=ex["name"],
-                saetze=bp["saetze"], saetze_typ="runden", wert=bp["wdh"], einheit="format", rir=None,
+                saetze=None, saetze_typ=None, wert=bp["wdh"], einheit="format", rir=None,   # Naht W2: Runden am Block
                 tempo=_tempo(ex["pattern"], fmt), pausenzeit_sek=REST_BETWEEN_BLOCKS_SEK,
                 coaching_cues=ex["coaching_cues"][:3], notiz="",
             ))
@@ -416,7 +433,7 @@ def _build_conditioning_segment(fmt: str, seg_dauer: int, pool_sorted: list[dict
             _wert, _einheit = _metabolic_wdh(fmt, ex["pattern"], woche_typ, ex.get("unit", "reps"))
             out.append(HauptUebung(
                 reihenfolge=i + 1, exercise_id=ex["id"], name=ex["name"],
-                saetze=m_cfg.get("saetze", 3), saetze_typ="runden", wert=_wert, einheit=_einheit,
+                saetze=None, saetze_typ=None, wert=_wert, einheit=_einheit,   # Naht W2: Runden am Block/Session
                 rir=None, tempo=_tempo(ex["pattern"], fmt), pausenzeit_sek=m_cfg.get("pause", 0),
                 coaching_cues=ex["coaching_cues"][:3], notiz="",
             ))
@@ -547,8 +564,11 @@ def assemble_plan(
                 if len(segments) == 2:
                     fmt1, dauer1 = segments[1]
                     seg2 = _build_conditioning_segment(fmt1, dauer1, pool_sorted, woche_typ, rot + 1)
+                    _r2, _rp2 = _runden_felder(fmt1, woche_typ)
                     cond_block_2 = MetconBlock(
                         typ=fmt1,
+                        runden=_r2,
+                        runden_pause_sek=_rp2,
                         format_notiz=_format_notiz(fmt1, len(seg2), woche_typ, level, dauer_min=dauer1) or fmt1,
                         uebungen=seg2,
                     )
@@ -615,9 +635,9 @@ def assemble_plan(
                         )
 
                         if is_metabolic:
-                            u_saetze     = m_cfg.get("saetze", 3)
+                            u_saetze     = None   # Naht W2: Runden am Session-Level (runden-Feld), nicht pro Übung
                             u_wert, u_einheit = _metabolic_wdh(session_typ, pattern, woche_typ, u_unit)
-                            u_saetze_typ = "runden"
+                            u_saetze_typ = None
                             u_rpe        = None   # Conditioning trägt keine RPE (Spec Thema 6)
                             u_pausenzeit = m_cfg.get("pause", 0)
                         else:
@@ -709,6 +729,10 @@ def assemble_plan(
             # unangetastet — nur das emittierte Label wird konsistent. Carry-Strip (split) NICHT berührt.
             fokus_emit = label_fuer_session_typ(session_typ_eff) if session_typ_eff != session_typ else fokus
 
+            # Naht W2: Runden + Runden-Pause am Session-Level für session-füllende Runden-Conditioning-Tage
+            # (zirkel/intervalle/tabata). Kraft/zeit-Formate/Athletik → (None, None).
+            sess_runden, sess_rpause = _runden_felder(session_typ_eff, woche_typ)
+
             sessions.append(
                 Session(
                     session_id=session_id,
@@ -717,6 +741,8 @@ def assemble_plan(
                     fokus=fokus_emit,
                     fokus_anzeige=anzeige_fokus(fokus_emit),
                     format_notiz=fmt_notiz,
+                    runden=sess_runden,
+                    runden_pause_sek=sess_rpause,
                     dauer_min_geschaetzt=dauer,
                     warm_up=warm_up,
                     haupt_uebungen=haupt_uebungen,

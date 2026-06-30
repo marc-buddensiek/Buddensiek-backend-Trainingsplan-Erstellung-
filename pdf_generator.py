@@ -105,18 +105,18 @@ def _wdh_cond(u: dict) -> str:
     return f"{w} Wdh"   # wiederholungen
 
 
-def _cond_vol_spec(typ: str, u: dict) -> tuple[str, str]:
-    """Format-bewusste Conditioning-Zeile → (vol_str, spec_str). Naht 2a.
-    Intervalle/Zirkel = Runden; AMRAP = Wert/Runde; Block-Formate (tabata/density/ladders) unverändert."""
-    s, w, p = u["saetze"], _wdh_cond(u), u["pausenzeit_sek"]
+def _cond_vol_spec(typ: str, u: dict, runden: int | None = None) -> tuple[str, str]:
+    """Format-bewusste Conditioning-Zeile → (vol_str, spec_str). Naht 2a/W2.
+    Intervalle/Zirkel = Runden (jetzt vom BLOCK, nicht pro Übung); AMRAP = Wert/Runde;
+    Block-Formate (tabata/density/ladders) = nur Wert. Übungen tragen kein saetze mehr (Naht W2)."""
+    w, p = _wdh_cond(u), u["pausenzeit_sek"]
     if typ == "intervalle":
-        return f"{s} Runden", f"{w} Arbeit / {p} Sek Pause"
+        return f"{runden} Runden", f"{w} Arbeit / {p} Sek Pause"
     if typ == "zirkel":
-        return f"{s} Runden", f"{w} je Übung"
+        return f"{runden} Runden", f"{w} je Übung"
     if typ == "amrap":
         return w, "AMRAP - Runden zählen"
-    vol = f"{s}× {w}" if s > 1 else w
-    return vol, (f"Pause {p}s" if p > 0 else "")
+    return w, (f"Pause {p}s" if p > 0 else "")
 
 
 def build_pdf(plan_data: dict) -> FPDF:
@@ -247,7 +247,7 @@ def build_pdf(plan_data: dict) -> FPDF:
             for u in s["haupt_uebungen"]:
                 if is_metabolic_session:
                     # Format-bewusste Conditioning-Zeile (Naht 2a) — Conditioning trägt kein RIR
-                    vol_str, spec_str = _cond_vol_spec(s.get("session_typ"), u)
+                    vol_str, spec_str = _cond_vol_spec(s.get("session_typ"), u, s.get("runden"))
                 else:
                     vol_str  = f"{u['saetze']}×{_wdh_kraft(u)}"
                     # Conditioning/Athletik & Zeit-Holds tragen kein RIR — RIR-Teil nur wenn gesetzt
@@ -302,7 +302,7 @@ def build_pdf(plan_data: dict) -> FPDF:
                 pdf.multi_cell(0, 4.5, f"  {mb['format_notiz']}", fill=True)
                 pdf.ln(1)
                 for u in mb["uebungen"]:
-                    vol_str, spec_str = _cond_vol_spec(mb["typ"], u)
+                    vol_str, spec_str = _cond_vol_spec(mb["typ"], u, mb.get("runden"))
                     pdf.set_font("Helvetica", "B", 8)
                     pdf.set_text_color(*C_BLACK)
                     pdf.cell(6, 5, f"  {u['reihenfolge']}.")
@@ -334,7 +334,7 @@ def build_pdf(plan_data: dict) -> FPDF:
                 pdf.multi_cell(0, 4.5, f"  {mb['format_notiz']}", fill=True)
                 pdf.ln(1)
                 for u in mb["uebungen"]:
-                    vol_str, spec_str = _cond_vol_spec(mb["typ"], u)
+                    vol_str, spec_str = _cond_vol_spec(mb["typ"], u, mb.get("runden"))
                     pdf.set_font("Helvetica", "B", 8)
                     pdf.set_text_color(*C_BLACK)
                     pdf.cell(6, 5, f"  {u['reihenfolge']}.")
