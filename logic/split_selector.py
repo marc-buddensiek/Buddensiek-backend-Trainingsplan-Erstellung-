@@ -166,6 +166,76 @@ def _lower_b_slots(dauer: int, level: int) -> list[dict]:
         ]
 
 
+def _upper_c_slots(dauer: int, level: int) -> list[dict]:
+    """Dritte Upper-Variante (6-Tage A/B/C, Spec :356) — PULL-betont, Lead pull_horizontal
+    (Upper B führt pull_vertical → distinkt, doppelt nicht die B-Session)."""
+    if dauer <= 20:
+        return [
+            _slot("Haupt-Horizontales Ziehen", "pull_horizontal", "compound",  level),
+            _slot("Vertikales Ziehen",         "pull_vertical",   "accessory", level),
+            _slot("Core",                      "core",            "core",       level),
+        ]
+    elif dauer <= 30:
+        return [
+            _slot("Haupt-Horizontales Ziehen", "pull_horizontal", "compound",  level),
+            _slot("Vertikales Ziehen",         "pull_vertical",   "accessory", level),
+            _slot("Push-Support (Balance)",    "push_horizontal", "accessory", level),
+            _slot("Core",                      "core",            "core",       level),
+        ]
+    elif dauer <= 45:
+        return [
+            _slot("Haupt-Horizontales Ziehen", "pull_horizontal", "compound",       level),
+            _slot("Vertikales Ziehen",         "pull_vertical",   "accessory",      level),
+            _slot("Push-Support (Balance)",    "push_horizontal", "accessory",      level),
+            _slot("Hintere Schulter Isolation","pull_horizontal", "isolation", min(level, 2)),
+            _slot("Core",                      "core",            "core",            level),
+        ]
+    else:  # 60
+        return [
+            _slot("Haupt-Horizontales Ziehen", "pull_horizontal", "compound",       level),
+            _slot("Vertikales Ziehen",         "pull_vertical",   "accessory",      level),
+            _slot("Push-Support (Balance)",    "push_horizontal", "accessory",      level),
+            _slot("Ruder-Support",             "pull_horizontal", "accessory",      level),
+            _slot("Hintere Schulter Isolation","pull_horizontal", "isolation", min(level, 2)),
+            _slot("Core",                      "core",            "core",            level),
+        ]
+
+
+def _lower_c_slots(dauer: int, level: int) -> list[dict]:
+    """Dritte Lower-Variante (6-Tage A/B/C, Spec :356) — HAMSTRING/HINGE-betont. Lower B führt
+    auch hinge (Deadlift-Lead); Lower C betont Hamstring/Curl über Slot-Reihenfolge, nicht neues pattern."""
+    if dauer <= 20:
+        return [
+            _slot("Haupt-Hinge (Hamstring-Fokus)", "hinge",      "compound",  level),
+            _slot("Single Leg Hip Hinge",          "single_leg", "accessory", level),
+            _slot("Core",                          "core",        "core",      level),
+        ]
+    elif dauer <= 30:
+        return [
+            _slot("Haupt-Hinge (Hamstring-Fokus)", "hinge",      "compound",  level),
+            _slot("Hamstring-Curl / Posterior",    "hinge",      "accessory", level),
+            _slot("Single Leg Hip Hinge",          "single_leg", "accessory", level),
+            _slot("Core",                          "core",        "core",      level),
+        ]
+    elif dauer <= 45:
+        return [
+            _slot("Haupt-Hinge (Hamstring-Fokus)", "hinge",      "compound",       level),
+            _slot("Hamstring-Curl / Posterior",    "hinge",      "accessory",      level),
+            _slot("Single Leg Hip Hinge",          "single_leg", "accessory",      level),
+            _slot("Wade / Isolation",              "single_leg", "isolation", min(level, 2)),
+            _slot("Core",                          "core",        "core",           level),
+        ]
+    else:  # 60
+        return [
+            _slot("Haupt-Hinge (Hamstring-Fokus)", "hinge",      "compound",       level),
+            _slot("Hamstring-Curl / Posterior",    "hinge",      "accessory",      level),
+            _slot("Single Leg Hip Hinge",          "single_leg", "accessory",      level),
+            _slot("Squat-Support",                 "squat",      "accessory",      level),
+            _slot("Wade / Isolation",              "single_leg", "isolation", min(level, 2)),
+            _slot("Core",                          "core",        "core",           level),
+        ]
+
+
 # ── Session-Zusammenbau ────────────────────────────────────────────────────────
 
 def _upper_lower_sessions(level: int, dauer: int) -> list[dict]:
@@ -174,6 +244,20 @@ def _upper_lower_sessions(level: int, dauer: int) -> list[dict]:
         _tag_session("w1_s2", "Lower A — Squat", _lower_a_slots(dauer, level)),
         _tag_session("w1_s3", "Upper B — Pull", _upper_b_slots(dauer, level)),
         _tag_session("w1_s4", "Lower B — Hinge", _lower_b_slots(dauer, level)),
+    ]
+
+
+def _upper_lower_3x_sessions(level: int, dauer: int) -> list[dict]:
+    """6-Tage A/B/C-Rotation (Spec :356) — sechs DISTINKTE Sessions statt [:2]-Verdopplung von A.
+    C-Varianten leanen pull/hamstring → kippt die alte Push2:Pull1-/Squat2:Hinge1-Schieflage in
+    Richtung der Spec-Vorgabe „leicht mehr Pull/Hinge". session_id via _renumber beim Aufruf."""
+    return [
+        _tag_session("w1_s1", "Upper A — Push", _upper_a_slots(dauer, level)),
+        _tag_session("w1_s2", "Lower A — Squat", _lower_a_slots(dauer, level)),
+        _tag_session("w1_s3", "Upper B — Pull", _upper_b_slots(dauer, level)),
+        _tag_session("w1_s4", "Lower B — Hinge", _lower_b_slots(dauer, level)),
+        _tag_session("w1_s5", "Upper C — Pull-Fokus", _upper_c_slots(dauer, level)),
+        _tag_session("w1_s6", "Lower C — Hamstring-Fokus", _lower_c_slots(dauer, level)),
     ]
 
 
@@ -364,9 +448,9 @@ def _waehle_split_impl(klient: KlientenInput, level: int) -> dict:
             ul = _upper_lower_sessions(level, dauer)
             akzent = _ganzkoerper_akzent_session(5, dauer, level)
             return {"split_typ": "Upper/Lower 4× + Ganzkörper-Akzent", "sessions": _renumber(ul + [akzent])}
-        else:  # 6: Upper/Lower 3× — jeder Muskel 3×/Woche (PPL entfällt, Spec Thema 4)
-            ul6 = _upper_lower_sessions(level, dauer) + _upper_lower_sessions(level, dauer)[:2]
-            return {"split_typ": "Upper/Lower 3× (6 Tage)", "sessions": _renumber(ul6)}
+        else:  # 6: Upper/Lower 3× A/B/C — jeder Muskel 3×/Woche, 6 distinkte Sessions (Spec :356)
+            ul6 = _upper_lower_3x_sessions(level, dauer)
+            return {"split_typ": "Upper/Lower 3× (6 Tage, A/B/C)", "sessions": _renumber(ul6)}
 
     elif ziel == Hauptziel.recomp:
         # Alle Sessions: Kraftteil + Metcon-Finisher (außer 20 min — zu kurz)
@@ -391,10 +475,10 @@ def _waehle_split_impl(klient: KlientenInput, level: int) -> dict:
             sessions = [_recomp_session(s["session_id"], s["fokus"], s["slots"]) for s in ul + [akzent]]
             return {"split_typ": "Upper/Lower 4× + Ganzkörper-Akzent + Metcon",
                     "sessions": _renumber(sessions)}
-        else:  # 6: Upper/Lower 3× + Metcon (Struktur identisch Muskelaufbau, Spec Thema 4)
-            ul6 = _upper_lower_sessions(level, dauer) + _upper_lower_sessions(level, dauer)[:2]
+        else:  # 6: Upper/Lower 3× A/B/C + Metcon (Struktur identisch Muskelaufbau, Spec :356)
+            ul6 = _upper_lower_3x_sessions(level, dauer)
             sessions = [_recomp_session(s["session_id"], s["fokus"], s["slots"]) for s in ul6]
-            return {"split_typ": "Upper/Lower 3× + Metcon (6 Tage)", "sessions": _renumber(sessions)}
+            return {"split_typ": "Upper/Lower 3× + Metcon (6 Tage, A/B/C)", "sessions": _renumber(sessions)}
 
     elif ziel == Hauptziel.fettabbau:
         # Kraft + Conditioning (Spec Thema 4) — kein reines Conditioning mehr.
