@@ -129,8 +129,8 @@ Pattern-Automatismus.
   Slot-Limit + Dauer-Deckel); ein Kapazitäts-Flag setzt einen Muskel-Korridor voraus, der seinerseits
   verworfen ist (s. MVP-3) — **konkurrierende Steuerung**, keine Aggregation vorhanden. Coach reviewt
   manuell (human-in-the-loop), die Kennzahl bringt keinen Mehrwert.
-- **`plan_metadata` bleibt als `Optional=None`-Platzhalter** im Modell (`models.py`) — **bewusst
-  ungenutzt**, kein Konsument, schadet nicht; wird nicht befüllt und nicht entfernt.
+- **`plan_metadata` ENTFERNT** (Contract-Blocker 3) — war totes Feld (kein Producer/Consumer,
+  in jedem Plan `null`); aus `models.py` (Feld + `PlanMetadata`-Klasse) raus, kein `"plan_metadata": null` mehr im JSON.
 - **MVP-8 = nur noch Assembler/PDF** (der Assembler baut alle Ziele fertig).
 - **Realism-/Kapazitäts-Warnung aus dem Klienten-PDF entfernt (2026-06-17):** `pdf_generator`
   rendert keine „Volumen suboptimal"-Warnung mehr (Methode + Aufruf + Imports raus). Konsistent mit
@@ -648,9 +648,9 @@ logische "Übung" hat zwei Formen je Kontext + 2 tote Felder (Conditioning hat p
 _FIX: eine Übungs-Form, ein Intensitätsfeld. ⚠ Berührt Conditioning-Philosophie (Thema 6) — als
 eigene Naht behandeln, nicht beiläufig._
 
-_**Blocker 3 — plan_metadata totes Top-Level-Feld (HYGIENE, reine Technik):**_
+_**Blocker 3 — plan_metadata totes Top-Level-Feld (HYGIENE, reine Technik): ✅ ERLEDIGT.**_
 _Platzhalter, kein Producer/Konsument (Modell-Kommentar "verworfen"). Im Kunden-Contract überflüssig._
-_FIX: entfernen._
+_FIX: entfernt (Feld + PlanMetadata-Klasse aus models.py). Kein "plan_metadata": null mehr im JSON._
 
 _**Blocker 4 — stress/schlaf_stunden im klient_snapshot (HYGIENE, KOPPELT an separates Thema):**_
 _Totes Signal (Recovery entkoppelt), zur Entfernung vorgemerkt. Im Contract irreführend (Kunde
