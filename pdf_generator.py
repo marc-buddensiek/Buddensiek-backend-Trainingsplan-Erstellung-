@@ -361,7 +361,7 @@ def build_pdf(plan_data: dict) -> FPDF:
             pdf.set_text_color(*C_ACCENT)
             pdf.cell(0, 4, "  COOL-DOWN", new_x="LMARGIN", new_y="NEXT")
             cd_items = " · ".join(
-                f"{u['name']} ({u.get('dauer_sek', '')}s)" for u in s["cool_down"]["uebungen"]
+                f"{u['name']} ({u['wert']}s)" for u in s["cool_down"]["uebungen"]   # Naht A1: dauer_sek→wert (CD = sekunden); Ausgabe "(30s)" unverändert
             )
             pdf.set_font("Helvetica", "I", 7)
             pdf.set_text_color(*C_MID_GREY)

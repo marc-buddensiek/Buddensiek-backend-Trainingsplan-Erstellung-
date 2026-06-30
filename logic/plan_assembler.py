@@ -189,10 +189,10 @@ def _warm_up(equipment: Equipment, fokus: str, session_dauer_min: int) -> WarmUp
             protokoll="kettlebell",
             dauer_min=wu,
             uebungen=[
-                WarmUpUebung(name="Halo", saetze=2, wdh=8),
-                WarmUpUebung(name="Goblet Squat (leicht)", saetze=2, wdh=10),
-                WarmUpUebung(name="Hip Hinge Pattern (ohne Gewicht)", saetze=2, wdh=10),
-                WarmUpUebung(name="Light Swing", saetze=2, wdh=10),
+                WarmUpUebung(name="Halo", saetze=2, wert="8", einheit="wiederholungen"),
+                WarmUpUebung(name="Goblet Squat (leicht)", saetze=2, wert="10", einheit="wiederholungen"),
+                WarmUpUebung(name="Hip Hinge Pattern (ohne Gewicht)", saetze=2, wert="10", einheit="wiederholungen"),
+                WarmUpUebung(name="Light Swing", saetze=2, wert="10", einheit="wiederholungen"),
             ],
         )
     elif equipment in (Equipment.bodyweight, Equipment.travel):
@@ -200,10 +200,10 @@ def _warm_up(equipment: Equipment, fokus: str, session_dauer_min: int) -> WarmUp
             protokoll="calisthenics",
             dauer_min=wu,
             uebungen=[
-                WarmUpUebung(name="Squat-to-Stand", saetze=2, wdh=8),
-                WarmUpUebung(name="World's Greatest Stretch", dauer_sek=30, seiten=2),
-                WarmUpUebung(name="Push-Up Activation (langsam)", saetze=2, wdh=5),
-                WarmUpUebung(name="Hip Circle", dauer_sek=20, seiten=2),
+                WarmUpUebung(name="Squat-to-Stand", saetze=2, wert="8", einheit="wiederholungen"),
+                WarmUpUebung(name="World's Greatest Stretch", wert="30", einheit="sekunden", seiten=2),
+                WarmUpUebung(name="Push-Up Activation (langsam)", saetze=2, wert="5", einheit="wiederholungen"),
+                WarmUpUebung(name="Hip Circle", wert="20", einheit="sekunden", seiten=2),
             ],
         )
     elif equipment == Equipment.hybrid:
@@ -211,10 +211,10 @@ def _warm_up(equipment: Equipment, fokus: str, session_dauer_min: int) -> WarmUp
             protokoll="kettlebell",
             dauer_min=wu,
             uebungen=[
-                WarmUpUebung(name="Halo", saetze=2, wdh=6),
-                WarmUpUebung(name="Goblet Squat (leicht)", saetze=2, wdh=8),
-                WarmUpUebung(name="World's Greatest Stretch", dauer_sek=30, seiten=2),
-                WarmUpUebung(name="Light Swing", saetze=2, wdh=8),
+                WarmUpUebung(name="Halo", saetze=2, wert="6", einheit="wiederholungen"),
+                WarmUpUebung(name="Goblet Squat (leicht)", saetze=2, wert="8", einheit="wiederholungen"),
+                WarmUpUebung(name="World's Greatest Stretch", wert="30", einheit="sekunden", seiten=2),
+                WarmUpUebung(name="Light Swing", saetze=2, wert="8", einheit="wiederholungen"),
             ],
         )
     else:  # gym, home_gym
@@ -224,10 +224,10 @@ def _warm_up(equipment: Equipment, fokus: str, session_dauer_min: int) -> WarmUp
                 protokoll="kraft",
                 dauer_min=wu,
                 uebungen=[
-                    WarmUpUebung(name="Band Pull-Apart", saetze=2, wdh=15),
-                    WarmUpUebung(name="Scapula Push-Up", saetze=2, wdh=10),
-                    WarmUpUebung(name="Face Pull (leicht)", saetze=2, wdh=12),
-                    WarmUpUebung(name="Arm Circles", dauer_sek=30, seiten=2),
+                    WarmUpUebung(name="Band Pull-Apart", saetze=2, wert="15", einheit="wiederholungen"),
+                    WarmUpUebung(name="Scapula Push-Up", saetze=2, wert="10", einheit="wiederholungen"),
+                    WarmUpUebung(name="Face Pull (leicht)", saetze=2, wert="12", einheit="wiederholungen"),
+                    WarmUpUebung(name="Arm Circles", wert="30", einheit="sekunden", seiten=2),
                 ],
             )
         else:
@@ -235,10 +235,10 @@ def _warm_up(equipment: Equipment, fokus: str, session_dauer_min: int) -> WarmUp
                 protokoll="kraft",
                 dauer_min=wu,
                 uebungen=[
-                    WarmUpUebung(name="Hip Circle", dauer_sek=20, seiten=2),
-                    WarmUpUebung(name="Glute Bridge (Aktivierung)", saetze=2, wdh=15),
-                    WarmUpUebung(name="Leg Swing", dauer_sek=30, seiten=2),
-                    WarmUpUebung(name="Goblet Squat (leicht)", saetze=2, wdh=8),
+                    WarmUpUebung(name="Hip Circle", wert="20", einheit="sekunden", seiten=2),
+                    WarmUpUebung(name="Glute Bridge (Aktivierung)", saetze=2, wert="15", einheit="wiederholungen"),
+                    WarmUpUebung(name="Leg Swing", wert="30", einheit="sekunden", seiten=2),
+                    WarmUpUebung(name="Goblet Squat (leicht)", saetze=2, wert="8", einheit="wiederholungen"),
                 ],
             )
 
@@ -253,27 +253,27 @@ def _cool_down(fokus: str) -> CoolDown:
         return CoolDown(
             dauer_min=5,
             uebungen=[
-                CoolDownUebung(name="Brust-Stretch an der Wand", dauer_sek=30, seiten=2),
-                CoolDownUebung(name="Lat-Stretch (Arme über Kopf)", dauer_sek=30, seiten=2),
-                CoolDownUebung(name="Schulter Cross-Body Stretch", dauer_sek=30, seiten=2),
+                CoolDownUebung(name="Brust-Stretch an der Wand", wert="30", einheit="sekunden", seiten=2),
+                CoolDownUebung(name="Lat-Stretch (Arme über Kopf)", wert="30", einheit="sekunden", seiten=2),
+                CoolDownUebung(name="Schulter Cross-Body Stretch", wert="30", einheit="sekunden", seiten=2),
             ],
         )
     elif ist_conditioning:
         return CoolDown(
             dauer_min=5,
             uebungen=[
-                CoolDownUebung(name="Ruhiges Gehen (Atemkontrolle)", dauer_sek=60),
-                CoolDownUebung(name="Hip Flexor Stretch", dauer_sek=30, seiten=2),
-                CoolDownUebung(name="Child's Pose", dauer_sek=45),
+                CoolDownUebung(name="Ruhiges Gehen (Atemkontrolle)", wert="60", einheit="sekunden"),
+                CoolDownUebung(name="Hip Flexor Stretch", wert="30", einheit="sekunden", seiten=2),
+                CoolDownUebung(name="Child's Pose", wert="45", einheit="sekunden"),
             ],
         )
     else:  # lower body / full body
         return CoolDown(
             dauer_min=5,
             uebungen=[
-                CoolDownUebung(name="Hip Flexor Stretch", dauer_sek=45, seiten=2),
-                CoolDownUebung(name="Hamstring Stretch", dauer_sek=30, seiten=2),
-                CoolDownUebung(name="Pigeon Pose", dauer_sek=30, seiten=2),
+                CoolDownUebung(name="Hip Flexor Stretch", wert="45", einheit="sekunden", seiten=2),
+                CoolDownUebung(name="Hamstring Stretch", wert="30", einheit="sekunden", seiten=2),
+                CoolDownUebung(name="Pigeon Pose", wert="30", einheit="sekunden", seiten=2),
             ],
         )
 

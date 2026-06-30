@@ -191,8 +191,8 @@ class ClaudeOutput(BaseModel):
 class WarmUpUebung(BaseModel):
     name: str
     saetze: Optional[int] = None
-    wdh: Optional[int] = None
-    dauer_sek: Optional[int] = None
+    wert: str                                                          # Naht A1: wie HauptUebung — '8' (Wdh) · '30' (Sek)
+    einheit: Literal["wiederholungen", "sekunden", "meter", "format"]  # WU nutzt praktisch wiederholungen|sekunden
     seiten: Optional[int] = None
 
 
@@ -225,7 +225,8 @@ class Cardio(BaseModel):
 
 class CoolDownUebung(BaseModel):
     name: str
-    dauer_sek: Optional[int] = None
+    wert: str                                                          # Naht A1: wie HauptUebung — '30' (Sek)
+    einheit: Literal["wiederholungen", "sekunden", "meter", "format"]  # CD nutzt praktisch sekunden
     seiten: Optional[int] = None
 
 
