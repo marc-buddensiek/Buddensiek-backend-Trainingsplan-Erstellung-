@@ -860,14 +860,14 @@ ZWEITER BELEG (api_13, MA·Gym·L2): Pallof Press 3×30 Sek — einseitig (seitl
 Konsolidiert alle Contract-Themen aus dem Coach-Review (Detail jeweils am verlinkten Eintrag unten / in den Wurzeln). Reihenfolge = Gesprächs-Reihenfolge. Status: [ offen ] / [ erledigt ]
 
 ── STRUKTUR-BLOCKER (Frontend kann ohne Fix nicht korrekt rendern) ──
-1. [offen] fokus_anzeige ins JSON (Blocker 1) — Kundenlabel lebt nur im pdf_generator; _FOKUS_ANZEIGE unvollständig (Upper/Lower C, Full Body, Conditioning fehlen). 🔧+👁
+1. [ERLEDIGT (fokus_labels-Single-Source-Naht, vor 12er-Lauf)] fokus_anzeige ins JSON (Blocker 1). 🔧+👁 fokus_anzeige existiert (Session-Pflichtfeld), Mapping vollständig, Single Source (PDF+JSON aus anzeige_fokus). Verifiziert: 0 leere/rohe Werte über 20 Pläne. Frühere „C/Full Body/Conditioning fehlen"-Notiz war stale. Kein Bau.
 2. [ERLEDIGT (Naht 2a, vor 12er-Lauf)] Conditioning {wert, einheit} statt fusioniertem String (Blocker 2a) + Runden-vs-Sätze nicht nur aus session_typ. 🔧 Conditioning/Metcon trägt getrennte wert+einheit + explizites saetze_typ (Runden vs Sätze nicht mehr aus session_typ). Verifiziert an api_14/api_20. NICHT zu verwechseln mit Punkt 3 (Zirkel/Runden BLOCK-level) — das bleibt offen.
 3. [offen] Zirkel/Runden BLOCK-level + Runden-Pause als Feld (W2) — heute runden pro Übung repliziert, Zirkel-Semantik + 60s-Pause nur Prosa → Frontend kann Zirkel nicht von „Sätze einzeln" unterscheiden. 🔧
 4. [ERLEDIGT (Naht A1, 7e8fe48)] Warm-up/Cool-down-Übungsschema an wert+einheit angleichen (W9a) — WU/CD tragen jetzt wert+einheit wie HauptUebung → einheitliches Übungs-Schema über alle Typen. 🔧
 5. [ERLEDIGT Form-/Render-Teil (Naht A2, 7bab657)] einseitig/seiten als strukturiertes Feld (W12) — „pro Seite" zuverlässig. 🔧+👁 seiten-Feld an HauptUebung + Render („je Seite") + 3 falsche WU/CD-seiten korrigiert. OFFEN (Wert, nach Vertrag): einseitig-Tagging der exercises.json-Übungen → füllt seiten für Kraft/Core (Phase-4-Wert-Arbeit). Vertrag ist bereit, Anzeige greift sobald getaggt.
 
 ── ANZEIGE-WERT (interner Wert leckt zum Kunden) ──
-6. [offen] cardio.typ „liss"/„hiit" nicht roh anzeigen (kein „+LISS") — Anzeige über cardio.beschreibung/Label + Label-Entscheid „Zone 2" vs „Grundlagenausdauer". 👁
+6. [offen] **Interne Routing-Werte im Kunden-JSON (cardio.typ + fokus)** 👁 — Zwei interne Werte fahren neben ihrem sauberen Label im Kunden-JSON mit: (a) cardio.typ „liss"/„hiit" (Label = cardio.beschreibung/fokus_anzeige; kein „+LISS"), (b) fokus-Routing-Key „Density — Volumen-Kondition" (Label = fokus_anzeige). FRAGE an Manu (eine Entscheidung für beide): Sollen die internen Keys im Vertrag bleiben (Frontend ignoriert sie) ODER aus dem Kunden-JSON raus? Beide sind ANZEIGE/Vertrags-Hygiene, kein „Label fehlt". Wenn raus → kleine Naht (Feld aus dem Kunden-Serializer nehmen, intern behalten). + Label-Entscheid „Zone 2" vs „Grundlagenausdauer" (cardio).
 
 ── PRE-LOCK-ENTSCHEIDUNGEN (heute billig, später Vertragsbruch) ──
 7. [ENTSCHIEDEN] Logging-/Feedback-Felder JETZT vorsehen? (W8 → V1.5-14/15/16) — sonst Vertrag bei V1.5 aufbrechen. 🔧 Pre-lock. ENTSCHEIDUNG (Coach): KEINE konkreten Logging-Felder jetzt — Logging-Schema ist selbst noch nicht designt (V1.5, mit echten Daten). STATTDESSEN Vertrags-Regel mit Manu: Vertrag ist ADDITIV-ERWEITERBAR — neue optionale Felder dürfen jederzeit dazukommen, Frontend ignoriert unbekannte Felder (tolerant reader). Damit ist Logging-Felder-später-ergänzen KEIN Vertragsbruch. → fällt aus dem Bau-Stapel, bleibt als Vertrags-Regel im Gespräch.
@@ -898,7 +898,7 @@ _Architektur-Befund: Die JSON IST das Pydantic-Modell (plan.model_dump(), main.p
 IST der Contract — Fixes passieren dort + im Assembler. Struktur im Kern gesund (Plan→Wochen→
 Sessions→Übungen); die Blocker sind Feld-Detailfixes, kein Gerüst-Umbau._
 
-_**Blocker 1 — fokus_anzeige fehlt im JSON (HAUPT, reine Technik, "free pre-lock"):**_
+_**Blocker 1 — fokus_anzeige fehlt im JSON (HAUPT, reine Technik, "free pre-lock"): ✅ ERLEDIGT (fokus_labels-Single-Source-Naht, vor 12er-Lauf).**_
 _JSON trägt nur fokus = interner Routing-Key ("Upper A — Push", zugleich Parse-Key für warm_up/
 cool_down/cardio im Assembler). Kundenlabel ("Oberkörper – Push-Schwerpunkt") lebt NUR in
 pdf_generator.py:83-92 (_FOKUS_ANZEIGE). Konsument bekommt den internen Key, nicht das Label._
@@ -907,6 +907,11 @@ Lower C (A/B/C-Naht), nicht Full Body/Ganzkörper-Akzent/Conditioning → fällt
 zurück. Auch die PDF-Anzeige ist heute lückenhaft._
 _FIX: fokus_anzeige ins Session-Modell, im Assembler befüllen, _FOKUS_ANZEIGE an geteilten Ort
 (aus PDF rausziehen) + alle Fokus-Typen vervollständigen._
+_→ UMGESETZT: fokus_anzeige ist Session-Pflichtfeld (models.py:265), Assembler befüllt via
+anzeige_fokus (plan_assembler.py:718), Mapping in logic/fokus_labels.py vollständig (alle A/B/C +
+Full Body + Conditioning + sicherer Fallback), PDF teilt dieselbe Quelle. Verifiziert: 0 leere/rohe
+fokus_anzeige über 20 echte Pläne. (Restfrage „interner fokus-Key im Kunden-JSON?" → Agenda-Punkt 6,
+mit cardio.typ gebündelt.)_
 
 _**Blocker 2a — Conditioning wdh = verschmolzener Wert+Einheit (HAUPT, reine Technik): ✅ ERLEDIGT (Naht 2a, vor 12er-Lauf).**_
 _Kraft wdh "6-10" (reps implizit) vs. Conditioning "12 Wdh"/"45 Sek" (Einheit im String). Kein
