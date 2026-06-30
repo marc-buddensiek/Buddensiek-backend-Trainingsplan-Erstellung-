@@ -695,6 +695,16 @@ Primär-Lift 2×/Woche ohne Variation.
 > Pläne: 01 MA·Gym·L3 · 02 MA·KB·L2 · 03 MA·BW·L1 · 04 FA·KB·L3 · 05 FA·Travel·L2 · 06 FA·Gym·L4 ·
 > 07 RE·BW·L2 · 08 RE·Gym·L1 · 09 RE·Travel·L3 · 10 LO·Travel·L4 · 11 LO·BW·L3 · 12 LO·KB·L1.
 
+## Coach-Review — Abdeckung & offene Achsen
+
+ABGEDECKT (12er-API-Lauf 30.06.): alle 4 Ziele × 3 Equipment, L1–L4 — ABER ausschließlich 4 Trainingstage / 60 min / keine Verletzung. Die Befunde Wurzel 1–12 stammen aus diesem Schnitt.
+
+NOCH NICHT GETESTET (blinder Fleck):
+- TAGE-ACHSE: 3T (Ganzkörper-Split), 5T (Ganzkörper-Akzent-Tag), 6T (UL-3×) — ändert Split-Logik, Wochen-Struktur (Wurzel 5), Volumen/Unterfüllung (Wurzel 1). 6T×L1 ist der erwartete Hotspot (hinge-β-Pool-Lücke, vgl. Bedarfskarte + 224 Rule-3-Findings).
+- DAUER-ACHSE: nur 60 min getestet; 30/45 min ungetestet (Iso-Slot-/Kapazitäts-Verhalten).
+- VERLETZUNG: kein Plan mit Verletzungs-Eingabe im Review (Filter-Verhalten am echten Output offen).
+STATUS: zweiter gezielter Lauf (Tage-Achse zuerst) geplant, bevor Live-Gang.
+
 ## Plan-Verdikte (rausschickbar?)
 
 | Plan | Matrix | Verdikt | Kernmängel (Wurzel) |
