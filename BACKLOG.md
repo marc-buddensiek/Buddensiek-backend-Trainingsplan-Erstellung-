@@ -722,6 +722,7 @@ STATUS: zweiter gezielter Lauf (Tage-Achse zuerst) geplant, bevor Live-Gang.
 | api_11 | LO·BW·L3 | offen | Unterfüllung (W1); Zone-2=Kraft (W2); RIR-Bodyweight (W4) |
 | api_12 | LO·KB·L1 | ❌ | geblockt (W5); Zone-2=Kraft+LISS (W2); Unterfüllung (W1) |
 | api_13 | MA·Gym·L2·3T | ✅ | nur Dauer-Anzeige (W1; ~49 statt 60) — Volumen korridor-gedeckelt by-design; Mo/Mi/Fr sauber verteilt (2. Lauf, Tage-Achse) + Einseitigkeit Pallof (W12) |
+| api_19 | MA·Gym·L4·6T | offen | L-Sit 60s unrealistisch — Halte-Dauer blind für Schwere (W4) |
 
 ## Wurzel 1 — Volumen/Dauer-Unterfüllung [ offen ]  (A1,A2,A3,A4,A5,E1)
 
@@ -750,6 +751,7 @@ STATUS: zweiter gezielter Lauf (Tage-Achse zuerst) geplant, bevor Live-Gang.
 - B1: RIR-Ziel auf fixe-Last Bodyweight-Übungen (Push-up, Ring Row, Pull-up-Varianten, Pike, Pistol) (02,03,04,05,07,09,10,11,12).
 - Verwandt (gleiche Wurzel): api_01 Weighted-Pullup-Widerspruch — Wdh aus Slot-Tier statt Last (s. Plan-spezifische Funde). EIN Fix (Übungs-Charakteristik geladen/fixe-Last/teil-ladbar) heilt RIR + Wdh.
 - BELEG + ERWEITERUNG (api_07, Diamond Push-up 3×10–15 + RIR): zeigt BEIDE Symptome an EINER fixe-Last-BW-Übung — (a) RIR auf Bodyweight (Kern Wurzel 4) UND (b) Wdh zu hoch für eine intrinsisch fordernde Übung (Coach: ~6–10 statt 10–15). ERWEITERT die Wurzel: der Slot-Tier ist nicht nur blind für LAST (vgl. Weighted Pull-up api_01/06), sondern auch für die EIGENSCHWERE der Übung. Bestätigt die Fix-Richtung „Übungs-Charakteristik (geladen / fixe-Last / teil-ladbar + Eigenschwere) treibt Wdh + RIR" — fordernde fixe-Last-BW → niedrigere Wdh, kein RIR.
+- DRITTE DIMENSION — HALTE-DAUER blind für Schwere (api_19, MA·Gym·L4): L-Sit 2×60 Sek — Einheit KORREKT (Hold=Sekunden), aber Dauer unrealistisch (L-Sit hält kaum jemand >30 Sek; ein anderer Plan trug 45 Sek). Generische Halte-Sekunden werden blind auf alle Holds gesetzt: Plank 60s ok, L-Sit 60s unmöglich. ERWEITERT die Wurzel: Dosierung ist blind für Übungs-Schwere in DREI Dimensionen — Last (Weighted Pull-up), Wdh-Eigenschwere (Diamond Push-up), HALTE-DAUER (L-Sit). Die Fix-Richtung „Übungs-Charakteristik treibt Dosis" muss alle drei abdecken, inkl. realistischer Halte-Dauer pro Hold. Nebenbefund: Realism-Check (pruefe_realismus) deckt Halte-Dauern offenbar NICHT ab (60s L-Sit nicht geflaggt) — beim Abarbeiten prüfen, ob Realism-Schwellen auf Hold-Sekunden erweitert werden.
 
 ## Wurzel 5 — Tag-Reihenfolge/Erholung [ offen ]  (D1,D2)
 
