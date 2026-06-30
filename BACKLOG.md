@@ -699,7 +699,7 @@ Primär-Lift 2×/Woche ohne Variation.
 | api_03 | MA·BW·L1 | offen | Unterfüllung (W1); RIR-Bodyweight (W4) |
 | api_04 | FA·KB·L3 | offen | Density-Cardio-Prosa (W2); Push-up/Plyo (W3); geblockt (W5) |
 | api_05 | FA·Travel·L2 | offen | Density×2 (W2); Travel-Equipment (W7); geblockt (W5) |
-| api_06 | FA·Gym·L4 | offen | Density×2 (W2); Push-up/Plyo (W3); geblockt (W5) |
+| api_06 | FA·Gym·L4 | offen | Density×2 (W2); Push-up/Plyo (W3); geblockt (W5); Reihenfolge Dips/Pull-up (W6); Weighted-Wdh zu hoch (W4) |
 | api_07 | RE·BW·L2 | offen | RIR-Bodyweight (W4); Push-up/Plyo (W3) |
 | api_08 | RE·Gym·L1 | offen | Satz-Unterfüllung L1 (W1) |
 | api_09 | RE·Travel·L3 | offen | Travel-Equipment (W7); Plyo (W3) |
@@ -743,6 +743,7 @@ Primär-Lift 2×/Woche ohne Variation.
 - B2: Pattern-Wiederholung in einer Kraft-Session (z.B. 3× hinge / 3× push) (01,02 u.a.).
 - B3: Reihenfolge antagonistisch gepaart (push/pull), Core/Holds am Ende — kein klarer Fehler (Beobachtung).
 - B4 (Beobachtung): Zeit-Holds tragen kein RIR — stehen ohne Intensitätsmarker neben RIR-Übungen (alle).
+- KONKRETE REGEL-VERLETZUNG (Coach-Fund, api_06): Weighted Dips VOR Weighted Pull-ups in der Montag-Ganzkörper-Session. Coach-Regel: das anstrengendste/freshe-abhängige zuerst — Weighted Pull-ups (Gürtel) brauchen Frische → VOR Dips. Reihenfolge ist Claude-Auswahl [Claude-Auswahl], NICHT deterministisch — und verletzt das in der Spec bereits genannte Prinzip „energie-intensivster Compound zuerst". Fix-Richtung später: Prompt-Schärfung, keine neue Regel nötig. Vermutlich in weiteren Plänen mit Weighted-Calisthenics-Paaren. Damit ist Wurzel 6 nicht mehr nur Beobachtung.
 
 ## Wurzel 7 — Travel-Equipment (Coach-Fund) [ offen ]
 
@@ -797,6 +798,7 @@ Offen (Coach, beim Abarbeiten): welche komplexeren Übungen in den Conditioning-
 
 - api_01: „(Ben Patrick)"-Quellenangabe leckt in 2 Übungsnamen (bw_atg_split_squat, bw_tibialis_raise); übrige 62 Klammer-Namen sind funktionale Qualifier (ok).
 - api_01: Weighted-Pullup 8-12 vs Pullup 6-10 — Volumen-Widerspruch / last-blind (= Wurzel 4).
+- ZWEITER BELEG (api_06, FA·Gym·L4): Weighted Dips + Weighted Pull-ups mit 12–15 Wdh — zu hoch für geladene Calisthenics (Gürtel → niedrigere Wdh). Bestätigt: Wdh-aus-Slot-Tier-statt-Last ist systematisch (jetzt 2 Pläne: api_01 8–12, api_06 12–15), kein Einzelfall.
 
 ## Einzelfälle / Kosmetik  (E2,F1,F2)
 
