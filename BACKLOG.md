@@ -755,6 +755,33 @@ Anzeige-Wert. **PRIORITÄT: Contract-Anzeige (vor/mit Manu klären).**
 - „LISS" unerklärt im Plan (s. Contract-Nachtrag oben)
 - **Coach-Verdikt: ❌**
 
+## WURZEL 7 (NEU) — Equipment-Pool: "bodyweight" konflatiert "keine Last" mit "kein Gerät" (2026-06-30)
+
+BEFUND (verifiziert): travel-Pool = travel + ALLE bodyweight-Übungen (`equipment_filter.py:70`
+`"travel":["travel","bodyweight"]`). Das `bodyweight`-Tag heißt „Last=Körpergewicht", NICHT
+„geräte-frei" — viele Bodyweight-Übungen brauchen Stange/Ringe (Pull-ups, Hangs, Ring Rows).
+12 von 13 travel-pull_vertical brauchen Stange/Ringe; nur `band_high_pull` geht im Hotelzimmer.
+`bw_chest_to_bar_pullup` (Coach sah es in api_10) ist `['bodyweight']` und landet via
+travel→bodyweight-Include. `equipment_requires`-Feld EXISTIERT, ist aber leer/ungenutzt → Filter
+kennt keinen Unterschied „braucht nichts" vs „braucht Stange". GLEICHE Wurzel wie KB-Pull (Equipment
+erbt Bodyweight-Pool inkl. gerät-abhängiger Übungen) — aber hier ECHT (echter Claude wählt die
+Stangen-Übung legitim, kein Stub-Artefakt). Betrifft Travel UND reine Bodyweight-Pläne (Kunde ohne
+Stange zuhause).
+
+OFFENE PRODUKT-ENTSCHEIDUNGEN (Coach): (a) Was setzt „travel" an Gerät voraus? (nichts / Band /
+Türstange?) — in COACHING_SPEC NICHT definiert. (b) `equipment_requires` (Stange/Ringe/Band) scharf
+schalten als Filter + alle Übungen entsprechend taggen.
+
+PRIORITÄT: Equipment-Pool-Methodik. KEIN Contract-Blocker (Struktur ok), aber
+Kunde-kann-Übung-nicht-ausführen = produktrelevant.
+
+### [Coach-Review] api_10 (LO·Travel·L4) — Coach-Verdikt: NICHT rausschickbar (2026-06-30, 12er-API-Lauf)
+
+- Gleiche Longevity-Probleme wie api_12: Mo+Di Ganzkörper geblockt [Wurzel 5]; Zone-2-Tag mit
+  Kraftübungen + LISS [Wurzel 2]
+- NEU: Chest-to-Bar Pull-up im Travel-Plan — braucht Stange, die ein Reisender selten hat [Wurzel 7]
+- **Coach-Verdikt: ❌**
+
 ## Reihenfolge (2026-06-22)
 
 Phase 1 Output-Closeout → MVP-10 Persistenz → MVP-11 Checker → Phase 4 Bibliothek + Tag-Audit
