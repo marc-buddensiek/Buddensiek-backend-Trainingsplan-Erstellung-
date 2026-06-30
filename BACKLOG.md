@@ -871,7 +871,7 @@ Konsolidiert alle Contract-Themen aus dem Coach-Review (Detail jeweils am verlin
 
 ── PRE-LOCK-ENTSCHEIDUNGEN (heute billig, später Vertragsbruch) ──
 7. [ENTSCHIEDEN] Logging-/Feedback-Felder JETZT vorsehen? (W8 → V1.5-14/15/16) — sonst Vertrag bei V1.5 aufbrechen. 🔧 Pre-lock. ENTSCHEIDUNG (Coach): KEINE konkreten Logging-Felder jetzt — Logging-Schema ist selbst noch nicht designt (V1.5, mit echten Daten). STATTDESSEN Vertrags-Regel mit Manu: Vertrag ist ADDITIV-ERWEITERBAR — neue optionale Felder dürfen jederzeit dazukommen, Frontend ignoriert unbekannte Felder (tolerant reader). Damit ist Logging-Felder-später-ergänzen KEIN Vertragsbruch. → fällt aus dem Bau-Stapel, bleibt als Vertrags-Regel im Gespräch.
-8. [ENTSCHIEDEN: JA, jetzt] Sessions als geordnete Liste mit separatem tag-Feld (V2-Self-Service, zeitkritisch) — Wochentag NICHT in Inhalt backen → spätere Tag-Tausch-/Umlabel-Fähigkeit ohne Neugenerierung. 🔧 ENTSCHEIDUNG (Coach): Form bekannt + teuer nachzurüsten → jetzt bauen. Bleibt im Vor-Vertrag-Bau-Stapel.
+8. [ERLEDIGT — Form bereits vorhanden] Sessions als geordnete Liste mit separatem tag-Feld (V2-Self-Service, zeitkritisch) — Wochentag NICHT in Inhalt backen → spätere Tag-Tausch-/Umlabel-Fähigkeit ohne Neugenerierung. 🔧 Struktur existiert schon: Session.tag ist ein eigenständiges, überschreibbares Feld; Frontend kann den Tag umlabeln (Di→Mi), Inhalt bleibt. Kein Bau nötig. Verifiziert an api_13 + models.py.
 
 ── SCHON ZU (zur Info) ──
 Blocker 2b (rir vereinheitlicht), Blocker 3 (plan_metadata raus), Blocker 4 (stress/schlaf schmal), rpe→rir int→float. ✅
