@@ -622,6 +622,45 @@ PDF = nur Dev-/Coach-Vorschau. Verifikation ab jetzt gegen JSON, nicht PDF.
 - **TODO:** vollständige kundenseitige JSON-Shape mit Manu definieren (welche Felder rendert das Frontend,
   welche Display-Strings liefert das Backend) BEVOR der Contract lockt.
 
+### Contract-Blocker (IST-Stand, vor API-Contract mit Manu zu beheben)
+_Architektur-Befund: Die JSON IST das Pydantic-Modell (plan.model_dump(), main.py:202). models.py
+IST der Contract — Fixes passieren dort + im Assembler. Struktur im Kern gesund (Plan→Wochen→
+Sessions→Übungen); die Blocker sind Feld-Detailfixes, kein Gerüst-Umbau._
+
+_**Blocker 1 — fokus_anzeige fehlt im JSON (HAUPT, reine Technik, "free pre-lock"):**_
+_JSON trägt nur fokus = interner Routing-Key ("Upper A — Push", zugleich Parse-Key für warm_up/
+cool_down/cardio im Assembler). Kundenlabel ("Oberkörper – Push-Schwerpunkt") lebt NUR in
+pdf_generator.py:83-92 (_FOKUS_ANZEIGE). Konsument bekommt den internen Key, nicht das Label._
+_⚠ _FOKUS_ANZEIGE selbst unvollständig: mappt nur Upper/Lower A/B — NICHT die neuen Upper C/
+Lower C (A/B/C-Naht), nicht Full Body/Ganzkörper-Akzent/Conditioning → fällt dort auf rohen Key
+zurück. Auch die PDF-Anzeige ist heute lückenhaft._
+_FIX: fokus_anzeige ins Session-Modell, im Assembler befüllen, _FOKUS_ANZEIGE an geteilten Ort
+(aus PDF rausziehen) + alle Fokus-Typen vervollständigen._
+
+_**Blocker 2a — Conditioning wdh = verschmolzener Wert+Einheit (HAUPT, reine Technik):**_
+_Kraft wdh "6-10" (reps implizit) vs. Conditioning "12 Wdh"/"45 Sek" (Einheit im String). Kein
+getrenntes {wert, einheit} → Konsument muss Strings parsen, um reps von Zeit zu unterscheiden._
+_FIX: value/unit-Split im Übungs-Modell._
+
+_**Blocker 2b — Intensitätsfeld heißt je Session-Typ anders (HAUPT, koppelt an Conditioning-Spec):**_
+_Kraft-Übung trägt rir; Conditioning-Übung trägt rpe (immer null) + rpe_hinweis (immer null). Eine
+logische "Übung" hat zwei Formen je Kontext + 2 tote Felder (Conditioning hat per Thema 6 keine RPE)._
+_FIX: eine Übungs-Form, ein Intensitätsfeld. ⚠ Berührt Conditioning-Philosophie (Thema 6) — als
+eigene Naht behandeln, nicht beiläufig._
+
+_**Blocker 3 — plan_metadata totes Top-Level-Feld (HYGIENE, reine Technik):**_
+_Platzhalter, kein Producer/Konsument (Modell-Kommentar "verworfen"). Im Kunden-Contract überflüssig._
+_FIX: entfernen._
+
+_**Blocker 4 — stress/schlaf_stunden im klient_snapshot (HYGIENE, KOPPELT an separates Thema):**_
+_Totes Signal (Recovery entkoppelt), zur Entfernung vorgemerkt. Im Contract irreführend (Kunde
+sähe "stress: 4"). ⚠ Koppelt an die geplante Stress/Schlaf-Entfernung — die womöglich auch LOGIK
+berührt, nicht nur das Snapshot-Modell. EIGENE Naht mit eigener Inspektion, NICHT hier beiläufig._
+
+_STATUS: Alle 5 sind Contract-Vorbedingung. Reihenfolge: erst die reinen Technik-Fixes (1, 2a, 3),
+dann die gekoppelten (2b Conditioning-Spec, 4 Stress/Schlaf) als eigene Nähte. Danach: Beispiel-JSON
+an Manu als Gesprächsgrundlage → gemeinsam Contract festschreiben._
+
 ## Reihenfolge (2026-06-22)
 
 Phase 1 Output-Closeout → MVP-10 Persistenz → MVP-11 Checker → Phase 4 Bibliothek + Tag-Audit
