@@ -469,6 +469,24 @@ fängt unit/Wert-Inkohärenz). Kandidaten: `gym_hanging_leg_raise`, `gym_hanging
 `kb_turkish_getup`, `kb_windmill`, `bw_mountain_climber`, `bw_bear_crawl`, `bw_crab_walk`, `bw_inchworm`,
 `bw_tibialis_raise`, `gym_reverse_hyper`, `ath_med_ball_slam`, `ath_med_ball_rotational_throw`.
 
+## Bibliotheks-Bedarfskarte (β-Pool-Lücken, aus PRIO-6-Sweep)
+
+_Maschinell quantifiziert (Commit 0835c2a): wo pool_size < compound-demand, MUSS wiederholt werden —
+das sind keine Plan-Defekte, sondern Bibliothekslücken. Quelle für gezielte Erweiterung._
+
+_**48 β-Vorkommen = nur 2 distinkte Tripel = faktisch EINE Wurzel:**_
+_- bodyweight L1 hinge → 24× (pool 2 < demand 3)_
+_- travel L1 hinge → 24× (pool 2 < demand 3)_
+_travel⊇bodyweight (via _EQUIPMENT_INCLUDES) → identischer hinge-Pool (2: nur Glute-Bridge-Varianten)._
+_Die 24× = je 6 Kombis (muskelaufbau/recomp × 6T × {30,45,60}min) × 4 Wochen. NUR bei 6 Tagen
+(hinge-compound-demand 3 > pool 2); 3-5 Tage (demand ≤2 = pool) nicht betroffen._
+
+_**Fix (EINE Übung löst alle 48):** eine NICHT-Brücken-L1-Hinge für bodyweight (z.B. Good-Morning ohne
+Last / bodyweight Hip Hinge) — erreicht via Inklusion zugleich travel. Mehr Glute-Bridge-Varianten
+helfen NICHT (Regel 3 zählt distinkte ids; 2 Brücken-Spielarten bleiben 2). bodyweight L1 hinge 2→3
+schließt die einzige raumweite β-Lücke._
+_STATUS: Erweiterungs-Backlog, nicht dringlich. Abarbeiten wenn Bibliotheks-Pass ansteht._
+
 ## Bibliotheks-Erweiterung (Phase 4, Survival-Matrix-gesteuert)
 
 - **KB-Oberkörper dünn:** 1 ladbarer KB-Horizontaldruck (`kb_floor_press`), **0 KB-Vertikalzug** →
