@@ -929,6 +929,22 @@ Phase 1 Output-Closeout → MVP-10 Persistenz → MVP-11 Checker → Phase 4 Bib
   (RPE-Welle) — eine komplexere Variante ggf. über den **nächsten Plan/Block**, separat zu
   durchdenken. Bewusst vorerst raus.
 
+## [Design offen / Langzeit] Progression über viele Blöcke — Periodisierungs-Vielfalt (post-V1)
+
+PROBLEM: Pläne nutzen IMMER dieselbe Wellen-Form (3:1, Spec Thema 1). Über viele Blöcke (~13/Jahr)
+sind sie strukturell identisch — gleiche Welle, gleiche Wdh-Bereiche, gleicher Kern. Die LAST steigt
+(via Logging, s.u.), aber die STRUKTUR variiert nie → Risiko: langfristig schal / abnehmender Ertrag.
+Spec hat „Block-Periodisierung" bewusst als „zu viel Overhead für V1" verworfen — hier als offener
+Langzeit-Punkt festgehalten, wird relevant sobald Klienten viele Blöcke durchlaufen.
+RICHTUNG (offen, Coach, post-V1): Wdh-Bereiche / Block-Fokus (Kraft- vs. Hypertrophie-Block) /
+Wellen-Form über Blöcke rotieren. Gehört zu Thema 7 (Progression über Blöcke).
+
+SUB-NOTE (V1.5, Last-Progression — koppelt an Logging V1.5-14):
+Mechanismus: Kunde loggt Ist-Gewicht → Folgeplan trägt die konkrete Last als Last-Ziel in den
+nächsten Block (das ist die eigentliche „wie steigern wir"-Progression, heute noch nicht live).
+OFFENE FRAGE: Wird neben dem konkreten Last-Ziel weiter RIR ausgegeben? Coach-Hypothese:
+komplementär — Last = Ziel/Startpunkt, RIR = Tagesform-Leitplanke. Bei V1.5-Logging-Design entscheiden.
+
 ## Isometrie-/Zeit-basierte Übungen (Fundament-Naht, geparkt, nach Output-Review)
 
 - **Problem:** Zeit-/Hold-Vorgaben funktionieren heute **NUR über `pattern=="core"`** (`_CORE_WDH`
