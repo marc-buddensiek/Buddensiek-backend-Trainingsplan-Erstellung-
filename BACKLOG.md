@@ -782,6 +782,43 @@ Kunde-kann-Übung-nicht-ausführen = produktrelevant.
 - NEU: Chest-to-Bar Pull-up im Travel-Plan — braucht Stange, die ein Reisender selten hat [Wurzel 7]
 - **Coach-Verdikt: ❌**
 
+## "(Ben Patrick)" leckt als Quellenangabe in 2 Übungsnamen (2026-06-30)
+
+BEFUND (verifiziert): `bw_atg_split_squat` „ATG Split Squat (Ben Patrick)" + `bw_tibialis_raise`
+„Tibialis Raise (Ben Patrick)" tragen eine Autor-Attribution im kundensichtbaren `name`-Feld.
+Abgegrenzt: die übrigen 62 Klammer-Namen sind funktionale Qualifier (Langhantel/Kurzhantel/
+Hamstring etc.) — gehören dahin. Nur „(Ben Patrick)" (2×) ist Quellen-Leck.
+FIX: 2 Namen in `exercises.json` säubern. Klein. **PRIORITÄT: Anzeige/Daten.**
+
+## WURZEL 4 — Dosierung (RIR + Wdh) ist von der Übung ENTKOPPELT (2026-06-30, konsolidiert)
+
+_Hinweis: Die ursprüngliche „RIR-auf-Bodyweight"-Notiz lag bisher nur in BEFUND_LANDKARTE.md (B1),
+nicht im BACKLOG. Hier konsolidiert als eine Wurzel mit BEIDEN Symptomen._
+
+**Symptom 1 — RIR auf fixe-Last Bodyweight-Übungen (LANDKARTE B1, 9/12 echte Pläne):** Bodyweight-
+Übungen mit nicht anpassbarer Last (Push-up, Ring Row, Pull-up-Varianten, Pike Push-up, Pistol) tragen
+ein RIR-Ziel, obwohl der Kunde die Last nicht regeln kann (`plan_assembler.py:638` setzt RIR für jede
+`unit=="reps"`-Übung, blind für die Übung).
+
+**Symptom 2 — Wdh-Bereich kommt aus dem Slot-Tier, nicht aus der Übung (verifiziert api_01):**
+`_WDH_MAP` (compound 6-10 / accessory 8-12 / isolation 12-20) × `slot_tier`
+(`plan_assembler.py:609/625`, Tier = Slot-Position, nicht Übung). Folge: `gym_pullup` landete im
+Compound-Slot (6-10), `gym_weighted_pullup` im Accessory-Slot (8-12) → die SCHWERERE (geladene)
+Übung bekam den HÖHEREN Wdh-Bereich. Trainingslogisch verdreht (mehr Last = weniger Wdh). Übungen
+tragen kein tier/unit/last-Feld → Dosierung blind für die tatsächliche Last.
+
+**GEMEINSAME WURZEL:** Intensität (RIR) UND Volumen (Wdh) werden aus Slot/Tier abgeleitet, nicht aus
+Übungs-Eigenschaften (Last anpassbar? geladen? Bodyweight?). EIN durchdachter Fix (Übungs-Charakteristik
+in die Dosierung einfließen lassen — z.B. Tag „geladen / fixe-Last / teil-ladbar") würde BEIDE Symptome
+(RIR + Wdh) heilen. **PRIORITÄT: Kraft-Methodik (Kernprodukt).**
+
+### [Coach-Review] api_01 (MA·Gym·L3) — Coach-Verdikt: ⚠️ rausschickbar mit Mängeln (2026-06-30, 12er-API-Lauf)
+
+- Grundsätzlich gut (reicher Gym-Pool, sauberer Upper/Lower-Wechsel, nahe an 60 min)
+- „(Ben Patrick)" im Übungsnamen (s.o.)
+- Weighted Pullup 8-12 vs. normaler Pullup 6-10 — Dosierung last-blind (s. Wurzel 4)
+- **Coach-Verdikt: ⚠️ (erster nicht-❌ Plan)**
+
 ## Reihenfolge (2026-06-22)
 
 Phase 1 Output-Closeout → MVP-10 Persistenz → MVP-11 Checker → Phase 4 Bibliothek + Tag-Audit
