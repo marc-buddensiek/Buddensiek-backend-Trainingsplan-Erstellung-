@@ -675,6 +675,86 @@ Sessions. FIX: Varianten-/Dedup-Regel (gleicher Primär nicht 2× ohne Variation
 **Checker (MVP-11) validiert:** Primär-Rolle passt zum Ziel; eingesetztes pattern==Slot-pattern; kein
 Primär-Lift 2×/Woche ohne Variation.
 
+# COACH-REVIEW — inhaltliche Anpassungen (12er-API-Lauf 30.06.)
+
+> EINZIGE QUELLE für inhaltliche Anpassungen aus dem 12er-API-Lauf (claude-sonnet-4-6, echte JSONs
+> in `api_runs/`). Sortiert nach Wurzel. Status je Block: **[ offen ]** / [ in Arbeit ] / [ erledigt ].
+> Symptom-Detail absorbiert aus BEFUND_LANDKARTE.md (→ Archiv); rohe Plan-Fakten in COACH_REVIEW.md
+> (→ Archiv). Contract-/Anzeige-Themen (z.B. cardio.typ „liss") bleiben unter „JSON-als-Vertrag (MVP-12)".
+> Pläne: 01 MA·Gym·L3 · 02 MA·KB·L2 · 03 MA·BW·L1 · 04 FA·KB·L3 · 05 FA·Travel·L2 · 06 FA·Gym·L4 ·
+> 07 RE·BW·L2 · 08 RE·Gym·L1 · 09 RE·Travel·L3 · 10 LO·Travel·L4 · 11 LO·BW·L3 · 12 LO·KB·L1.
+
+## Plan-Verdikte (rausschickbar?)
+
+| Plan | Matrix | Verdikt | Kernmängel (Wurzel) |
+|---|---|---|---|
+| api_01 | MA·Gym·L3 | ⚠️ mit Mängeln | grundsätzlich gut; Ben-Patrick-Name + Weighted-Pullup last-blind (W4) |
+| api_02 | MA·KB·L2 | offen | RIR-Bodyweight (W4); Pattern-Wiederholung (W6) |
+| api_03 | MA·BW·L1 | offen | Unterfüllung (W1); RIR-Bodyweight (W4) |
+| api_04 | FA·KB·L3 | offen | Density-Cardio-Prosa (W2); Push-up/Plyo (W3); geblockt (W5) |
+| api_05 | FA·Travel·L2 | offen | Density×2 (W2); Travel-Equipment (W7); geblockt (W5) |
+| api_06 | FA·Gym·L4 | offen | Density×2 (W2); Push-up/Plyo (W3); geblockt (W5) |
+| api_07 | RE·BW·L2 | offen | RIR-Bodyweight (W4); Push-up/Plyo (W3) |
+| api_08 | RE·Gym·L1 | offen | Satz-Unterfüllung L1 (W1) |
+| api_09 | RE·Travel·L3 | offen | Travel-Equipment (W7); Plyo (W3) |
+| api_10 | LO·Travel·L4 | ❌ | geblockt (W5); Zone-2=Kraft (W2); Chest-to-Bar=Stange (W7); Unterfüllung (W1) |
+| api_11 | LO·BW·L3 | offen | Unterfüllung (W1); Zone-2=Kraft (W2); RIR-Bodyweight (W4) |
+| api_12 | LO·KB·L1 | ❌ | geblockt (W5); Zone-2=Kraft+LISS (W2); Unterfüllung (W1) |
+
+## Wurzel 1 — Volumen/Dauer-Unterfüllung [ offen ]  (A1,A2,A3,A4,A5,E1)
+
+- A1: Kraft-Sessions unter 60-min-Soll — Longevity ~35–42min (10,11,12), Fettabbau-Krafttage 43–49min (04,05,06), MA·BW·L1 46–49min (03); MA-Gym/KB nahe Soll (01,02).
+- A2/E1: dauer_min_geschaetzt=60 in allen Sessions trotz ~35–58min Inhalt — alle 12.
+- A3: Longevity-Krafttage nur 4 Übungen / 8–10 Sätze, über alle Level (10,11,12).
+- A4: Fettabbau-Krafttage nur 4 Übungen (04,05,06).
+- A5: L1 weniger Sätze (12–14) als L3/L4 (16–17) → verstärkt Unterfüllung (03,08,12).
+
+## Wurzel 2 — Conditioning-Format & -Beschriftung [ offen ]  (C1,C4,C5,C6)
+
+- C1: Density-Prosa „…max. Wdh bei festem Gewicht" auf gewicht-losen Cardio-Übungen (04,05,06).
+- C4: zwei identische Conditioning-Formate am Stück (density+density) (05,06).
+- C5: Longevity „Zone 2"-Tag trägt rep-basierte Kraftübungen statt Cardio (10,11,12) — vgl. Mobility-Feature (Eintrag bei MVP-12).
+- C6: gemischte Finisher-Dosierung — zeit- („8 Min AMRAP") vs runden-basiert („3 Runden Zirkel") (04–09).
+
+## Wurzel 3 — Übungs-Eignung Conditioning [ offen ]  (C2,C3)
+
+- C2: Push-Up im Conditioning (bw_pushup_conditioning, ath_pushup_to_jump) (04,05,06,07,08,09).
+- C3: Plyo-Lastigkeit (Jumps/Pogo/Burpee) stark (04,05,06,07,09); Ausnahme Gym-Recomp (08).
+
+## Wurzel 4 — Bodyweight-Intensitätssteuerung [ offen ]  (B1)
+
+- B1: RIR-Ziel auf fixe-Last Bodyweight-Übungen (Push-up, Ring Row, Pull-up-Varianten, Pike, Pistol) (02,03,04,05,07,09,10,11,12).
+- Verwandt (gleiche Wurzel): api_01 Weighted-Pullup-Widerspruch — Wdh aus Slot-Tier statt Last (s. Plan-spezifische Funde). EIN Fix (Übungs-Charakteristik geladen/fixe-Last/teil-ladbar) heilt RIR + Wdh.
+
+## Wurzel 5 — Tag-Reihenfolge/Erholung [ offen ]  (D1,D2)
+
+- D1: Fettabbau blockt Krafttage (Mo+Di Kraft, dann Do+Fr Conditioning) (04,05,06).
+- D2: Longevity blockt zwei Krafttage (Mo+Di Full-Body am Stück) (10,11,12).
+- Gegenprobe (ok): MA/Recomp wechseln Upper/Lower sauber, kein Block (01,02,03,07,08,09).
+
+## Wurzel 6 — Kraft-Reihenfolge/Pattern (schwach) [ offen ]  (B2,B3)
+
+- B2: Pattern-Wiederholung in einer Kraft-Session (z.B. 3× hinge / 3× push) (01,02 u.a.).
+- B3: Reihenfolge antagonistisch gepaart (push/pull), Core/Holds am Ende — kein klarer Fehler (Beobachtung).
+- B4 (Beobachtung): Zeit-Holds tragen kein RIR — stehen ohne Intensitätsmarker neben RIR-Übungen (alle).
+
+## Wurzel 7 — Travel-Equipment (Coach-Fund) [ offen ]
+
+- Travel-Pool erbt alle Bodyweight-Übungen (bodyweight = Last, nicht geräte-frei) → 12/13 travel-pull_vertical brauchen Stange/Ringe; Chest-to-Bar Pull-up im Travel-Plan (api_10). equipment_requires existiert, ist ungenutzt → schärfen + Travel-Geräteannahme definieren. Betrifft Travel + reine Bodyweight-Pläne.
+
+## Plan-spezifische Coach-Funde [ offen ]
+
+- api_01: „(Ben Patrick)"-Quellenangabe leckt in 2 Übungsnamen (bw_atg_split_squat, bw_tibialis_raise); übrige 62 Klammer-Namen sind funktionale Qualifier (ok).
+- api_01: Weighted-Pullup 8-12 vs Pullup 6-10 — Volumen-Widerspruch / last-blind (= Wurzel 4).
+
+## Einzelfälle / Kosmetik  (E2,F1,F2)
+
+- E2: lange/interne fokus-Strings in der Klartext-Ausgabe (fokus_anzeige selbst sauber) (04,05,06,12).
+- F1: api_03 (BW·L1) Lower B nur 5 statt 6 Übungen (Einzelfall).
+- F2: Carry als Kraft-Übung mit „20 Meter", kein RIR (01,08,12).
+
+---
+
 ## JSON-als-Vertrag (MVP-12, API-Contract mit Manu) — Kunde sieht JSON, nicht PDF
 
 Grundsatz: Das JSON muss kundenseitig vollständig/korrekt sein; das Frontend darf NICHTS re-derivieren.
@@ -746,78 +826,6 @@ OFFEN (Contract, mit Manu): `cardio.typ` bleibt interner Routing-Wert; Anzeige n
 „Zone 2" vs „Grundlagenausdauer" vs beides (`fokus_anzeige`). Reiht sich an die `fokus_anzeige`-Logik
 (Blocker 1) an. KEIN Struktur-Blocker (`cardio`-Objekt existiert korrekt, `models.py:220`), aber
 Anzeige-Wert. **PRIORITÄT: Contract-Anzeige (vor/mit Manu klären).**
-
-### [Coach-Review] api_12 (LO·KB·L1) — Coach-Verdikt: NICHT rausschickbar (2026-06-30, 12er-API-Lauf)
-
-- Wochenverteilung: Mo+Di Ganzkörper am Stück (4T → Tag dazwischen nötig) [→ Wurzel 5, D2]
-- Zone-2-Tag trägt Kraftübungen (Squat/Glute Bridge/Push-up/McGill, 10-15 Wdh) + 30 min LISS —
-  „Grundlagenausdauer" sollte Ausdauer sein, nicht halber Kraftblock [→ Wurzel 2, C5]
-- „LISS" unerklärt im Plan (s. Contract-Nachtrag oben)
-- **Coach-Verdikt: ❌**
-
-## WURZEL 7 (NEU) — Equipment-Pool: "bodyweight" konflatiert "keine Last" mit "kein Gerät" (2026-06-30)
-
-BEFUND (verifiziert): travel-Pool = travel + ALLE bodyweight-Übungen (`equipment_filter.py:70`
-`"travel":["travel","bodyweight"]`). Das `bodyweight`-Tag heißt „Last=Körpergewicht", NICHT
-„geräte-frei" — viele Bodyweight-Übungen brauchen Stange/Ringe (Pull-ups, Hangs, Ring Rows).
-12 von 13 travel-pull_vertical brauchen Stange/Ringe; nur `band_high_pull` geht im Hotelzimmer.
-`bw_chest_to_bar_pullup` (Coach sah es in api_10) ist `['bodyweight']` und landet via
-travel→bodyweight-Include. `equipment_requires`-Feld EXISTIERT, ist aber leer/ungenutzt → Filter
-kennt keinen Unterschied „braucht nichts" vs „braucht Stange". GLEICHE Wurzel wie KB-Pull (Equipment
-erbt Bodyweight-Pool inkl. gerät-abhängiger Übungen) — aber hier ECHT (echter Claude wählt die
-Stangen-Übung legitim, kein Stub-Artefakt). Betrifft Travel UND reine Bodyweight-Pläne (Kunde ohne
-Stange zuhause).
-
-OFFENE PRODUKT-ENTSCHEIDUNGEN (Coach): (a) Was setzt „travel" an Gerät voraus? (nichts / Band /
-Türstange?) — in COACHING_SPEC NICHT definiert. (b) `equipment_requires` (Stange/Ringe/Band) scharf
-schalten als Filter + alle Übungen entsprechend taggen.
-
-PRIORITÄT: Equipment-Pool-Methodik. KEIN Contract-Blocker (Struktur ok), aber
-Kunde-kann-Übung-nicht-ausführen = produktrelevant.
-
-### [Coach-Review] api_10 (LO·Travel·L4) — Coach-Verdikt: NICHT rausschickbar (2026-06-30, 12er-API-Lauf)
-
-- Gleiche Longevity-Probleme wie api_12: Mo+Di Ganzkörper geblockt [Wurzel 5]; Zone-2-Tag mit
-  Kraftübungen + LISS [Wurzel 2]
-- NEU: Chest-to-Bar Pull-up im Travel-Plan — braucht Stange, die ein Reisender selten hat [Wurzel 7]
-- **Coach-Verdikt: ❌**
-
-## "(Ben Patrick)" leckt als Quellenangabe in 2 Übungsnamen (2026-06-30)
-
-BEFUND (verifiziert): `bw_atg_split_squat` „ATG Split Squat (Ben Patrick)" + `bw_tibialis_raise`
-„Tibialis Raise (Ben Patrick)" tragen eine Autor-Attribution im kundensichtbaren `name`-Feld.
-Abgegrenzt: die übrigen 62 Klammer-Namen sind funktionale Qualifier (Langhantel/Kurzhantel/
-Hamstring etc.) — gehören dahin. Nur „(Ben Patrick)" (2×) ist Quellen-Leck.
-FIX: 2 Namen in `exercises.json` säubern. Klein. **PRIORITÄT: Anzeige/Daten.**
-
-## WURZEL 4 — Dosierung (RIR + Wdh) ist von der Übung ENTKOPPELT (2026-06-30, konsolidiert)
-
-_Hinweis: Die ursprüngliche „RIR-auf-Bodyweight"-Notiz lag bisher nur in BEFUND_LANDKARTE.md (B1),
-nicht im BACKLOG. Hier konsolidiert als eine Wurzel mit BEIDEN Symptomen._
-
-**Symptom 1 — RIR auf fixe-Last Bodyweight-Übungen (LANDKARTE B1, 9/12 echte Pläne):** Bodyweight-
-Übungen mit nicht anpassbarer Last (Push-up, Ring Row, Pull-up-Varianten, Pike Push-up, Pistol) tragen
-ein RIR-Ziel, obwohl der Kunde die Last nicht regeln kann (`plan_assembler.py:638` setzt RIR für jede
-`unit=="reps"`-Übung, blind für die Übung).
-
-**Symptom 2 — Wdh-Bereich kommt aus dem Slot-Tier, nicht aus der Übung (verifiziert api_01):**
-`_WDH_MAP` (compound 6-10 / accessory 8-12 / isolation 12-20) × `slot_tier`
-(`plan_assembler.py:609/625`, Tier = Slot-Position, nicht Übung). Folge: `gym_pullup` landete im
-Compound-Slot (6-10), `gym_weighted_pullup` im Accessory-Slot (8-12) → die SCHWERERE (geladene)
-Übung bekam den HÖHEREN Wdh-Bereich. Trainingslogisch verdreht (mehr Last = weniger Wdh). Übungen
-tragen kein tier/unit/last-Feld → Dosierung blind für die tatsächliche Last.
-
-**GEMEINSAME WURZEL:** Intensität (RIR) UND Volumen (Wdh) werden aus Slot/Tier abgeleitet, nicht aus
-Übungs-Eigenschaften (Last anpassbar? geladen? Bodyweight?). EIN durchdachter Fix (Übungs-Charakteristik
-in die Dosierung einfließen lassen — z.B. Tag „geladen / fixe-Last / teil-ladbar") würde BEIDE Symptome
-(RIR + Wdh) heilen. **PRIORITÄT: Kraft-Methodik (Kernprodukt).**
-
-### [Coach-Review] api_01 (MA·Gym·L3) — Coach-Verdikt: ⚠️ rausschickbar mit Mängeln (2026-06-30, 12er-API-Lauf)
-
-- Grundsätzlich gut (reicher Gym-Pool, sauberer Upper/Lower-Wechsel, nahe an 60 min)
-- „(Ben Patrick)" im Übungsnamen (s.o.)
-- Weighted Pullup 8-12 vs. normaler Pullup 6-10 — Dosierung last-blind (s. Wurzel 4)
-- **Coach-Verdikt: ⚠️ (erster nicht-❌ Plan)**
 
 ## [Feature/Longevity] Mobility als dritte Säule ergänzen (2026-06-30)
 
