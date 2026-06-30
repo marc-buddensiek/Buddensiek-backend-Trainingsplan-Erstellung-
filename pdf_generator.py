@@ -106,14 +106,17 @@ def _wdh_cond(u: dict) -> str:
 
 
 def _cond_vol_spec(typ: str, u: dict, runden: int | None = None) -> tuple[str, str]:
-    """Format-bewusste Conditioning-Zeile → (vol_str, spec_str). Naht 2a/W2.
-    Intervalle/Zirkel = Runden (jetzt vom BLOCK, nicht pro Übung); AMRAP = Wert/Runde;
-    Block-Formate (tabata/density/ladders) = nur Wert. Übungen tragen kein saetze mehr (Naht W2)."""
+    """Format-bewusste Conditioning-Zeile → (vol_str, spec_str). Naht 2a/W2/PDF-W2.
+    Runden-Formate (zirkel/intervalle): die Rundenzahl + Runden-Pause stehen EINMAL im Block-Kopf
+    (format_notiz, z.B. „3 Runden Zirkel … 60 Sek. Pause nach jeder Runde"), NICHT mehr pro Zeile.
+    Die Zeile zeigt nur Wert+Einheit (zirkel) bzw. Arbeit/Pause pro Übung (intervalle). AMRAP +
+    Block-Formate (tabata/density/ladders) unverändert. `runden` bleibt im Signatur-Vertrag (block-
+    level), wird in der Zeile aber nicht mehr ausgegeben. Übungen tragen kein saetze (Naht W2)."""
     w, p = _wdh_cond(u), u["pausenzeit_sek"]
     if typ == "intervalle":
-        return f"{runden} Runden", f"{w} Arbeit / {p} Sek Pause"
+        return w, f"Arbeit / {p} Sek Pause"   # Runden stehen im Block-Kopf
     if typ == "zirkel":
-        return f"{runden} Runden", f"{w} je Übung"
+        return w, ""                           # Runden stehen im Block-Kopf; Zeile = nur Wert+Einheit
     if typ == "amrap":
         return w, "AMRAP - Runden zählen"
     return w, (f"Pause {p}s" if p > 0 else "")
