@@ -206,6 +206,16 @@ _- Gegenbeweis dass es Artefakt ist: 5-Tage-Pfad (:365) hängt eine DISTINKTE Ak
   statt zu duplizieren. Fix-Richtung: analoge distinkte 6. (und 5.) Session für 6 Tage._
 _STATUS: Fix zurückgestellt bis nach vollem Output-Review-Lauf (alle 12 Profile)._
 
+_**KORREKTUR (nach A/B/C-Test, Commit b6aa83a):** Die frühere Einordnung "Template-Verdopplung
+ist die strukturelle Wurzel der 6-Tage-Regel-3-Repeats" war ZU ENG. Der A/B/C-Fix (distinkte
+Sessions statt [:2]) hat die Repeats NICHT reduziert (Sweep 224→224, bodyweight L1 sogar 2×→3×).
+Wahre Wurzel: pattern-basierter Picker × mehrere hinge-Sessions × dünner L1-Pool — der Stub füllt
+alle hinge-Slots mit derselben Übung, egal ob die Sessions distinkt sind. → bestätigt Lesart 2
+(Picker-Artefakt), nicht Template. A/B/C bleibt wertvoll als REBALANCING-Fix (Push/Pull/Hinge-
+Schieflage behoben, spec-konform), löst aber Regel 3 nicht. Regel-3-Repeat am echten Claude zu
+prüfen (Stub ≠ Produktivpfad). Zusatz-Spannung: mehr Hinge-Frequenz (Coach-Wunsch) erhöht bei
+dünnem Pool die Repeats — Coach-Ziel und Regel-3-Ziel im Konflikt._
+
 _**BEFUND 2 (Regel zu streng): Regel 3 ist level-blind.**_
 _Grundübungs-Wiederholung bei L1/Anfänger ist didaktisch RICHTIG (Technik/Frequenz). Regel 3
 flaggt sie trotzdem als Mangel. COACH-URTEIL (Alen): bei L1 ist Wiederholung der Grundübung ok.
