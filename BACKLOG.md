@@ -1030,10 +1030,13 @@ OFFENER DESIGN-PUNKT (Coach): frei verschieben ODER Moves so beschränken, dass 
 erhalten bleibt? Freies Schieben kann Erholung verbessern (Ruhetag dazwischen) ODER zerstören (harte
 Einheiten back-to-back, vgl. Wurzel 5). Premium-Produkt sollte kein Beine-auf-Beine zulassen.
 
-CONTRACT-FLAG (→ MVP-12, mit Manu, zeitkritisch): JSON sollte Sessions als geordnete Liste mit
-SEPARATEM `tag`-Feld tragen — Wochentag NICHT in den Session-Inhalt backen. Dann kann das Frontend
-später umlabeln, ohne Backend-Neugenerierung. Billige Vertrags-Entscheidung jetzt, spart V2-Schmerz.
-Reiht sich an die übrigen Contract-Nachträge (cardio.typ, Logging-Felder, …).
+CONTRACT-FLAG [Form erledigt] (→ MVP-12, mit Manu, zeitkritisch): JSON sollte Sessions als geordnete
+Liste mit SEPARATEM `tag`-Feld tragen — Wochentag NICHT in den Session-Inhalt backen. Dann kann das
+Frontend später umlabeln, ohne Backend-Neugenerierung. Billige Vertrags-Entscheidung jetzt, spart
+V2-Schmerz. Reiht sich an die übrigen Contract-Nachträge (cardio.typ, Logging-Felder, …).
+→ tag ist bereits ein eigenständiges, überschreibbares Session-Feld (Form vorhanden, s. Agenda-Punkt 8).
+Tag-Tausch (Umlabeln) ist contract-ready — das eigentliche V2-Feature ist nur noch die Frontend-UI,
+kein Backend-/Schema-Bau.
 
 ## Progression V2 — Übungs-Progression (geparkt, nach Output-Review)
 
