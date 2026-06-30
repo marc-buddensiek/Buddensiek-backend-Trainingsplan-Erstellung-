@@ -46,6 +46,36 @@ _Stand: 2026-06-16 · git HEAD `f8ab9d6` (MVP-7 Naht 1–5 fertig, Komplexe offe
   Coach-Betreuung. **KEIN** viertes Sicherheits-Tag. · _Hängt ab von:_ Anamnese-Erweiterung
   (V1.5-Check-in). · Nicht MVP-5-Filter-Logik.
 
+## Density-Format: Spec ↔ Coach-Definition divergiert (Spec-Entscheid offen)
+
+BEFUND (kein Code-Bug — Code == Spec): COACHING_SPEC.md:407 definiert "Density Block" als
+"feste Zeit (5 Min), max. Wiederholungen bei festem Gewicht, N Blöcke à 1 Übung füllen die
+Session". Code (_BLOCK_PARAMS["density"] + Block-Bau-Logik) implementiert das treu.
+
+DISKREPANZ: Coach-Definition von Density ist ein CHIPPER — feste Rep-Liste über MEHRERE
+Übungen, 1 Durchgang, Tempo/Pausen-Disziplin macht die Dichte (Bsp: 50 Swings / 40 Squats /
+30 Push-ups / 20 Rows / 10 Burpees). Strukturell grundverschieden vom Spec-"Density".
+
+NAMENS-KOLLISION: "Density training" ist mehrdeutig — (a) max Work in fester Zeit [Spec/Code],
+(b) Rep-Listen-Chipper [Coach]. Beide legitim.
+
+SYMPTOM (im Beispiel-PDF sichtbar): Block-Pfad (plan_assembler:409/595) ist unit-blind — legt
+"5 Min — max. Wdh bei festem Gewicht" auch auf zeit/distanz-Übungen (Ergometer/Sled/Springseil/
+Mountain Climber etc., 13 Übungen). "Max Wdh bei festem Gewicht" passt nicht auf Cardio.
+Löst sich unter BEIDEN Density-Definitionen über Pool-Restriktion (rep-/last-Übungen only).
+
+OFFENER SPEC-ENTSCHEID (Coach, vor jedem Code):
+  1. "Density" umdefinieren → Chipper-Rep-Liste (Spec:407 + Code umbauen), ODER
+  2. "Density" bleibt (a), Coach-Version kommt als NEUES Format ("Chipper"/"Rep-Liste") daneben.
+  → Betrifft: COACHING_SPEC.md (Thema 6), _BLOCK_PARAMS, _build_conditioning_segment (Block-Bau),
+    Block-Pool. Substanzieller Conditioning-Umbau, kein One-Liner.
+
+VERWANDT: unit-blindes ladders-Format (gleicher Block-Pfad, "aufsteigend 1-2-3" auf zeit/distanz
+ebenfalls falsch). tabata ist sauber (zeitbasiert). Beim Density-Umbau ladders mitprüfen.
+
+PRIORITÄT: Conditioning-Methodik, kein Contract-Blocker (JSON-Struktur unberührt — wert/einheit/
+saetze_typ bleiben gleich, egal welche Density-Definition).
+
 ## MVP-7 — Conditioning-Formate
 
 **Stand 2026-06-16 — Naht 1–5 fertig, nur Komplexe offen (`9536905`…`f8ab9d6`):**
