@@ -364,6 +364,30 @@ _- bw-L1-hinge bleibt reale Lücke: "mehr Glute-Bridge-Varianten" hilft NICHT (R
 _- Checker-Bewertung: Brücke fing exakt die erwartbaren Dinge, keine Fehlalarme, keine Claude-
   Überraschungen. Checker funktioniert am echten Output wie vorgesehen._
 
+### Mehr-Pattern-Modell — Doppelnatur-Übungen (aus Lauf 3 + Name/Tag-Analyse)
+_Erkenntnis: Der echte Claude folgt der BEWEGUNGS-SEMANTIK einer Übung, nicht stur dem pattern-Tag.
+Belegt: bei 9 Pike/HSPU-Übungen (Name "push-up", Tag push_vertical) wählt er KORREKT vertikal —
+er ist kein naiver Namens-Matcher. Konflikt entsteht nur, wo Name UND Tag beide vertretbar sind._
+
+_**Cluster A — Single-Leg-Hip-Hinges (5 Übungen, echte Doppelnatur):**_
+_bw_single_leg_rdl, gym_single_leg_rdl_db, kb_single_leg_rdl, bw_single_leg_glute_bridge,
+gym_single_leg_hip_thrust_db — alle jetzt konsistent hinge (Commit c4f4eb9, war inkonsistent).
+ABER: sie sind gleichzeitig Hüft-Hinge (Bewegung) UND einbeinig (Stand). Claude setzt sie
+weiter manchmal in single_leg-Slots → erzeugt formale Regel-2-Funde, die fachlich okay sind
+(die Übung IST einbeinig). Kein Einzel-Retag löst das: hinge ist biomechanisch richtig,
+single_leg würde Progressions-Ketten brechen._
+
+_**Gemeinsame Wurzel mit der Iso-/Rolle-Achse:** Das Datenmodell erlaubt nur EIN pattern pro
+Übung, aber manche Übungen gehören in ZWEI Kategorien (Single-Leg-Hinge = hinge+single_leg;
+Tibialis-Raise = Waden-Iso, weder sauber core noch single_leg). Symptome derselben Grenze._
+
+_**Optionen (zurückgestellt, Modell-Erweiterung):**_
+_(a) pattern als Liste (patterns: [hinge, single_leg]) — berührt filtere_uebungen + Regel 2 + Picker._
+_(b) Regel 2 whitelistet bekannte Doppelnatur-Übungen als erlaubte Ausnahmen._
+_(c) Status quo akzeptieren: hinge-Tag korrekt, Claudes single_leg-Platzierung ist fachlich ok,
+    Regel-2-Fund als bekannter False-Positive führen._
+_STATUS: zurückgestellt. Bündeln mit Iso-Slot-/Rolle-Achse (alle = "eine Übung, mehrere Rollen")._
+
 ## Output-Review MVP-9 — offene Befunde
 
 _Aus dem echten 12-Case-Output-Review (test_runs/2026-06-19_run3/REVIEW.md). Kraft-Auswahl
