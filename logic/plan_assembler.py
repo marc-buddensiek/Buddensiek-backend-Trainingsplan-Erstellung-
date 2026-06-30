@@ -741,8 +741,6 @@ def assemble_plan(
         tage_pro_woche=klient.tage_pro_woche,
         session_dauer_min=klient.session_dauer_min,
         verletzungen=klient.verletzungen,
-        stress=klient.stress_level,
-        schlaf_stunden=klient.schlaf_stunden,
     )
 
     return Plan(

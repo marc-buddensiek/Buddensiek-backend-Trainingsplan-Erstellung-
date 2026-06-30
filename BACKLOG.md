@@ -652,10 +652,14 @@ _**Blocker 3 — plan_metadata totes Top-Level-Feld (HYGIENE, reine Technik): �
 _Platzhalter, kein Producer/Konsument (Modell-Kommentar "verworfen"). Im Kunden-Contract überflüssig._
 _FIX: entfernt (Feld + PlanMetadata-Klasse aus models.py). Kein "plan_metadata": null mehr im JSON._
 
-_**Blocker 4 — stress/schlaf_stunden im klient_snapshot (HYGIENE, KOPPELT an separates Thema):**_
-_Totes Signal (Recovery entkoppelt), zur Entfernung vorgemerkt. Im Contract irreführend (Kunde
-sähe "stress: 4"). ⚠ Koppelt an die geplante Stress/Schlaf-Entfernung — die womöglich auch LOGIK
-berührt, nicht nur das Snapshot-Modell. EIGENE Naht mit eigener Inspektion, NICHT hier beiläufig._
+_**Blocker 4 — stress/schlaf_stunden im klient_snapshot: ✅ ERLEDIGT (schmale Snapshot-Variante).**_
+_Totes Signal (Recovery entkoppelt; stress/schlaf → _recovery_lage → recovery_modifier, das NUR ein
+Dev-Print liest, nie Sätze/RPE/Auswahl). Aus KlientenSnapshot + Assembler-Befüllung entfernt;
+plan_checker.py:475 (pruefe_externen_plan) auf Defaults (4/7) statt snap[...] umgestellt (KeyError-Schutz).
+Kunde sieht kein "stress: 4" mehr im JSON._
+_OFFEN (separate Karte, an Fillout-Intake-Neubau gekoppelt): die VOLLE Entfernung — KlientenInput-Felder
+stress_level/schlaf_stunden + _recovery_lage + recovery_modifier + parsers.py + Test-Fixtures + Intake.
+Berührt Logik + Parser-Pflichtfeld-Pfad → eigene Inspektion, NICHT beiläufig._
 
 _STATUS: Alle 5 sind Contract-Vorbedingung. Reihenfolge: erst die reinen Technik-Fixes (1, 2a, 3),
 dann die gekoppelten (2b Conditioning-Spec, 4 Stress/Schlaf) als eigene Nähte. Danach: Beispiel-JSON

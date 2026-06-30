@@ -472,7 +472,7 @@ def pruefe_externen_plan(plan_json_path, EXMAP: dict[str, dict] | None = None) -
     klient = KlientenInput(
         client_id="ext", vorname="ext", alter=30, trainingsjahre="ein_bis_zwei",
         kniebeugen_wdh=0, pushups_wdh=0, situps_wdh=0, burpees_wdh=0, plank_sek=0,  # PST irrelevant: level fix
-        stress_level=snap["stress"], schlaf_stunden=snap["schlaf_stunden"],
+        stress_level=4, schlaf_stunden=7.0,   # Defaults: nicht mehr im Snapshot (Blocker 4), für die Prüfung irrelevant
         hauptziel=snap["ziel"], equipment=snap["equipment"],
         tage_pro_woche=snap["tage_pro_woche"], session_dauer_min=snap["session_dauer_min"],
         verletzungen=snap["verletzungen"],

@@ -290,8 +290,8 @@ class KlientenSnapshot(BaseModel):
     tage_pro_woche: int
     session_dauer_min: int
     verletzungen: list[VerletzungsBereich] = Field(default_factory=list)
-    stress: int
-    schlaf_stunden: float
+    # stress/schlaf_stunden: aus dem Kunden-Snapshot ENTFERNT (Blocker 4) — totes Signal (Recovery
+    # entkoppelt), im Contract irreführend. KlientenInput behält sie (Intake) bis zur Fillout-Karte.
 
 
 class Plan(BaseModel):
