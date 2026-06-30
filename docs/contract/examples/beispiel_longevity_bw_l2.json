@@ -1,0 +1,2987 @@
+{
+  "plan_id": "0f30c3ad-5dcb-4601-9ac9-00828dfd0084",
+  "client_id": "00000000-0000-0000-0000-000000000001",
+  "erstellt_am": "2026-06-30T21:14:19Z",
+  "block_nummer": 1,
+  "klient_snapshot": {
+    "level": 2,
+    "ziel": "longevity",
+    "equipment": "bodyweight",
+    "split_typ": "3× Kraft + Zone 2 + Athletik",
+    "tage_pro_woche": 5,
+    "session_dauer_min": 60,
+    "verletzungen": []
+  },
+  "wochen": [
+    {
+      "woche_nummer": 1,
+      "block_typ": "akkumulation",
+      "volumen_stufe": "niedrig",
+      "ziel_saetze": 2,
+      "ziel_rir": 4.0,
+      "sessions": [
+        {
+          "session_id": "w1_s1",
+          "tag": "montag",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_pause_squat",
+              "name": "Pause Squat (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "3 Sekunden unten halten",
+                "Spannung in der Hocke aufrechterhalten",
+                "Kontrolliert aus der Pause hochkommen"
+              ],
+              "notiz": "Die Pause unten fördert Gelenkgesundheit und Körperwahrnehmung — ideal für Longevity. Tiefe nur so weit wie die Hüfte neutral bleibt.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_pushup",
+              "name": "Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Körper als Brett — Hüfte nicht hängen lassen",
+                "Ellenbogen leicht angewinkelt zum Körper",
+                "Volle Streckung oben, volle ROM unten"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_band_assisted_pullup",
+              "name": "Band-Assisted Pull-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Band um Fuß/Knie",
+                "Kinn über die Stange",
+                "kontrolliert ablassen"
+              ],
+              "notiz": "Wähle das Band so, dass du sauber 8–10 Wdh schaffst — Qualität der Bewegung vor Anzahl.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_dead_bug",
+              "name": "Dead Bug",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Lendenwirbel flach auf dem Boden halten — immer",
+                "Gegenüberliegendes Arm/Bein strecken",
+                "Langsam und kontrolliert — Atemkontrolle"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w1_s2",
+          "tag": "dienstag",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_single_leg_glute_bridge",
+              "name": "Single Leg Glute Bridge",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ein Bein gestreckt, das andere Knie gebeugt",
+                "Hüfte voll strecken oben — Glutes maximal anspannen",
+                "Hüfte gerade halten — nicht zur Seite kippen"
+              ],
+              "notiz": "Bewusst einseitig — balanciert Asymmetrien und schützt langfristig die Hüfte.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_inverted_row",
+              "name": "Inverted Row (Tisch / Stange)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Unter Tisch oder Stange — Brust zur Kante ziehen",
+                "Schwierigkeit durch Körperwinkel steuern",
+                "Schulterblätter zusammen am Endpunkt"
+              ],
+              "notiz": "Je flacher der Körper, desto schwerer — starte mit einer Winkelung, die 2 saubere Sätze erlaubt.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_pike_pushup",
+              "name": "Pike Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hüfte hoch — umgekehrtes V mit dem Körper",
+                "Kopf zwischen den Armen zum Boden",
+                "Ellenbogen leicht nach außen, kein Flare"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_reverse_lunge",
+              "name": "Reverse Lunge (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schritt nach hinten — knieschonender als Forward Lunge",
+                "Vorderes Knie über dem Fuß, nicht dahinter",
+                "Oberkörper aufrecht — kein Vornüberlehnen"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w1_s3",
+          "tag": "mittwoch",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_split_squat",
+              "name": "Split Squat",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schrittstellung",
+                "hinteres Knie Richtung Boden",
+                "Rumpf aufrecht"
+              ],
+              "notiz": "Basis-Variante des Bulgarian Split Squat — Knie-Tracking über die Zehe beachten, das ist ATG-Kernprinzip.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_archer_pushup",
+              "name": "Archer Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ein Arm streckt sich seitwärts aus, der andere macht den Push-Up",
+                "Gewicht zu einem Arm verlagern",
+                "Langsam und kontrolliert — Vorstufe zum einarmigen Push-Up"
+              ],
+              "notiz": "Mehr Reiz als der Standard-Push-Up — schult gleichzeitig Schulterblatt-Stabilität und einseitige Kraft.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_towel_row",
+              "name": "Towel Row (Handtuch an Tür)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Handtuch um Türknauf — zurücklehnen und Brust zur Tür ziehen",
+                "Füße an der Wand neben der Tür für Stabilität",
+                "Schulterblätter zusammen am Endpunkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_side_plank",
+              "name": "Side Plank",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Hüfte nicht durchhängen lassen — gerade Linie",
+                "Schulter aktiv — nicht ins Gelenk sinken",
+                "Für Einsteiger: Knie aufgestützt"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w1_s4",
+          "tag": "freitag",
+          "session_typ": "zone2",
+          "fokus_anzeige": "Zone 2 – Grundlagenausdauer",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_cossack_squat",
+              "name": "Cossack Squat",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Fuß des gestreckten Beins zeigt nach oben",
+                "Gewicht auf dem Standbein, Ferse bleibt unten",
+                "Oberkörper aufrecht, Hüfte tief"
+              ],
+              "notiz": "Niedrige Intensität, hoher Mobility-Gewinn — Hüfte, Adduktoren und Knöchel in einem. Bewegungsbereich langsam ausbauen.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_single_leg_rdl",
+              "name": "Single Leg RDL (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hüfte und Schultern parallel zum Boden halten",
+                "Spielbein und Oberkörper bilden eine Linie",
+                "Standbein hat weiche Knie — nicht durchstrecken"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_incline_pushup",
+              "name": "Incline Push-Up (Hände erhöht)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hände auf Bank oder Stuhl — Winkel reduziert Körpergewicht",
+                "Körper als Brett — Hüfte nicht hängen",
+                "Volle ROM — Brust zur Bank"
+              ],
+              "notiz": "Zone-2-Session — erhöhte Hände senken die Intensität, Fokus liegt auf Atemkontrolle und Bewegungsqualität.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_mcgill_bird_dog",
+              "name": "McGill Bird Dog",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Vierfüßler — Rücken flach wie ein Tisch",
+                "Gegenüberliegendes Arm+Bein gleichzeitig strecken",
+                "Wirbelsäule während der Bewegung neutral halten"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": {
+            "dauer_min": 30,
+            "beschreibung": "Zone 2 — Tempo halten bei dem du dich noch unterhalten könntest (ca. 120-135 bpm)"
+          },
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Ruhiges Gehen (Atemkontrolle)",
+                "wert": "60",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Child's Pose",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w1_s5",
+          "tag": "samstag",
+          "session_typ": "athletik",
+          "fokus_anzeige": "Athletik – Schnellkraft & Mobilität",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "ath_broad_jump",
+              "name": "Broad Jump",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Weit nach vorn, Arme führen",
+                "Weich auf beiden Füßen landen"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "ath_pogo_hops",
+              "name": "Pogo Hops",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Steife Knöchel, kurze Bodenkontakte",
+                "Aus den Waden federn"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_jump_squat",
+              "name": "Jump Squat",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Sanft landen — erst Zehen, dann Ferse",
+                "Squat-Tiefe vor dem Sprung, nicht nur Hüftbeuge",
+                "Sofort wieder in die nächste Wiederholung"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        }
+      ]
+    },
+    {
+      "woche_nummer": 2,
+      "block_typ": "progression",
+      "volumen_stufe": "mittel",
+      "ziel_saetze": 2,
+      "ziel_rir": 3.0,
+      "sessions": [
+        {
+          "session_id": "w2_s1",
+          "tag": "montag",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_pause_squat",
+              "name": "Pause Squat (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "3 Sekunden unten halten",
+                "Spannung in der Hocke aufrechterhalten",
+                "Kontrolliert aus der Pause hochkommen"
+              ],
+              "notiz": "Die Pause unten fördert Gelenkgesundheit und Körperwahrnehmung — ideal für Longevity. Tiefe nur so weit wie die Hüfte neutral bleibt.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_pushup",
+              "name": "Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Körper als Brett — Hüfte nicht hängen lassen",
+                "Ellenbogen leicht angewinkelt zum Körper",
+                "Volle Streckung oben, volle ROM unten"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_band_assisted_pullup",
+              "name": "Band-Assisted Pull-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Band um Fuß/Knie",
+                "Kinn über die Stange",
+                "kontrolliert ablassen"
+              ],
+              "notiz": "Wähle das Band so, dass du sauber 8–10 Wdh schaffst — Qualität der Bewegung vor Anzahl.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_dead_bug",
+              "name": "Dead Bug",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Lendenwirbel flach auf dem Boden halten — immer",
+                "Gegenüberliegendes Arm/Bein strecken",
+                "Langsam und kontrolliert — Atemkontrolle"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w2_s2",
+          "tag": "dienstag",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_single_leg_glute_bridge",
+              "name": "Single Leg Glute Bridge",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ein Bein gestreckt, das andere Knie gebeugt",
+                "Hüfte voll strecken oben — Glutes maximal anspannen",
+                "Hüfte gerade halten — nicht zur Seite kippen"
+              ],
+              "notiz": "Bewusst einseitig — balanciert Asymmetrien und schützt langfristig die Hüfte.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_inverted_row",
+              "name": "Inverted Row (Tisch / Stange)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Unter Tisch oder Stange — Brust zur Kante ziehen",
+                "Schwierigkeit durch Körperwinkel steuern",
+                "Schulterblätter zusammen am Endpunkt"
+              ],
+              "notiz": "Je flacher der Körper, desto schwerer — starte mit einer Winkelung, die 2 saubere Sätze erlaubt.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_pike_pushup",
+              "name": "Pike Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hüfte hoch — umgekehrtes V mit dem Körper",
+                "Kopf zwischen den Armen zum Boden",
+                "Ellenbogen leicht nach außen, kein Flare"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_reverse_lunge",
+              "name": "Reverse Lunge (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schritt nach hinten — knieschonender als Forward Lunge",
+                "Vorderes Knie über dem Fuß, nicht dahinter",
+                "Oberkörper aufrecht — kein Vornüberlehnen"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w2_s3",
+          "tag": "mittwoch",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_split_squat",
+              "name": "Split Squat",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schrittstellung",
+                "hinteres Knie Richtung Boden",
+                "Rumpf aufrecht"
+              ],
+              "notiz": "Basis-Variante des Bulgarian Split Squat — Knie-Tracking über die Zehe beachten, das ist ATG-Kernprinzip.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_archer_pushup",
+              "name": "Archer Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ein Arm streckt sich seitwärts aus, der andere macht den Push-Up",
+                "Gewicht zu einem Arm verlagern",
+                "Langsam und kontrolliert — Vorstufe zum einarmigen Push-Up"
+              ],
+              "notiz": "Mehr Reiz als der Standard-Push-Up — schult gleichzeitig Schulterblatt-Stabilität und einseitige Kraft.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_towel_row",
+              "name": "Towel Row (Handtuch an Tür)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Handtuch um Türknauf — zurücklehnen und Brust zur Tür ziehen",
+                "Füße an der Wand neben der Tür für Stabilität",
+                "Schulterblätter zusammen am Endpunkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_side_plank",
+              "name": "Side Plank",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Hüfte nicht durchhängen lassen — gerade Linie",
+                "Schulter aktiv — nicht ins Gelenk sinken",
+                "Für Einsteiger: Knie aufgestützt"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w2_s4",
+          "tag": "freitag",
+          "session_typ": "zone2",
+          "fokus_anzeige": "Zone 2 – Grundlagenausdauer",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_cossack_squat",
+              "name": "Cossack Squat",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Fuß des gestreckten Beins zeigt nach oben",
+                "Gewicht auf dem Standbein, Ferse bleibt unten",
+                "Oberkörper aufrecht, Hüfte tief"
+              ],
+              "notiz": "Niedrige Intensität, hoher Mobility-Gewinn — Hüfte, Adduktoren und Knöchel in einem. Bewegungsbereich langsam ausbauen.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_single_leg_rdl",
+              "name": "Single Leg RDL (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hüfte und Schultern parallel zum Boden halten",
+                "Spielbein und Oberkörper bilden eine Linie",
+                "Standbein hat weiche Knie — nicht durchstrecken"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_incline_pushup",
+              "name": "Incline Push-Up (Hände erhöht)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hände auf Bank oder Stuhl — Winkel reduziert Körpergewicht",
+                "Körper als Brett — Hüfte nicht hängen",
+                "Volle ROM — Brust zur Bank"
+              ],
+              "notiz": "Zone-2-Session — erhöhte Hände senken die Intensität, Fokus liegt auf Atemkontrolle und Bewegungsqualität.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_mcgill_bird_dog",
+              "name": "McGill Bird Dog",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Vierfüßler — Rücken flach wie ein Tisch",
+                "Gegenüberliegendes Arm+Bein gleichzeitig strecken",
+                "Wirbelsäule während der Bewegung neutral halten"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": {
+            "dauer_min": 30,
+            "beschreibung": "Zone 2 — Tempo halten bei dem du dich noch unterhalten könntest (ca. 120-135 bpm)"
+          },
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Ruhiges Gehen (Atemkontrolle)",
+                "wert": "60",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Child's Pose",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w2_s5",
+          "tag": "samstag",
+          "session_typ": "athletik",
+          "fokus_anzeige": "Athletik – Schnellkraft & Mobilität",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "ath_broad_jump",
+              "name": "Broad Jump",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Weit nach vorn, Arme führen",
+                "Weich auf beiden Füßen landen"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_jump_squat",
+              "name": "Jump Squat",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Sanft landen — erst Zehen, dann Ferse",
+                "Squat-Tiefe vor dem Sprung, nicht nur Hüftbeuge",
+                "Sofort wieder in die nächste Wiederholung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "ath_pogo_hops",
+              "name": "Pogo Hops",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Steife Knöchel, kurze Bodenkontakte",
+                "Aus den Waden federn"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        }
+      ]
+    },
+    {
+      "woche_nummer": 3,
+      "block_typ": "intensivierung",
+      "volumen_stufe": "hoch",
+      "ziel_saetze": 2,
+      "ziel_rir": 3.0,
+      "sessions": [
+        {
+          "session_id": "w3_s1",
+          "tag": "montag",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_pause_squat",
+              "name": "Pause Squat (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "3 Sekunden unten halten",
+                "Spannung in der Hocke aufrechterhalten",
+                "Kontrolliert aus der Pause hochkommen"
+              ],
+              "notiz": "Die Pause unten fördert Gelenkgesundheit und Körperwahrnehmung — ideal für Longevity. Tiefe nur so weit wie die Hüfte neutral bleibt.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_pushup",
+              "name": "Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Körper als Brett — Hüfte nicht hängen lassen",
+                "Ellenbogen leicht angewinkelt zum Körper",
+                "Volle Streckung oben, volle ROM unten"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_band_assisted_pullup",
+              "name": "Band-Assisted Pull-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Band um Fuß/Knie",
+                "Kinn über die Stange",
+                "kontrolliert ablassen"
+              ],
+              "notiz": "Wähle das Band so, dass du sauber 8–10 Wdh schaffst — Qualität der Bewegung vor Anzahl.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_dead_bug",
+              "name": "Dead Bug",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Lendenwirbel flach auf dem Boden halten — immer",
+                "Gegenüberliegendes Arm/Bein strecken",
+                "Langsam und kontrolliert — Atemkontrolle"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w3_s2",
+          "tag": "dienstag",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_single_leg_glute_bridge",
+              "name": "Single Leg Glute Bridge",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ein Bein gestreckt, das andere Knie gebeugt",
+                "Hüfte voll strecken oben — Glutes maximal anspannen",
+                "Hüfte gerade halten — nicht zur Seite kippen"
+              ],
+              "notiz": "Bewusst einseitig — balanciert Asymmetrien und schützt langfristig die Hüfte.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_inverted_row",
+              "name": "Inverted Row (Tisch / Stange)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Unter Tisch oder Stange — Brust zur Kante ziehen",
+                "Schwierigkeit durch Körperwinkel steuern",
+                "Schulterblätter zusammen am Endpunkt"
+              ],
+              "notiz": "Je flacher der Körper, desto schwerer — starte mit einer Winkelung, die 2 saubere Sätze erlaubt.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_pike_pushup",
+              "name": "Pike Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hüfte hoch — umgekehrtes V mit dem Körper",
+                "Kopf zwischen den Armen zum Boden",
+                "Ellenbogen leicht nach außen, kein Flare"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_reverse_lunge",
+              "name": "Reverse Lunge (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schritt nach hinten — knieschonender als Forward Lunge",
+                "Vorderes Knie über dem Fuß, nicht dahinter",
+                "Oberkörper aufrecht — kein Vornüberlehnen"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w3_s3",
+          "tag": "mittwoch",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_split_squat",
+              "name": "Split Squat",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schrittstellung",
+                "hinteres Knie Richtung Boden",
+                "Rumpf aufrecht"
+              ],
+              "notiz": "Basis-Variante des Bulgarian Split Squat — Knie-Tracking über die Zehe beachten, das ist ATG-Kernprinzip.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_archer_pushup",
+              "name": "Archer Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ein Arm streckt sich seitwärts aus, der andere macht den Push-Up",
+                "Gewicht zu einem Arm verlagern",
+                "Langsam und kontrolliert — Vorstufe zum einarmigen Push-Up"
+              ],
+              "notiz": "Mehr Reiz als der Standard-Push-Up — schult gleichzeitig Schulterblatt-Stabilität und einseitige Kraft.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_towel_row",
+              "name": "Towel Row (Handtuch an Tür)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 3.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Handtuch um Türknauf — zurücklehnen und Brust zur Tür ziehen",
+                "Füße an der Wand neben der Tür für Stabilität",
+                "Schulterblätter zusammen am Endpunkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_side_plank",
+              "name": "Side Plank",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Hüfte nicht durchhängen lassen — gerade Linie",
+                "Schulter aktiv — nicht ins Gelenk sinken",
+                "Für Einsteiger: Knie aufgestützt"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w3_s4",
+          "tag": "freitag",
+          "session_typ": "zone2",
+          "fokus_anzeige": "Zone 2 – Grundlagenausdauer",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_cossack_squat",
+              "name": "Cossack Squat",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Fuß des gestreckten Beins zeigt nach oben",
+                "Gewicht auf dem Standbein, Ferse bleibt unten",
+                "Oberkörper aufrecht, Hüfte tief"
+              ],
+              "notiz": "Niedrige Intensität, hoher Mobility-Gewinn — Hüfte, Adduktoren und Knöchel in einem. Bewegungsbereich langsam ausbauen.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_single_leg_rdl",
+              "name": "Single Leg RDL (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hüfte und Schultern parallel zum Boden halten",
+                "Spielbein und Oberkörper bilden eine Linie",
+                "Standbein hat weiche Knie — nicht durchstrecken"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_incline_pushup",
+              "name": "Incline Push-Up (Hände erhöht)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 4.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hände auf Bank oder Stuhl — Winkel reduziert Körpergewicht",
+                "Körper als Brett — Hüfte nicht hängen",
+                "Volle ROM — Brust zur Bank"
+              ],
+              "notiz": "Zone-2-Session — erhöhte Hände senken die Intensität, Fokus liegt auf Atemkontrolle und Bewegungsqualität.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_mcgill_bird_dog",
+              "name": "McGill Bird Dog",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Vierfüßler — Rücken flach wie ein Tisch",
+                "Gegenüberliegendes Arm+Bein gleichzeitig strecken",
+                "Wirbelsäule während der Bewegung neutral halten"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": {
+            "dauer_min": 30,
+            "beschreibung": "Zone 2 — Tempo halten bei dem du dich noch unterhalten könntest (ca. 120-135 bpm)"
+          },
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Ruhiges Gehen (Atemkontrolle)",
+                "wert": "60",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Child's Pose",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w3_s5",
+          "tag": "samstag",
+          "session_typ": "athletik",
+          "fokus_anzeige": "Athletik – Schnellkraft & Mobilität",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "ath_broad_jump",
+              "name": "Broad Jump",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Weit nach vorn, Arme führen",
+                "Weich auf beiden Füßen landen"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "ath_pogo_hops",
+              "name": "Pogo Hops",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Steife Knöchel, kurze Bodenkontakte",
+                "Aus den Waden federn"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_jump_squat",
+              "name": "Jump Squat",
+              "saetze": 4,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Sanft landen — erst Zehen, dann Ferse",
+                "Squat-Tiefe vor dem Sprung, nicht nur Hüftbeuge",
+                "Sofort wieder in die nächste Wiederholung"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        }
+      ]
+    },
+    {
+      "woche_nummer": 4,
+      "block_typ": "deload",
+      "volumen_stufe": "sehr_niedrig",
+      "ziel_saetze": 2,
+      "ziel_rir": 5.0,
+      "sessions": [
+        {
+          "session_id": "w4_s1",
+          "tag": "montag",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_pause_squat",
+              "name": "Pause Squat (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "3 Sekunden unten halten",
+                "Spannung in der Hocke aufrechterhalten",
+                "Kontrolliert aus der Pause hochkommen"
+              ],
+              "notiz": "Die Pause unten fördert Gelenkgesundheit und Körperwahrnehmung — ideal für Longevity. Tiefe nur so weit wie die Hüfte neutral bleibt.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_pushup",
+              "name": "Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Körper als Brett — Hüfte nicht hängen lassen",
+                "Ellenbogen leicht angewinkelt zum Körper",
+                "Volle Streckung oben, volle ROM unten"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_band_assisted_pullup",
+              "name": "Band-Assisted Pull-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 6.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Band um Fuß/Knie",
+                "Kinn über die Stange",
+                "kontrolliert ablassen"
+              ],
+              "notiz": "Wähle das Band so, dass du sauber 8–10 Wdh schaffst — Qualität der Bewegung vor Anzahl.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_dead_bug",
+              "name": "Dead Bug",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Lendenwirbel flach auf dem Boden halten — immer",
+                "Gegenüberliegendes Arm/Bein strecken",
+                "Langsam und kontrolliert — Atemkontrolle"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w4_s2",
+          "tag": "dienstag",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_single_leg_glute_bridge",
+              "name": "Single Leg Glute Bridge",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ein Bein gestreckt, das andere Knie gebeugt",
+                "Hüfte voll strecken oben — Glutes maximal anspannen",
+                "Hüfte gerade halten — nicht zur Seite kippen"
+              ],
+              "notiz": "Bewusst einseitig — balanciert Asymmetrien und schützt langfristig die Hüfte.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_inverted_row",
+              "name": "Inverted Row (Tisch / Stange)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Unter Tisch oder Stange — Brust zur Kante ziehen",
+                "Schwierigkeit durch Körperwinkel steuern",
+                "Schulterblätter zusammen am Endpunkt"
+              ],
+              "notiz": "Je flacher der Körper, desto schwerer — starte mit einer Winkelung, die 2 saubere Sätze erlaubt.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_pike_pushup",
+              "name": "Pike Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 6.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hüfte hoch — umgekehrtes V mit dem Körper",
+                "Kopf zwischen den Armen zum Boden",
+                "Ellenbogen leicht nach außen, kein Flare"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_reverse_lunge",
+              "name": "Reverse Lunge (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 6.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schritt nach hinten — knieschonender als Forward Lunge",
+                "Vorderes Knie über dem Fuß, nicht dahinter",
+                "Oberkörper aufrecht — kein Vornüberlehnen"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Brust-Stretch an der Wand",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Lat-Stretch (Arme über Kopf)",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Schulter Cross-Body Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w4_s3",
+          "tag": "mittwoch",
+          "session_typ": "kraft",
+          "fokus_anzeige": "Ganzkörper",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_split_squat",
+              "name": "Split Squat",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 6.0,
+              "tempo": "2-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Schrittstellung",
+                "hinteres Knie Richtung Boden",
+                "Rumpf aufrecht"
+              ],
+              "notiz": "Basis-Variante des Bulgarian Split Squat — Knie-Tracking über die Zehe beachten, das ist ATG-Kernprinzip.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_archer_pushup",
+              "name": "Archer Push-Up",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Ein Arm streckt sich seitwärts aus, der andere macht den Push-Up",
+                "Gewicht zu einem Arm verlagern",
+                "Langsam und kontrolliert — Vorstufe zum einarmigen Push-Up"
+              ],
+              "notiz": "Mehr Reiz als der Standard-Push-Up — schult gleichzeitig Schulterblatt-Stabilität und einseitige Kraft.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_towel_row",
+              "name": "Towel Row (Handtuch an Tür)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "8-12",
+              "einheit": "wiederholungen",
+              "rir": 5.0,
+              "tempo": "2-0-1-1",
+              "pausenzeit_sek": 180,
+              "coaching_cues": [
+                "Handtuch um Türknauf — zurücklehnen und Brust zur Tür ziehen",
+                "Füße an der Wand neben der Tür für Stabilität",
+                "Schulterblätter zusammen am Endpunkt"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_side_plank",
+              "name": "Side Plank",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Hüfte nicht durchhängen lassen — gerade Linie",
+                "Schulter aktiv — nicht ins Gelenk sinken",
+                "Für Einsteiger: Knie aufgestützt"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": [
+            {
+              "test": "kniebeugen",
+              "einheit": "wiederholungen",
+              "ergebnis": null
+            },
+            {
+              "test": "pushups",
+              "einheit": "wiederholungen",
+              "ergebnis": null
+            },
+            {
+              "test": "situps",
+              "einheit": "wiederholungen",
+              "ergebnis": null
+            },
+            {
+              "test": "burpees",
+              "einheit": "wiederholungen",
+              "ergebnis": null
+            },
+            {
+              "test": "plank",
+              "einheit": "sekunden",
+              "ergebnis": null
+            }
+          ]
+        },
+        {
+          "session_id": "w4_s4",
+          "tag": "freitag",
+          "session_typ": "zone2",
+          "fokus_anzeige": "Zone 2 – Grundlagenausdauer",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "bw_cossack_squat",
+              "name": "Cossack Squat",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 6.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Fuß des gestreckten Beins zeigt nach oben",
+                "Gewicht auf dem Standbein, Ferse bleibt unten",
+                "Oberkörper aufrecht, Hüfte tief"
+              ],
+              "notiz": "Niedrige Intensität, hoher Mobility-Gewinn — Hüfte, Adduktoren und Knöchel in einem. Bewegungsbereich langsam ausbauen.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_single_leg_rdl",
+              "name": "Single Leg RDL (Bodyweight)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 6.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hüfte und Schultern parallel zum Boden halten",
+                "Spielbein und Oberkörper bilden eine Linie",
+                "Standbein hat weiche Knie — nicht durchstrecken"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "bw_incline_pushup",
+              "name": "Incline Push-Up (Hände erhöht)",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "10-15",
+              "einheit": "wiederholungen",
+              "rir": 6.0,
+              "tempo": "3-1-1-0",
+              "pausenzeit_sek": 90,
+              "coaching_cues": [
+                "Hände auf Bank oder Stuhl — Winkel reduziert Körpergewicht",
+                "Körper als Brett — Hüfte nicht hängen",
+                "Volle ROM — Brust zur Bank"
+              ],
+              "notiz": "Zone-2-Session — erhöhte Hände senken die Intensität, Fokus liegt auf Atemkontrolle und Bewegungsqualität.",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 4,
+              "exercise_id": "bw_mcgill_bird_dog",
+              "name": "McGill Bird Dog",
+              "saetze": 2,
+              "saetze_typ": "saetze",
+              "wert": "30",
+              "einheit": "sekunden",
+              "rir": null,
+              "tempo": "halten",
+              "pausenzeit_sek": 45,
+              "coaching_cues": [
+                "Vierfüßler — Rücken flach wie ein Tisch",
+                "Gegenüberliegendes Arm+Bein gleichzeitig strecken",
+                "Wirbelsäule während der Bewegung neutral halten"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": {
+            "dauer_min": 30,
+            "beschreibung": "Zone 2 — Tempo halten bei dem du dich noch unterhalten könntest (ca. 120-135 bpm)"
+          },
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Ruhiges Gehen (Atemkontrolle)",
+                "wert": "60",
+                "einheit": "sekunden",
+                "seiten": null
+              },
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Child's Pose",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "pst_tests": null
+        },
+        {
+          "session_id": "w4_s5",
+          "tag": "samstag",
+          "session_typ": "athletik",
+          "fokus_anzeige": "Athletik – Schnellkraft & Mobilität",
+          "format_notiz": null,
+          "runden": null,
+          "runden_pause_sek": null,
+          "dauer_min_geschaetzt": 60,
+          "warm_up": {
+            "protokoll": "calisthenics",
+            "dauer_min": 10,
+            "uebungen": [
+              {
+                "name": "Squat-to-Stand",
+                "saetze": 2,
+                "wert": "8",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "World's Greatest Stretch",
+                "saetze": null,
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Push-Up Activation (langsam)",
+                "saetze": 2,
+                "wert": "5",
+                "einheit": "wiederholungen",
+                "seiten": null
+              },
+              {
+                "name": "Hip Circle",
+                "saetze": null,
+                "wert": "20",
+                "einheit": "sekunden",
+                "seiten": null
+              }
+            ]
+          },
+          "haupt_uebungen": [
+            {
+              "reihenfolge": 1,
+              "exercise_id": "ath_broad_jump",
+              "name": "Broad Jump",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Weit nach vorn, Arme führen",
+                "Weich auf beiden Füßen landen"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 2,
+              "exercise_id": "bw_jump_squat",
+              "name": "Jump Squat",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Sanft landen — erst Zehen, dann Ferse",
+                "Squat-Tiefe vor dem Sprung, nicht nur Hüftbeuge",
+                "Sofort wieder in die nächste Wiederholung"
+              ],
+              "notiz": "",
+              "seiten": null
+            },
+            {
+              "reihenfolge": 3,
+              "exercise_id": "ath_pogo_hops",
+              "name": "Pogo Hops",
+              "saetze": 3,
+              "saetze_typ": "saetze",
+              "wert": "12",
+              "einheit": "wiederholungen",
+              "rir": null,
+              "tempo": "explosiv",
+              "pausenzeit_sek": 120,
+              "coaching_cues": [
+                "Steife Knöchel, kurze Bodenkontakte",
+                "Aus den Waden federn"
+              ],
+              "notiz": "",
+              "seiten": null
+            }
+          ],
+          "metcon_block": null,
+          "conditioning_block_2": null,
+          "cardio": null,
+          "cool_down": {
+            "dauer_min": 5,
+            "uebungen": [
+              {
+                "name": "Hip Flexor Stretch",
+                "wert": "45",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Hamstring Stretch",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              },
+              {
+                "name": "Pigeon Pose",
+                "wert": "30",
+                "einheit": "sekunden",
+                "seiten": 2
+              }
+            ]
+          },
+          "pst_tests": null
+        }
+      ]
+    }
+  ]
+}

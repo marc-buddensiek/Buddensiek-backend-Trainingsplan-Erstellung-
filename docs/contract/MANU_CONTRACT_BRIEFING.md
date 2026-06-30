@@ -39,4 +39,5 @@ Die Trainings-INHALTE werden noch überarbeitet (Übungsauswahl, Dosierung, Reih
 ## Dateien
 - examples/beispiel_recomp_gym_l3.json — Kraft + Zirkel-Finisher (runden block-level)
 - examples/beispiel_fettabbau_kb_l2.json — Kraft + Density (Zeit-Format, runden:null)
+- examples/beispiel_longevity_bw_l2.json — Kraft + Zone-2-Cardio + Athletik (cardio.beschreibung + dauer_min, ohne internen typ)
 - SCHEMA_REFERENZ.md — Feld-Definitionen (aus models.py)
