@@ -455,6 +455,11 @@ _(c) Status quo akzeptieren: hinge-Tag korrekt, Claudes single_leg-Platzierung i
     Regel-2-Fund als bekannter False-Positive führen._
 _STATUS: zurückgestellt. Bündeln mit Iso-Slot-/Rolle-Achse (alle = "eine Übung, mehrere Rollen")._
 
+_**BESTÄTIGT IM 12er-API-LAUF (api_07, RE·BW·L2):** Lower-Session zieht Glute Bridge (hinge-Slot) +
+Single-Leg Glute Bridge (single_leg-Slot) → liest sich als Glute-Bridge-Doppel. Bestätigt den
+Doppelnatur-Tag (hinge+single_leg) am echten Output und zeigt: tritt auch bei L2 auf, nicht nur
+L1-β-Knappheit (case14). Anteil Doppelnatur-Tag vs. β-Pool beim Abarbeiten trennen._
+
 ## Output-Review MVP-9 — offene Befunde
 
 _Aus dem echten 12-Case-Output-Review (test_runs/2026-06-19_run3/REVIEW.md). Kraft-Auswahl
@@ -700,7 +705,7 @@ Primär-Lift 2×/Woche ohne Variation.
 | api_04 | FA·KB·L3 | offen | Density-Cardio-Prosa (W2); Push-up/Plyo (W3); geblockt (W5) |
 | api_05 | FA·Travel·L2 | offen | Density×2 (W2); Travel-Equipment (W7); geblockt (W5) |
 | api_06 | FA·Gym·L4 | offen | Density×2 (W2); Push-up/Plyo (W3); geblockt (W5); Reihenfolge Dips/Pull-up (W6); Weighted-Wdh zu hoch (W4) |
-| api_07 | RE·BW·L2 | offen | RIR-Bodyweight (W4); Push-up/Plyo (W3) |
+| api_07 | RE·BW·L2 | offen | RIR-Bodyweight (W4); Push-up/Plyo (W3); Glute-Bridge-Doppel (hinge + single_leg, bekannte Doppelnatur/β-Lücke → s. Mehr-Pattern-Modell) |
 | api_08 | RE·Gym·L1 | offen | Satz-Unterfüllung L1 (W1) |
 | api_09 | RE·Travel·L3 | offen | Travel-Equipment (W7); Plyo (W3) |
 | api_10 | LO·Travel·L4 | ❌ | geblockt (W5); Zone-2=Kraft (W2); Chest-to-Bar=Stange (W7); Unterfüllung (W1) |
