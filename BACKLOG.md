@@ -732,6 +732,29 @@ _STATUS: Alle 5 sind Contract-Vorbedingung. Reihenfolge: erst die reinen Technik
 dann die gekoppelten (2b Conditioning-Spec, 4 Stress/Schlaf) als eigene Nähte. Danach: Beispiel-JSON
 an Manu als Gesprächsgrundlage → gemeinsam Contract festschreiben._
 
+### Contract-Nachtrag — cardio.typ "liss"/"hiit" schlägt roh zum Kunden durch (2026-06-30, 12er-API-Lauf)
+
+BEFUND (verifiziert, echte JSONs api_10/11/12): Die Longevity-Cardio-Einheit trägt **3 parallele
+Benennungen** im JSON — `fokus_anzeige` „Zone 2 – Grundlagenausdauer" (sauber), `cardio.beschreibung`
+„Zone 2 — Tempo halten…" (gut), ABER `cardio.typ` „liss" (interner Enum, `plan_assembler.py:287`
+hart kodiert) wird im PDF als „+LISS" gerendert (`pdf_generator.py:184`) und ist contract-/
+kundensichtbar. „LISS" ist ein interner Wert wie der rohe `fokus`-Key vor Blocker 1 — soll NICHT
+roh angezeigt werden.
+
+OFFEN (Contract, mit Manu): `cardio.typ` bleibt interner Routing-Wert; Anzeige nutzt
+`cardio.beschreibung` ODER ein Label — PDF soll nicht „+LISS" zeigen. + Label-Entscheidung
+„Zone 2" vs „Grundlagenausdauer" vs beides (`fokus_anzeige`). Reiht sich an die `fokus_anzeige`-Logik
+(Blocker 1) an. KEIN Struktur-Blocker (`cardio`-Objekt existiert korrekt, `models.py:220`), aber
+Anzeige-Wert. **PRIORITÄT: Contract-Anzeige (vor/mit Manu klären).**
+
+### [Coach-Review] api_12 (LO·KB·L1) — Coach-Verdikt: NICHT rausschickbar (2026-06-30, 12er-API-Lauf)
+
+- Wochenverteilung: Mo+Di Ganzkörper am Stück (4T → Tag dazwischen nötig) [→ Wurzel 5, D2]
+- Zone-2-Tag trägt Kraftübungen (Squat/Glute Bridge/Push-up/McGill, 10-15 Wdh) + 30 min LISS —
+  „Grundlagenausdauer" sollte Ausdauer sein, nicht halber Kraftblock [→ Wurzel 2, C5]
+- „LISS" unerklärt im Plan (s. Contract-Nachtrag oben)
+- **Coach-Verdikt: ❌**
+
 ## Reihenfolge (2026-06-22)
 
 Phase 1 Output-Closeout → MVP-10 Persistenz → MVP-11 Checker → Phase 4 Bibliothek + Tag-Audit
