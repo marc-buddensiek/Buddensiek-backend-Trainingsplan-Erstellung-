@@ -794,6 +794,16 @@ Aktueller Stand: Pool lehnt auf einfachen BW-Übungen (Jumping Jacks etc. → vg
 
 Offen (Coach, beim Abarbeiten): welche komplexeren Übungen in den Conditioning-Pool? wie soll skill_level pro Level die Auswahl treiben (höheres Level → komplexere Conditioning-Übung)? Zeit/Wdh-Anpassung. — direkt verzahnt mit Wurzel 3 (Pool/Übungs-Eignung) + Wurzel 2 (Format). Recomp-Sonderfall bleibt: Recomp-Finisher ist per Spec „moderat" → intensiver = Spec-Reconcile Thema 6.
 
+## Wurzel 11 — Kumulative Muskel-/Gelenk-Last über die Woche ungezählt (Kraft + Conditioning) [ offen ]
+
+Coach-Befund (api_06, FA·Gym·L4): extrem viel Sprung + Squat über ALLE Tage gestapelt — Mo Squat + Pogo Hops · Di Box Jumps + Burpees + Skater Squats · Do Jump Squats + Depth Jumps + Squats · Fr Jump Squat + Skater Squats + Broad Jumps. Plyo/Knie/Quad praktisch täglich.
+
+STRUKTURELLE WURZEL: Muskelgruppen-/Gelenk-Last wird NICHT über Kraft + Conditioning zusammen gezählt. Pattern ist einziger Auswahl-Schlüssel, muscle_groups rein deskriptiv (kein Cap). Kraft (Claude) und Conditioning (deterministisch) kennen die Last des jeweils anderen Blocks nicht → kumulative Überlastung (v.a. Plyo/Sprung knie-/sprunggelenk-lastig) bleibt unbemerkt. impact_level existiert nur für den Verletzungsfilter (injury-getriggert), NICHT als kumulativer Last-Deckel für gesunde Klienten → unbegrenzt täglich Plyo möglich.
+
+CHECK BEIM ABARBEITEN (alle Pläne): Cross-Day-Audit der Muskelgruppen/Pattern/Gelenk-Last, Kraft + Conditioning KUMULATIV. Wo lädt dasselbe Muster/Gelenk täglich (v.a. Sprung/Bein)? api_06 ggf. noch im Rahmen (2× Ganzkörper + 2× Density mit Abstand) — aber generell prüfen.
+
+Verzahnt: Wurzel 3 (C3 Plyo-Lastigkeit im Conditioning-Pool — schon notiert) · Wurzel 5 (Tag-Abstand) · Wurzel 1 (Volumen). Tag: [strukturell] (ungezählte Last) + Plyo-Auswahl [Claude/Pool].
+
 ## Plan-spezifische Coach-Funde [ offen ]
 
 - api_01: „(Ben Patrick)"-Quellenangabe leckt in 2 Übungsnamen (bw_atg_split_squat, bw_tibialis_raise); übrige 62 Klammer-Namen sind funktionale Qualifier (ok).
