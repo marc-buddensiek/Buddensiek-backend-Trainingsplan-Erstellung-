@@ -721,7 +721,7 @@ STATUS: zweiter gezielter Lauf (Tage-Achse zuerst) geplant, bevor Live-Gang.
 | api_10 | LO·Travel·L4 | ❌ | geblockt (W5); Zone-2=Kraft (W2); Chest-to-Bar=Stange (W7); Unterfüllung (W1) |
 | api_11 | LO·BW·L3 | offen | Unterfüllung (W1); Zone-2=Kraft (W2); RIR-Bodyweight (W4) |
 | api_12 | LO·KB·L1 | ❌ | geblockt (W5); Zone-2=Kraft+LISS (W2); Unterfüllung (W1) |
-| api_13 | MA·Gym·L2·3T | ✅ | nur Dauer-Anzeige (W1; ~49 statt 60) — Volumen korridor-gedeckelt by-design; Mo/Mi/Fr sauber verteilt (2. Lauf, Tage-Achse) |
+| api_13 | MA·Gym·L2·3T | ✅ | nur Dauer-Anzeige (W1; ~49 statt 60) — Volumen korridor-gedeckelt by-design; Mo/Mi/Fr sauber verteilt (2. Lauf, Tage-Achse) + Einseitigkeit Pallof (W12) |
 
 ## Wurzel 1 — Volumen/Dauer-Unterfüllung [ offen ]  (A1,A2,A3,A4,A5,E1)
 
@@ -835,6 +835,8 @@ DOSIS-FOLGE (nicht nur Anzeige): ohne „pro Seite" ist die Zahl mehrdeutig UND 
 SEKUNDÄR — Render-Lücke: warm_up/cool_down tragen seiten (z.B. =2), PDF druckt es nicht (pdf_generator gibt seiten nirgends aus). Separater, kleiner Fix.
 
 CONTRACT (→ MVP-12, mit Manu): einseitig/seiten muss strukturiertes Feld am Übungs-/HauptUebung-Schema werden (nicht Prosa), damit Frontend „pro Seite" zuverlässig zeigt. Reiht sich an die Contract-Nachträge. Tag: [strukturell] Tag+Modell+Anzeige.
+
+ZWEITER BELEG (api_13, MA·Gym·L2): Pallof Press 3×30 Sek — einseitig (seitlich zum Kabel, pro Seite), keine Seiten-Angabe. Bestätigt: betrifft auch GYM-Pläne und Core-HOLDS (nicht nur BW-Single-Leg aus api_09). Zeigt die Bandbreite: Single Leg (Wdh) UND einseitige Holds (Sek) brauchen „pro Seite". Verstärkt den Tag-/Modell-Lücken-Kern.
 
 ## Plan-spezifische Coach-Funde [ offen ]
 
