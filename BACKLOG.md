@@ -536,6 +536,12 @@ fängt unit/Wert-Inkohärenz). Kandidaten: `gym_hanging_leg_raise`, `gym_hanging
 `kb_turkish_getup`, `kb_windmill`, `bw_mountain_climber`, `bw_bear_crawl`, `bw_crab_walk`, `bw_inchworm`,
 `bw_tibialis_raise`, `gym_reverse_hyper`, `ath_med_ball_slam`, `ath_med_ball_rotational_throw`.
 
+COACH-DOSIERUNG (Audit-Vorgabe, nicht generische Core-Range):
+- `kb_turkish_getup`: unit=reps PRO SEITE. Dosis 1–3 Wdh/Seite × 3–5 Sätze (level-abhängig). Hold-vs-Rep-Frage damit entschieden: REP (pro Seite), kein Hold. NICHT die generische Core-Rep-Range anwenden — TGU ist eine schwere, langsame Ganzkörper-Bewegung mit niedriger Wdh.
+- `kb_windmill`: analoger Fall (per-Seite, niedrige Wdh) — Dosis beim Audit mit Coach festlegen, NICHT blind Core-Range. (Coach hat nur TGU dosiert; Windmill offen.)
+
+Hinweis fürs Audit: Die „seiten"-Logik (per-Seite) muss bei diesen unilateralen Übungen erhalten bleiben — vgl. warm_up/cool_down-Struktur, die seiten bereits trägt.
+
 ## Bibliotheks-Bedarfskarte (β-Pool-Lücken, aus PRIO-6-Sweep)
 
 _Maschinell quantifiziert (Commit 0835c2a): wo pool_size < compound-demand, MUSS wiederholt werden —
