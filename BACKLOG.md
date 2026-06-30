@@ -769,6 +769,14 @@ CONTRACT-FLAG (→ MVP-12, mit Manu): Logging/Feedback ist V1.5, der JSON-Vertra
 Offen: Soll der Vertrag jetzt schon Logging-/Feedback-Felder vorsehen, damit er bei V1.5 nicht
 aufgebrochen werden muss? Reiht sich an die übrigen Contract-Nachträge (cardio.typ etc.).
 
+## Wurzel 9 — Warm-up / Cool-down: Schema-Abweichung + statische Listen [ offen ]
+
+Betroffen: alle 12 (systematisch, jeder Pfad). Erzeuger: `plan_assembler.py` `_warm_up()` / `_cool_down()` — beide fest kodierte Listen.
+
+- **9a — JSON-Schema-Abweichung (kundensichtbar → MVP-12-Contract, mit Manu):** warm_up/cool_down-Übungen tragen saetze/wdh/dauer_sek/seiten (Einheit implizit über belegtes-vs-null-Feld) — ABWEICHEND vom wert+einheit-Schema der Kraft-/Conditioning-Übungen (Blocker 2a). Frontend müsste zwei Übungs-Schemata rendern. Reiht sich an die Contract-Nachträge.
+- **9b — statische Listen, nicht abgeleitet (Methodik):** Warm-up: Achsen Equipment × Tages-Fokus, ABER Fokus nur im gym/home_gym-Zweig — KB/BW/Travel rein equipment-basiert. Cool-down: nur Fokus. ZIEL geht in beide nicht ein. Listen sind statisch, nicht aus der gefilterten Bibliothek, nicht Claude-gewählt. Dauer Warm-up = session/6 (5–10), Cool-down fix 5 min. Offen (Coach): statisch ausreichend, oder pattern-spezifische Aktivierung? Soll Ziel einfließen? — vgl. bestehenden Backlog-Wunsch „Warm-up tagesspezifisch" (deckt bisher nur gym-Zweig halb ab).
+- **9c — Cool-down nicht im Zeit-Budget (Dauer, berührt Wurzel 1):** Kapazitäts-Formel zieht nur Warmup + Finisher ab, NICHT die 5 min Cool-down → 5 min unverbucht, mögliche Session-Überschreitung. Beim Abarbeiten verifizieren.
+
 ## Plan-spezifische Coach-Funde [ offen ]
 
 - api_01: „(Ben Patrick)"-Quellenangabe leckt in 2 Übungsnamen (bw_atg_split_squat, bw_tibialis_raise); übrige 62 Klammer-Namen sind funktionale Qualifier (ok).
