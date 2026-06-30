@@ -1,7 +1,7 @@
 {
-  "plan_id": "dc3403b2-60dd-4a09-b68e-f01220163c6e",
+  "plan_id": "62753545-f9f8-473c-a00e-04adf9797193",
   "client_id": "00000000-0000-0000-0000-000000000001",
-  "erstellt_am": "2026-06-30T19:43:50Z",
+  "erstellt_am": "2026-06-30T21:04:28Z",
   "block_nummer": 1,
   "klient_snapshot": {
     "level": 3,
@@ -24,7 +24,6 @@
           "session_id": "w1_s1",
           "tag": "montag",
           "session_typ": "kraft",
-          "fokus": "Upper A — Push",
           "fokus_anzeige": "Oberkörper – Push",
           "format_notiz": null,
           "runden": null,
@@ -81,7 +80,7 @@
                 "Ellenbogen ca. 45–60° zum Körper",
                 "Brust berühren — kein Abprellen"
               ],
-              "notiz": "Starte konservativ — Technik und Kontrolle haben Vorrang vor Last, sauber bevor du steigerst.",
+              "notiz": "Starte konservativ — Technik und Bar Path sauber etablieren, bevor du die Last steigerst.",
               "seiten": null
             },
             {
@@ -100,7 +99,7 @@
                 "Stange zur Hüfte ziehen, nicht zur Brust",
                 "Schulterblätter am Endpunkt zusammendrücken"
               ],
-              "notiz": "",
+              "notiz": "Gegenstück zur Bench Press — gleiche Energie und Fokus wie beim Hauptlift.",
               "seiten": null
             },
             {
@@ -273,7 +272,6 @@
           "session_id": "w1_s2",
           "tag": "dienstag",
           "session_typ": "kraft",
-          "fokus": "Lower A — Squat",
           "fokus_anzeige": "Unterkörper – Squat",
           "format_notiz": null,
           "runden": null,
@@ -330,7 +328,7 @@
                 "Oberkörper so aufrecht wie möglich",
                 "Knie nach außen über die Zehen"
               ],
-              "notiz": "Starte konservativ mit dem Gewicht — Mobilität und aufrechter Torso haben Vorrang.",
+              "notiz": "Auf Level 3 — Torso aufrecht halten und Mobility in Knöchel/Hüfte beobachten.",
               "seiten": null
             },
             {
@@ -368,7 +366,7 @@
                 "Vorderen Fuß weit genug vorne, Knie über den Zehen",
                 "Hüfte gerade absenken — kein Schieben nach vorne"
               ],
-              "notiz": "Schwächere Seite zuerst — gleiche Wiederholungen mit der stärkeren Seite.",
+              "notiz": "Schwächere Seite zuerst — gleiche Wdh dann mit der stärkeren Seite.",
               "seiten": null
             },
             {
@@ -522,7 +520,6 @@
           "session_id": "w1_s3",
           "tag": "donnerstag",
           "session_typ": "kraft",
-          "fokus": "Upper B — Pull",
           "fokus_anzeige": "Oberkörper – Pull",
           "format_notiz": null,
           "runden": null,
@@ -579,7 +576,7 @@
                 "Kein Schwung — strikt",
                 "Kontrolliertes Absenken bis volle Streckung"
               ],
-              "notiz": "",
+              "notiz": "Hauptlift dieser Session — volle Streckung unten, kontrolliert oben.",
               "seiten": null
             },
             {
@@ -617,7 +614,7 @@
                 "Ideal für Rücken-Isolation ohne Rückenbeschwerden",
                 "Schulterblätter maximieren am Endpunkt"
               ],
-              "notiz": "",
+              "notiz": "Chest Support nimmt den Rücken raus — Fokus voll auf Retraktion und Schulterblatt-Kontrolle.",
               "seiten": null
             },
             {
@@ -771,7 +768,6 @@
           "session_id": "w1_s4",
           "tag": "freitag",
           "session_typ": "kraft",
-          "fokus": "Lower B — Hinge",
           "fokus_anzeige": "Unterkörper – Hinge",
           "format_notiz": null,
           "runden": null,
@@ -828,7 +824,7 @@
                 "Hüfte und Schultern gleichzeitig hochziehen",
                 "Gesäß anspannen am Ende der Bewegung"
               ],
-              "notiz": "Starte konservativ — Technik und Spannung im Rücken haben Vorrang vor Last.",
+              "notiz": "Hauptlift des Blocks — Technik-Setup (Spannung, Lats, Hüftposition) vor jedem Satz bewusst herstellen.",
               "seiten": null
             },
             {
@@ -847,7 +843,7 @@
                 "Aus dem Loch heraus drücken, kein Rebound",
                 "Knie nach außen, Oberkörper stabil durch die Pause"
               ],
-              "notiz": "",
+              "notiz": "Pause unten nutzt die Post-Deadlift-Session als Technik-Check — Last bewusst reduziert lassen.",
               "seiten": null
             },
             {
@@ -1029,7 +1025,6 @@
           "session_id": "w2_s1",
           "tag": "montag",
           "session_typ": "kraft",
-          "fokus": "Upper A — Push",
           "fokus_anzeige": "Oberkörper – Push",
           "format_notiz": null,
           "runden": null,
@@ -1086,7 +1081,7 @@
                 "Ellenbogen ca. 45–60° zum Körper",
                 "Brust berühren — kein Abprellen"
               ],
-              "notiz": "Starte konservativ — Technik und Kontrolle haben Vorrang vor Last, sauber bevor du steigerst.",
+              "notiz": "Starte konservativ — Technik und Bar Path sauber etablieren, bevor du die Last steigerst.",
               "seiten": null
             },
             {
@@ -1105,7 +1100,7 @@
                 "Stange zur Hüfte ziehen, nicht zur Brust",
                 "Schulterblätter am Endpunkt zusammendrücken"
               ],
-              "notiz": "",
+              "notiz": "Gegenstück zur Bench Press — gleiche Energie und Fokus wie beim Hauptlift.",
               "seiten": null
             },
             {
@@ -1278,7 +1273,6 @@
           "session_id": "w2_s2",
           "tag": "dienstag",
           "session_typ": "kraft",
-          "fokus": "Lower A — Squat",
           "fokus_anzeige": "Unterkörper – Squat",
           "format_notiz": null,
           "runden": null,
@@ -1335,7 +1329,7 @@
                 "Oberkörper so aufrecht wie möglich",
                 "Knie nach außen über die Zehen"
               ],
-              "notiz": "Starte konservativ mit dem Gewicht — Mobilität und aufrechter Torso haben Vorrang.",
+              "notiz": "Auf Level 3 — Torso aufrecht halten und Mobility in Knöchel/Hüfte beobachten.",
               "seiten": null
             },
             {
@@ -1373,7 +1367,7 @@
                 "Vorderen Fuß weit genug vorne, Knie über den Zehen",
                 "Hüfte gerade absenken — kein Schieben nach vorne"
               ],
-              "notiz": "Schwächere Seite zuerst — gleiche Wiederholungen mit der stärkeren Seite.",
+              "notiz": "Schwächere Seite zuerst — gleiche Wdh dann mit der stärkeren Seite.",
               "seiten": null
             },
             {
@@ -1527,7 +1521,6 @@
           "session_id": "w2_s3",
           "tag": "donnerstag",
           "session_typ": "kraft",
-          "fokus": "Upper B — Pull",
           "fokus_anzeige": "Oberkörper – Pull",
           "format_notiz": null,
           "runden": null,
@@ -1584,7 +1577,7 @@
                 "Kein Schwung — strikt",
                 "Kontrolliertes Absenken bis volle Streckung"
               ],
-              "notiz": "",
+              "notiz": "Hauptlift dieser Session — volle Streckung unten, kontrolliert oben.",
               "seiten": null
             },
             {
@@ -1622,7 +1615,7 @@
                 "Ideal für Rücken-Isolation ohne Rückenbeschwerden",
                 "Schulterblätter maximieren am Endpunkt"
               ],
-              "notiz": "",
+              "notiz": "Chest Support nimmt den Rücken raus — Fokus voll auf Retraktion und Schulterblatt-Kontrolle.",
               "seiten": null
             },
             {
@@ -1776,7 +1769,6 @@
           "session_id": "w2_s4",
           "tag": "freitag",
           "session_typ": "kraft",
-          "fokus": "Lower B — Hinge",
           "fokus_anzeige": "Unterkörper – Hinge",
           "format_notiz": null,
           "runden": null,
@@ -1833,7 +1825,7 @@
                 "Hüfte und Schultern gleichzeitig hochziehen",
                 "Gesäß anspannen am Ende der Bewegung"
               ],
-              "notiz": "Starte konservativ — Technik und Spannung im Rücken haben Vorrang vor Last.",
+              "notiz": "Hauptlift des Blocks — Technik-Setup (Spannung, Lats, Hüftposition) vor jedem Satz bewusst herstellen.",
               "seiten": null
             },
             {
@@ -1852,7 +1844,7 @@
                 "Aus dem Loch heraus drücken, kein Rebound",
                 "Knie nach außen, Oberkörper stabil durch die Pause"
               ],
-              "notiz": "",
+              "notiz": "Pause unten nutzt die Post-Deadlift-Session als Technik-Check — Last bewusst reduziert lassen.",
               "seiten": null
             },
             {
@@ -2034,7 +2026,6 @@
           "session_id": "w3_s1",
           "tag": "montag",
           "session_typ": "kraft",
-          "fokus": "Upper A — Push",
           "fokus_anzeige": "Oberkörper – Push",
           "format_notiz": null,
           "runden": null,
@@ -2091,7 +2082,7 @@
                 "Ellenbogen ca. 45–60° zum Körper",
                 "Brust berühren — kein Abprellen"
               ],
-              "notiz": "Starte konservativ — Technik und Kontrolle haben Vorrang vor Last, sauber bevor du steigerst.",
+              "notiz": "Starte konservativ — Technik und Bar Path sauber etablieren, bevor du die Last steigerst.",
               "seiten": null
             },
             {
@@ -2110,7 +2101,7 @@
                 "Stange zur Hüfte ziehen, nicht zur Brust",
                 "Schulterblätter am Endpunkt zusammendrücken"
               ],
-              "notiz": "",
+              "notiz": "Gegenstück zur Bench Press — gleiche Energie und Fokus wie beim Hauptlift.",
               "seiten": null
             },
             {
@@ -2283,7 +2274,6 @@
           "session_id": "w3_s2",
           "tag": "dienstag",
           "session_typ": "kraft",
-          "fokus": "Lower A — Squat",
           "fokus_anzeige": "Unterkörper – Squat",
           "format_notiz": null,
           "runden": null,
@@ -2340,7 +2330,7 @@
                 "Oberkörper so aufrecht wie möglich",
                 "Knie nach außen über die Zehen"
               ],
-              "notiz": "Starte konservativ mit dem Gewicht — Mobilität und aufrechter Torso haben Vorrang.",
+              "notiz": "Auf Level 3 — Torso aufrecht halten und Mobility in Knöchel/Hüfte beobachten.",
               "seiten": null
             },
             {
@@ -2378,7 +2368,7 @@
                 "Vorderen Fuß weit genug vorne, Knie über den Zehen",
                 "Hüfte gerade absenken — kein Schieben nach vorne"
               ],
-              "notiz": "Schwächere Seite zuerst — gleiche Wiederholungen mit der stärkeren Seite.",
+              "notiz": "Schwächere Seite zuerst — gleiche Wdh dann mit der stärkeren Seite.",
               "seiten": null
             },
             {
@@ -2532,7 +2522,6 @@
           "session_id": "w3_s3",
           "tag": "donnerstag",
           "session_typ": "kraft",
-          "fokus": "Upper B — Pull",
           "fokus_anzeige": "Oberkörper – Pull",
           "format_notiz": null,
           "runden": null,
@@ -2589,7 +2578,7 @@
                 "Kein Schwung — strikt",
                 "Kontrolliertes Absenken bis volle Streckung"
               ],
-              "notiz": "",
+              "notiz": "Hauptlift dieser Session — volle Streckung unten, kontrolliert oben.",
               "seiten": null
             },
             {
@@ -2627,7 +2616,7 @@
                 "Ideal für Rücken-Isolation ohne Rückenbeschwerden",
                 "Schulterblätter maximieren am Endpunkt"
               ],
-              "notiz": "",
+              "notiz": "Chest Support nimmt den Rücken raus — Fokus voll auf Retraktion und Schulterblatt-Kontrolle.",
               "seiten": null
             },
             {
@@ -2781,7 +2770,6 @@
           "session_id": "w3_s4",
           "tag": "freitag",
           "session_typ": "kraft",
-          "fokus": "Lower B — Hinge",
           "fokus_anzeige": "Unterkörper – Hinge",
           "format_notiz": null,
           "runden": null,
@@ -2838,7 +2826,7 @@
                 "Hüfte und Schultern gleichzeitig hochziehen",
                 "Gesäß anspannen am Ende der Bewegung"
               ],
-              "notiz": "Starte konservativ — Technik und Spannung im Rücken haben Vorrang vor Last.",
+              "notiz": "Hauptlift des Blocks — Technik-Setup (Spannung, Lats, Hüftposition) vor jedem Satz bewusst herstellen.",
               "seiten": null
             },
             {
@@ -2857,7 +2845,7 @@
                 "Aus dem Loch heraus drücken, kein Rebound",
                 "Knie nach außen, Oberkörper stabil durch die Pause"
               ],
-              "notiz": "",
+              "notiz": "Pause unten nutzt die Post-Deadlift-Session als Technik-Check — Last bewusst reduziert lassen.",
               "seiten": null
             },
             {
@@ -3039,7 +3027,6 @@
           "session_id": "w4_s1",
           "tag": "montag",
           "session_typ": "kraft",
-          "fokus": "Upper A — Push",
           "fokus_anzeige": "Oberkörper – Push",
           "format_notiz": null,
           "runden": null,
@@ -3096,7 +3083,7 @@
                 "Ellenbogen ca. 45–60° zum Körper",
                 "Brust berühren — kein Abprellen"
               ],
-              "notiz": "Starte konservativ — Technik und Kontrolle haben Vorrang vor Last, sauber bevor du steigerst.",
+              "notiz": "Starte konservativ — Technik und Bar Path sauber etablieren, bevor du die Last steigerst.",
               "seiten": null
             },
             {
@@ -3115,7 +3102,7 @@
                 "Stange zur Hüfte ziehen, nicht zur Brust",
                 "Schulterblätter am Endpunkt zusammendrücken"
               ],
-              "notiz": "",
+              "notiz": "Gegenstück zur Bench Press — gleiche Energie und Fokus wie beim Hauptlift.",
               "seiten": null
             },
             {
@@ -3288,7 +3275,6 @@
           "session_id": "w4_s2",
           "tag": "dienstag",
           "session_typ": "kraft",
-          "fokus": "Lower A — Squat",
           "fokus_anzeige": "Unterkörper – Squat",
           "format_notiz": null,
           "runden": null,
@@ -3345,7 +3331,7 @@
                 "Oberkörper so aufrecht wie möglich",
                 "Knie nach außen über die Zehen"
               ],
-              "notiz": "Starte konservativ mit dem Gewicht — Mobilität und aufrechter Torso haben Vorrang.",
+              "notiz": "Auf Level 3 — Torso aufrecht halten und Mobility in Knöchel/Hüfte beobachten.",
               "seiten": null
             },
             {
@@ -3383,7 +3369,7 @@
                 "Vorderen Fuß weit genug vorne, Knie über den Zehen",
                 "Hüfte gerade absenken — kein Schieben nach vorne"
               ],
-              "notiz": "Schwächere Seite zuerst — gleiche Wiederholungen mit der stärkeren Seite.",
+              "notiz": "Schwächere Seite zuerst — gleiche Wdh dann mit der stärkeren Seite.",
               "seiten": null
             },
             {
@@ -3537,7 +3523,6 @@
           "session_id": "w4_s3",
           "tag": "donnerstag",
           "session_typ": "kraft",
-          "fokus": "Upper B — Pull",
           "fokus_anzeige": "Oberkörper – Pull",
           "format_notiz": null,
           "runden": null,
@@ -3594,7 +3579,7 @@
                 "Kein Schwung — strikt",
                 "Kontrolliertes Absenken bis volle Streckung"
               ],
-              "notiz": "",
+              "notiz": "Hauptlift dieser Session — volle Streckung unten, kontrolliert oben.",
               "seiten": null
             },
             {
@@ -3632,7 +3617,7 @@
                 "Ideal für Rücken-Isolation ohne Rückenbeschwerden",
                 "Schulterblätter maximieren am Endpunkt"
               ],
-              "notiz": "",
+              "notiz": "Chest Support nimmt den Rücken raus — Fokus voll auf Retraktion und Schulterblatt-Kontrolle.",
               "seiten": null
             },
             {
@@ -3786,7 +3771,6 @@
           "session_id": "w4_s4",
           "tag": "freitag",
           "session_typ": "kraft",
-          "fokus": "Lower B — Hinge",
           "fokus_anzeige": "Unterkörper – Hinge",
           "format_notiz": null,
           "runden": null,
@@ -3843,7 +3827,7 @@
                 "Hüfte und Schultern gleichzeitig hochziehen",
                 "Gesäß anspannen am Ende der Bewegung"
               ],
-              "notiz": "Starte konservativ — Technik und Spannung im Rücken haben Vorrang vor Last.",
+              "notiz": "Hauptlift des Blocks — Technik-Setup (Spannung, Lats, Hüftposition) vor jedem Satz bewusst herstellen.",
               "seiten": null
             },
             {
@@ -3862,7 +3846,7 @@
                 "Aus dem Loch heraus drücken, kein Rebound",
                 "Knie nach außen, Oberkörper stabil durch die Pause"
               ],
-              "notiz": "",
+              "notiz": "Pause unten nutzt die Post-Deadlift-Session als Technik-Check — Last bewusst reduziert lassen.",
               "seiten": null
             },
             {

@@ -1,7 +1,7 @@
 {
-  "plan_id": "d2df1612-adcb-4c04-8fb5-7a4787c05bd5",
+  "plan_id": "36d70724-db8c-438f-ac24-493f8bbb9123",
   "client_id": "00000000-0000-0000-0000-000000000001",
-  "erstellt_am": "2026-06-30T19:44:02Z",
+  "erstellt_am": "2026-06-30T21:04:42Z",
   "block_nummer": 1,
   "klient_snapshot": {
     "level": 2,
@@ -24,7 +24,6 @@
           "session_id": "w1_s1",
           "tag": "montag",
           "session_typ": "kraft",
-          "fokus": "Full Body A — Squat + Push",
           "fokus_anzeige": "Ganzkörper",
           "format_notiz": null,
           "runden": null,
@@ -81,7 +80,7 @@
                 "Tief in die Hocke, Knie nach außen",
                 "Fersen fest auf dem Boden"
               ],
-              "notiz": "Starte konservativ mit dem Gewicht — Technik und Tiefe haben Vorrang vor Last.",
+              "notiz": "Starte konservativ mit dem Gewicht — Technik (aufrechter Oberkörper, Knie über Zehen) hat Vorrang vor Last.",
               "seiten": null
             },
             {
@@ -119,7 +118,7 @@
                 "Kinn über die Stange",
                 "kontrolliert ablassen"
               ],
-              "notiz": "",
+              "notiz": "Ziel ist saubere Bewegung über den vollen Range — Bandstärke so wählen, dass alle Wdh kontrolliert möglich sind.",
               "seiten": null
             },
             {
@@ -235,7 +234,6 @@
           "session_id": "w1_s2",
           "tag": "dienstag",
           "session_typ": "kraft",
-          "fokus": "Full Body B — Hinge + Pull",
           "fokus_anzeige": "Ganzkörper",
           "format_notiz": null,
           "runden": null,
@@ -292,7 +290,7 @@
                 "Gesäß am Umkehrpunkt maximal anspannen",
                 "KB zieht die Hüfte nach vorne — nicht die Arme"
               ],
-              "notiz": "Hüfte treibt die Bewegung — kein Squat, kein Rücken-Lift. Power aus der Hüftstreckung.",
+              "notiz": "Hip-Hinge-Muster sauber einschleifen: Kraft kommt aus der Hüfte, nicht aus dem Rücken.",
               "seiten": null
             },
             {
@@ -330,7 +328,7 @@
                 "Drücken und gleichzeitig Körper stabilisieren",
                 "Volle Streckung oben, Schulter aktiv gepackt"
               ],
-              "notiz": "Schwächere Seite zuerst, dann gleiche Wdh mit der stärkeren.",
+              "notiz": "",
               "seiten": null
             },
             {
@@ -349,7 +347,7 @@
                 "Vorderes Knie über dem Fuß, nicht dahinter",
                 "Oberkörper aufrecht — kein Vornüberlehnen"
               ],
-              "notiz": "",
+              "notiz": "Schwächere Seite zuerst — dann gleiche Wiederholungszahl mit der stärkeren Seite.",
               "seiten": null
             }
           ],
@@ -446,7 +444,6 @@
           "session_id": "w1_s3",
           "tag": "donnerstag",
           "session_typ": "density",
-          "fokus": "Density — Volumen-Kondition",
           "fokus_anzeige": "Density – Volumen-Kondition",
           "format_notiz": "Density — 5 Blöcke à 5 Min: max. Wiederholungen bei festem Gewicht, 60 Sek. Pause zwischen den Blöcken.",
           "runden": null,
@@ -693,7 +690,6 @@
           "session_id": "w1_s4",
           "tag": "freitag",
           "session_typ": "density",
-          "fokus": "Density — Volumen-Kondition",
           "fokus_anzeige": "Density – Volumen-Kondition",
           "format_notiz": "Density — 5 Blöcke à 5 Min: max. Wiederholungen bei festem Gewicht, 60 Sek. Pause zwischen den Blöcken.",
           "runden": null,
@@ -950,7 +946,6 @@
           "session_id": "w2_s1",
           "tag": "montag",
           "session_typ": "kraft",
-          "fokus": "Full Body A — Squat + Push",
           "fokus_anzeige": "Ganzkörper",
           "format_notiz": null,
           "runden": null,
@@ -1007,7 +1002,7 @@
                 "Tief in die Hocke, Knie nach außen",
                 "Fersen fest auf dem Boden"
               ],
-              "notiz": "Starte konservativ mit dem Gewicht — Technik und Tiefe haben Vorrang vor Last.",
+              "notiz": "Starte konservativ mit dem Gewicht — Technik (aufrechter Oberkörper, Knie über Zehen) hat Vorrang vor Last.",
               "seiten": null
             },
             {
@@ -1045,7 +1040,7 @@
                 "Kinn über die Stange",
                 "kontrolliert ablassen"
               ],
-              "notiz": "",
+              "notiz": "Ziel ist saubere Bewegung über den vollen Range — Bandstärke so wählen, dass alle Wdh kontrolliert möglich sind.",
               "seiten": null
             },
             {
@@ -1161,7 +1156,6 @@
           "session_id": "w2_s2",
           "tag": "dienstag",
           "session_typ": "kraft",
-          "fokus": "Full Body B — Hinge + Pull",
           "fokus_anzeige": "Ganzkörper",
           "format_notiz": null,
           "runden": null,
@@ -1218,7 +1212,7 @@
                 "Gesäß am Umkehrpunkt maximal anspannen",
                 "KB zieht die Hüfte nach vorne — nicht die Arme"
               ],
-              "notiz": "Hüfte treibt die Bewegung — kein Squat, kein Rücken-Lift. Power aus der Hüftstreckung.",
+              "notiz": "Hip-Hinge-Muster sauber einschleifen: Kraft kommt aus der Hüfte, nicht aus dem Rücken.",
               "seiten": null
             },
             {
@@ -1256,7 +1250,7 @@
                 "Drücken und gleichzeitig Körper stabilisieren",
                 "Volle Streckung oben, Schulter aktiv gepackt"
               ],
-              "notiz": "Schwächere Seite zuerst, dann gleiche Wdh mit der stärkeren.",
+              "notiz": "",
               "seiten": null
             },
             {
@@ -1275,7 +1269,7 @@
                 "Vorderes Knie über dem Fuß, nicht dahinter",
                 "Oberkörper aufrecht — kein Vornüberlehnen"
               ],
-              "notiz": "",
+              "notiz": "Schwächere Seite zuerst — dann gleiche Wiederholungszahl mit der stärkeren Seite.",
               "seiten": null
             }
           ],
@@ -1372,7 +1366,6 @@
           "session_id": "w2_s3",
           "tag": "donnerstag",
           "session_typ": "density",
-          "fokus": "Density — Volumen-Kondition",
           "fokus_anzeige": "Density – Volumen-Kondition",
           "format_notiz": "Density — 5 Blöcke à 5 Min: max. Wiederholungen bei festem Gewicht, 60 Sek. Pause zwischen den Blöcken.",
           "runden": null,
@@ -1620,7 +1613,6 @@
           "session_id": "w2_s4",
           "tag": "freitag",
           "session_typ": "density",
-          "fokus": "Density — Volumen-Kondition",
           "fokus_anzeige": "Density – Volumen-Kondition",
           "format_notiz": "Density — 5 Blöcke à 5 Min: max. Wiederholungen bei festem Gewicht, 60 Sek. Pause zwischen den Blöcken.",
           "runden": null,
@@ -1876,7 +1868,6 @@
           "session_id": "w3_s1",
           "tag": "montag",
           "session_typ": "kraft",
-          "fokus": "Full Body A — Squat + Push",
           "fokus_anzeige": "Ganzkörper",
           "format_notiz": null,
           "runden": null,
@@ -1933,7 +1924,7 @@
                 "Tief in die Hocke, Knie nach außen",
                 "Fersen fest auf dem Boden"
               ],
-              "notiz": "Starte konservativ mit dem Gewicht — Technik und Tiefe haben Vorrang vor Last.",
+              "notiz": "Starte konservativ mit dem Gewicht — Technik (aufrechter Oberkörper, Knie über Zehen) hat Vorrang vor Last.",
               "seiten": null
             },
             {
@@ -1971,7 +1962,7 @@
                 "Kinn über die Stange",
                 "kontrolliert ablassen"
               ],
-              "notiz": "",
+              "notiz": "Ziel ist saubere Bewegung über den vollen Range — Bandstärke so wählen, dass alle Wdh kontrolliert möglich sind.",
               "seiten": null
             },
             {
@@ -2087,7 +2078,6 @@
           "session_id": "w3_s2",
           "tag": "dienstag",
           "session_typ": "kraft",
-          "fokus": "Full Body B — Hinge + Pull",
           "fokus_anzeige": "Ganzkörper",
           "format_notiz": null,
           "runden": null,
@@ -2144,7 +2134,7 @@
                 "Gesäß am Umkehrpunkt maximal anspannen",
                 "KB zieht die Hüfte nach vorne — nicht die Arme"
               ],
-              "notiz": "Hüfte treibt die Bewegung — kein Squat, kein Rücken-Lift. Power aus der Hüftstreckung.",
+              "notiz": "Hip-Hinge-Muster sauber einschleifen: Kraft kommt aus der Hüfte, nicht aus dem Rücken.",
               "seiten": null
             },
             {
@@ -2182,7 +2172,7 @@
                 "Drücken und gleichzeitig Körper stabilisieren",
                 "Volle Streckung oben, Schulter aktiv gepackt"
               ],
-              "notiz": "Schwächere Seite zuerst, dann gleiche Wdh mit der stärkeren.",
+              "notiz": "",
               "seiten": null
             },
             {
@@ -2201,7 +2191,7 @@
                 "Vorderes Knie über dem Fuß, nicht dahinter",
                 "Oberkörper aufrecht — kein Vornüberlehnen"
               ],
-              "notiz": "",
+              "notiz": "Schwächere Seite zuerst — dann gleiche Wiederholungszahl mit der stärkeren Seite.",
               "seiten": null
             }
           ],
@@ -2298,7 +2288,6 @@
           "session_id": "w3_s3",
           "tag": "donnerstag",
           "session_typ": "density",
-          "fokus": "Density — Volumen-Kondition",
           "fokus_anzeige": "Density – Volumen-Kondition",
           "format_notiz": "Density — 5 Blöcke à 5 Min: max. Wiederholungen bei festem Gewicht, 60 Sek. Pause zwischen den Blöcken.",
           "runden": null,
@@ -2545,7 +2534,6 @@
           "session_id": "w3_s4",
           "tag": "freitag",
           "session_typ": "density",
-          "fokus": "Density — Volumen-Kondition",
           "fokus_anzeige": "Density – Volumen-Kondition",
           "format_notiz": "Density — 5 Blöcke à 5 Min: max. Wiederholungen bei festem Gewicht, 60 Sek. Pause zwischen den Blöcken.",
           "runden": null,
@@ -2801,7 +2789,6 @@
           "session_id": "w4_s1",
           "tag": "montag",
           "session_typ": "kraft",
-          "fokus": "Full Body A — Squat + Push",
           "fokus_anzeige": "Ganzkörper",
           "format_notiz": null,
           "runden": null,
@@ -2858,7 +2845,7 @@
                 "Tief in die Hocke, Knie nach außen",
                 "Fersen fest auf dem Boden"
               ],
-              "notiz": "Starte konservativ mit dem Gewicht — Technik und Tiefe haben Vorrang vor Last.",
+              "notiz": "Starte konservativ mit dem Gewicht — Technik (aufrechter Oberkörper, Knie über Zehen) hat Vorrang vor Last.",
               "seiten": null
             },
             {
@@ -2896,7 +2883,7 @@
                 "Kinn über die Stange",
                 "kontrolliert ablassen"
               ],
-              "notiz": "",
+              "notiz": "Ziel ist saubere Bewegung über den vollen Range — Bandstärke so wählen, dass alle Wdh kontrolliert möglich sind.",
               "seiten": null
             },
             {
@@ -3012,7 +2999,6 @@
           "session_id": "w4_s2",
           "tag": "dienstag",
           "session_typ": "kraft",
-          "fokus": "Full Body B — Hinge + Pull",
           "fokus_anzeige": "Ganzkörper",
           "format_notiz": null,
           "runden": null,
@@ -3069,7 +3055,7 @@
                 "Gesäß am Umkehrpunkt maximal anspannen",
                 "KB zieht die Hüfte nach vorne — nicht die Arme"
               ],
-              "notiz": "Hüfte treibt die Bewegung — kein Squat, kein Rücken-Lift. Power aus der Hüftstreckung.",
+              "notiz": "Hip-Hinge-Muster sauber einschleifen: Kraft kommt aus der Hüfte, nicht aus dem Rücken.",
               "seiten": null
             },
             {
@@ -3107,7 +3093,7 @@
                 "Drücken und gleichzeitig Körper stabilisieren",
                 "Volle Streckung oben, Schulter aktiv gepackt"
               ],
-              "notiz": "Schwächere Seite zuerst, dann gleiche Wdh mit der stärkeren.",
+              "notiz": "",
               "seiten": null
             },
             {
@@ -3126,7 +3112,7 @@
                 "Vorderes Knie über dem Fuß, nicht dahinter",
                 "Oberkörper aufrecht — kein Vornüberlehnen"
               ],
-              "notiz": "",
+              "notiz": "Schwächere Seite zuerst — dann gleiche Wiederholungszahl mit der stärkeren Seite.",
               "seiten": null
             }
           ],
@@ -3249,7 +3235,6 @@
           "session_id": "w4_s3",
           "tag": "donnerstag",
           "session_typ": "density",
-          "fokus": "Density — Volumen-Kondition",
           "fokus_anzeige": "Density – Volumen-Kondition",
           "format_notiz": "Density — 5 Blöcke à 5 Min: max. Wiederholungen bei festem Gewicht, 60 Sek. Pause zwischen den Blöcken.",
           "runden": null,
@@ -3498,7 +3483,6 @@
           "session_id": "w4_s4",
           "tag": "freitag",
           "session_typ": "density",
-          "fokus": "Density — Volumen-Kondition",
           "fokus_anzeige": "Density – Volumen-Kondition",
           "format_notiz": "Density — 5 Blöcke à 5 Min: max. Wiederholungen bei festem Gewicht, 60 Sek. Pause zwischen den Blöcken.",
           "runden": null,
