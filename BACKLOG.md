@@ -884,7 +884,7 @@ VEREINBARTE VERTRAGS-REGELN (mit Manu zu bestätigen):
 - Additiv-erweiterbar / tolerant reader: neue optionale Felder dürfen jederzeit dazukommen, Frontend ignoriert Unbekanntes → Logging-Felder (V1.5) später ohne Vertragsbruch (P7).
 - Session-Reihenfolge folgt dem tag-Feld (Wochentag), nicht der Array-Position → Tag-Umlabeln/-Tausch ohne Backend.
 
-EINZIGE OFFENE ENTSCHEIDUNG VOR LOCK (P6): Interne Routing-Werte cardio.typ + fokus im Kunden-JSON lassen (tolerant reader trägt's) ODER raus (kleiner Serializer-Fix). Anzeige-/Hygiene-Frage, kein Bau.
+✅ P6 erledigt (Naht P6, ce8ebe3) — interne Routing-Werte (fokus + cardio.typ) via Field(exclude=True) aus dem Kunden-JSON raus, intern fürs Routing erhalten. **Vertrag schema- UND hygiene-fertig, lock-bereit sobald Manu „baubar so" bestätigt.** (exercise_id bleibt bewusst im Vertrag — stabiler Frontend-Key für Übungen.)
 
 NACH DEM LOCK (berührt Vertrag NICHT, Wert-Arbeit): alle übrigen Wurzeln (Volumen, Reihenfolge, Conditioning-Intensität, Dosierung, Retest, Athletik-Inhalt, einseitig-Tagging füllt seiten, …).
 
@@ -900,7 +900,7 @@ Konsolidiert alle Contract-Themen aus dem Coach-Review (Detail jeweils am verlin
 5. [ERLEDIGT Form-/Render-Teil (Naht A2, 7bab657)] einseitig/seiten als strukturiertes Feld (W12) — „pro Seite" zuverlässig. 🔧+👁 seiten-Feld an HauptUebung + Render („je Seite") + 3 falsche WU/CD-seiten korrigiert. OFFEN (Wert, nach Vertrag): einseitig-Tagging der exercises.json-Übungen → füllt seiten für Kraft/Core (Phase-4-Wert-Arbeit). Vertrag ist bereit, Anzeige greift sobald getaggt.
 
 ── ANZEIGE-WERT (interner Wert leckt zum Kunden) ──
-6. [offen] **Interne Routing-Werte im Kunden-JSON (cardio.typ + fokus)** 👁 — Zwei interne Werte fahren neben ihrem sauberen Label im Kunden-JSON mit: (a) cardio.typ „liss"/„hiit" (Label = cardio.beschreibung/fokus_anzeige; kein „+LISS"), (b) fokus-Routing-Key „Density — Volumen-Kondition" (Label = fokus_anzeige). FRAGE an Manu (eine Entscheidung für beide): Sollen die internen Keys im Vertrag bleiben (Frontend ignoriert sie) ODER aus dem Kunden-JSON raus? Beide sind ANZEIGE/Vertrags-Hygiene, kein „Label fehlt". Wenn raus → kleine Naht (Feld aus dem Kunden-Serializer nehmen, intern behalten). + Label-Entscheid „Zone 2" vs „Grundlagenausdauer" (cardio).
+6. [ERLEDIGT (Naht P6, ce8ebe3)] **Interne Routing-Werte im Kunden-JSON (cardio.typ + fokus)** 👁 fokus + cardio.typ via Field(exclude=True) aus dem Kunden-model_dump() entfernt (intern fürs Routing erhalten). PDF liest jetzt fokus_anzeige + cardio.beschreibung (dieselben Anzeige-Felder wie Frontend). exercise_id bleibt bewusst (stabiler Frontend-Key). | Ursprüngliche Frage: Zwei interne Werte fuhren neben ihrem sauberen Label im Kunden-JSON mit: (a) cardio.typ „liss"/„hiit" (Label = cardio.beschreibung/fokus_anzeige; kein „+LISS"), (b) fokus-Routing-Key „Density — Volumen-Kondition" (Label = fokus_anzeige). FRAGE an Manu (eine Entscheidung für beide): Sollen die internen Keys im Vertrag bleiben (Frontend ignoriert sie) ODER aus dem Kunden-JSON raus? Beide sind ANZEIGE/Vertrags-Hygiene, kein „Label fehlt". Wenn raus → kleine Naht (Feld aus dem Kunden-Serializer nehmen, intern behalten). + Label-Entscheid „Zone 2" vs „Grundlagenausdauer" (cardio).
 
 ── PRE-LOCK-ENTSCHEIDUNGEN (heute billig, später Vertragsbruch) ──
 7. [ENTSCHIEDEN] Logging-/Feedback-Felder JETZT vorsehen? (W8 → V1.5-14/15/16) — sonst Vertrag bei V1.5 aufbrechen. 🔧 Pre-lock. ENTSCHEIDUNG (Coach): KEINE konkreten Logging-Felder jetzt — Logging-Schema ist selbst noch nicht designt (V1.5, mit echten Daten). STATTDESSEN Vertrags-Regel mit Manu: Vertrag ist ADDITIV-ERWEITERBAR — neue optionale Felder dürfen jederzeit dazukommen, Frontend ignoriert unbekannte Felder (tolerant reader). Damit ist Logging-Felder-später-ergänzen KEIN Vertragsbruch. → fällt aus dem Bau-Stapel, bleibt als Vertrags-Regel im Gespräch.
@@ -943,8 +943,8 @@ _FIX: fokus_anzeige ins Session-Modell, im Assembler befüllen, _FOKUS_ANZEIGE a
 _→ UMGESETZT: fokus_anzeige ist Session-Pflichtfeld (models.py:265), Assembler befüllt via
 anzeige_fokus (plan_assembler.py:718), Mapping in logic/fokus_labels.py vollständig (alle A/B/C +
 Full Body + Conditioning + sicherer Fallback), PDF teilt dieselbe Quelle. Verifiziert: 0 leere/rohe
-fokus_anzeige über 20 echte Pläne. (Restfrage „interner fokus-Key im Kunden-JSON?" → Agenda-Punkt 6,
-mit cardio.typ gebündelt.)_
+fokus_anzeige über 20 echte Pläne. (Restfrage „interner fokus-Key im Kunden-JSON?" → ✅ erledigt
+(Naht P6, ce8ebe3): fokus via Field(exclude=True) aus dem Kunden-Dump; intern fürs Routing erhalten.)_
 
 _**Blocker 2a — Conditioning wdh = verschmolzener Wert+Einheit (HAUPT, reine Technik): ✅ ERLEDIGT (Naht 2a, vor 12er-Lauf).**_
 _Kraft wdh "6-10" (reps implizit) vs. Conditioning "12 Wdh"/"45 Sek" (Einheit im String). Kein
@@ -974,7 +974,7 @@ _STATUS: Alle 5 sind Contract-Vorbedingung. Reihenfolge: erst die reinen Technik
 dann die gekoppelten (2b Conditioning-Spec, 4 Stress/Schlaf) als eigene Nähte. Danach: Beispiel-JSON
 an Manu als Gesprächsgrundlage → gemeinsam Contract festschreiben._
 
-### Contract-Nachtrag — cardio.typ "liss"/"hiit" schlägt roh zum Kunden durch (2026-06-30, 12er-API-Lauf)
+### Contract-Nachtrag — cardio.typ "liss"/"hiit" schlägt roh zum Kunden durch (2026-06-30, 12er-API-Lauf) — ✅ ERLEDIGT (Naht P6, ce8ebe3): cardio.typ via Field(exclude=True) aus dem Kunden-Dump; PDF zeigt cardio.beschreibung
 
 BEFUND (verifiziert, echte JSONs api_10/11/12): Die Longevity-Cardio-Einheit trägt **3 parallele
 Benennungen** im JSON — `fokus_anzeige` „Zone 2 – Grundlagenausdauer" (sauber), `cardio.beschreibung`
