@@ -783,6 +783,16 @@ Betroffen: alle 12 (systematisch, jeder Pfad). Erzeuger: `plan_assembler.py` `_w
 - **9b — statische Listen, nicht abgeleitet (Methodik):** Warm-up: Achsen Equipment × Tages-Fokus, ABER Fokus nur im gym/home_gym-Zweig — KB/BW/Travel rein equipment-basiert. Cool-down: nur Fokus. ZIEL geht in beide nicht ein. Listen sind statisch, nicht aus der gefilterten Bibliothek, nicht Claude-gewählt. Dauer Warm-up = session/6 (5–10), Cool-down fix 5 min. Offen (Coach): statisch ausreichend, oder pattern-spezifische Aktivierung? Soll Ziel einfließen? — vgl. bestehenden Backlog-Wunsch „Warm-up tagesspezifisch" (deckt bisher nur gym-Zweig halb ab).
 - **9c — Cool-down nicht im Zeit-Budget (Dauer, berührt Wurzel 1):** Kapazitäts-Formel zieht nur Warmup + Finisher ab, NICHT die 5 min Cool-down → 5 min unverbucht, mögliche Session-Überschreitung. Beim Abarbeiten verifizieren.
 
+## Wurzel 10 — Conditioning-Intensität zu niedrig (Fettabbau + Recomp) [ offen ]
+
+Coach-Befund: Der Conditioning-/Metcon-Part neben dem Kraftpart ist zu leicht — soll intensiver. Betroffen: 04,05,06 (Fettabbau-Conditioning-Tage) + 07,08,09 (Recomp-Finisher).
+
+STEUERUNG (Coach-Entscheid): Conditioning-Intensität wird über ÜBUNGS-KOMPLEXITÄT gesteuert — komplexere/anspruchsvollere Übungen einbauen, skill_level-getrieben pro Level. Sekundär über Zeit + Wiederholungen im Gesamten. NICHT über RPE/RIR — Conditioning ist überwiegend Bodyweight, RPE/RIR ergibt da keinen Sinn (deckt sich mit Spec Thema 6: Conditioning trägt kein RPE).
+
+Aktueller Stand: Pool lehnt auf einfachen BW-Übungen (Jumping Jacks etc. → vgl. Wurzel 3) = niedrige Komplexität = zu leicht. Level-Hebel heute: Format + Work:Rest (L2=L3 identisch 45:15) + „Komplexe ab skill 2" — Komplexität wird nur grob über die Level gesteuert.
+
+Offen (Coach, beim Abarbeiten): welche komplexeren Übungen in den Conditioning-Pool? wie soll skill_level pro Level die Auswahl treiben (höheres Level → komplexere Conditioning-Übung)? Zeit/Wdh-Anpassung. — direkt verzahnt mit Wurzel 3 (Pool/Übungs-Eignung) + Wurzel 2 (Format). Recomp-Sonderfall bleibt: Recomp-Finisher ist per Spec „moderat" → intensiver = Spec-Reconcile Thema 6.
+
 ## Plan-spezifische Coach-Funde [ offen ]
 
 - api_01: „(Ben Patrick)"-Quellenangabe leckt in 2 Übungsnamen (bw_atg_split_squat, bw_tibialis_raise); übrige 62 Klammer-Namen sind funktionale Qualifier (ok).
