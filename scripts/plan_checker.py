@@ -20,7 +20,12 @@ import pathlib
 import sys
 from collections import Counter, defaultdict
 from dataclasses import dataclass
+from functools import lru_cache
 from itertools import product
+
+# Schwere-Kategorie für ERZWUNGENE Repeats (pool_size < demand): kein Plan-Defekt, sondern
+# Bibliotheks-Bedarfssignal (β). Greppbar + von der regelkonform-Zählung ausgenommen.
+_SCHWERE_BETA = "β-Pool-Lücke"
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
 
@@ -279,6 +284,37 @@ def _regel4_rir(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) ->
 
 # ── Regel 3: Keine Primär-Dedup (δ — gleicher compound-Lift nicht 2×/Woche) ────────
 
+@lru_cache(maxsize=None)
+def _pool_groessen(equipment: str, level: int, verletzungen: tuple) -> dict[str, int]:
+    """{pattern: Anzahl distinkter Übungen} für (equipment, level, verletzungen) — gecacht
+    (Sweep ruft das 1536×; ohne Cache je Aufruf ein exercises.json-Read). klient-Rekonstruktion
+    aus den Snapshot-Feldern wie pruefe_externen_plan (Pool ist verletzungs-eng, da filtere_uebungen
+    Verletzungen mitfiltert). Post-Fallback-Zahl = was der Picker real zur Verfügung hat."""
+    from models import KlientenInput
+    from logic.equipment_filter import filtere_uebungen
+    klient = KlientenInput(
+        client_id="pool", vorname="pool", alter=30, trainingsjahre="ein_bis_zwei",
+        kniebeugen_wdh=0, pushups_wdh=0, situps_wdh=0, burpees_wdh=0, plank_sek=0,
+        stress_level=4, schlaf_stunden=7.0,
+        hauptziel="muskelaufbau", equipment=equipment,
+        tage_pro_woche=4, session_dauer_min=60, verletzungen=list(verletzungen),
+    )
+    return {pat: len(uebs) for pat, uebs in filtere_uebungen(klient, level).items()}
+
+
+def _compound_demand(soll: dict) -> dict[str, int]:
+    """Compound-Slots pro Pattern über alle Sessions der Woche (plan-spezifisch aus soll —
+    6T-hinge=3, 4T=2 …). Denominator des pool-aware-Tests (passt zur compound-only-Dedup)."""
+    demand: Counter = Counter()
+    patterns = soll.get("patterns") or {}
+    tiers = soll.get("tiers") or {}
+    for sk, pats in patterns.items():
+        for pat, ti in zip(pats, tiers.get(sk, [])):
+            if ti == "compound":
+                demand[pat] += 1
+    return demand
+
+
 def _regel3_dedup(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) -> list[Verstoss]:
     REGEL = "Regel 3 — Keine Primär-Dedup"
     tiers_soll = (soll or {}).get("tiers")
@@ -286,6 +322,14 @@ def _regel3_dedup(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) 
         return []
     kontext = _plan_kontext(plan)
     verstoesse: list[Verstoss] = []
+
+    # Pool-aware-Kontext (PRIO 6) — einmal pro Plan: demand aus soll, pool aus dem Snapshot.
+    demand = _compound_demand(soll)
+    snap = plan.get("klient_snapshot", {})
+    equip = getattr(snap.get("equipment"), "value", snap.get("equipment"))
+    level = snap.get("level")
+    verl_tuple = tuple(sorted(getattr(v, "value", v) for v in snap.get("verletzungen", [])))
+    pool = _pool_groessen(equip, level, verl_tuple) if equip and level else {}
 
     for w in plan.get("wochen", []):
         wn = w.get("woche_nummer", "?")
@@ -307,11 +351,22 @@ def _regel3_dedup(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) 
                 continue
             vork = [f"W{wn}/{sid}#{r}" for (eid, _nm, sid, r) in primaer if eid == ex_id]
             name = next((nm for (eid, nm, _s, _r) in primaer if eid == ex_id), "?")
-            verstoesse.append(Verstoss(
-                REGEL, "fehler", kontext,
-                f"'{name}' ({ex_id}) {n}× als Primär in Woche {wn}: {vork} — "
-                f"gleicher Primär-Lift {n}×/Woche, Variation fehlt",
-            ))
+            pat = EXMAP.get(ex_id, {}).get("pattern")
+            d = demand.get(pat, 0)
+            p_size = pool.get(pat, 0)
+            if pool and p_size < d:
+                # ERZWUNGEN: zu wenige distinkte Übungen für die compound-Slots → β-Lücke, kein Defekt.
+                verstoesse.append(Verstoss(
+                    REGEL, _SCHWERE_BETA, kontext,
+                    f"'{name}' ({ex_id}) {n}× in Woche {wn}: {vork} — erzwungen "
+                    f"(Pool {p_size} < {d} compound-Slots, β-Lücke {equip}/L{level}/{pat})",
+                ))
+            else:
+                verstoesse.append(Verstoss(
+                    REGEL, "fehler", kontext,
+                    f"'{name}' ({ex_id}) {n}× als Primär in Woche {wn}: {vork} — "
+                    f"vermeidbar (Pool {p_size} ≥ {d} {pat}), Variation möglich gewesen",
+                ))
     return verstoesse
 
 
@@ -445,16 +500,20 @@ def main() -> int:
         label = f"{c['nr']}_{c['kurzname']}"
         plan, soll = _baue_plan(c)
         verstoesse = pruefe_plan(plan, label, EXMAP, soll)
-        if not verstoesse:
-            print(f"  ✅ {label}")
+        fehler = [v for v in verstoesse if v.schwere != _SCHWERE_BETA]
+        beta = [v for v in verstoesse if v.schwere == _SCHWERE_BETA]
+        if not fehler:
+            print(f"  ✅ {label}" + (f"  ({len(beta)} β-Pool-Lücke)" if beta else ""))
             sauber += 1
         else:
-            print(f"  ❌ {label} — {len(verstoesse)} Verstoß/Verstöße:")
-            for v in verstoesse:
+            print(f"  ❌ {label} — {len(fehler)} Verstoß/Verstöße:")
+            for v in fehler:
                 print(f"       {v.detail}")
+        for v in beta:
+            print(f"       [β] {v.detail}")
 
     print()
-    print(f"  {sauber}/{len(CASES)} Pläne regelkonform (Regel 6+2+5+4+3)")
+    print(f"  {sauber}/{len(CASES)} Pläne regelkonform (Regel 6+2+5+4+3; β-Pool-Lücken kein Defekt)")
     return 0 if sauber == len(CASES) else 1
 
 
@@ -479,6 +538,7 @@ def main_kreuzprodukt() -> int:
 
     # ── Struktur-Sweep: Ziel × Equip × Tage × Dauer × Level (ohne Verletzung), alle 5 Regeln ──
     verst = defaultdict(list)
+    beta_funde = defaultdict(list)   # β-Pool-Lücken: kein Defekt, separat ausgewiesen
     mism = []
     total = sauber = 0
     for ziel, eq, tg, da, lv in product(_ZIELE, _EQUIP, _TAGE, _DAUER, _LEVELS):
@@ -490,13 +550,15 @@ def main_kreuzprodukt() -> int:
             mism.append(f"{kombi}: erreicht L{erreicht} (Generator-Bug)")
             continue
         vs = pruefe_plan(plan, kombi, EXMAP, soll)
-        if vs:
-            for v in vs:
-                verst[v.regel].append(f"{kombi} · {v.detail}")
-        else:
+        fehler = [v for v in vs if v.schwere != _SCHWERE_BETA]
+        for v in vs:
+            (beta_funde if v.schwere == _SCHWERE_BETA else verst)[v.regel].append(f"{kombi} · {v.detail}")
+        if not fehler:
             sauber += 1
     n_verst = sum(len(x) for x in verst.values())
-    print(f"\nStruktur-Sweep: {sauber}/{total} regelkonform, {n_verst} Verstöße, {len(mism)} Level-Mismatches")
+    n_beta = sum(len(x) for x in beta_funde.values())
+    print(f"\nStruktur-Sweep: {sauber}/{total} regelkonform, {n_verst} Verstöße, "
+          f"{n_beta} β-Pool-Lücken (kein Defekt), {len(mism)} Level-Mismatches")
 
     # ── Verletzungs-Sweep: nur Regel 6, repräsentative Achsen (ziel/dauer/tage fix) ──
     iv_verst = []
@@ -537,9 +599,21 @@ def main_kreuzprodukt() -> int:
             print(f"  {d}")
         if len(iv_verst) > 50:
             print(f"  … (+{len(iv_verst) - 50} weitere)")
+    if n_beta:
+        print("\n--- β-POOL-LÜCKEN (Struktur-Sweep, kein Defekt — Bibliotheks-Bedarfssignal) ---")
+        for regel in sorted(beta_funde):
+            print(f"  [{regel}] {len(beta_funde[regel])}:")
+            for d in beta_funde[regel][:25]:
+                print(f"     {d}")
+            if len(beta_funde[regel]) > 25:
+                print(f"     … (+{len(beta_funde[regel]) - 25} weitere)")
 
+    # β-Pool-Lücken sind KEIN Defekt → blocken GRÜN nicht.
     ok = (n_verst == 0 and not mism and len(iv_verst) == 0 and not iv_mism)
-    print(f"\n{'ALLES GRÜN' if ok else 'FUNDE — siehe oben'}")
+    status = "ALLES GRÜN" if ok else "FUNDE — siehe oben"
+    if ok and n_beta:
+        status += f" (+ {n_beta} β-Pool-Lücken, kein Defekt)"
+    print(f"\n{status}")
     return 0 if ok else 1
 
 
@@ -560,18 +634,22 @@ def main_run_dir(ordner: str) -> int:
     sauber = 0
     for f in dateien:
         verstoesse = pruefe_externen_plan(f, EXMAP)
-        if not verstoesse:
-            print(f"  ✅ {f.name}")
+        fehler = [v for v in verstoesse if v.schwere != _SCHWERE_BETA]
+        beta = [v for v in verstoesse if v.schwere == _SCHWERE_BETA]
+        if not fehler:
+            print(f"  ✅ {f.name}" + (f"  ({len(beta)} β-Pool-Lücke)" if beta else ""))
             sauber += 1
         else:
             nach_regel: dict[str, list[str]] = defaultdict(list)
-            for v in verstoesse:
+            for v in fehler:
                 nach_regel[v.regel].append(v.detail)
-            print(f"  ❌ {f.name} — {len(verstoesse)} Verstoß/Verstöße:")
+            print(f"  ❌ {f.name} — {len(fehler)} Verstoß/Verstöße:")
             for regel in sorted(nach_regel):
                 print(f"       [{regel}] {len(nach_regel[regel])}:")
                 for det in nach_regel[regel]:
                     print(f"          {det}")
+        for v in beta:
+            print(f"       [β] {v.detail}")
 
     print()
     print(f"  {sauber}/{len(dateien)} Pläne regelkonform (Regel 6+2+5+4+3)")
