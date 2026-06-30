@@ -837,7 +837,7 @@ DOSIS-FOLGE (nicht nur Anzeige): ohne „pro Seite" ist die Zahl mehrdeutig UND 
 
 SEKUNDÄR — Render-Lücke: warm_up/cool_down tragen seiten (z.B. =2), PDF druckt es nicht (pdf_generator gibt seiten nirgends aus). Separater, kleiner Fix.
 
-CONTRACT (→ MVP-12, mit Manu): einseitig/seiten muss strukturiertes Feld am Übungs-/HauptUebung-Schema werden (nicht Prosa), damit Frontend „pro Seite" zuverlässig zeigt. Reiht sich an die Contract-Nachträge. Tag: [strukturell] Tag+Modell+Anzeige.
+CONTRACT (→ MVP-12, mit Manu): einseitig/seiten muss strukturiertes Feld am Übungs-/HauptUebung-Schema werden (nicht Prosa), damit Frontend „pro Seite" zuverlässig zeigt. Reiht sich an die Contract-Nachträge. Tag: [strukturell] Tag+Modell+Anzeige. → Form-/Render-Teil erledigt (Naht A2, 7bab657): seiten an HauptUebung, Render-Lücke zu, WU/CD-Werte korrigiert. OFFEN: einseitig-Tagging (Wert) → pro-Seite-Dosis sichtbar.
 
 ZWEITER BELEG (api_13, MA·Gym·L2): Pallof Press 3×30 Sek — einseitig (seitlich zum Kabel, pro Seite), keine Seiten-Angabe. Bestätigt: betrifft auch GYM-Pläne und Core-HOLDS (nicht nur BW-Single-Leg aus api_09). Zeigt die Bandbreite: Single Leg (Wdh) UND einseitige Holds (Sek) brauchen „pro Seite". Verstärkt den Tag-/Modell-Lücken-Kern.
 
@@ -864,7 +864,7 @@ Konsolidiert alle Contract-Themen aus dem Coach-Review (Detail jeweils am verlin
 2. [offen] Conditioning {wert, einheit} statt fusioniertem String (Blocker 2a) + Runden-vs-Sätze nicht nur aus session_typ. 🔧
 3. [offen] Zirkel/Runden BLOCK-level + Runden-Pause als Feld (W2) — heute runden pro Übung repliziert, Zirkel-Semantik + 60s-Pause nur Prosa → Frontend kann Zirkel nicht von „Sätze einzeln" unterscheiden. 🔧
 4. [ERLEDIGT (Naht A1, 7e8fe48)] Warm-up/Cool-down-Übungsschema an wert+einheit angleichen (W9a) — WU/CD tragen jetzt wert+einheit wie HauptUebung → einheitliches Übungs-Schema über alle Typen. 🔧
-5. [offen] einseitig/seiten als strukturiertes Feld (W12) — „pro Seite" zuverlässig; heute Prosa. Verankert auch korrekte Dosis, nicht nur Anzeige. 🔧+👁
+5. [ERLEDIGT Form-/Render-Teil (Naht A2, 7bab657)] einseitig/seiten als strukturiertes Feld (W12) — „pro Seite" zuverlässig. 🔧+👁 seiten-Feld an HauptUebung + Render („je Seite") + 3 falsche WU/CD-seiten korrigiert. OFFEN (Wert, nach Vertrag): einseitig-Tagging der exercises.json-Übungen → füllt seiten für Kraft/Core (Phase-4-Wert-Arbeit). Vertrag ist bereit, Anzeige greift sobald getaggt.
 
 ── ANZEIGE-WERT (interner Wert leckt zum Kunden) ──
 6. [offen] cardio.typ „liss"/„hiit" nicht roh anzeigen (kein „+LISS") — Anzeige über cardio.beschreibung/Label + Label-Entscheid „Zone 2" vs „Grundlagenausdauer". 👁
