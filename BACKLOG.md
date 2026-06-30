@@ -705,7 +705,7 @@ Primär-Lift 2×/Woche ohne Variation.
 | api_04 | FA·KB·L3 | offen | Density-Cardio-Prosa (W2); Push-up/Plyo (W3); geblockt (W5) |
 | api_05 | FA·Travel·L2 | offen | Density×2 (W2); Travel-Equipment (W7); geblockt (W5) |
 | api_06 | FA·Gym·L4 | offen | Density×2 (W2); Push-up/Plyo (W3); geblockt (W5); Reihenfolge Dips/Pull-up (W6); Weighted-Wdh zu hoch (W4) |
-| api_07 | RE·BW·L2 | offen | RIR-Bodyweight (W4); Push-up/Plyo (W3); Glute-Bridge-Doppel (hinge + single_leg, bekannte Doppelnatur/β-Lücke → s. Mehr-Pattern-Modell) |
+| api_07 | RE·BW·L2 | offen | RIR-Bodyweight (W4); Push-up/Plyo (W3); Glute-Bridge-Doppel (hinge + single_leg, bekannte Doppelnatur/β-Lücke → s. Mehr-Pattern-Modell); Diamond Push-up 10–15 + RIR (= Wurzel 4, Übungs-Charakteristik) |
 | api_08 | RE·Gym·L1 | offen | Satz-Unterfüllung L1 (W1) |
 | api_09 | RE·Travel·L3 | offen | Travel-Equipment (W7); Plyo (W3) |
 | api_10 | LO·Travel·L4 | ❌ | geblockt (W5); Zone-2=Kraft (W2); Chest-to-Bar=Stange (W7); Unterfüllung (W1) |
@@ -736,6 +736,7 @@ Primär-Lift 2×/Woche ohne Variation.
 
 - B1: RIR-Ziel auf fixe-Last Bodyweight-Übungen (Push-up, Ring Row, Pull-up-Varianten, Pike, Pistol) (02,03,04,05,07,09,10,11,12).
 - Verwandt (gleiche Wurzel): api_01 Weighted-Pullup-Widerspruch — Wdh aus Slot-Tier statt Last (s. Plan-spezifische Funde). EIN Fix (Übungs-Charakteristik geladen/fixe-Last/teil-ladbar) heilt RIR + Wdh.
+- BELEG + ERWEITERUNG (api_07, Diamond Push-up 3×10–15 + RIR): zeigt BEIDE Symptome an EINER fixe-Last-BW-Übung — (a) RIR auf Bodyweight (Kern Wurzel 4) UND (b) Wdh zu hoch für eine intrinsisch fordernde Übung (Coach: ~6–10 statt 10–15). ERWEITERT die Wurzel: der Slot-Tier ist nicht nur blind für LAST (vgl. Weighted Pull-up api_01/06), sondern auch für die EIGENSCHWERE der Übung. Bestätigt die Fix-Richtung „Übungs-Charakteristik (geladen / fixe-Last / teil-ladbar + Eigenschwere) treibt Wdh + RIR" — fordernde fixe-Last-BW → niedrigere Wdh, kein RIR.
 
 ## Wurzel 5 — Tag-Reihenfolge/Erholung [ offen ]  (D1,D2)
 
