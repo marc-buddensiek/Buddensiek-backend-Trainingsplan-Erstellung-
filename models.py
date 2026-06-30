@@ -215,6 +215,7 @@ class HauptUebung(BaseModel):
     pausenzeit_sek: int = Field(..., ge=0, le=300)
     coaching_cues: list[str] = Field(..., min_length=1, max_length=5)
     notiz: str = Field(default="", max_length=300)
+    seiten: Optional[int] = Field(default=None, description="Naht A2 (W12): >1 = pro Seite (unilateral); None = beidseitig/n.a. Bleibt None bis einseitig-Tagging in exercises.json (Phase 4, Wert-Arbeit).")
 
 
 class Cardio(BaseModel):

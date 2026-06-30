@@ -203,7 +203,7 @@ def _warm_up(equipment: Equipment, fokus: str, session_dauer_min: int) -> WarmUp
                 WarmUpUebung(name="Squat-to-Stand", saetze=2, wert="8", einheit="wiederholungen"),
                 WarmUpUebung(name="World's Greatest Stretch", wert="30", einheit="sekunden", seiten=2),
                 WarmUpUebung(name="Push-Up Activation (langsam)", saetze=2, wert="5", einheit="wiederholungen"),
-                WarmUpUebung(name="Hip Circle", wert="20", einheit="sekunden", seiten=2),
+                WarmUpUebung(name="Hip Circle", wert="20", einheit="sekunden"),   # A2: beidseitig → kein seiten
             ],
         )
     elif equipment == Equipment.hybrid:
@@ -227,7 +227,7 @@ def _warm_up(equipment: Equipment, fokus: str, session_dauer_min: int) -> WarmUp
                     WarmUpUebung(name="Band Pull-Apart", saetze=2, wert="15", einheit="wiederholungen"),
                     WarmUpUebung(name="Scapula Push-Up", saetze=2, wert="10", einheit="wiederholungen"),
                     WarmUpUebung(name="Face Pull (leicht)", saetze=2, wert="12", einheit="wiederholungen"),
-                    WarmUpUebung(name="Arm Circles", wert="30", einheit="sekunden", seiten=2),
+                    WarmUpUebung(name="Arm Circles", wert="30", einheit="sekunden"),   # A2: beidarmig gleichzeitig → kein seiten
                 ],
             )
         else:
@@ -235,7 +235,7 @@ def _warm_up(equipment: Equipment, fokus: str, session_dauer_min: int) -> WarmUp
                 protokoll="kraft",
                 dauer_min=wu,
                 uebungen=[
-                    WarmUpUebung(name="Hip Circle", wert="20", einheit="sekunden", seiten=2),
+                    WarmUpUebung(name="Hip Circle", wert="20", einheit="sekunden"),   # A2: beidseitig → kein seiten
                     WarmUpUebung(name="Glute Bridge (Aktivierung)", saetze=2, wert="15", einheit="wiederholungen"),
                     WarmUpUebung(name="Leg Swing", wert="30", einheit="sekunden", seiten=2),
                     WarmUpUebung(name="Goblet Squat (leicht)", saetze=2, wert="8", einheit="wiederholungen"),
@@ -253,7 +253,7 @@ def _cool_down(fokus: str) -> CoolDown:
         return CoolDown(
             dauer_min=5,
             uebungen=[
-                CoolDownUebung(name="Brust-Stretch an der Wand", wert="30", einheit="sekunden", seiten=2),
+                CoolDownUebung(name="Brust-Stretch an der Wand", wert="30", einheit="sekunden"),   # A2: beidarmig → kein seiten
                 CoolDownUebung(name="Lat-Stretch (Arme über Kopf)", wert="30", einheit="sekunden", seiten=2),
                 CoolDownUebung(name="Schulter Cross-Body Stretch", wert="30", einheit="sekunden", seiten=2),
             ],

@@ -229,7 +229,10 @@ def build_pdf(plan_data: dict) -> FPDF:
             pdf.set_font("Helvetica", "BI", 7)
             pdf.set_text_color(*C_ACCENT)
             pdf.cell(0, 4, "  WARM-UP", new_x="LMARGIN", new_y="NEXT")
-            wu_items = " · ".join(u["name"] for u in s["warm_up"]["uebungen"])
+            wu_items = " · ".join(   # Naht A2 (W12): "(je Seite)" wenn seiten gesetzt — schließt die Render-Lücke
+                u["name"] + (" (je Seite)" if u.get("seiten") else "")
+                for u in s["warm_up"]["uebungen"]
+            )
             pdf.set_font("Helvetica", "I", 7)
             pdf.set_text_color(*C_MID_GREY)
             pdf.multi_cell(0, 4, f"  {wu_items}")
@@ -253,6 +256,10 @@ def build_pdf(plan_data: dict) -> FPDF:
                     # (vol_str "3×30 Sek" trägt die Info schon). Sonst "Tempo {wert}" wie bisher.
                     tempo_part = "" if u.get("tempo") == "halten" else f"Tempo {u['tempo']}  ·  "
                     spec_str = f"{rir_part}{tempo_part}Pause {u['pausenzeit_sek']}s"
+
+                # Naht A2 (W12): "je Seite" nur wenn seiten gesetzt (>1 = unilateral); seiten=None → unverändert.
+                if u.get("seiten"):
+                    vol_str = f"{vol_str} je Seite"
 
                 pdf.set_font("Helvetica", "B", 8)
                 pdf.set_text_color(*C_BLACK)
@@ -361,7 +368,9 @@ def build_pdf(plan_data: dict) -> FPDF:
             pdf.set_text_color(*C_ACCENT)
             pdf.cell(0, 4, "  COOL-DOWN", new_x="LMARGIN", new_y="NEXT")
             cd_items = " · ".join(
-                f"{u['name']} ({u['wert']}s)" for u in s["cool_down"]["uebungen"]   # Naht A1: dauer_sek→wert (CD = sekunden); Ausgabe "(30s)" unverändert
+                # Naht A1: dauer_sek→wert (CD = sekunden); A2 (W12): "(je Seite)" wenn seiten gesetzt
+                f"{u['name']} ({u['wert']}s)" + (" (je Seite)" if u.get("seiten") else "")
+                for u in s["cool_down"]["uebungen"]
             )
             pdf.set_font("Helvetica", "I", 7)
             pdf.set_text_color(*C_MID_GREY)
