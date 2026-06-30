@@ -47,3 +47,23 @@ def anzeige_fokus(fokus: str) -> str:
             kopf = fokus.split(sep, 1)[0].strip()
             return kopf or "Training"
     return "Training"
+
+
+# session_typ → internes fokus-Label (Single Source). split_selector setzt es zur Split-Zeit;
+# der Assembler leitet es neu ab, wenn er session_typ NACH der Split-fokus-Vergabe ändert
+# (Conditioning-Erstformat-Tausch · Athletik→zone2-Fallback). Conditioning-Formate (zirkel/amrap/
+# intervalle/tabata/density; ladders→Fallback "Kondition") + Longevity-Cardio-Typen (zone2/athletik).
+_SESSION_TYP_LABEL: dict[str, str] = {
+    "zirkel":     "Zirkel — Ganzkörper Kondition",
+    "amrap":      "AMRAP — Kraft-Ausdauer",
+    "intervalle": "Intervalle — HIIT Kondition",
+    "tabata":     "Tabata — Intervall-Kondition",
+    "density":    "Density — Volumen-Kondition",
+    "zone2":      "Zone 2 / Longevity",
+    "athletik":   "Athletik / Longevity",
+}
+
+
+def label_fuer_session_typ(session_typ: str) -> str:
+    """fokus-Label für einen session_typ (Fallback „Kondition" — wie die bisherige Split-Vergabe)."""
+    return _SESSION_TYP_LABEL.get(session_typ, "Kondition")

@@ -27,7 +27,7 @@ from logic.conditioning_formats import (
 )
 from logic.athletik import athletik_pool, athletik_dosierung
 from logic.equipment_filter import verletzungs_rpe_cap
-from logic.fokus_labels import anzeige_fokus
+from logic.fokus_labels import anzeige_fokus, label_fuer_session_typ
 
 
 _EXERCISES_PATH = pathlib.Path(__file__).parent.parent / "data" / "exercises.json"
@@ -703,13 +703,19 @@ def assemble_plan(
             # Die interne Schätzung dient nur dem Trim (in _trim_auf_dauer), nicht der Anzeige.
             dauer = min(120, max(20, klient.session_dauer_min))
 
+            # Label-Sync: hat der Assembler den Typ NACH der Split-fokus-Vergabe geändert
+            # (Conditioning-Erstformat-Tausch · Athletik→zone2-Fallback)? → fokus aus dem finalen
+            # session_typ_eff neu ableiten. `fokus` oben (warm_up/cool_down/cardio-Routing) bleibt
+            # unangetastet — nur das emittierte Label wird konsistent. Carry-Strip (split) NICHT berührt.
+            fokus_emit = label_fuer_session_typ(session_typ_eff) if session_typ_eff != session_typ else fokus
+
             sessions.append(
                 Session(
                     session_id=session_id,
                     tag=tag,
                     session_typ=session_typ_eff,
-                    fokus=fokus,
-                    fokus_anzeige=anzeige_fokus(fokus),
+                    fokus=fokus_emit,
+                    fokus_anzeige=anzeige_fokus(fokus_emit),
                     format_notiz=fmt_notiz,
                     dauer_min_geschaetzt=dauer,
                     warm_up=warm_up,

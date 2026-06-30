@@ -13,6 +13,7 @@ from __future__ import annotations
 from models import KlientenInput, Hauptziel
 from logic.conditioning_formats import pick_conditioning_formats
 from logic.equipment_filter import filtere_uebungen
+from logic.fokus_labels import label_fuer_session_typ
 
 
 def _slot(beschreibung: str, pattern: str, tier: str = "compound", max_level: int = 4,
@@ -358,13 +359,8 @@ def _full_body_sessions(tage: int, level: int, dauer: int) -> list[dict]:
     ]
 
 
-_FOKUS_MAP = {
-    "zirkel":     "Zirkel — Ganzkörper Kondition",
-    "amrap":      "AMRAP — Kraft-Ausdauer",
-    "intervalle": "Intervalle — HIIT Kondition",
-    "tabata":     "Tabata — Intervall-Kondition",
-    "density":    "Density — Volumen-Kondition",
-}
+# Conditioning-fokus-Label: Single Source in logic.fokus_labels (label_fuer_session_typ) — derselbe
+# Mapper, den der Assembler bei Format-Tausch zur Neu-Ableitung nutzt. Kein lokales Duplikat mehr.
 
 # Naht 4c: reine Conditioning-Tage ziehen aus dem Conditioning-Pool (pool="conditioning"-Marker),
 # NICHT mehr aus Kraft-Pattern. 4 Slots = 4 Bewegungen (Zirkel/AMRAP üblich); Block-Formate
@@ -379,7 +375,7 @@ _CONDITIONING_SLOTS = [
 def _conditioning_session(idx: int, session_typ: str = "zirkel") -> dict:
     return _tag_session(
         f"w1_s{idx}",
-        _FOKUS_MAP.get(session_typ, "Kondition"),
+        label_fuer_session_typ(session_typ),
         _CONDITIONING_SLOTS,
         session_typ,
     )
