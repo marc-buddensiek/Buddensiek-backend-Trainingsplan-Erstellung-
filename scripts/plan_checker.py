@@ -206,21 +206,16 @@ def _regel5_einheit(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None
                             f"rir={u.get('rir')} bei unit='{unit}' — RIR nur bei unit=reps zulässig",
                         ))
 
-                    # TEIL B — wdh-Format (NUR Kraft-haupt_uebungen; Conditioning-Format-Override legitim)
+                    # TEIL B — Einheit-Treue (NUR Kraft-haupt_uebungen; Conditioning-Format-Override legitim).
+                    # Strukturiertes einheit-Feld (Blocker 2a) statt wdh-String-Parsing → robuster.
                     if wdh_pruefen:
-                        wdh = u.get("wdh", "")
-                        grund = None
-                        if unit == "distanz" and not wdh.endswith("m"):
-                            grund = "erwartet Distanz (…m)"
-                        elif unit == "zeit" and "sec" not in wdh:
-                            grund = "erwartet Zeit (…sec)"
-                        elif unit == "reps" and ("sec" in wdh or wdh.endswith("m")):
-                            grund = "erwartet Reps (Range/Count, kein sec/m)"
-                        if grund:
+                        erwartet = {"reps": "wiederholungen", "zeit": "sekunden", "distanz": "meter"}.get(unit)
+                        einheit = u.get("einheit")
+                        if erwartet and einheit != erwartet:
                             verstoesse.append(Verstoss(
                                 REGEL_B, "fehler", kontext,
                                 f"'{u.get('name', '?')}' ({u.get('exercise_id')}, W{wn}/{sid} "
-                                f"#{u.get('reihenfolge')}): unit='{unit}' aber wdh='{wdh}' — {grund}",
+                                f"#{u.get('reihenfolge')}): unit='{unit}' erwartet einheit='{erwartet}', hat '{einheit}'",
                             ))
     return verstoesse
 

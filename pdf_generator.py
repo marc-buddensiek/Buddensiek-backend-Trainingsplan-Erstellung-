@@ -82,10 +82,33 @@ class PlanPDF(FPDF):
 # dieselbe Quelle befüllt fokus_anzeige im JSON (plan_assembler). Kein PDF-eigenes Mapping mehr.
 
 
+# Anzeige aus wert+einheit (Contract trägt {wert, einheit}; Display rekonstruiert wie vor Blocker 2a).
+def _wdh_kraft(u: dict) -> str:
+    """Kraft: reps bar ('8-12'), Zeit '…sec', Distanz '…m'."""
+    w, e = u.get("wert", ""), u.get("einheit")
+    if e == "sekunden":
+        return f"{w}sec"
+    if e == "meter":
+        return f"{w}m"
+    return w   # wiederholungen
+
+
+def _wdh_cond(u: dict) -> str:
+    """Conditioning: '… Wdh' / '… Sek' / '… m' / Format-Prosa pur."""
+    w, e = u.get("wert", ""), u.get("einheit")
+    if e == "format":
+        return w
+    if e == "sekunden":
+        return f"{w} Sek"
+    if e == "meter":
+        return f"{w} m"
+    return f"{w} Wdh"   # wiederholungen
+
+
 def _cond_vol_spec(typ: str, u: dict) -> tuple[str, str]:
     """Format-bewusste Conditioning-Zeile → (vol_str, spec_str). Naht 2a.
     Intervalle/Zirkel = Runden; AMRAP = Wert/Runde; Block-Formate (tabata/density/ladders) unverändert."""
-    s, w, p = u["saetze"], u["wdh"], u["pausenzeit_sek"]
+    s, w, p = u["saetze"], _wdh_cond(u), u["pausenzeit_sek"]
     if typ == "intervalle":
         return f"{s} Runden", f"{w} Arbeit / {p} Sek Pause"
     if typ == "zirkel":
@@ -223,7 +246,7 @@ def build_pdf(plan_data: dict) -> FPDF:
                     # Format-bewusste Conditioning-Zeile (Naht 2a) — Conditioning trägt kein RIR
                     vol_str, spec_str = _cond_vol_spec(s.get("session_typ"), u)
                 else:
-                    vol_str  = f"{u['saetze']}×{u['wdh']}"
+                    vol_str  = f"{u['saetze']}×{_wdh_kraft(u)}"
                     # Conditioning/Athletik & Zeit-Holds tragen kein RIR — RIR-Teil nur wenn gesetzt
                     rir_part = f"RIR {u['rir']:g}  ·  " if u.get("rir") is not None else ""
                     spec_str = f"{rir_part}Tempo {u['tempo']}  ·  Pause {u['pausenzeit_sek']}s"

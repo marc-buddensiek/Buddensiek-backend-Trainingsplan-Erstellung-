@@ -642,11 +642,11 @@ _Kraft wdh "6-10" (reps implizit) vs. Conditioning "12 Wdh"/"45 Sek" (Einheit im
 getrenntes {wert, einheit} → Konsument muss Strings parsen, um reps von Zeit zu unterscheiden._
 _FIX: value/unit-Split im Übungs-Modell._
 
-_**Blocker 2b — Intensitätsfeld heißt je Session-Typ anders (HAUPT, koppelt an Conditioning-Spec):**_
-_Kraft-Übung trägt rir; Conditioning-Übung trägt rpe (immer null) + rpe_hinweis (immer null). Eine
-logische "Übung" hat zwei Formen je Kontext + 2 tote Felder (Conditioning hat per Thema 6 keine RPE)._
-_FIX: eine Übungs-Form, ein Intensitätsfeld. ⚠ Berührt Conditioning-Philosophie (Thema 6) — als
-eigene Naht behandeln, nicht beiläufig._
+_**Blocker 2b — Intensitätsfeld-Inkonsistenz: ✅ BEREITS ERLEDIGT (Fehlbefund aus alter JSON).**_
+_Der ursprüngliche Befund (rpe/rpe_hinweis bei Conditioning) stammte aus VERALTETEN test_runs vor der
+rir-Migration. Frisch gebaute Pläne zeigen: es gibt EIN Übungs-Modell (HauptUebung, auch für
+MetconBlock.uebungen) mit EINEM Intensitätsfeld rir (Kraft = Wert, Conditioning = None). Kein rpe,
+kein rpe_hinweis, keine toten Felder. Übungs-Form + Intensität bereits vereinheitlicht — nichts zu tun._
 
 _**Blocker 3 — plan_metadata totes Top-Level-Feld (HYGIENE, reine Technik): ✅ ERLEDIGT.**_
 _Platzhalter, kein Producer/Konsument (Modell-Kommentar "verworfen"). Im Kunden-Contract überflüssig._

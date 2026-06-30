@@ -53,16 +53,16 @@ _WDH_MAP: dict[Hauptziel, dict[str, str]] = {
     Hauptziel.longevity:    {"compound": "8-12",  "accessory": "10-15", "isolation": "12-20"},
 }
 
-_CORE_WDH = {1: "20sec", 2: "30sec", 3: "45sec", 4: "60sec"}
+_CORE_WDH = {1: "20", 2: "30", 3: "45", 4: "60"}   # Sekunden (bare; Einheit getrennt, Blocker 2a)
 
 
-def _wdh(hauptziel: Hauptziel, pattern: str, tier: str, level: int, unit: str = "reps") -> str:
-    # Einheit (unit) bestimmt Wert+Label: distanz→Meter, zeit→Sekunden, sonst Reps.
+def _wdh(hauptziel: Hauptziel, pattern: str, tier: str, level: int, unit: str = "reps") -> tuple[str, str]:
+    """(wert, einheit) — Einheit (unit) bestimmt beides: distanz→Meter, zeit→Sekunden, sonst Reps-Bereich."""
     if unit == "distanz" or pattern == "carry":
-        return "20m"
+        return ("20", "meter")
     if unit == "zeit" or tier == "core" or pattern == "core":
-        return _CORE_WDH.get(level, "30sec")
-    return _WDH_MAP.get(hauptziel, {}).get(tier, "8-12")
+        return (_CORE_WDH.get(level, "30"), "sekunden")
+    return (_WDH_MAP.get(hauptziel, {}).get(tier, "8-12"), "wiederholungen")
 
 
 # ── Tempo je Pattern + Session-Typ ────────────────────────────────────────────
@@ -101,42 +101,45 @@ def _pausenzeit(tier: str, pattern: str) -> int:
 # ── Metabolic-Config: Sätze + WDH + Pause je Session-Typ × Woche (keine RPE, Thema 6) ───────
 
 _METABOLIC_CONFIG: dict[str, dict[str, dict]] = {
-    # Conditioning trägt KEINE RPE (Spec Thema 6) — kein rpe-Key mehr.
+    # Conditioning trägt KEINE RPE (Spec Thema 6). "wert" bare; Einheit via _METABOLIC_EINHEIT (Blocker 2a).
     "amrap": {   # dauer_min entfernt (war Festwert in der Notiz; echte Dauer kommt jetzt als Param)
-        "akkumulation":   {"saetze": 1, "wdh": "10 Wdh", "pause": 0},
-        "progression":    {"saetze": 1, "wdh": "10 Wdh", "pause": 0},
-        "intensivierung": {"saetze": 1, "wdh": "10 Wdh", "pause": 0},
-        "deload":         {"saetze": 1, "wdh": "10 Wdh", "pause": 0},
+        "akkumulation":   {"saetze": 1, "wert": "10", "pause": 0},
+        "progression":    {"saetze": 1, "wert": "10", "pause": 0},
+        "intensivierung": {"saetze": 1, "wert": "10", "pause": 0},
+        "deload":         {"saetze": 1, "wert": "10", "pause": 0},
     },
     "zirkel": {
-        "akkumulation":   {"saetze": 3, "wdh": "12 Wdh", "pause": 0},
-        "progression":    {"saetze": 3, "wdh": "12 Wdh", "pause": 0},
-        "intensivierung": {"saetze": 4, "wdh": "12 Wdh", "pause": 0},
-        "deload":         {"saetze": 2, "wdh": "12 Wdh", "pause": 0},
+        "akkumulation":   {"saetze": 3, "wert": "12", "pause": 0},
+        "progression":    {"saetze": 3, "wert": "12", "pause": 0},
+        "intensivierung": {"saetze": 4, "wert": "12", "pause": 0},
+        "deload":         {"saetze": 2, "wert": "12", "pause": 0},
     },
     "intervalle": {
-        "akkumulation":   {"saetze": 4, "wdh": "30 Sek", "pause": 20},
-        "progression":    {"saetze": 5, "wdh": "35 Sek", "pause": 20},
-        "intensivierung": {"saetze": 6, "wdh": "40 Sek", "pause": 20},
-        "deload":         {"saetze": 3, "wdh": "30 Sek", "pause": 30},
+        "akkumulation":   {"saetze": 4, "wert": "30", "pause": 20},
+        "progression":    {"saetze": 5, "wert": "35", "pause": 20},
+        "intensivierung": {"saetze": 6, "wert": "40", "pause": 20},
+        "deload":         {"saetze": 3, "wert": "30", "pause": 30},
     },
 }
 
+# Format-Einheit je session_typ: amrap/zirkel zählen Reps, intervalle Zeit (cfg["wert"] ist dort Sekunden).
+_METABOLIC_EINHEIT = {"amrap": "wiederholungen", "zirkel": "wiederholungen", "intervalle": "sekunden"}
 
 # Cardio-Wert für rep-zählende Formate (amrap/zirkel): Maschinen (unit=zeit) zeigen Zeit statt Reps.
-# intervalle bleibt über _METABOLIC_CONFIG (cfg["wdh"] ist dort schon Zeit). kalorien vertagt (kein Datum).
-_CARDIO_WERT_ZEIT = {"amrap": "40 Sek", "zirkel": "40 Sek"}
+# kalorien vertagt (kein Datum). Bare Sekunden (Einheit getrennt).
+_CARDIO_WERT_ZEIT = {"amrap": "40", "zirkel": "40"}
 
 
-def _metabolic_wdh(session_typ: str, pattern: str, woche_typ: str, unit: str = "reps") -> str:
+def _metabolic_wdh(session_typ: str, pattern: str, woche_typ: str, unit: str = "reps") -> tuple[str, str]:
+    """(wert, einheit) — Conditioning-Dosierung. core/zeit→Sekunden, distanz→Meter, sonst Format-Einheit."""
     cfg = _METABOLIC_CONFIG.get(session_typ, {}).get(woche_typ, {})
     if pattern == "core":
-        return "45 Sek"
+        return ("45", "sekunden")
     if unit == "zeit":
-        return _CARDIO_WERT_ZEIT.get(session_typ, cfg.get("wdh", "40 Sek"))
+        return (_CARDIO_WERT_ZEIT.get(session_typ, cfg.get("wert", "40")), "sekunden")
     if unit == "distanz":
-        return "15 m"
-    return cfg.get("wdh", "10 Wdh")
+        return ("15", "meter")
+    return (cfg.get("wert", "10"), _METABOLIC_EINHEIT.get(session_typ, "wiederholungen"))
 
 
 # ── Format-Notiz je Session-Typ × Woche ───────────────────────────────────────
@@ -354,12 +357,15 @@ def _build_metcon_block(
                   key=lambda e: 0 if "bodyweight" in e["equipment"] else 1)
     selected: list[HauptUebung] = []
     for i, ex in enumerate(_pick_finisher_uebungen(pool, 3, offset)):
+        _wert, _einheit = _metabolic_wdh(metcon_typ, ex["pattern"], woche_typ, ex.get("unit", "reps"))
         selected.append(HauptUebung(
             reihenfolge=i + 1,
             exercise_id=ex["id"],
             name=ex["name"],
             saetze=cfg.get("saetze", 1),
-            wdh=_metabolic_wdh(metcon_typ, ex["pattern"], woche_typ, ex.get("unit", "reps")),
+            saetze_typ="runden",
+            wert=_wert,
+            einheit=_einheit,
             rir=None,   # Conditioning-Finisher trägt kein RIR (Spec Thema 6)
             tempo=_tempo(ex["pattern"], metcon_typ),
             pausenzeit_sek=cfg.get("pause", 0),
@@ -400,16 +406,17 @@ def _build_conditioning_segment(fmt: str, seg_dauer: int, pool_sorted: list[dict
             ex = picks[i % len(picks)]
             out.append(HauptUebung(
                 reihenfolge=i + 1, exercise_id=ex["id"], name=ex["name"],
-                saetze=bp["saetze"], wdh=bp["wdh"], rir=None,
+                saetze=bp["saetze"], saetze_typ="runden", wert=bp["wdh"], einheit="format", rir=None,
                 tempo=_tempo(ex["pattern"], fmt), pausenzeit_sek=REST_BETWEEN_BLOCKS_SEK,
                 coaching_cues=ex["coaching_cues"][:3], notiz="",
             ))
     else:
         m_cfg = _METABOLIC_CONFIG.get(fmt, {}).get(woche_typ, {})
         for i, ex in enumerate(picks):
+            _wert, _einheit = _metabolic_wdh(fmt, ex["pattern"], woche_typ, ex.get("unit", "reps"))
             out.append(HauptUebung(
                 reihenfolge=i + 1, exercise_id=ex["id"], name=ex["name"],
-                saetze=m_cfg.get("saetze", 3), wdh=_metabolic_wdh(fmt, ex["pattern"], woche_typ, ex.get("unit", "reps")),
+                saetze=m_cfg.get("saetze", 3), saetze_typ="runden", wert=_wert, einheit=_einheit,
                 rir=None, tempo=_tempo(ex["pattern"], fmt), pausenzeit_sek=m_cfg.get("pause", 0),
                 coaching_cues=ex["coaching_cues"][:3], notiz="",
             ))
@@ -560,7 +567,8 @@ def assemble_plan(
                         a_saetze, a_wdh, a_pause = athletik_dosierung(ex["skill_level"], deload=ist_deload)
                         haupt_uebungen.append(HauptUebung(
                             reihenfolge=i + 1, exercise_id=ex["id"], name=ex["name"],
-                            saetze=a_saetze, wdh=f"{a_wdh} Wdh", rir=None, tempo="explosiv",
+                            saetze=a_saetze, saetze_typ="saetze", wert=str(a_wdh), einheit="wiederholungen",
+                            rir=None, tempo="explosiv",
                             pausenzeit_sek=a_pause, coaching_cues=ex["coaching_cues"][:3], notiz="",
                         ))
                     slot_tiers = ["compound"] * len(haupt_uebungen)
@@ -583,7 +591,9 @@ def assemble_plan(
                                 exercise_id=u.exercise_id,
                                 name=ex["name"],
                                 saetze=bp["saetze"],
-                                wdh=bp["wdh"],
+                                saetze_typ="runden",
+                                wert=bp["wdh"],
+                                einheit="format",
                                 rir=None,
                                 tempo=_tempo(ex["pattern"], session_typ),
                                 pausenzeit_sek=REST_BETWEEN_BLOCKS_SEK,
@@ -606,12 +616,14 @@ def assemble_plan(
 
                         if is_metabolic:
                             u_saetze     = m_cfg.get("saetze", 3)
-                            u_wdh        = _metabolic_wdh(session_typ, pattern, woche_typ, u_unit)
+                            u_wert, u_einheit = _metabolic_wdh(session_typ, pattern, woche_typ, u_unit)
+                            u_saetze_typ = "runden"
                             u_rpe        = None   # Conditioning trägt keine RPE (Spec Thema 6)
                             u_pausenzeit = m_cfg.get("pause", 0)
                         else:
                             u_saetze     = volumen.get(f"{slot_tier}_saetze", saetze)
-                            u_wdh        = _wdh(klient.hauptziel, pattern, slot_tier, level, u_unit)
+                            u_wert, u_einheit = _wdh(klient.hauptziel, pattern, slot_tier, level, u_unit)
+                            u_saetze_typ = "saetze"
                             u_rpe        = volumen.get(f"{slot_tier}_rpe", rpe)
                             u_pausenzeit = _pausenzeit(slot_tier, pattern)
 
@@ -631,7 +643,9 @@ def assemble_plan(
                                 exercise_id=u.exercise_id,
                                 name=ex["name"],
                                 saetze=u_saetze,
-                                wdh=u_wdh,
+                                saetze_typ=u_saetze_typ,
+                                wert=u_wert,
+                                einheit=u_einheit,
                                 rir=u_rir,
                                 tempo=u_tempo,
                                 pausenzeit_sek=u_pausenzeit,

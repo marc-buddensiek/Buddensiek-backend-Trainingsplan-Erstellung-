@@ -207,7 +207,9 @@ class HauptUebung(BaseModel):
     exercise_id: str
     name: str
     saetze: int = Field(..., ge=1, le=15)
-    wdh: str = Field(..., description="z.B. '8-10' oder '45sec' oder '20m'")
+    saetze_typ: Literal["saetze", "runden"] = "saetze"   # Conditioning zählt Runden, Kraft Sätze
+    wert: str = Field(..., description="'8-12' (Bereich) · '10' (Einzelwert) · Prosa (bei einheit=format)")
+    einheit: Literal["wiederholungen", "sekunden", "meter", "format"]
     rir: Optional[float] = Field(default=None, ge=0, le=6, description="RIR (Reps in Reserve, 0.5-Raster) für Kraftsätze; None für Conditioning/Metcon und Zeit-Holds (Thema 6/Befund 7). Intern rechnet die Logik in RPE; RIR = 10 − RPE.")
     tempo: str = Field(..., description="z.B. '2-1-1-0' oder 'halten'")
     pausenzeit_sek: int = Field(..., ge=0, le=300)

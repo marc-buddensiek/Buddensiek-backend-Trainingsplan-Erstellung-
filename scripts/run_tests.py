@@ -767,7 +767,8 @@ def main():
         for u in a["haupt_uebungen"]:                     # skill-Dosierung exakt (nicht getrimmt)
             sk = exb[u["exercise_id"]]["skill_level"]
             es, ew, _ = athletik_dosierung(sk, deload=False)
-            assert u["saetze"] == es and u["wdh"] == f"{ew} Wdh", f"Dosierung {u['name']} skill{sk}: {u['saetze']}×{u['wdh']}"
+            assert u["saetze"] == es and u["wert"] == str(ew) and u["einheit"] == "wiederholungen", \
+                f"Dosierung {u['name']} skill{sk}: {u['saetze']}×{u['wert']} {u['einheit']}"
         a4 = next(s for s in plan["wochen"][3]["sessions"] if s["session_typ"] == "athletik")
         for u in a4["haupt_uebungen"]:                    # Deload: Volumen runter
             sk = exb[u["exercise_id"]]["skill_level"]
