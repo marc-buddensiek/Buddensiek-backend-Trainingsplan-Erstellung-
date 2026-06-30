@@ -76,6 +76,26 @@ ebenfalls falsch). tabata ist sauber (zeitbasiert). Beim Density-Umbau ladders m
 PRIORITÄT: Conditioning-Methodik, kein Contract-Blocker (JSON-Struktur unberührt — wert/einheit/
 saetze_typ bleiben gleich, egal welche Density-Definition).
 
+## Conditioning-Pool: kraftintensive Übungen ausschließen (Coach-Entscheid)
+BEFUND: Push-Ups erscheinen im Conditioning. Coach-Bewertung: zu kraftintensiv, "Pulskiller" —
+muskuläre Ermüdung (Brust/Trizeps) erzwingt Pause VOR der kardiovaskulären Belastung, bricht
+den Puls statt ihn zu halten. Widerspricht dem Conditioning-Zweck.
+OFFEN: Ist das ein Einzelausschluss (nur Push-Up) oder ein PRINZIP (alle Übungen, wo muskuläre
+vor kardiovaskulärer Ermüdung kommt)? Wahrscheinlich Prinzip → "conditioning-tauglich"-Kriterium
+für den Pool nötig. Inspektion offen: gibt es schon ein Eignungs-Tag, oder nimmt der Pool jede
+Übung mit passendem Pattern? PRIORITÄT: Conditioning-Methodik, kein Contract-Blocker.
+
+## Conditioning: Übungen Woche für Woche variieren (Coach-Wunsch, Code-Stand prüfen)
+COACH-ABSICHT: Conditioning-Übungen sollen über die 4 Wochen WECHSELN (Varietät), während
+Kraft-Übungen GLEICH bleiben (Progression über Sätze/RIR). Begründung: Kraft braucht
+Wiederholung für Progression, Conditioning profitiert von Abwechslung.
+OFFEN/ZU PRÜFEN: Variieren die Conditioning-Übungen heute schon über W1-W4 oder sind sie
+wochengleich? (Inspektion war angestoßen, nicht abgeschlossen.) Falls wochengleich → Änderung
+nötig: Conditioning-Übungswahl pro Woche neu, Kraft fix lassen.
+ABGRENZUNG: NICHT zu verwechseln mit dem geparkten Progressions-Modell TODO(conditioning-timing-model)
+(level-fest+Runden vs. wochen-rampt, aus Session 23.6) — das ist WIE schwer, dies ist WELCHE Übungen.
+PRIORITÄT: Conditioning-Methodik, kein Contract-Blocker.
+
 ## MVP-7 — Conditioning-Formate
 
 **Stand 2026-06-16 — Naht 1–5 fertig, nur Komplexe offen (`9536905`…`f8ab9d6`):**
