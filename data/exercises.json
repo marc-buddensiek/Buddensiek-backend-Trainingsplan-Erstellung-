@@ -2616,7 +2616,7 @@
         "gym",
         "home_gym"
       ],
-      "pattern": "single_leg",
+      "pattern": "hinge",
       "muscle_groups": {
         "primary": [
           "hamstrings",
@@ -3516,7 +3516,7 @@
         "hybrid",
         "kettlebell"
       ],
-      "pattern": "core",
+      "pattern": "single_leg",
       "muscle_groups": {
         "primary": [
           "calves"
@@ -5175,7 +5175,7 @@
         "kettlebell",
         "hybrid"
       ],
-      "pattern": "single_leg",
+      "pattern": "hinge",
       "muscle_groups": {
         "primary": [
           "hamstrings",
