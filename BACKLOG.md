@@ -544,6 +544,7 @@ fängt unit/Wert-Inkohärenz). Kandidaten: `gym_hanging_leg_raise`, `gym_hanging
 COACH-DOSIERUNG (Audit-Vorgabe, nicht generische Core-Range):
 - `kb_turkish_getup`: unit=reps PRO SEITE. Dosis 1–3 Wdh/Seite × 3–5 Sätze (level-abhängig). Hold-vs-Rep-Frage damit entschieden: REP (pro Seite), kein Hold. NICHT die generische Core-Rep-Range anwenden — TGU ist eine schwere, langsame Ganzkörper-Bewegung mit niedriger Wdh.
 - `kb_windmill`: analoger Fall (per-Seite, niedrige Wdh) — Dosis beim Audit mit Coach festlegen, NICHT blind Core-Range. (Coach hat nur TGU dosiert; Windmill offen.)
+- `bw_tibialis_raise`: unit=reps bestätigt (Coach) — Sekunden falsch. OFFEN beim Reclassify: beidbeinig (klassisch Ben-Patrick, Wand, beide Füße → KEINE Seiten-Angabe) ODER einbeinig (→ pro Seite = Wurzel 12). Coach-Tendenz: beidbeinig (Ben-Patrick-Variante). Beim Audit festlegen. SANITY-CHECK: pattern wurde früher core→single_leg getaggt — falls beidbeinig, single_leg-Pattern gegenprüfen (Konsistenz; Pattern treibt nicht die Anzeige).
 
 Hinweis fürs Audit: Die „seiten"-Logik (per-Seite) muss bei diesen unilateralen Übungen erhalten bleiben — vgl. warm_up/cool_down-Struktur, die seiten bereits trägt.
 
