@@ -855,6 +855,30 @@ ZWEITER BELEG (api_13, MA·Gym·L2): Pallof Press 3×30 Sek — einseitig (seitl
 
 ---
 
+## → MANU-CONTRACT-AGENDA (vor Vertrags-Lock zu klären)
+
+Konsolidiert alle Contract-Themen aus dem Coach-Review (Detail jeweils am verlinkten Eintrag unten / in den Wurzeln). Reihenfolge = Gesprächs-Reihenfolge. Status: [ offen ] / [ erledigt ]
+
+── STRUKTUR-BLOCKER (Frontend kann ohne Fix nicht korrekt rendern) ──
+1. [offen] fokus_anzeige ins JSON (Blocker 1) — Kundenlabel lebt nur im pdf_generator; _FOKUS_ANZEIGE unvollständig (Upper/Lower C, Full Body, Conditioning fehlen). 🔧+👁
+2. [offen] Conditioning {wert, einheit} statt fusioniertem String (Blocker 2a) + Runden-vs-Sätze nicht nur aus session_typ. 🔧
+3. [offen] Zirkel/Runden BLOCK-level + Runden-Pause als Feld (W2) — heute runden pro Übung repliziert, Zirkel-Semantik + 60s-Pause nur Prosa → Frontend kann Zirkel nicht von „Sätze einzeln" unterscheiden. 🔧
+4. [offen] Warm-up/Cool-down-Übungsschema an wert+einheit angleichen (W9a) — tragen heute saetze/wdh/dauer_sek/seiten → sonst zwei Übungs-Schemata im Frontend. 🔧
+5. [offen] einseitig/seiten als strukturiertes Feld (W12) — „pro Seite" zuverlässig; heute Prosa. Verankert auch korrekte Dosis, nicht nur Anzeige. 🔧+👁
+
+── ANZEIGE-WERT (interner Wert leckt zum Kunden) ──
+6. [offen] cardio.typ „liss"/„hiit" nicht roh anzeigen (kein „+LISS") — Anzeige über cardio.beschreibung/Label + Label-Entscheid „Zone 2" vs „Grundlagenausdauer". 👁
+
+── PRE-LOCK-ENTSCHEIDUNGEN (heute billig, später Vertragsbruch) ──
+7. [offen] Logging-/Feedback-Felder JETZT vorsehen? (W8 → V1.5-14/15/16) — sonst Vertrag bei V1.5 aufbrechen. 🔧 Pre-lock.
+8. [offen] Sessions als geordnete Liste mit separatem tag-Feld (V2-Self-Service, zeitkritisch) — Wochentag NICHT in Inhalt backen → spätere Tag-Tausch-/Umlabel-Fähigkeit ohne Neugenerierung. 🔧
+
+── SCHON ZU (zur Info) ──
+Blocker 2b (rir vereinheitlicht), Blocker 3 (plan_metadata raus), Blocker 4 (stress/schlaf schmal), rpe→rir int→float. ✅
+
+── ANGRENZEND, kein JSON-Feld ──
+Intake „zu wenig Zeit fürs Ziel" = Frontend/Formular-Thema (nicht ins fertige JSON), MVP-12-nah.
+
 ## JSON-als-Vertrag (MVP-12, API-Contract mit Manu) — Kunde sieht JSON, nicht PDF
 
 Grundsatz: Das JSON muss kundenseitig vollständig/korrekt sein; das Frontend darf NICHTS re-derivieren.
