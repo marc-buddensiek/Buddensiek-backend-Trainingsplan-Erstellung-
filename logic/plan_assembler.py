@@ -27,6 +27,7 @@ from logic.conditioning_formats import (
 )
 from logic.athletik import athletik_pool, athletik_dosierung
 from logic.equipment_filter import verletzungs_rpe_cap
+from logic.fokus_labels import anzeige_fokus
 
 
 _EXERCISES_PATH = pathlib.Path(__file__).parent.parent / "data" / "exercises.json"
@@ -694,6 +695,7 @@ def assemble_plan(
                     tag=tag,
                     session_typ=session_typ_eff,
                     fokus=fokus,
+                    fokus_anzeige=anzeige_fokus(fokus),
                     format_notiz=fmt_notiz,
                     dauer_min_geschaetzt=dauer,
                     warm_up=warm_up,

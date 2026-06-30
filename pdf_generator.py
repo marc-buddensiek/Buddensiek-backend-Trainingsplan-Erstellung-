@@ -14,6 +14,7 @@ import sys
 from fpdf import FPDF
 
 from logic.conditioning_formats import CONDITIONING as _CONDITIONING
+from logic.fokus_labels import anzeige_fokus as _anzeige_fokus
 
 
 # ── Farben (Buddensiek-Stil) ──────────────────────────────────────────────────
@@ -77,19 +78,8 @@ class PlanPDF(FPDF):
         self.cell(0, 5, value, new_x="LMARGIN", new_y="NEXT")
 
 
-# Ehrliches Anzeige-Label (Befund 6): Upper/Lower-Tage sind Schwerpunkt-Tage (bewusst gemischt),
-# nicht exklusiv. Das fokus-Feld bleibt der Routing-Key (für _warm_up/_cool_down/_cardio-Substring-
-# Parsing in plan_assembler) — hier wird NUR die kundenseitige Anzeige abgeleitet.
-_FOKUS_ANZEIGE = {
-    "Upper A — Push":  "Oberkörper – Push-Schwerpunkt",
-    "Upper B — Pull":  "Oberkörper – Pull-Schwerpunkt",
-    "Lower A — Squat": "Unterkörper – Squat-Schwerpunkt",
-    "Lower B — Hinge": "Unterkörper – Hinge-Schwerpunkt",
-}
-
-
-def _anzeige_fokus(fokus: str) -> str:
-    return _FOKUS_ANZEIGE.get(fokus, fokus)
+# Anzeige-Label: _anzeige_fokus kommt aus logic.fokus_labels (Single Source, oben importiert) —
+# dieselbe Quelle befüllt fokus_anzeige im JSON (plan_assembler). Kein PDF-eigenes Mapping mehr.
 
 
 def _cond_vol_spec(typ: str, u: dict) -> tuple[str, str]:

@@ -257,7 +257,8 @@ class Session(BaseModel):
         "tabata", "density", "komplexe", "ladders",               # Conditioning Block-Formate (Thema 6)
         "zone2", "athletik",                                      # Longevity (Thema 4/6)
     ] = "kraft"
-    fokus: str
+    fokus: str                       # interner Routing-Key (warm_up/cool_down/cardio/zone-Parsing)
+    fokus_anzeige: str               # kundenseitiges Label (logic.fokus_labels) — fokus bleibt intern
     format_notiz: Optional[str] = None
     dauer_min_geschaetzt: int = Field(..., ge=20, le=120)
     warm_up: WarmUp
