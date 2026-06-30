@@ -707,7 +707,7 @@ Primär-Lift 2×/Woche ohne Variation.
 | api_06 | FA·Gym·L4 | offen | Density×2 (W2); Push-up/Plyo (W3); geblockt (W5); Reihenfolge Dips/Pull-up (W6); Weighted-Wdh zu hoch (W4) |
 | api_07 | RE·BW·L2 | offen | RIR-Bodyweight (W4); Push-up/Plyo (W3); Glute-Bridge-Doppel (hinge + single_leg, bekannte Doppelnatur/β-Lücke → s. Mehr-Pattern-Modell); Diamond Push-up 10–15 + RIR (= Wurzel 4, Übungs-Charakteristik); Zirkel-Runden pro Übung statt block-level (W2/Contract) |
 | api_08 | RE·Gym·L1 | offen | Satz-Unterfüllung L1 (W1) |
-| api_09 | RE·Travel·L3 | offen | Travel-Equipment (W7); Plyo (W3); Pike-Push-up-Doppel (nahe-Duplikat, Elevated+Box) + inkonsistente Wdh (W6) |
+| api_09 | RE·Travel·L3 | offen | Travel-Equipment (W7); Plyo (W3); Pike-Push-up-Doppel (nahe-Duplikat, Elevated+Box) + inkonsistente Wdh (W6); Einseitigkeit fehlt (W12) |
 | api_10 | LO·Travel·L4 | ❌ | geblockt (W5); Zone-2=Kraft (W2); Chest-to-Bar=Stange (W7); Unterfüllung (W1) |
 | api_11 | LO·BW·L3 | offen | Unterfüllung (W1); Zone-2=Kraft (W2); RIR-Bodyweight (W4) |
 | api_12 | LO·KB·L1 | ❌ | geblockt (W5); Zone-2=Kraft+LISS (W2); Unterfüllung (W1) |
@@ -811,6 +811,18 @@ STRUKTURELLE WURZEL: Muskelgruppen-/Gelenk-Last wird NICHT über Kraft + Conditi
 CHECK BEIM ABARBEITEN (alle Pläne): Cross-Day-Audit der Muskelgruppen/Pattern/Gelenk-Last, Kraft + Conditioning KUMULATIV. Wo lädt dasselbe Muster/Gelenk täglich (v.a. Sprung/Bein)? api_06 ggf. noch im Rahmen (2× Ganzkörper + 2× Density mit Abstand) — aber generell prüfen.
 
 Verzahnt: Wurzel 3 (C3 Plyo-Lastigkeit im Conditioning-Pool — schon notiert) · Wurzel 5 (Tag-Abstand) · Wurzel 1 (Volumen). Tag: [strukturell] (ungezählte Last) + Plyo-Auswahl [Claude/Pool].
+
+## Wurzel 12 — Einseitigkeit (pro Seite) nicht modelliert → mehrdeutig + falsch dosiert [ offen ]
+
+Betroffen: alle Pläne mit einseitigen Übungen (Single Leg / Single Arm / Copenhagen / Standwaage). Beleg api_09: bw_single_leg_rdl 3×6-10, bw_copenhagen_plank 2×45 Sek, bw_standwaage 3×45 Sek, bw_single_leg_glute_bridge 3×10-15 — KEINE Seiten-Angabe.
+
+KERN — Tag-/Modell-Lücke: „einseitig/pro Seite" ist NICHT modelliert. exercises.json hat kein einseitig-Feld; HauptUebung (Kraft + Conditioning) hat kein seiten-Feld (nur warm_up/cool_down haben seiten). Einseitigkeit ist nur indirekt über pattern=single_leg erkennbar — deckt aber Single-Arm-Press, Copenhagen, Standwaage NICHT ab. Einziger Träger heute: Prosa (Name/Notiz/Cue), inkonsistent (Bulgarian: Notiz vorhanden; Single Leg RDL/Copenhagen: fehlt).
+
+DOSIS-FOLGE (nicht nur Anzeige): ohne „pro Seite" ist die Zahl mehrdeutig UND falsch — 3×6-10 „gesamt" beim Single Leg RDL = ~4/Seite = kein Reiz; muss pro Seite sein. Copenhagen 2×45 Sek: unklar 45 oder 90 Sek/Seite Gesamtbelastung. Das Label verankert die korrekte Dosierung.
+
+SEKUNDÄR — Render-Lücke: warm_up/cool_down tragen seiten (z.B. =2), PDF druckt es nicht (pdf_generator gibt seiten nirgends aus). Separater, kleiner Fix.
+
+CONTRACT (→ MVP-12, mit Manu): einseitig/seiten muss strukturiertes Feld am Übungs-/HauptUebung-Schema werden (nicht Prosa), damit Frontend „pro Seite" zuverlässig zeigt. Reiht sich an die Contract-Nachträge. Tag: [strukturell] Tag+Modell+Anzeige.
 
 ## Plan-spezifische Coach-Funde [ offen ]
 
