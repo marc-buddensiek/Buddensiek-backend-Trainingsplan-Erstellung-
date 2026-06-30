@@ -26,6 +26,7 @@ from logic.conditioning_formats import (
     block_params, REST_BETWEEN_BLOCKS_SEK, conditioning_pool, split_conditioning_segments,
 )
 from logic.athletik import athletik_pool, athletik_dosierung
+from logic.equipment_filter import verletzungs_rpe_cap
 
 
 _EXERCISES_PATH = pathlib.Path(__file__).parent.parent / "data" / "exercises.json"
@@ -617,6 +618,10 @@ def assemble_plan(
                         # RIR gilt NUR bei unit=="reps" — Zeit-Holds/Carry/Cardio (zeit/distanz/kalorien)
                         # tragen kein RIR (eine Regel statt der alten tempo=="halten"-/Carry-Marker, Naht 1).
                         u_tempo = _tempo(pattern, session_typ, u_unit)
+                        # Verletzungs-Intensitäts-Deckel (PRIO 2): sichere Übung wird nicht near-failure
+                        # geladen (z.B. Wirbelsäule × hinge/squat → RPE ≤ 7 / RIR ≥ 3). Single Source:
+                        # derselbe Helper deckelt die Regel-4-Soll-Erwartung im plan_checker.
+                        u_rpe   = verletzungs_rpe_cap(klient.verletzungen, pattern, u_rpe)
                         u_rir   = round((10 - u_rpe) * 2) / 2 if (u_rpe is not None and u_unit == "reps") else None
 
                         haupt_uebungen.append(

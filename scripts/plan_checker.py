@@ -27,7 +27,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
 # Single source of truth: Map + Gating aus dem Filter IMPORTIEREN, nicht duplizieren.
 # Regel 6 ist die exakte Negation von equipment_filter Stufe 1/2 — bleibt so bei
 # Filter-Änderungen automatisch konsistent.
-from logic.equipment_filter import _VERLETZUNG_MAP, _HIGH_IMPACT_GATED, _FALLBACK_PATTERN
+from logic.equipment_filter import _VERLETZUNG_MAP, _HIGH_IMPACT_GATED, _FALLBACK_PATTERN, verletzungs_rpe_cap
 
 _EXERCISES_PATH = pathlib.Path(__file__).parent.parent / "data" / "exercises.json"
 
@@ -230,6 +230,9 @@ def _regel4_rir(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) ->
         return []
     kontext = _plan_kontext(plan)
     verstoesse: list[Verstoss] = []
+    # Single Source: derselbe Verletzungs-Deckel wie der Assembler — Soll-RIR ebenso deckeln,
+    # sonst flaggt Regel 4 die (gewollte) Safety-Absenkung als Abweichung (PRIO 2).
+    verletzungen = plan.get("klient_snapshot", {}).get("verletzungen", [])
 
     for w in plan.get("wochen", []):
         wn = w.get("woche_nummer", "?")
@@ -260,6 +263,11 @@ def _regel4_rir(plan: dict, EXMAP: dict[str, dict], soll: dict | None = None) ->
                 erwartet = soll_block.get(tier)
                 if erwartet is None:
                     continue
+                # Verletzungs-Deckel auf die Soll-Erwartung (pattern der eingesetzten Übung):
+                # RIR→RPE→cap→RIR, gleicher Helper + Transform wie der Assembler.
+                pattern = EXMAP.get(u.get("exercise_id"), {}).get("pattern")
+                erwartet_rpe = verletzungs_rpe_cap(verletzungen, pattern, 10 - erwartet)
+                erwartet = round((10 - erwartet_rpe) * 2) / 2
                 if u["rir"] != erwartet:
                     verstoesse.append(Verstoss(
                         REGEL, "fehler", kontext,

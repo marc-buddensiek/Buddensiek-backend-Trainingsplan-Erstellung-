@@ -40,6 +40,27 @@ _VERLETZUNG_MAP: dict[str, str] = {
 # Backstop, bis joint_stress lückenlos getaggt ist — dann kann Stufe 2 ganz entfallen (BACKLOG).
 _HIGH_IMPACT_GATED = {"knee", "ankle", "hip", "spine", "neck"}
 
+# Verletzungs-Intensitäts-Deckel (PRIO 2, Safety): der Filter wählt die verletzungssicherste
+# Übung, deckelt aber NICHT, wie hart sie geladen wird — diese zweite Schicht tut das.
+# joint (aus _VERLETZUNG_MAP) → (betroffene Patterns, RPE-Ceiling). Erweiterbar (knie/schulter …).
+# SINGLE SOURCE: Assembler-Emission UND plan_checker Regel 4 nutzen denselben Helper (keine Doppel-Logik).
+_VERLETZUNG_RPE_CEILING: dict[str, tuple[set[str], float]] = {
+    "spine": ({"hinge", "squat"}, 7.0),   # Wirbelsäule: axiale Hinge/Squat-Last → RIR ≥ 3
+}
+
+
+def verletzungs_rpe_cap(verletzungen, pattern: str, rpe: float | None) -> float | None:
+    """Deckelt die RPE einer Übung, wenn eine Verletzung das Pattern axial/risikobehaftet macht.
+    rpe is None (Conditioning) → unverändert. Mehrfach-Verletzungen: striktester Ceiling gewinnt."""
+    if rpe is None:
+        return rpe
+    for v in verletzungen:
+        joint = _VERLETZUNG_MAP.get(getattr(v, "value", v))
+        regel = _VERLETZUNG_RPE_CEILING.get(joint)
+        if regel and pattern in regel[0]:
+            rpe = min(rpe, regel[1])
+    return rpe
+
 # Equipment-Pfade die sich gegenseitig einschließen
 _EQUIPMENT_INCLUDES: dict[str, list[str]] = {
     "gym":        ["gym"],
