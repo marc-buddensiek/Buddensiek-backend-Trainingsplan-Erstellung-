@@ -915,6 +915,25 @@ Phase 1 Output-Closeout → MVP-10 Persistenz → MVP-11 Checker → Phase 4 Bib
   Fokus-Slot-Templates (lagen als `_SCHWACHSTELLEN_PATTERNS` vor, siehe Commit a88943c). ·
   _Marker:_ `TODO(v15-schwachstelle)` (models.py). · _Hängt ab von:_ V1.5-Check-in/Anamnese.
 
+## [V2 / Self-Service] Kunden-Selbststeuerung — Sammelpunkt
+
+Geschwister-Features zum geplanten Self-Service-Übungs-Tausch (V2-21, Spec Thema 7). Hier laufen
+weitere Self-Service-Wünsche auf. Alle brauchen App-Interaktivität → frühestens V1.5-Dashboard,
+natürliche Heimat V2.
+
+### Tag-Tausch (z.B. Di-Workout → Mi, Label springt mit) [ offen ]
+
+Kunde verschiebt eine Session auf einen anderen Wochentag; der Tag-Name/das Label aktualisiert sich.
+Technisch leicht (Wochentag ist Label, Inhalt = „Session 1/2/3/4", nicht an Kalendertag gebunden).
+OFFENER DESIGN-PUNKT (Coach): frei verschieben ODER Moves so beschränken, dass der Erholungs-Abstand
+erhalten bleibt? Freies Schieben kann Erholung verbessern (Ruhetag dazwischen) ODER zerstören (harte
+Einheiten back-to-back, vgl. Wurzel 5). Premium-Produkt sollte kein Beine-auf-Beine zulassen.
+
+CONTRACT-FLAG (→ MVP-12, mit Manu, zeitkritisch): JSON sollte Sessions als geordnete Liste mit
+SEPARATEM `tag`-Feld tragen — Wochentag NICHT in den Session-Inhalt backen. Dann kann das Frontend
+später umlabeln, ohne Backend-Neugenerierung. Billige Vertrags-Entscheidung jetzt, spart V2-Schmerz.
+Reiht sich an die übrigen Contract-Nachträge (cardio.typ, Logging-Felder, …).
+
 ## Progression V2 — Übungs-Progression (geparkt, nach Output-Review)
 
 - **Zeitgesteuerte Übungs-Progression (nicht-belastbare Übungen):** deterministischer Übungswechsel
