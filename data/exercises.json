@@ -1701,7 +1701,7 @@
       "equipment": [
         "gym"
       ],
-      "pattern": "push_vertical",
+      "pattern": "pull_horizontal",
       "muscle_groups": {
         "primary": [
           "shoulders_rear",
