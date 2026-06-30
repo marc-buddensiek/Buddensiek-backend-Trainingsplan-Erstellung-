@@ -746,6 +746,20 @@ Primär-Lift 2×/Woche ohne Variation.
 
 - Jeder Plan trägt in der letzten Woche (Wo 4) einen Retest. Soll raus: Test/Assessment findet nur EINMAL statt — vor dem allerersten Plan — und dient NICHT als Grundlage für die nächste Phase / das nächste Programm. Ein Retest am Ende jedes 4-Wochen-Blocks impliziert einen wiederkehrenden Test-Zyklus, den es nicht gibt. — **Betroffen: alle 12 (systematisch, jeder Pfad).**
 
+PRÄZISIERUNG (Scope): Woche 4 ist die Deload-Woche (3:1-Welle, Spec Thema 1) und trägt ihren vollen
+deloadeten Inhalt — sie ist NICHT leer. Der PST-Re-Test ist eine ZUSÄTZLICHE eigene Session (5 PST-
+Übungen), die oben auf Woche 4 draufgesetzt ist. „Rausnehmen" = nur diese Zusatz-Session streichen;
+der reguläre Deload-Inhalt von Woche 4 bleibt unberührt.
+
+SPEC-KONFLIKT (Methodik-Entscheid, Konfliktregel → Spec nachziehen): Widerspricht Spec Thema 2
+(PST: „Re-Test Woche 4"), Thema 7 (Re-Test als 1 von 3 Inputs für Block-Übergang) und ROADMAP
+V1.5-17/18 (PST-Re-Test-Integration → Level-Update; Block-Übergangs-Generator). Coach-Entscheid:
+Test ist EINMALIG (vor dem ersten Plan), treibt NICHT den nächsten Block. Beim Abarbeiten: Spec
+Thema 2/7 + ROADMAP V1.5-17/18 reconcilen, sonst Re-Add-Risiko.
+
+OFFENE FOLGEFRAGE (Thema-7-Lücke): Wenn Re-Test als Level-Update wegfällt — wie bekommt Block N+1
+sein Level? (Initial-Level bleibt? Logs/Check-in allein?) — zu klären beim Abarbeiten, nicht jetzt.
+
 ## Plan-spezifische Coach-Funde [ offen ]
 
 - api_01: „(Ben Patrick)"-Quellenangabe leckt in 2 Übungsnamen (bw_atg_split_squat, bw_tibialis_raise); übrige 62 Klammer-Namen sind funktionale Qualifier (ok).
