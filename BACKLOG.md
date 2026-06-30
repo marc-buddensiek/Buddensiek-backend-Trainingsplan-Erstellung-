@@ -707,7 +707,7 @@ Primär-Lift 2×/Woche ohne Variation.
 | api_06 | FA·Gym·L4 | offen | Density×2 (W2); Push-up/Plyo (W3); geblockt (W5); Reihenfolge Dips/Pull-up (W6); Weighted-Wdh zu hoch (W4) |
 | api_07 | RE·BW·L2 | offen | RIR-Bodyweight (W4); Push-up/Plyo (W3); Glute-Bridge-Doppel (hinge + single_leg, bekannte Doppelnatur/β-Lücke → s. Mehr-Pattern-Modell); Diamond Push-up 10–15 + RIR (= Wurzel 4, Übungs-Charakteristik); Zirkel-Runden pro Übung statt block-level (W2/Contract) |
 | api_08 | RE·Gym·L1 | offen | Satz-Unterfüllung L1 (W1) |
-| api_09 | RE·Travel·L3 | offen | Travel-Equipment (W7); Plyo (W3) |
+| api_09 | RE·Travel·L3 | offen | Travel-Equipment (W7); Plyo (W3); Pike-Push-up-Doppel (nahe-Duplikat, Elevated+Box) + inkonsistente Wdh (W6) |
 | api_10 | LO·Travel·L4 | ❌ | geblockt (W5); Zone-2=Kraft (W2); Chest-to-Bar=Stange (W7); Unterfüllung (W1) |
 | api_11 | LO·BW·L3 | offen | Unterfüllung (W1); Zone-2=Kraft (W2); RIR-Bodyweight (W4) |
 | api_12 | LO·KB·L1 | ❌ | geblockt (W5); Zone-2=Kraft+LISS (W2); Unterfüllung (W1) |
@@ -751,6 +751,7 @@ Primär-Lift 2×/Woche ohne Variation.
 - B3: Reihenfolge antagonistisch gepaart (push/pull), Core/Holds am Ende — kein klarer Fehler (Beobachtung).
 - B4 (Beobachtung): Zeit-Holds tragen kein RIR — stehen ohne Intensitätsmarker neben RIR-Übungen (alle).
 - KONKRETE REGEL-VERLETZUNG (Coach-Fund, api_06): Weighted Dips VOR Weighted Pull-ups in der Montag-Ganzkörper-Session. Coach-Regel: das anstrengendste/freshe-abhängige zuerst — Weighted Pull-ups (Gürtel) brauchen Frische → VOR Dips. Reihenfolge ist Claude-Auswahl [Claude-Auswahl], NICHT deterministisch — und verletzt das in der Spec bereits genannte Prinzip „energie-intensivster Compound zuerst". Fix-Richtung später: Prompt-Schärfung, keine neue Regel nötig. Vermutlich in weiteren Plänen mit Weighted-Calisthenics-Paaren. Damit ist Wurzel 6 nicht mehr nur Beobachtung.
+- NAHE-DUPLIKAT-VARIANTEN IN EINER SESSION (Coach-Fund, api_09 RE·Travel·L3): Elevated Pike Push-up (3×10–15) + Box Pike Push-up (2×12–20) in derselben Session — beide „Füße erhöht" = funktional dieselbe Bewegung, zwei Namen/IDs. WURZEL: Selektor wählt nur nach Pattern (beide push_vertical), keine Varianten-Familie-/Nahe-Duplikat-Dedup → zwei benachbarte Stufen der Pike-/HSPU-Leiter landen zusammen. SYMPTOM: inkonsistente Tier-Dosierung (3×10–15 vs 2×12–20) für dieselbe Bewegung, weil verschiedene Slots/Tier. Fix #1 (Dedup) macht das Dosierungs-Symptom moot. FIX-RICHTUNG (offen, beim Abarbeiten): berührt BEIDES — (a) Bibliothek: Varianten-Familie markieren (Box/Decline/Elevated Pike = eine Bewegung; substitution_pool/Familien-Feld) und (b) Selektor: nicht zwei aus derselben Familie pro Session. Nebeneffekt der Phase-4-Pike-Leiter-Erweiterung (mehr nahe Varianten = höheres Kollisionsrisiko) → beim Phase-4-Tagging mitdenken.
 
 ## Wurzel 7 — Travel-Equipment (Coach-Fund) [ offen ]
 
