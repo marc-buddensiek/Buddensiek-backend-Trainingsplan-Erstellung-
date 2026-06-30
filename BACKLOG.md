@@ -1076,6 +1076,28 @@ V2-Schmerz. Reiht sich an die übrigen Contract-Nachträge (cardio.typ, Logging-
 Tag-Tausch (Umlabeln) ist contract-ready — das eigentliche V2-Feature ist nur noch die Frontend-UI,
 kein Backend-/Schema-Bau.
 
+### Übungs-Demos/Detailseiten via exercise_id [ V2-Idee ]
+
+Kunde tippt eine Übung im Plan an → sieht Video/Bild/Technik-Hinweise (Detailseite). `exercise_id`
+liegt **bereits im Kunden-JSON** (stabiler Schlüssel, bewusst behalten) — die technische Voraussetzung
+ist damit erfüllt, **kein Backend-Bau für die Grundlage nötig**. Das Feature selbst ist
+Frontend (Manu) + eine Übungs-Medien-Bibliothek (Content/Videos/Cues je `exercise_id`).
+→ Frontend-/Content-Projekt, **nach Live-Gang**.
+
+## Conditioning-Format-Erweiterung [ V2-Idee ]
+
+Die Format-Pools sind Listen — `_FINISHER_FORMATS` (plan_assembler) und
+`_LEVEL_FORMATS`/`_EQUIPMENT_FORMATS` (conditioning_formats.py). Neue Formate sind **aufnehmbar**,
+ABER nur wenn sie in den jeweiligen Rahmen passen:
+- **Finisher** ist auf ein **~8-Min-Zeitbudget** begrenzt → heute bewusst nur `amrap`/`zirkel`;
+  `density`/`tabata` sind raus, weil sie das Budget sprengen.
+- **C-Tag-Pools** sind **level × equipment-gefiltert** (jedes Format nur dort, wo es Level/Equipment passt).
+
+Erweitern = **Coach-Entscheid** (welches Format · welche Stelle [Finisher/C-Tag] · welches
+Level/Equipment · passt das Zeitbudget?), dann eine **kleine Naht** (Pool ergänzen + ggf.
+Zeitberechnung + `format_notiz`). Frontend ist durch die **Tolerant-Reader-Regel** (P7) abgedeckt —
+ein neuer `typ`-Wert bricht Manu nicht.
+
 ## Progression V2 — Übungs-Progression (geparkt, nach Output-Review)
 
 - **Zeitgesteuerte Übungs-Progression (nicht-belastbare Übungen):** deterministischer Übungswechsel
