@@ -950,6 +950,24 @@ OFFEN: Mobility-Übungs-Pool vorhanden? (warm_up/cool_down-Pool nutzbar, oder ei
 nötig?) Zeit-Budget: wie viel Mobility neben Cardio? Eigener Slot oder an Cardio angehängt?
 PRIORITÄT: Longevity-Methodik / Feature (Teil des Conditioning-/Longevity-Durchgangs).
 
+## [Design offen / Longevity] Athletik/Schnellkraft-Tag — Inhalt definieren (5T + 6T) [ offen ]
+
+Kontext: Longevity-Struktur geklärt — 3× Ganzkörper + 1× (Zone-2 + Mobilität) + 1× Athletik/
+Schnellkraft (5T; bei 6T: 4 Kraft + 2 Cardio/Athletik → auch 1 Athletik-Tag). Mobilität liegt auf
+dem Zone-2-Tag → fällt aus dem Athletik-Label weg; Athletik-Tag ist reine Athletik/Schnellkraft.
+
+PROBLEM (api_16, LO·BW·L2): Athletik-Tag ist Sprung-Monotonie (Pogo Hops + Jump Squats), weil
+BW-Athletik-Pool nur Sprünge trägt (dokumentierte Coverage-Lücke). Spec will mehr: „Sprünge +
+Koordination (Agility, Sprung-Variationen)". „So nicht stehen lassen" (Coach).
+
+ZU ENTSCHEIDEN (Coach):
+- Inhalt: was ist Athletik/Schnellkraft über Sprünge hinaus? (Koordination, Agility, einbeiniges
+  Power-Work, Bounding, Würfe bei Equipment?)
+- Equipment-Differenzierung: BW (Sprünge + BW-Koordination/Agility — Pool-Ausbau nötig) vs KB
+  (ballistisch?) vs Gym (Box Jump, Med Ball, Sled).
+- Dosierung bleibt skill-basiert (Wdh=20−skill·4, keine RPE) — nur Übungs-/Pool-Frage.
+Gilt 5T UND 6T Longevity. Verzahnt: BW-Athletik-Coverage-Lücke + Wurzel 3 (Plyo) + Wurzel 11 (kumul. Last).
+
 ## Reihenfolge (2026-06-22)
 
 Phase 1 Output-Closeout → MVP-10 Persistenz → MVP-11 Checker → Phase 4 Bibliothek + Tag-Audit
